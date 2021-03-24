@@ -21,9 +21,10 @@ class ZLNewGreetingView: UIView {
     var openHandler: function?
     
     var bgView = UIView()
+    var bgImageView = UIImageView()
     var closeBtn = UIButton()
     var titleLabel = UILabel()
-    var openBtn = UILabel()
+    var openBtn = UIImageView()
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -43,6 +44,7 @@ class ZLNewGreetingView: UIView {
         self.backgroundColor = UIColor.clear
         
         addSubview(bgView)
+        bgView.addSubview(bgImageView)
         bgView.addSubview(closeBtn)
         bgView.addSubview(titleLabel)
         bgView.addSubview(openBtn)
@@ -54,6 +56,8 @@ class ZLNewGreetingView: UIView {
         bgView.layer.shadowOpacity = 0.99
         bgView.layer.shadowOffset = CGSize(width: 0, height: 4)
         
+        bgImageView.image = UIImage(named: "im_list_newgreet_bg")
+        
         closeBtn.setTitle("头像", for: .normal)
         closeBtn.setTitleColor(contentColor, for: .normal)
         closeBtn.addTarget(self, action: #selector(closeBtnHandler), for: .touchUpInside)
@@ -63,13 +67,7 @@ class ZLNewGreetingView: UIView {
         titleLabel.textColor = .black
         titleLabel.font = UIFont(name: "PingFangSC-Medium", size: 14)
         
-        openBtn.text = "快速处理"
-        openBtn.textColor = .white
-        openBtn.backgroundColor = contentColor
-        openBtn.font = UIFont(name: "PingFangSC-Medium", size: 12)
-        openBtn.textAlignment = .center
-        openBtn.layer.cornerRadius = 15
-        openBtn.clipsToBounds = true
+        openBtn.image = UIImage(named: "im_list_newgreet_quick_answer")
         openBtn.isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer(target: self, action: #selector(openBtnHandler))
         openBtn.addGestureRecognizer(tap)
@@ -79,6 +77,10 @@ class ZLNewGreetingView: UIView {
             make.right.equalToSuperview().offset(-20)
             make.top.equalToSuperview().offset(15)
             make.bottom.equalToSuperview()
+        }
+        
+        bgImageView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
         }
         
         closeBtn.snp.makeConstraints { (make) in

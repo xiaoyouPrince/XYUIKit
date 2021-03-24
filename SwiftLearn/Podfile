@@ -1,0 +1,13 @@
+platform :ios, '10.0'
+
+# 使用动态库
+use_frameworks!
+
+target 'SwiftLearn' do
+
+  pod 'SnapKit', '~> 5.0.0'
+  
+  pod 'XYInfomationSection'
+pod 'RealmSwift' 
+  
+end

@@ -14,7 +14,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(noti), name: NSNotification.Name(rawValue: "noti"), object: nil)
+        
         return true
+    }
+    
+    
+    @objc func noti() {
+        
+        
+        UIApplication.shared.keyWindow?.rootViewController = UIStoryboard.instantiateInitialViewController(UIStoryboard.init(name: "Main", bundle: .main))()
+        
     }
 
     // MARK: UISceneSession Lifecycle
