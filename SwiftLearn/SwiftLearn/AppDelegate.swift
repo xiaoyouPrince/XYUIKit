@@ -17,6 +17,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         NotificationCenter.default.addObserver(self, selector: #selector(noti), name: NSNotification.Name(rawValue: "noti"), object: nil)
         
+        print("和红烧豆ios腐(RPO)".unicodeScalars.count)
+        
+        let str = "和红烧豆ios腐(RPO)" as NSString
+        print(str.substring(to: 4))
+        
         return true
     }
     

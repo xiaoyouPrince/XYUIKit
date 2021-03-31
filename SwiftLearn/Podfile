@@ -4,10 +4,13 @@ platform :ios, '10.0'
 use_frameworks!
 
 target 'SwiftLearn' do
+  
+  pod 'MJExtension', '3.2.2'
+  pod 'MJRefresh', '3.5.0'
 
   pod 'SnapKit', '~> 5.0.0'
   
   pod 'XYInfomationSection'
-pod 'RealmSwift' 
+#  pod 'RealmSwift' 
   
 end
