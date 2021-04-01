@@ -27,6 +27,35 @@ class TableViewController: UITableViewController {
             }
         })
         self.tableView.mj_header = header
+        
+        let footer = MJRefreshBackGifFooter {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                self.tableView.mj_footer?.endRefreshing()
+            }
+            print("---footer--")
+        }
+        footer.setTitle("平时iiii", for: .idle)
+        footer.setTitle("下拉----", for: .pulling)
+        footer.setTitle("正在刷新", for: .refreshing)
+        footer.setTitle("将要刷新", for: .willRefresh)
+        footer.setTitle("no more data", for: .noMoreData)
+        
+        footer.stateLabel?.textColor = .red
+        
+        self.tableView.mj_footer = footer
+        
+        
+        
+        let Trailer = MJRefreshNormalTrailer {
+            print("TrailerTrailerTrailerTrailer")
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                self.tableView.mj_trailer?.endRefreshing()
+            }
+        }
+        self.tableView.mj_trailer = Trailer
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
