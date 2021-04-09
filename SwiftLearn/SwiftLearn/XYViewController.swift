@@ -21,7 +21,10 @@ class XYViewController: XYInfomationBaseViewController {
             }
         })
         
-        self.setContentWithData(dataArr(), itemConfig: nil, sectionConfig: nil, sectionDistance: 10, contentEdgeInsets: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)) { (index, cell) in
+        self.setContentWithData(dataArr(), itemConfig:{(item) in
+            item.titleKey = "SwiftLearn.\(item.titleKey)"
+            item.titleWidthRate = 0.5
+        } , sectionConfig: nil, sectionDistance: 10, contentEdgeInsets: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)) { (index, cell) in
             
             guard let clz = NSClassFromString(cell.model.titleKey) as? UIViewController.Type else{
                 return
@@ -53,13 +56,13 @@ extension XYViewController {
             [
                 [
                     "title": "自定义 loading",
-                    "titleKey": "SwiftLearn.TableViewController",
+                    "titleKey": "TableViewController",
                     "value": "自定义的刷新",
                     "type": 1
                 ],
                 [
-                    "title": "自定义 loading",
-                    "titleKey": "UIViewController",
+                    "title": "原始 ViewController",
+                    "titleKey": "ViewController",
                     "value": "去设置",
                     "type": 1
                 ]

@@ -22,9 +22,9 @@ class TableViewController: UITableViewController {
         headerView.backgroundColor = UIColor.red
         
         let header = RefreshHeader(refreshingBlock: {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                 self.tableView.mj_header?.endRefreshing()
-            }
+//            }
         })
         self.tableView.mj_header = header
         
@@ -33,6 +33,8 @@ class TableViewController: UITableViewController {
                 self.tableView.mj_footer?.endRefreshing()
             }
             print("---footer--")
+            
+            self.showErrorView(title: "ddd")
         }
         footer.setTitle("平时iiii", for: .idle)
         footer.setTitle("下拉----", for: .pulling)
@@ -43,19 +45,6 @@ class TableViewController: UITableViewController {
         footer.stateLabel?.textColor = .red
         
         self.tableView.mj_footer = footer
-        
-        
-        
-        let Trailer = MJRefreshNormalTrailer {
-            print("TrailerTrailerTrailerTrailer")
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                self.tableView.mj_trailer?.endRefreshing()
-            }
-        }
-        self.tableView.mj_trailer = Trailer
-        
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
