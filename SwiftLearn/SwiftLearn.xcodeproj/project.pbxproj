@@ -20,6 +20,7 @@
 		B472C5CA25825C7F005898C5 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B472C5C925825C7F005898C5 /* TableViewController.swift */; };
 		B472C5D2258316D0005898C5 /* ZLNewGreetingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B472C5D1258316D0005898C5 /* ZLNewGreetingView.swift */; };
 		B47EF034260630C200DE7EC3 /* Public.swift in Sources */ = {isa = PBXBuildFile; fileRef = B47EF033260630C200DE7EC3 /* Public.swift */; };
+		B4AB9AD5262053A1006B034B /* MailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AB9AD4262053A1006B034B /* MailViewController.swift */; };
 		B4D2DFA62611EDE400C2B6F9 /* XYViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D2DFA52611EDE400C2B6F9 /* XYViewController.swift */; };
 		B4D9B11225998CD9006FB07D /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D9B11125998CD9006FB07D /* GradientView.swift */; };
 		DE9ED769F8970D5043F0EF7D /* Pods_SwiftLearn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E2B9E7E36D67F48D617BAC0 /* Pods_SwiftLearn.framework */; };
@@ -43,6 +44,7 @@
 		B472C5C925825C7F005898C5 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		B472C5D1258316D0005898C5 /* ZLNewGreetingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLNewGreetingView.swift; sourceTree = "<group>"; };
 		B47EF033260630C200DE7EC3 /* Public.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Public.swift; sourceTree = "<group>"; };
+		B4AB9AD4262053A1006B034B /* MailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailViewController.swift; sourceTree = "<group>"; };
 		B4D2DFA52611EDE400C2B6F9 /* XYViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XYViewController.swift; sourceTree = "<group>"; };
 		B4D9B11125998CD9006FB07D /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		CD83975391CE8A4E380E2F03 /* Pods-SwiftLearn.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftLearn.debug.xcconfig"; path = "Target Support Files/Pods-SwiftLearn/Pods-SwiftLearn.debug.xcconfig"; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 				B472C56425821D58005898C5 /* ViewController.swift */,
 				B472C5C925825C7F005898C5 /* TableViewController.swift */,
 				B46930982615D3C600512B2F /* File.swift */,
+				B4AB9AD4262053A1006B034B /* MailViewController.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -254,6 +257,7 @@
 				B472C56125821D58005898C5 /* AppDelegate.swift in Sources */,
 				B472C56325821D58005898C5 /* SceneDelegate.swift in Sources */,
 				B4D2DFA62611EDE400C2B6F9 /* XYViewController.swift in Sources */,
+				B4AB9AD5262053A1006B034B /* MailViewController.swift in Sources */,
 				B472C57825821DB1005898C5 /* ZLPushNotificationTipView.swift in Sources */,
 				B47EF034260630C200DE7EC3 /* Public.swift in Sources */,
 				B472C5D2258316D0005898C5 /* ZLNewGreetingView.swift in Sources */,

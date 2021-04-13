@@ -31,6 +31,12 @@ class XYViewController: XYInfomationBaseViewController {
             }
             print(clz)
             
+            if clz.description() == "SwiftLearn.ViewController" {
+                let detailVC = UIStoryboard.init(name: "Main", bundle: .main).instantiateViewController(identifier: "100")
+                self.navigationController?.pushViewController(detailVC, animated: true)
+                return
+            }
+            
 //            let detailVC = clz.self.init()
             let detailVC = clz.init()
             
@@ -64,6 +70,12 @@ extension XYViewController {
                     "title": "原始 ViewController",
                     "titleKey": "ViewController",
                     "value": "去设置",
+                    "type": 1
+                ],
+                [
+                    "title": "发送邮件",
+                    "titleKey": "MailViewController",
+                    "value": "",
                     "type": 1
                 ]
             ]
