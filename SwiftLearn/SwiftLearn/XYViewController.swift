@@ -43,6 +43,14 @@ class XYViewController: XYInfomationBaseViewController {
             print(detailVC)
             print("goto sub vc")
             
+            if let aniVC = detailVC as? AnimationViewController { // 判断 变量是不是某确定类型的子类。 类似 OC 中 isKindOfClass
+                aniVC.jobTitle = "去你去你妹的去你妹的去你妹的去你妹的去你妹的去你妹的的"
+            }
+            
+            self.present(detailVC, animated: true) {
+            }
+            return
+            
             if let nav = self.navigationController {
                 nav.pushViewController(detailVC, animated: true)
             }else{
@@ -84,7 +92,7 @@ extension XYViewController {
         let a = [
             [
                 "title": "自定义 loading",
-                "titleKey": "UIViewController",
+                "titleKey": "AnimationViewController",
                 "value": "去设置",
                 "type": 1
             ]
