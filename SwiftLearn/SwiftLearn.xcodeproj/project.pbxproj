@@ -23,7 +23,6 @@
 		B47EF034260630C200DE7EC3 /* Public.swift in Sources */ = {isa = PBXBuildFile; fileRef = B47EF033260630C200DE7EC3 /* Public.swift */; };
 		B4AB9AD5262053A1006B034B /* MailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AB9AD4262053A1006B034B /* MailViewController.swift */; };
 		B4D2DFA62611EDE400C2B6F9 /* XYViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D2DFA52611EDE400C2B6F9 /* XYViewController.swift */; };
-		B4D526302626C27E00591B3F /* AnimationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B4D5262F2626C27E00591B3F /* AnimationViewController.xib */; };
 		B4D9B11225998CD9006FB07D /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D9B11125998CD9006FB07D /* GradientView.swift */; };
 		DE9ED769F8970D5043F0EF7D /* Pods_SwiftLearn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E2B9E7E36D67F48D617BAC0 /* Pods_SwiftLearn.framework */; };
 /* End PBXBuildFile section */
@@ -49,7 +48,6 @@
 		B47EF033260630C200DE7EC3 /* Public.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Public.swift; sourceTree = "<group>"; };
 		B4AB9AD4262053A1006B034B /* MailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailViewController.swift; sourceTree = "<group>"; };
 		B4D2DFA52611EDE400C2B6F9 /* XYViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XYViewController.swift; sourceTree = "<group>"; };
-		B4D5262F2626C27E00591B3F /* AnimationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AnimationViewController.xib; sourceTree = "<group>"; };
 		B4D9B11125998CD9006FB07D /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		CD83975391CE8A4E380E2F03 /* Pods-SwiftLearn.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftLearn.debug.xcconfig"; path = "Target Support Files/Pods-SwiftLearn/Pods-SwiftLearn.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -91,7 +89,6 @@
 				B46930982615D3C600512B2F /* File.swift */,
 				B4AB9AD4262053A1006B034B /* MailViewController.swift */,
 				B44AB1FE262584B0006CB306 /* AnimationViewController.swift */,
-				B4D5262F2626C27E00591B3F /* AnimationViewController.xib */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -203,7 +200,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B472C56D25821D5A005898C5 /* LaunchScreen.storyboard in Resources */,
-				B4D526302626C27E00591B3F /* AnimationViewController.xib in Resources */,
 				B460DB5D25F5F8C300AF3685 /* Image.xcassets in Resources */,
 				B472C56A25821D5A005898C5 /* Assets.xcassets in Resources */,
 				B472C56825821D58005898C5 /* Main.storyboard in Resources */,

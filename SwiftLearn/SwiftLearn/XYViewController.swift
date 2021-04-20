@@ -47,7 +47,7 @@ class XYViewController: XYInfomationBaseViewController {
                 aniVC.jobTitle = "去你去你妹的去你妹的去你妹的去你妹的去你妹的去你妹的的"
             }
             
-            self.present(detailVC, animated: true) {
+            self.present(detailVC, animated: false) {
             }
             return
             
