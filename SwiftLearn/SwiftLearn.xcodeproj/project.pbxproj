@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		B422760F26131B7F0089C7C0 /* RefreshHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B422760E26131B7F0089C7C0 /* RefreshHeader.swift */; };
+		B43779782631519D00311802 /* TipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43779772631519D00311802 /* TipView.swift */; };
+		B437797B2631522000311802 /* CustomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B437797A2631522000311802 /* CustomViewController.swift */; };
 		B44AB1FF262584B0006CB306 /* AnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44AB1FE262584B0006CB306 /* AnimationViewController.swift */; };
 		B460DB5D25F5F8C300AF3685 /* Image.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B460DB5C25F5F8C300AF3685 /* Image.xcassets */; };
 		B46930992615D3C600512B2F /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46930982615D3C600512B2F /* File.swift */; };
@@ -31,6 +33,8 @@
 		5E2B9E7E36D67F48D617BAC0 /* Pods_SwiftLearn.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftLearn.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FF8FF640A47B548767CBFF7 /* Pods-SwiftLearn.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftLearn.release.xcconfig"; path = "Target Support Files/Pods-SwiftLearn/Pods-SwiftLearn.release.xcconfig"; sourceTree = "<group>"; };
 		B422760E26131B7F0089C7C0 /* RefreshHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshHeader.swift; sourceTree = "<group>"; };
+		B43779772631519D00311802 /* TipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipView.swift; sourceTree = "<group>"; };
+		B437797A2631522000311802 /* CustomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomViewController.swift; sourceTree = "<group>"; };
 		B44AB1FE262584B0006CB306 /* AnimationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationViewController.swift; sourceTree = "<group>"; };
 		B460DB5C25F5F8C300AF3685 /* Image.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Image.xcassets; sourceTree = "<group>"; };
 		B46930982615D3C600512B2F /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
@@ -89,6 +93,7 @@
 				B46930982615D3C600512B2F /* File.swift */,
 				B4AB9AD4262053A1006B034B /* MailViewController.swift */,
 				B44AB1FE262584B0006CB306 /* AnimationViewController.swift */,
+				B437797A2631522000311802 /* CustomViewController.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -136,6 +141,7 @@
 				B472C5D1258316D0005898C5 /* ZLNewGreetingView.swift */,
 				B4D9B11125998CD9006FB07D /* GradientView.swift */,
 				B422760E26131B7F0089C7C0 /* RefreshHeader.swift */,
+				B43779772631519D00311802 /* TipView.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -255,6 +261,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B43779782631519D00311802 /* TipView.swift in Sources */,
 				B472C5CA25825C7F005898C5 /* TableViewController.swift in Sources */,
 				B472C56525821D58005898C5 /* ViewController.swift in Sources */,
 				B472C56125821D58005898C5 /* AppDelegate.swift in Sources */,
@@ -266,6 +273,7 @@
 				B472C5D2258316D0005898C5 /* ZLNewGreetingView.swift in Sources */,
 				B422760F26131B7F0089C7C0 /* RefreshHeader.swift in Sources */,
 				B44AB1FF262584B0006CB306 /* AnimationViewController.swift in Sources */,
+				B437797B2631522000311802 /* CustomViewController.swift in Sources */,
 				B46930992615D3C600512B2F /* File.swift in Sources */,
 				B4D9B11225998CD9006FB07D /* GradientView.swift in Sources */,
 			);
