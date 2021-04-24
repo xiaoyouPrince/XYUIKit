@@ -10,6 +10,17 @@
 		B422760F26131B7F0089C7C0 /* RefreshHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B422760E26131B7F0089C7C0 /* RefreshHeader.swift */; };
 		B43779782631519D00311802 /* TipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43779772631519D00311802 /* TipView.swift */; };
 		B437797B2631522000311802 /* CustomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B437797A2631522000311802 /* CustomViewController.swift */; };
+		B43779932631988200311802 /* TYLinkTextStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = B43779802631988200311802 /* TYLinkTextStorage.m */; };
+		B43779942631988200311802 /* TYDrawStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = B43779812631988200311802 /* TYDrawStorage.m */; };
+		B43779952631988200311802 /* TYViewStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = B43779822631988200311802 /* TYViewStorage.m */; };
+		B43779962631988200311802 /* TYImageStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = B43779832631988200311802 /* TYImageStorage.m */; };
+		B43779972631988200311802 /* NSMutableAttributedString+TY.m in Sources */ = {isa = PBXBuildFile; fileRef = B43779852631988200311802 /* NSMutableAttributedString+TY.m */; };
+		B43779982631988200311802 /* TYImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = B43779862631988200311802 /* TYImageCache.m */; };
+		B43779992631988200311802 /* TYTextStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = B43779872631988200311802 /* TYTextStorage.m */; };
+		B437799A2631988200311802 /* TYAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = B43779882631988200311802 /* TYAttributedLabel.m */; };
+		B437799B2631988200311802 /* TYTextContainer+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = B437798F2631988200311802 /* TYTextContainer+Extended.m */; };
+		B437799C2631988200311802 /* TYTextContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = B43779922631988200311802 /* TYTextContainer.m */; };
+		B44012A62632B5E900C51E78 /* ZLWechatActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44012A52632B5E900C51E78 /* ZLWechatActionSheet.swift */; };
 		B44AB1FF262584B0006CB306 /* AnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44AB1FE262584B0006CB306 /* AnimationViewController.swift */; };
 		B460DB5D25F5F8C300AF3685 /* Image.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B460DB5C25F5F8C300AF3685 /* Image.xcassets */; };
 		B46930992615D3C600512B2F /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46930982615D3C600512B2F /* File.swift */; };
@@ -24,6 +35,7 @@
 		B472C5D2258316D0005898C5 /* ZLNewGreetingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B472C5D1258316D0005898C5 /* ZLNewGreetingView.swift */; };
 		B47EF034260630C200DE7EC3 /* Public.swift in Sources */ = {isa = PBXBuildFile; fileRef = B47EF033260630C200DE7EC3 /* Public.swift */; };
 		B4AB9AD5262053A1006B034B /* MailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AB9AD4262053A1006B034B /* MailViewController.swift */; };
+		B4AD73D7263327E1005EB911 /* UILabel+XYAdd.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AD73D6263327E1005EB911 /* UILabel+XYAdd.swift */; };
 		B4D2DFA62611EDE400C2B6F9 /* XYViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D2DFA52611EDE400C2B6F9 /* XYViewController.swift */; };
 		B4D9B11225998CD9006FB07D /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D9B11125998CD9006FB07D /* GradientView.swift */; };
 		DE9ED769F8970D5043F0EF7D /* Pods_SwiftLearn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E2B9E7E36D67F48D617BAC0 /* Pods_SwiftLearn.framework */; };
@@ -35,6 +47,28 @@
 		B422760E26131B7F0089C7C0 /* RefreshHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshHeader.swift; sourceTree = "<group>"; };
 		B43779772631519D00311802 /* TipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipView.swift; sourceTree = "<group>"; };
 		B437797A2631522000311802 /* CustomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomViewController.swift; sourceTree = "<group>"; };
+		B437797F2631988200311802 /* TYAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYAttributedLabel.h; sourceTree = "<group>"; };
+		B43779802631988200311802 /* TYLinkTextStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TYLinkTextStorage.m; sourceTree = "<group>"; };
+		B43779812631988200311802 /* TYDrawStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TYDrawStorage.m; sourceTree = "<group>"; };
+		B43779822631988200311802 /* TYViewStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TYViewStorage.m; sourceTree = "<group>"; };
+		B43779832631988200311802 /* TYImageStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TYImageStorage.m; sourceTree = "<group>"; };
+		B43779842631988200311802 /* TYTextContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYTextContainer.h; sourceTree = "<group>"; };
+		B43779852631988200311802 /* NSMutableAttributedString+TY.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableAttributedString+TY.m"; sourceTree = "<group>"; };
+		B43779862631988200311802 /* TYImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TYImageCache.m; sourceTree = "<group>"; };
+		B43779872631988200311802 /* TYTextStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TYTextStorage.m; sourceTree = "<group>"; };
+		B43779882631988200311802 /* TYAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TYAttributedLabel.m; sourceTree = "<group>"; };
+		B43779892631988200311802 /* TYLinkTextStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYLinkTextStorage.h; sourceTree = "<group>"; };
+		B437798A2631988200311802 /* TYTextStorageProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYTextStorageProtocol.h; sourceTree = "<group>"; };
+		B437798B2631988200311802 /* TYViewStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYViewStorage.h; sourceTree = "<group>"; };
+		B437798C2631988200311802 /* TYImageStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYImageStorage.h; sourceTree = "<group>"; };
+		B437798D2631988200311802 /* TYDrawStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYDrawStorage.h; sourceTree = "<group>"; };
+		B437798E2631988200311802 /* TYTextStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYTextStorage.h; sourceTree = "<group>"; };
+		B437798F2631988200311802 /* TYTextContainer+Extended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TYTextContainer+Extended.m"; sourceTree = "<group>"; };
+		B43779902631988200311802 /* TYImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYImageCache.h; sourceTree = "<group>"; };
+		B43779912631988200311802 /* NSMutableAttributedString+TY.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableAttributedString+TY.h"; sourceTree = "<group>"; };
+		B43779922631988200311802 /* TYTextContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TYTextContainer.m; sourceTree = "<group>"; };
+		B437799E263198F200311802 /* SwiftLearn-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SwiftLearn-Bridging-Header.h"; sourceTree = "<group>"; };
+		B44012A52632B5E900C51E78 /* ZLWechatActionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLWechatActionSheet.swift; sourceTree = "<group>"; };
 		B44AB1FE262584B0006CB306 /* AnimationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationViewController.swift; sourceTree = "<group>"; };
 		B460DB5C25F5F8C300AF3685 /* Image.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Image.xcassets; sourceTree = "<group>"; };
 		B46930982615D3C600512B2F /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
@@ -51,6 +85,7 @@
 		B472C5D1258316D0005898C5 /* ZLNewGreetingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLNewGreetingView.swift; sourceTree = "<group>"; };
 		B47EF033260630C200DE7EC3 /* Public.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Public.swift; sourceTree = "<group>"; };
 		B4AB9AD4262053A1006B034B /* MailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailViewController.swift; sourceTree = "<group>"; };
+		B4AD73D6263327E1005EB911 /* UILabel+XYAdd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+XYAdd.swift"; sourceTree = "<group>"; };
 		B4D2DFA52611EDE400C2B6F9 /* XYViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XYViewController.swift; sourceTree = "<group>"; };
 		B4D9B11125998CD9006FB07D /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		CD83975391CE8A4E380E2F03 /* Pods-SwiftLearn.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftLearn.debug.xcconfig"; path = "Target Support Files/Pods-SwiftLearn/Pods-SwiftLearn.debug.xcconfig"; sourceTree = "<group>"; };
@@ -85,6 +120,41 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		B437797D2631986D00311802 /* 3td */ = {
+			isa = PBXGroup;
+			children = (
+				B437797E2631988200311802 /* TYAttributedLabel */,
+			);
+			path = 3td;
+			sourceTree = "<group>";
+		};
+		B437797E2631988200311802 /* TYAttributedLabel */ = {
+			isa = PBXGroup;
+			children = (
+				B437797F2631988200311802 /* TYAttributedLabel.h */,
+				B43779802631988200311802 /* TYLinkTextStorage.m */,
+				B43779812631988200311802 /* TYDrawStorage.m */,
+				B43779822631988200311802 /* TYViewStorage.m */,
+				B43779832631988200311802 /* TYImageStorage.m */,
+				B43779842631988200311802 /* TYTextContainer.h */,
+				B43779852631988200311802 /* NSMutableAttributedString+TY.m */,
+				B43779862631988200311802 /* TYImageCache.m */,
+				B43779872631988200311802 /* TYTextStorage.m */,
+				B43779882631988200311802 /* TYAttributedLabel.m */,
+				B43779892631988200311802 /* TYLinkTextStorage.h */,
+				B437798A2631988200311802 /* TYTextStorageProtocol.h */,
+				B437798B2631988200311802 /* TYViewStorage.h */,
+				B437798C2631988200311802 /* TYImageStorage.h */,
+				B437798D2631988200311802 /* TYDrawStorage.h */,
+				B437798E2631988200311802 /* TYTextStorage.h */,
+				B437798F2631988200311802 /* TYTextContainer+Extended.m */,
+				B43779902631988200311802 /* TYImageCache.h */,
+				B43779912631988200311802 /* NSMutableAttributedString+TY.h */,
+				B43779922631988200311802 /* TYTextContainer.m */,
+			);
+			path = TYAttributedLabel;
+			sourceTree = "<group>";
+		};
 		B46930962615CFD900512B2F /* controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -94,6 +164,7 @@
 				B4AB9AD4262053A1006B034B /* MailViewController.swift */,
 				B44AB1FE262584B0006CB306 /* AnimationViewController.swift */,
 				B437797A2631522000311802 /* CustomViewController.swift */,
+				B44012A52632B5E900C51E78 /* ZLWechatActionSheet.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -119,6 +190,8 @@
 		B472C55F25821D58005898C5 /* SwiftLearn */ = {
 			isa = PBXGroup;
 			children = (
+				B4AD73D526332756005EB911 /* XYKitSwift */,
+				B437797D2631986D00311802 /* 3td */,
 				B46930962615CFD900512B2F /* controllers */,
 				B472C57625821DA0005898C5 /* views */,
 				B472C56025821D58005898C5 /* AppDelegate.swift */,
@@ -130,6 +203,7 @@
 				B472C56B25821D5A005898C5 /* LaunchScreen.storyboard */,
 				B472C56E25821D5A005898C5 /* Info.plist */,
 				B47EF033260630C200DE7EC3 /* Public.swift */,
+				B437799E263198F200311802 /* SwiftLearn-Bridging-Header.h */,
 			);
 			path = SwiftLearn;
 			sourceTree = "<group>";
@@ -144,6 +218,14 @@
 				B43779772631519D00311802 /* TipView.swift */,
 			);
 			path = views;
+			sourceTree = "<group>";
+		};
+		B4AD73D526332756005EB911 /* XYKitSwift */ = {
+			isa = PBXGroup;
+			children = (
+				B4AD73D6263327E1005EB911 /* UILabel+XYAdd.swift */,
+			);
+			path = XYKitSwift;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -261,21 +343,33 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B437799A2631988200311802 /* TYAttributedLabel.m in Sources */,
+				B437799C2631988200311802 /* TYTextContainer.m in Sources */,
 				B43779782631519D00311802 /* TipView.swift in Sources */,
 				B472C5CA25825C7F005898C5 /* TableViewController.swift in Sources */,
 				B472C56525821D58005898C5 /* ViewController.swift in Sources */,
+				B43779932631988200311802 /* TYLinkTextStorage.m in Sources */,
+				B43779942631988200311802 /* TYDrawStorage.m in Sources */,
 				B472C56125821D58005898C5 /* AppDelegate.swift in Sources */,
 				B472C56325821D58005898C5 /* SceneDelegate.swift in Sources */,
+				B43779992631988200311802 /* TYTextStorage.m in Sources */,
 				B4D2DFA62611EDE400C2B6F9 /* XYViewController.swift in Sources */,
 				B4AB9AD5262053A1006B034B /* MailViewController.swift in Sources */,
 				B472C57825821DB1005898C5 /* ZLPushNotificationTipView.swift in Sources */,
+				B43779962631988200311802 /* TYImageStorage.m in Sources */,
 				B47EF034260630C200DE7EC3 /* Public.swift in Sources */,
+				B43779952631988200311802 /* TYViewStorage.m in Sources */,
 				B472C5D2258316D0005898C5 /* ZLNewGreetingView.swift in Sources */,
 				B422760F26131B7F0089C7C0 /* RefreshHeader.swift in Sources */,
+				B43779972631988200311802 /* NSMutableAttributedString+TY.m in Sources */,
+				B43779982631988200311802 /* TYImageCache.m in Sources */,
 				B44AB1FF262584B0006CB306 /* AnimationViewController.swift in Sources */,
 				B437797B2631522000311802 /* CustomViewController.swift in Sources */,
 				B46930992615D3C600512B2F /* File.swift in Sources */,
+				B44012A62632B5E900C51E78 /* ZLWechatActionSheet.swift in Sources */,
+				B437799B2631988200311802 /* TYTextContainer+Extended.m in Sources */,
 				B4D9B11225998CD9006FB07D /* GradientView.swift in Sources */,
+				B4AD73D7263327E1005EB911 /* UILabel+XYAdd.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -433,6 +527,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zhaopin.SwiftLearn;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/quxiaoyou/Desktop/SwiftLearning/SwiftLearn/SwiftLearn/SwiftLearn-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -454,6 +549,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zhaopin.SwiftLearn;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/quxiaoyou/Desktop/SwiftLearning/SwiftLearn/SwiftLearn/SwiftLearn-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
