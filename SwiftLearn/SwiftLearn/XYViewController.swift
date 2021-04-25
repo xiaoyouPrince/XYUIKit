@@ -13,7 +13,7 @@ class XYViewController: XYInfomationBaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .systemGroupedBackground
+        self.view.backgroundColor = .groupTableViewBackground
         
         self.scrollView.mj_header = MJRefreshNormalHeader(refreshingBlock: {
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
@@ -32,8 +32,14 @@ class XYViewController: XYInfomationBaseViewController {
             print(clz)
             
             if clz.description() == "SwiftLearn.ViewController" {
-                let detailVC = UIStoryboard.init(name: "Main", bundle: .main).instantiateViewController(identifier: "100")
-                self.navigationController?.pushViewController(detailVC, animated: true)
+                
+                if #available(iOS 13.0, *) {
+                    let detailVC = UIStoryboard.init(name: "Main", bundle: .main).instantiateViewController(identifier: "100")
+                    self.navigationController?.pushViewController(detailVC, animated: true)
+                } else {
+                    // Fallback on earlier versions
+                }
+                
                 return
             }
             

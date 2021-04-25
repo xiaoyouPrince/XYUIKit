@@ -18,6 +18,7 @@ class CustomViewController: UIViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
 //        showErrorWechat()
         
+        // 直接使用工具类方法
         UILabel.xy_showTip("Hello -ss", nil, .brown, .yellow)
         
     }
