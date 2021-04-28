@@ -28,6 +28,7 @@ class XYAlertSheetAction: NSObject{
 open
 class XYAlertSheetController: UIViewController {
 
+    var customContentView: UIView? // 如果设置自定义content，整体使用自定义content
     var contentView = UIView()
     var actions: [XYAlertSheetAction] = []
     var actionStrings: [String] = []
@@ -82,7 +83,7 @@ extension XYAlertSheetController {
     func buildUI(isDefalut:Bool = true) {
         
         contentView.backgroundColor = .white
-        contentView.layer.cornerRadius = 8
+        contentView.layer.cornerRadius = 15
         view.addSubview(contentView)
         
         let titleLabel = UILabel()
@@ -126,7 +127,10 @@ extension XYAlertSheetController {
                 index += 1
                 
                 let line = UIView()
-                line.backgroundColor = UIColor.black.withAlphaComponent(0.1)
+                line.backgroundColor = UIColor(white: 0.8, alpha: 1)
+                if actionStr == actionStrings.last {
+                    line.backgroundColor = UIColor(white: 0.965, alpha: 1)
+                }
                 
                 let label = UILabel()
                 label.text = actionStr
@@ -216,7 +220,7 @@ extension XYAlertSheetController {
         }
         
         UIView.animate(withDuration: 0.25) {
-            self.view.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+            self.view.backgroundColor = .clear
             self.view.layoutIfNeeded()
         } completion: { (finish) in
             self.dismiss(animated: false) {
