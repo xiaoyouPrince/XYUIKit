@@ -20,13 +20,10 @@ open
 class XYAlertSheetAction: NSObject{
     var title: String?
     var defaultHeight: CGFloat = 60
-    var textColor = UIColor.blue
-    var font = UIFont()
+    var textColor = UIColor(red: 0.42, green: 0.65, blue: 0.98, alpha: 1)
+    var font = UIFont.systemFont(ofSize: 14)
     
-    /// 如果赋值，需要设置高度，优先使用 frame.size.height. 如果没有设置高度，会再次使用高度约束
-    /// 如果使用 自定义view, 则忽略 title
-    var customView: UIView?
-    /// 如果赋值，需要设置内容高度
+    // 自定义回调
     var block: XYAlertSheetBlock?
 }
 
@@ -45,11 +42,17 @@ class XYAlertSheetController: UIViewController {
                                        title: String?,
                                        subTitle: String?,
                                        actions: [XYAlertSheetAction],callBack: XYAlertSheetBlock?) {
+        
+        var actions_ = actions
+        let model = XYAlertSheetAction()
+        model.title = "取消"
+        actions_.append(model)
+        
         let alertSheet = XYAlertSheetController()
         alertSheet.titleString = title
         alertSheet.subTitleString = subTitle
         alertSheet.block = callBack
-        alertSheet.actions = actions
+        alertSheet.actions = actions_
         vc.present(alertSheet, animated: false, completion: nil)
     }
     
@@ -144,12 +147,16 @@ extension XYAlertSheetController {
             
             let label = UILabel()
             label.text = action.title
-            label.textColor = .blue
-            label.font = UIFont.systemFont(ofSize: 14)
+            label.textColor = action.textColor
+            label.font = action.font
             label.textAlignment = .center
             label.numberOfLines = 0
             label.isUserInteractionEnabled = true
             label.tag = index
+            if action == actions.last {
+                label.textColor = .lightGray
+                label.tag = -1
+            }
             let tap = UITapGestureRecognizer(target: self, action: #selector(actionClick(tap:)))
             label.addGestureRecognizer(tap)
             
@@ -187,9 +194,6 @@ extension XYAlertSheetController {
             }
             lastView = label
         }
-        
-        
-        
         
         self.view.setNeedsLayout()
         self.view.layoutIfNeeded()
