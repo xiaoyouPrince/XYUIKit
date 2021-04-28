@@ -4,11 +4,21 @@
 //
 //  Created by 渠晓友 on 2021/4/24.
 //
-//  自定义 AlertSheet 控制器，样式仿写 UIAlertController，支持内部 Action 自定义
-//  使用可以专注于内容与业务，方便快捷
+//  自定义 AlertSheet 控制器，样式仿写 UIAlertController，
+//  1. 支持内部 HeaderView 自定义,需指定 headerView.frame.size.height
+//  2. 支持内部 Action 自定义
+//  3. 使用可以专注于内容与业务，方便快捷
 
 /**
-
+结构
+ 
+ -------------
+ |   headerview     |   如果自定义需设置 frame.size.height
+ -------------
+ |   actions ···        |
+ -------------
+ |   cancelBtn       |
+ -------------
  
  */
 
@@ -31,6 +41,7 @@ open
 class XYAlertSheetController: UIViewController {
     
     private var contentView = UIView()
+    private var customHeader: UIView?
     
     private var titleString: String? = nil
     private var subTitleString: String? = nil
@@ -51,6 +62,24 @@ class XYAlertSheetController: UIViewController {
         let alertSheet = XYAlertSheetController()
         alertSheet.titleString = title
         alertSheet.subTitleString = subTitle
+        alertSheet.block = callBack
+        alertSheet.actions = actions_
+        vc.present(alertSheet, animated: false, completion: nil)
+    }
+    
+    /// 展示自定义的 headerView， 外部需指定其 frame.size.height
+    @objc public class func showCustom(on
+                                        vc: UIViewController,
+                                       customHeader:UIView,
+                                       actions: [XYAlertSheetAction],callBack: XYAlertSheetBlock?) {
+        
+        var actions_ = actions
+        let model = XYAlertSheetAction()
+        model.title = "取消"
+        actions_.append(model)
+        
+        let alertSheet = XYAlertSheetController()
+        alertSheet.customHeader = customHeader
         alertSheet.block = callBack
         alertSheet.actions = actions_
         vc.present(alertSheet, animated: false, completion: nil)
@@ -81,6 +110,9 @@ class XYAlertSheetController: UIViewController {
     open override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.clear
+        self.view.tag = -1
+        let tap = UITapGestureRecognizer(target: self, action: #selector(actionClick(tap:)))
+        view.addGestureRecognizer(tap)
 
         buildUI()
     }
@@ -98,43 +130,18 @@ extension XYAlertSheetController {
         
         contentView.backgroundColor = .white
         contentView.layer.cornerRadius = 15
+        contentView.clipsToBounds = true
         view.addSubview(contentView)
-        
-        let titleLabel = UILabel()
-        titleLabel.text = titleString
-        titleLabel.textColor = .black
-        titleLabel.font = UIFont.systemFont(ofSize: 17)
-        titleLabel.textAlignment = .center
-        titleLabel.numberOfLines = 0
-        contentView.addSubview(titleLabel)
-        
-        let subTitleLabel = UILabel()
-        subTitleLabel.text = subTitleString
-        subTitleLabel.textColor = .gray
-        subTitleLabel.font = UIFont.systemFont(ofSize: 12)
-        subTitleLabel.textAlignment = .center
-        subTitleLabel.numberOfLines = 0
-        contentView.addSubview(subTitleLabel)
         
         contentView.snp.makeConstraints { (make) in
             make.left.right.equalToSuperview()
             make.top.equalTo(view.snp.bottom)
         }
         
-        titleLabel.snp.makeConstraints { (make) in
-            make.left.equalToSuperview().offset(15)
-            make.right.equalToSuperview().offset(-15)
-            make.top.equalToSuperview().offset(20)
-        }
+        // 创建 header
+        var lastView: UIView = buildHeader()
         
-        subTitleLabel.snp.makeConstraints { (make) in
-            make.left.equalToSuperview().offset(15)
-            make.right.equalToSuperview().offset(-15)
-            make.top.equalTo(titleLabel.snp.bottom).offset(10)
-        }
-        
-        var lastView: UIView = subTitleLabel
-        
+        // 创建 actions
         var index = -1
         for action in actions {
             index += 1
@@ -166,7 +173,7 @@ extension XYAlertSheetController {
             line.snp.makeConstraints { (make) in
                 make.left.right.equalToSuperview()
                 
-                if action == actions.first {
+                if action == actions.first, customHeader == nil {
                     make.top.equalTo(lastView.snp.bottom).offset(20)
                 }else{
                     make.top.equalTo(lastView.snp.bottom)
@@ -186,7 +193,7 @@ extension XYAlertSheetController {
                 make.left.equalToSuperview().offset(15)
                 make.right.equalToSuperview().offset(-15)
                 make.top.equalTo(lastView.snp.bottom)
-                make.height.equalTo(60)
+                make.height.equalTo(action.defaultHeight)
                 
                 if action == actions.last {
                     make.bottom.equalToSuperview().offset(-34)
@@ -197,6 +204,56 @@ extension XYAlertSheetController {
         
         self.view.setNeedsLayout()
         self.view.layoutIfNeeded()
+    }
+    
+    func buildHeader() -> UIView {
+        
+        var resultView = UIView()
+        
+        if let customHeaderView = customHeader {
+            contentView.addSubview(customHeaderView)
+            customHeaderView.snp.makeConstraints { (make) in
+                make.left.equalToSuperview()
+                make.right.equalToSuperview()
+                make.top.equalToSuperview()
+                make.height.equalTo(100)
+            }
+            
+            resultView = customHeaderView
+        }else{
+            
+            let titleLabel = UILabel()
+            titleLabel.text = titleString
+            titleLabel.textColor = .black
+            titleLabel.font = UIFont.systemFont(ofSize: 17)
+            titleLabel.textAlignment = .center
+            titleLabel.numberOfLines = 0
+            contentView.addSubview(titleLabel)
+            
+            let subTitleLabel = UILabel()
+            subTitleLabel.text = subTitleString
+            subTitleLabel.textColor = .gray
+            subTitleLabel.font = UIFont.systemFont(ofSize: 12)
+            subTitleLabel.textAlignment = .center
+            subTitleLabel.numberOfLines = 0
+            contentView.addSubview(subTitleLabel)
+            
+            titleLabel.snp.makeConstraints { (make) in
+                make.left.equalToSuperview().offset(15)
+                make.right.equalToSuperview().offset(-15)
+                make.top.equalToSuperview().offset(20)
+            }
+            
+            subTitleLabel.snp.makeConstraints { (make) in
+                make.left.equalToSuperview().offset(15)
+                make.right.equalToSuperview().offset(-15)
+                make.top.equalTo(titleLabel.snp.bottom).offset(10)
+            }
+            
+            resultView = subTitleLabel
+        }
+        
+        return resultView
     }
     
     @objc func actionClick(tap: UITapGestureRecognizer){
