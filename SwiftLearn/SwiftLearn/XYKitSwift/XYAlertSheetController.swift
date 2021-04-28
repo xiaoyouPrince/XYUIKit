@@ -247,7 +247,11 @@ extension XYAlertSheetController {
             subTitleLabel.snp.makeConstraints { (make) in
                 make.left.equalToSuperview().offset(15)
                 make.right.equalToSuperview().offset(-15)
-                make.top.equalTo(titleLabel.snp.bottom).offset(10)
+                if let count = subTitleString?.count, count > 0 {
+                    make.top.equalTo(titleLabel.snp.bottom).offset(10)
+                }else{
+                    make.top.equalTo(titleLabel.snp.bottom)
+                }
             }
             
             resultView = subTitleLabel
