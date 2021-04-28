@@ -21,6 +21,10 @@ class CustomViewController: UIViewController {
         // 直接使用工具类方法
         UILabel.xy_showTip("Hello -ss", nil, .brown, .yellow)
         
+        XYAlertSheetController.showDefault(on: self, ["111","222"]) { (index) in
+            print("第\(index)个按钮点击")
+        }
+        
     }
     
     @objc public func showErrorWechat() {
