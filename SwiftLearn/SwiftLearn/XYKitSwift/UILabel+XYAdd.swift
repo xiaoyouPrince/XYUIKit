@@ -43,9 +43,6 @@ extension UILabel {
             }
         }
         
-        label.sizeToFit()
-        label.frame.size = CGSize(width: label.frame.size.width + edgeInsets.left + edgeInsets.right, height: label.frame.size.height + edgeInsets.top + edgeInsets.bottom)
-        label.center = label.superview!.center
         label.backgroundColor = bgColor
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: fontSize)
@@ -53,12 +50,29 @@ extension UILabel {
         label.clipsToBounds = true
         label.textColor = textColor
         label.alpha = 0.01
+        label.numberOfLines = 0
+        
+        label.sizeToFit()
+        let maxWidth = label.superview!.bounds.size.width - 60
+        label.frame.size = CGSize(width: label.frame.size.width + edgeInsets.left + edgeInsets.right, height: label.frame.size.height + edgeInsets.top + edgeInsets.bottom)
+        if label.bounds.size.width > maxWidth {
+            let attr = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: fontSize)]
+            let attrTip = NSAttributedString(string: tip, attributes: attr)
+            let boundingRect = attrTip.boundingRect(with: CGSize(width: maxWidth, height: .greatestFiniteMagnitude), options: .usesLineFragmentOrigin, context: nil)
+            let realHeight = ceil(boundingRect.height)
+            label.frame.size = CGSize(width: maxWidth, height: realHeight + 20)
+        }
+        label.center = label.superview!.center
         
         UIView.animate(withDuration: animationDuration) {
             label.alpha = 1
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + exitsTime) {
+        var exitsTime_ = exitsTime
+        if tip.unicodeScalars.count > 10 {
+            exitsTime_ = TimeInterval(tip.unicodeScalars.count / 5)
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + exitsTime_) {
             label.removeFromSuperview()
         }
     }
