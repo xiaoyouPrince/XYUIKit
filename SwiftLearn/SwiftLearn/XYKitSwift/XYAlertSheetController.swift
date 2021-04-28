@@ -7,6 +7,11 @@
 //  自定义 AlertSheet 控制器，样式仿写 UIAlertController，支持内部 Action 自定义
 //  使用可以专注于内容与业务，方便快捷
 
+/**
+
+ 
+ */
+
 import UIKit
 
 public typealias XYAlertSheetBlock = ((_ index :Int) -> Void)
@@ -27,29 +32,40 @@ class XYAlertSheetAction: NSObject{
 
 open
 class XYAlertSheetController: UIViewController {
-
-    var customContentView: UIView? // 如果设置自定义content，整体使用自定义content
-    var contentView = UIView()
-    var actions: [XYAlertSheetAction] = []
-    var actionStrings: [String] = []
-    var block: XYAlertSheetBlock?
     
-    @objc public class func showCustom(on vc: UIViewController,
-                                 _ actions: [XYAlertSheetAction],
-                                 _ callBack: XYAlertSheetBlock?) {
+    private var contentView = UIView()
+    
+    private var titleString: String? = nil
+    private var subTitleString: String? = nil
+    private var actions: [XYAlertSheetAction] = []
+    private var block: XYAlertSheetBlock?
+    
+    @objc public class func showCustom(on
+                                        vc: UIViewController,
+                                       title: String?,
+                                       subTitle: String?,
+                                       actions: [XYAlertSheetAction],callBack: XYAlertSheetBlock?) {
         let alertSheet = XYAlertSheetController()
+        alertSheet.titleString = title
+        alertSheet.subTitleString = subTitle
         alertSheet.block = callBack
         alertSheet.actions = actions
         vc.present(alertSheet, animated: false, completion: nil)
     }
     
     @objc public class func showDefault(on vc: UIViewController,
-                                 _ actions: [String],
-                                 _ callBack: XYAlertSheetBlock?) {
-        let alertSheet = XYAlertSheetController()
-        alertSheet.block = callBack
-        alertSheet.actionStrings = actions
-        vc.present(alertSheet, animated: false, completion: nil)
+                                        title: String?,
+                                        subTitle: String?,
+                                     actions: [String],
+                                     callBack: XYAlertSheetBlock?) {
+        
+        var actionModels = [XYAlertSheetAction]()
+        for title in actions {
+            let model = XYAlertSheetAction()
+            model.title = title
+            actionModels.append(model)
+        }
+        showCustom(on: vc, title: title, subTitle: subTitle, actions: actionModels, callBack: callBack)
     }
     
     open override var modalPresentationStyle: UIModalPresentationStyle{
@@ -62,13 +78,8 @@ class XYAlertSheetController: UIViewController {
     open override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.clear
-        
-        if actions.count > 0 { // 纯自定义内容
-            buildUI(isDefalut: false)
-        }else{
-            buildUI()
-        }
-        
+
+        buildUI()
     }
     
     open override func viewDidAppear(_ animated: Bool) {
@@ -80,14 +91,14 @@ class XYAlertSheetController: UIViewController {
 
 extension XYAlertSheetController {
     
-    func buildUI(isDefalut:Bool = true) {
+    func buildUI() {
         
         contentView.backgroundColor = .white
         contentView.layer.cornerRadius = 15
         view.addSubview(contentView)
         
         let titleLabel = UILabel()
-        titleLabel.text = "发送微信号"
+        titleLabel.text = titleString
         titleLabel.textColor = .black
         titleLabel.font = UIFont.systemFont(ofSize: 17)
         titleLabel.textAlignment = .center
@@ -95,7 +106,7 @@ extension XYAlertSheetController {
         contentView.addSubview(titleLabel)
         
         let subTitleLabel = UILabel()
-        subTitleLabel.text = "发送微信号发送微信号发送微信号发送微信号发送微信号发送微信号发送微信号发送微信号发送微信号发送微信号发送微信号发送微信号"
+        subTitleLabel.text = subTitleString
         subTitleLabel.textColor = .gray
         subTitleLabel.font = UIFont.systemFont(ofSize: 12)
         subTitleLabel.textAlignment = .center
@@ -121,61 +132,62 @@ extension XYAlertSheetController {
         
         var lastView: UIView = subTitleLabel
         
-        if isDefalut {
-            var index = -1
-            for actionStr in actionStrings {
-                index += 1
-                
-                let line = UIView()
-                line.backgroundColor = UIColor(white: 0.8, alpha: 1)
-                if actionStr == actionStrings.last {
-                    line.backgroundColor = UIColor(white: 0.965, alpha: 1)
-                }
-                
-                let label = UILabel()
-                label.text = actionStr
-                label.textColor = .blue
-                label.font = UIFont.systemFont(ofSize: 14)
-                label.textAlignment = .center
-                label.isUserInteractionEnabled = true
-                label.tag = index
-                let tap = UITapGestureRecognizer(target: self, action: #selector(actionClick(tap:)))
-                label.addGestureRecognizer(tap)
-                
-                contentView.addSubview(line)
-                contentView.addSubview(label)
-                
-                line.snp.makeConstraints { (make) in
-                    make.left.right.equalToSuperview()
-                    
-                    if actionStr == actionStrings.first {
-                        make.top.equalTo(lastView.snp.bottom).offset(20)
-                    }else{
-                        make.top.equalTo(lastView.snp.bottom)
-                    }
-                    
-                    if actionStr == actionStrings.last {
-                        make.height.equalTo(8)
-                    }else{
-                        make.height.equalTo(0.5)
-                    }
-                }
-                
-                lastView = line
-                
-                label.snp.makeConstraints { (make) in
-                    
-                    make.left.right.equalToSuperview()
-                    make.top.equalTo(lastView.snp.bottom)
-                    make.height.equalTo(60)
-                    
-                    if actionStr == actionStrings.last {
-                        make.bottom.equalToSuperview().offset(-34)
-                    }
-                }
-                lastView = label
+        var index = -1
+        for action in actions {
+            index += 1
+            
+            let line = UIView()
+            line.backgroundColor = UIColor(white: 0.8, alpha: 1)
+            if action == actions.last {
+                line.backgroundColor = UIColor(white: 0.965, alpha: 1)
             }
+            
+            let label = UILabel()
+            label.text = action.title
+            label.textColor = .blue
+            label.font = UIFont.systemFont(ofSize: 14)
+            label.textAlignment = .center
+            label.numberOfLines = 0
+            label.isUserInteractionEnabled = true
+            label.tag = index
+            let tap = UITapGestureRecognizer(target: self, action: #selector(actionClick(tap:)))
+            label.addGestureRecognizer(tap)
+            
+            contentView.addSubview(line)
+            contentView.addSubview(label)
+            
+            line.snp.makeConstraints { (make) in
+                make.left.right.equalToSuperview()
+                
+                if action == actions.first {
+                    make.top.equalTo(lastView.snp.bottom).offset(20)
+                }else{
+                    make.top.equalTo(lastView.snp.bottom)
+                }
+                
+                if action == actions.last {
+                    make.height.equalTo(8)
+                }else{
+                    make.height.equalTo(0.5)
+                }
+            }
+            
+            lastView = line
+            
+            label.snp.makeConstraints { (make) in
+                
+                make.left.equalToSuperview().offset(15)
+                make.right.equalToSuperview().offset(-15)
+                make.top.equalTo(lastView.snp.bottom)
+                make.height.equalTo(60)
+                
+                if action == actions.last {
+                    make.bottom.equalToSuperview().offset(-34)
+                }
+            }
+            lastView = label
         }
+        
         
         
         
@@ -219,7 +231,7 @@ extension XYAlertSheetController {
             make.top.equalTo(view.snp.bottom)
         }
         
-        UIView.animate(withDuration: 0.25) {
+        UIView.animate(withDuration: 0.15) {
             self.view.backgroundColor = .clear
             self.view.layoutIfNeeded()
         } completion: { (finish) in
