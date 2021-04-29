@@ -19,12 +19,10 @@ class CustomViewController: UIViewController {
 //        showErrorWechat()
         
         // 直接使用工具类方法
-        UILabel.xy_showTip("Hello -ss", nil, .brown, .yellow)
+//        UILabel.xy_showTip("Hello -ss", nil, .brown, .yellow)
         
-        XYAlertSheetController.showDefault(on: self, ["111","222"]) { (index) in
-            print("第\(index)个按钮点击")
-        }
-        
+
+        showSheet()
     }
     
     @objc public func showErrorWechat() {
@@ -56,19 +54,86 @@ class CustomViewController: UIViewController {
 // 展示sheet
 extension CustomViewController {
     
+
     func showSheet() {
-        ZLWechatActionSheet.show(self, "你知道吗") { (type) in
-            if type == .Send{
-                print("1111")
-            }else if type == .Change {
-                print("22222")
+        
+        let actions = [
+            "TYAttributeLabel 示例",
+            "Label 展示简单 tip 示例",
+            "展示一个顶部的tipView",
+            "+++",
+            "ssd",
+            "gtt",
+            "交换微信后，若存在转账/汇款/比特币",
+            "取消"
+        ]
+        
+        let callback = {[weak self](index: Int) in
+            if index >= 0 {
+//                UILabel.xy_showTip(actions[index], self.view)
+                if index == 0 {
+                    self?.showAttrLabel()
+                }else if index == 1{
+                    UILabel.xy_showTip(actions[index], self?.view)
+                }else if index == 2{
+                    self?.showTipLabel()
+                }
             }else{
-                print("3333")
+                UILabel.xy_showTip("用户取消了选择", self?.view)
             }
         }
         
-    //        let detail = ZLWechatActionSheet()
-    //        self.present(detail, animated: false, completion: nil)
+        // 直接展示默认样式
+         XYAlertSheetController.showDefault(on: self,
+                                           title: "本页面实现的简单示例",
+                                           subTitle: "",
+                                           actions: actions, callBack: callback)
+        
+        
+        // 展示自定义 headerView
+//        var actionModels = [XYAlertSheetAction]()
+//        for a in actions {
+//            let action = XYAlertSheetAction()
+//            action.title = a
+//            action.textColor = .red
+//            actionModels.append(action)
+//        }
+//
+//        let header = UIView()
+//        header.backgroundColor = .red
+//        // header.frame.size.height = 300
+//        header.snp.makeConstraints { (make) in
+//            make.height.equalTo(120)
+//        }
+//
+//        let title = UILabel()
+//        title.text = "你好"
+//        title.sizeToFit()
+//
+//        let title2 = UILabel()
+//        title2.text = "这个红色是自定义header"
+//        title2.sizeToFit()
+//
+//        let title3 = UILabel()
+//        title3.text = "只需设置height即可"
+//        title3.sizeToFit()
+//        header.addSubview(title)
+//        header.addSubview(title2)
+//        header.addSubview(title3)
+//
+//        title.snp.makeConstraints { (make) in
+//            make.top.centerX.equalToSuperview()
+//        }
+//        title2.snp.makeConstraints { (make) in
+//            make.top.equalTo(title.snp.bottom).offset(10)
+//            make.centerX.equalToSuperview()
+//        }
+//        title3.snp.makeConstraints { (make) in
+//            make.top.equalTo(title2.snp.bottom).offset(10)
+//            make.centerX.equalToSuperview()
+//        }
+//
+//        XYAlertSheetController.showCustom(on: self, customHeader: header, actions: actionModels, callBack: callback)
     }
 }
 

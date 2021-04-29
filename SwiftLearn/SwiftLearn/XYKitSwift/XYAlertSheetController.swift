@@ -5,7 +5,7 @@
 //  Created by 渠晓友 on 2021/4/24.
 //
 //  自定义 AlertSheet 控制器，样式仿写 UIAlertController，
-//  1. 支持内部 HeaderView 自定义,需指定 headerView.frame.size.height
+//  1. 支持内部 HeaderView 自定义,需指定 headerView.frame.size.height 或高度约束
 //  2. 支持内部 Action 自定义
 //  3. 使用可以专注于内容与业务，方便快捷
 
@@ -13,7 +13,7 @@
 结构
  
  -------------
- |   headerview     |   如果自定义需设置 frame.size.height
+ |   headerview     |   如果自定义需设置 frame.size.height 或者高度约束
  -------------
  |   actions ···        |
  -------------
@@ -32,9 +32,6 @@ class XYAlertSheetAction: NSObject{
     var defaultHeight: CGFloat = 60
     var textColor = UIColor(red: 0.42, green: 0.65, blue: 0.98, alpha: 1)
     var font = UIFont.systemFont(ofSize: 14)
-    
-    // 自定义回调
-    var block: XYAlertSheetBlock?
 }
 
 open
@@ -216,7 +213,9 @@ extension XYAlertSheetController {
                 make.left.equalToSuperview()
                 make.right.equalToSuperview()
                 make.top.equalToSuperview()
-                make.height.equalTo(100)
+                if customHeaderView.frame.size.height > 0 {
+                    make.height.equalTo(customHeaderView.frame.size.height)
+                } 
             }
             
             resultView = customHeaderView
