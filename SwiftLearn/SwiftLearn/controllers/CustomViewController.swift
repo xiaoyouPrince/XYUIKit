@@ -12,7 +12,7 @@ class CustomViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = UIColor.groupTableViewBackground
         
     }
     
@@ -55,6 +55,35 @@ class CustomViewController: UIViewController {
 // 展示sheet
 extension CustomViewController {
     
+    func svpressHUDConfig() {
+    
+        SVProgressHUD.setMinimumDismissTimeInterval(3)
+        SVProgressHUD.setMaximumDismissTimeInterval(3)
+        SVProgressHUD.setFont(UIFont.systemFont(ofSize: 16))
+        SVProgressHUD.setCornerRadius(4)
+        SVProgressHUD.setShouldTintImages(false)
+
+        let color = UIColor.xy_getColor(red: 13, green: 82, blue: 252)
+        
+        SVProgressHUD.setDefaultStyle(.custom)
+        SVProgressHUD.setForegroundColor(color)
+        
+        let ringThick: CGFloat = 5
+        let ringRadius: CGFloat = 3
+        let NoTextRadius: CGFloat = 10
+        
+        SVProgressHUD.setRingThickness(ringThick)
+        SVProgressHUD.setRingRadius(ringRadius)
+        SVProgressHUD.setRingNoTextRadius(NoTextRadius)
+        
+        let image = UIImage(named: "000")!
+        let image2 = UIImage(named: "ic_risk_tip_close")!
+        let image3 = UIImage(named: "alert_ok_btn")!
+        
+        SVProgressHUD.setInfoImage(image.withRenderingMode(.alwaysOriginal))
+        SVProgressHUD.setSuccessImage(image2.withRenderingMode(.alwaysOriginal))
+        SVProgressHUD.setErrorImage(image3.withRenderingMode(.alwaysOriginal))
+    }
 
     func showSheet() {
         
@@ -62,10 +91,11 @@ extension CustomViewController {
             "TYAttributeLabel 示例",
             "Label 展示简单 tip 示例",
             "展示一个顶部的tipView",
-            "自定义SVProgressHUD.image",
-            "ssd",
-            "gtt",
-            "交换微信后，若存在转账/汇款/比特币",
+            "自定义SVProgressHUD.image - loding",
+            "自定义SVProgressHUD.image - success",
+            "自定义SVProgressHUD.image - error",
+            "自定义SVProgressHUD.image - info",
+            "自定义SVProgressHUD.image - progress",
             "取消"
         ]
         
@@ -79,25 +109,30 @@ extension CustomViewController {
                 }else if index == 2{
                     self?.showTipLabel()
                 }else if index == 3{
+                    self?.svpressHUDConfig()
+                    SVProgressHUD.show()
+                }else if index == 4{
+                    self?.svpressHUDConfig()
+                    SVProgressHUD.showSuccess(withStatus: "陈功能")
+                }
+                else if index == 5{
+                    self?.svpressHUDConfig()
+                    SVProgressHUD.showError(withStatus: "失败")
+                }
+                else if index == 6{
+                    self?.svpressHUDConfig()
+                    SVProgressHUD.showInfo(withStatus: "info")
+                }else if index == 7{
+                    self?.svpressHUDConfig()
                     
-                    let image = UIImage(named: "000")
-                    let image2 = UIImage(named: "ic_risk_tip_close")
-                    let image3 = UIImage(named: "alert_ok_btn")
-                    
-                    SVProgressHUD.setDefaultStyle(.dark)
-                    SVProgressHUD.setMinimumDismissTimeInterval(3)
-                    SVProgressHUD.setMaximumDismissTimeInterval(3)
-                    SVProgressHUD.setDefaultAnimationType(.native)
-                    SVProgressHUD.setImageViewSize(CGSize.zero)
-                    SVProgressHUD.setValue(image, forKeyPath: "sharedView.infoImage")
-                    SVProgressHUD.setValue(image2, forKeyPath: "sharedView.successImage")
-                    SVProgressHUD.setValue(image3, forKeyPath: "sharedView.errorImage")
-                    SVProgressHUD.setFont(UIFont.systemFont(ofSize: 16))
-                    SVProgressHUD.setCornerRadius(4)
-                    
-//                    SVProgressHUD.show()
-//                    SVProgressHUD.show(withStatus: "sss")
-                    SVProgressHUD.showError(withStatus: "error")
+                    var progress: Float = 0.0
+                    for i in 1...100 {
+                        DispatchQueue.global().sync {
+                            progress = ((Float)(i)) / 100.0
+                            SVProgressHUD.showProgress(progress)
+                        }
+                    }
+                }else if index == 8 {
                     
                 }
             }else{
