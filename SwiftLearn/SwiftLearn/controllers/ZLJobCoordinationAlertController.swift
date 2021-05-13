@@ -38,6 +38,18 @@ class ZLJobCoordinationAlertController: UIViewController {
 //            return
 //        }
         
+        let label = UILabel()
+        label.text = title
+        label.textColor = .white
+        label.backgroundColor = .green
+        label.textAlignment = .center
+        view.addSubview(label)
+        label.snp.makeConstraints { (make) in
+            make.left.right.equalToSuperview()
+            make.top.equalToSuperview().offset(60)
+            make.height.equalTo(50)
+        }
+        
         guard let img = topImage else {
             okBtnClick() // 取消
             return
@@ -92,7 +104,6 @@ class ZLJobCoordinationAlertController: UIViewController {
     
     @objc func okBtnClick(){
         end()
-        cancelBlock?()
     }
 }
 
@@ -107,11 +118,12 @@ extension ZLJobCoordinationAlertController {
     }
     
     func end() {
-        
         UIView.animate(withDuration: 0.15) {
             self.view.backgroundColor = .clear
         } completion: { (success) in
-            self.dismiss(animated: false, completion: nil)
+            self.dismiss(animated: false) {
+                self.cancelBlock?()
+            }
         }
     }
 }
