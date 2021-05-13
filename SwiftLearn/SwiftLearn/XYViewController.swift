@@ -106,6 +106,12 @@ extension XYViewController {
                 "titleKey": "CustomViewController",
                 "value": "",
                 "type": 1
+            ],
+            [
+                "title": "自定义弹框组件",
+                "titleKey": "ShowAlertVC",
+                "value": "",
+                "type": 1
             ]
         ]
         

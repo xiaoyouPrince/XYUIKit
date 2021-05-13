@@ -21,6 +21,8 @@
 		B437799B2631988200311802 /* TYTextContainer+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = B437798F2631988200311802 /* TYTextContainer+Extended.m */; };
 		B437799C2631988200311802 /* TYTextContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = B43779922631988200311802 /* TYTextContainer.m */; };
 		B44012A62632B5E900C51E78 /* ZLWechatActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44012A52632B5E900C51E78 /* ZLWechatActionSheet.swift */; };
+		B44578D0264A5A2900A4EFC8 /* ShowAlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44578CF264A5A2900A4EFC8 /* ShowAlertVC.swift */; };
+		B44578D3264A5F0E00A4EFC8 /* ZLJobCoordinationAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44578D2264A5F0E00A4EFC8 /* ZLJobCoordinationAlertController.swift */; };
 		B44AB1FF262584B0006CB306 /* AnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44AB1FE262584B0006CB306 /* AnimationViewController.swift */; };
 		B460DB5D25F5F8C300AF3685 /* Image.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B460DB5C25F5F8C300AF3685 /* Image.xcassets */; };
 		B46930992615D3C600512B2F /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46930982615D3C600512B2F /* File.swift */; };
@@ -34,6 +36,7 @@
 		B472C5CA25825C7F005898C5 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B472C5C925825C7F005898C5 /* TableViewController.swift */; };
 		B472C5D2258316D0005898C5 /* ZLNewGreetingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B472C5D1258316D0005898C5 /* ZLNewGreetingView.swift */; };
 		B47EF034260630C200DE7EC3 /* Public.swift in Sources */ = {isa = PBXBuildFile; fileRef = B47EF033260630C200DE7EC3 /* Public.swift */; };
+		B49C5E88264CBC4200AC1F67 /* XYAlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49C5E87264CBC4200AC1F67 /* XYAlertManager.swift */; };
 		B4AB9AD5262053A1006B034B /* MailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AB9AD4262053A1006B034B /* MailViewController.swift */; };
 		B4AD73D7263327E1005EB911 /* UILabel+XYAdd.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AD73D6263327E1005EB911 /* UILabel+XYAdd.swift */; };
 		B4AD73DA2634699E005EB911 /* XYAlertSheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AD73D92634699E005EB911 /* XYAlertSheetController.swift */; };
@@ -71,6 +74,8 @@
 		B43779922631988200311802 /* TYTextContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TYTextContainer.m; sourceTree = "<group>"; };
 		B437799E263198F200311802 /* SwiftLearn-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SwiftLearn-Bridging-Header.h"; sourceTree = "<group>"; };
 		B44012A52632B5E900C51E78 /* ZLWechatActionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLWechatActionSheet.swift; sourceTree = "<group>"; };
+		B44578CF264A5A2900A4EFC8 /* ShowAlertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowAlertVC.swift; sourceTree = "<group>"; };
+		B44578D2264A5F0E00A4EFC8 /* ZLJobCoordinationAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLJobCoordinationAlertController.swift; sourceTree = "<group>"; };
 		B44AB1FE262584B0006CB306 /* AnimationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationViewController.swift; sourceTree = "<group>"; };
 		B460DB5C25F5F8C300AF3685 /* Image.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Image.xcassets; sourceTree = "<group>"; };
 		B46930982615D3C600512B2F /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
@@ -86,6 +91,7 @@
 		B472C5C925825C7F005898C5 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		B472C5D1258316D0005898C5 /* ZLNewGreetingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLNewGreetingView.swift; sourceTree = "<group>"; };
 		B47EF033260630C200DE7EC3 /* Public.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Public.swift; sourceTree = "<group>"; };
+		B49C5E87264CBC4200AC1F67 /* XYAlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XYAlertManager.swift; sourceTree = "<group>"; };
 		B4AB9AD4262053A1006B034B /* MailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailViewController.swift; sourceTree = "<group>"; };
 		B4AD73D6263327E1005EB911 /* UILabel+XYAdd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+XYAdd.swift"; sourceTree = "<group>"; };
 		B4AD73D92634699E005EB911 /* XYAlertSheetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XYAlertSheetController.swift; sourceTree = "<group>"; };
@@ -169,6 +175,8 @@
 				B44AB1FE262584B0006CB306 /* AnimationViewController.swift */,
 				B437797A2631522000311802 /* CustomViewController.swift */,
 				B44012A52632B5E900C51E78 /* ZLWechatActionSheet.swift */,
+				B44578CF264A5A2900A4EFC8 /* ShowAlertVC.swift */,
+				B44578D2264A5F0E00A4EFC8 /* ZLJobCoordinationAlertController.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -230,6 +238,7 @@
 				B4AD73D6263327E1005EB911 /* UILabel+XYAdd.swift */,
 				B4AD73D92634699E005EB911 /* XYAlertSheetController.swift */,
 				B4B6304926355296001AFD02 /* UIColor+XYAdd.swift */,
+				B49C5E87264CBC4200AC1F67 /* XYAlertManager.swift */,
 			);
 			path = XYKitSwift;
 			sourceTree = "<group>";
@@ -357,15 +366,18 @@
 				B43779932631988200311802 /* TYLinkTextStorage.m in Sources */,
 				B43779942631988200311802 /* TYDrawStorage.m in Sources */,
 				B472C56125821D58005898C5 /* AppDelegate.swift in Sources */,
+				B44578D3264A5F0E00A4EFC8 /* ZLJobCoordinationAlertController.swift in Sources */,
 				B472C56325821D58005898C5 /* SceneDelegate.swift in Sources */,
 				B4AD73DA2634699E005EB911 /* XYAlertSheetController.swift in Sources */,
 				B4B6304A26355296001AFD02 /* UIColor+XYAdd.swift in Sources */,
 				B43779992631988200311802 /* TYTextStorage.m in Sources */,
+				B44578D0264A5A2900A4EFC8 /* ShowAlertVC.swift in Sources */,
 				B4D2DFA62611EDE400C2B6F9 /* XYViewController.swift in Sources */,
 				B4AB9AD5262053A1006B034B /* MailViewController.swift in Sources */,
 				B472C57825821DB1005898C5 /* ZLPushNotificationTipView.swift in Sources */,
 				B43779962631988200311802 /* TYImageStorage.m in Sources */,
 				B47EF034260630C200DE7EC3 /* Public.swift in Sources */,
+				B49C5E88264CBC4200AC1F67 /* XYAlertManager.swift in Sources */,
 				B43779952631988200311802 /* TYViewStorage.m in Sources */,
 				B472C5D2258316D0005898C5 /* ZLNewGreetingView.swift in Sources */,
 				B422760F26131B7F0089C7C0 /* RefreshHeader.swift in Sources */,
