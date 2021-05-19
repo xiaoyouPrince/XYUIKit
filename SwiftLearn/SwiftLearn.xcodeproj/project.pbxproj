@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B41A87342654BA8500DE1E2E /* XYPopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B41A87332654BA8500DE1E2E /* XYPopView.swift */; };
 		B422760F26131B7F0089C7C0 /* RefreshHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B422760E26131B7F0089C7C0 /* RefreshHeader.swift */; };
 		B43779782631519D00311802 /* TipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43779772631519D00311802 /* TipView.swift */; };
 		B437797B2631522000311802 /* CustomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B437797A2631522000311802 /* CustomViewController.swift */; };
@@ -49,6 +50,7 @@
 /* Begin PBXFileReference section */
 		5E2B9E7E36D67F48D617BAC0 /* Pods_SwiftLearn.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftLearn.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FF8FF640A47B548767CBFF7 /* Pods-SwiftLearn.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftLearn.release.xcconfig"; path = "Target Support Files/Pods-SwiftLearn/Pods-SwiftLearn.release.xcconfig"; sourceTree = "<group>"; };
+		B41A87332654BA8500DE1E2E /* XYPopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XYPopView.swift; sourceTree = "<group>"; };
 		B422760E26131B7F0089C7C0 /* RefreshHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshHeader.swift; sourceTree = "<group>"; };
 		B43779772631519D00311802 /* TipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipView.swift; sourceTree = "<group>"; };
 		B437797A2631522000311802 /* CustomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomViewController.swift; sourceTree = "<group>"; };
@@ -239,6 +241,7 @@
 				B4AD73D92634699E005EB911 /* XYAlertSheetController.swift */,
 				B4B6304926355296001AFD02 /* UIColor+XYAdd.swift */,
 				B49C5E87264CBC4200AC1F67 /* XYAlertManager.swift */,
+				B41A87332654BA8500DE1E2E /* XYPopView.swift */,
 			);
 			path = XYKitSwift;
 			sourceTree = "<group>";
@@ -363,6 +366,7 @@
 				B43779782631519D00311802 /* TipView.swift in Sources */,
 				B472C5CA25825C7F005898C5 /* TableViewController.swift in Sources */,
 				B472C56525821D58005898C5 /* ViewController.swift in Sources */,
+				B41A87342654BA8500DE1E2E /* XYPopView.swift in Sources */,
 				B43779932631988200311802 /* TYLinkTextStorage.m in Sources */,
 				B43779942631988200311802 /* TYDrawStorage.m in Sources */,
 				B472C56125821D58005898C5 /* AppDelegate.swift in Sources */,

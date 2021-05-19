@@ -22,7 +22,7 @@ class ShowAlertVC: UIViewController {
 //        xy_startShowAlert()
         
         
-        
+        XYPopView.showPopTip(.top, .zero, "dsdsdds")
         
     }
     
