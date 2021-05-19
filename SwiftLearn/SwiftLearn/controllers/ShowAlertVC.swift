@@ -8,15 +8,24 @@
 import UIKit
 
 class ShowAlertVC: UIViewController {
+    
+    var label = UILabel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .groupTableViewBackground
         
-//        showSheet()
+        label.font = UIFont.systemFont(ofSize: 55)
+        view.addSubview(label)
         
-        xy_startShowAlert()
+//        showSheet()
+//        xy_startShowAlert()
+        
+        
+        
+        
     }
+    
 }
 
 // 实现show Alert 方法
@@ -54,7 +63,7 @@ extension ShowAlertVC {
     }
 }
 
-
+// 展示 XYAlertSheetController 方法
 extension ShowAlertVC {
     
     func showSheet() {
@@ -87,4 +96,43 @@ extension ShowAlertVC {
                                            actions: actions, callBack: callback)
     }
 
+}
+
+// 富文本
+extension ShowAlertVC {
+    
+    func showAttrText() {
+    
+        let attr = NSMutableAttributedString()
+        let image = UIImage(named: "im_list_newgreet_quick_answer")!
+        
+        let attacment = NSTextAttachment()
+        attacment.image = image
+        let paddingTop = label.font.lineHeight - label.font.pointSize
+        attacment.bounds = CGRect(x: 0, y: -paddingTop, width: image.size.width, height: image.size.height)
+        
+        let attrImageStr = NSAttributedString(attachment: attacment)
+        attr.append(attrImageStr)
+        
+        attr.append(NSAttributedString(string: " "))
+        
+        let lastMessageAttr = attributedStringWithText("h偶尔无法违法")!
+        attr.append(lastMessageAttr)
+        
+        label.attributedText = attr
+        label.sizeToFit()
+        label.center = view.center
+        
+    }
+
+
+    private func attributedStringWithText(_ text: String) -> NSAttributedString? {
+        let attrStr : NSAttributedString = NSAttributedString(string: text, attributes: [
+            NSAttributedString.Key.font : UIFont.systemFont(ofSize: 55),
+            NSAttributedString.Key.foregroundColor : UIColor.red,
+                        ])
+        
+        return attrStr
+    }
+    
 }
