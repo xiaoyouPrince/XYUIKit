@@ -27,6 +27,7 @@
 		B44AB1FF262584B0006CB306 /* AnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44AB1FE262584B0006CB306 /* AnimationViewController.swift */; };
 		B460DB5D25F5F8C300AF3685 /* Image.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B460DB5C25F5F8C300AF3685 /* Image.xcassets */; };
 		B46930992615D3C600512B2F /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46930982615D3C600512B2F /* File.swift */; };
+		B471EF362657B950004FD238 /* XYCustomTimePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B471EF352657B950004FD238 /* XYCustomTimePickerViewController.swift */; };
 		B472C56125821D58005898C5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B472C56025821D58005898C5 /* AppDelegate.swift */; };
 		B472C56325821D58005898C5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B472C56225821D58005898C5 /* SceneDelegate.swift */; };
 		B472C56525821D58005898C5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B472C56425821D58005898C5 /* ViewController.swift */; };
@@ -81,6 +82,7 @@
 		B44AB1FE262584B0006CB306 /* AnimationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationViewController.swift; sourceTree = "<group>"; };
 		B460DB5C25F5F8C300AF3685 /* Image.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Image.xcassets; sourceTree = "<group>"; };
 		B46930982615D3C600512B2F /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		B471EF352657B950004FD238 /* XYCustomTimePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XYCustomTimePickerViewController.swift; sourceTree = "<group>"; };
 		B472C55D25821D58005898C5 /* SwiftLearn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftLearn.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B472C56025821D58005898C5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B472C56225821D58005898C5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -230,6 +232,7 @@
 				B4D9B11125998CD9006FB07D /* GradientView.swift */,
 				B422760E26131B7F0089C7C0 /* RefreshHeader.swift */,
 				B43779772631519D00311802 /* TipView.swift */,
+				B471EF352657B950004FD238 /* XYCustomTimePickerViewController.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -362,6 +365,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B437799A2631988200311802 /* TYAttributedLabel.m in Sources */,
+				B471EF362657B950004FD238 /* XYCustomTimePickerViewController.swift in Sources */,
 				B437799C2631988200311802 /* TYTextContainer.m in Sources */,
 				B43779782631519D00311802 /* TipView.swift in Sources */,
 				B472C5CA25825C7F005898C5 /* TableViewController.swift in Sources */,
