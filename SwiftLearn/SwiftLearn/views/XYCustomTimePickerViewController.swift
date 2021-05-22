@@ -18,7 +18,8 @@ class CustomDatePicker: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         
-        let dataDict = getDataDictionary() as NSDictionary
+//        let dataDict = getDataDictionary() as NSDictionary
+        let dataDict = self.dataDict as NSDictionary
         let dayArr = dataDict.allKeys
         
         let currentRow = pickerView.selectedRow(inComponent: 0)
@@ -70,7 +71,8 @@ class CustomDatePicker: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
         
         
         if component == 0 {
-            let dataDict = getDataDictionary() as NSDictionary
+//            let dataDict = getDataDictionary() as NSDictionary
+            let dataDict = self.dataDict as NSDictionary
             let dayArr = dataDict.allKeys
             let currentDayTitleRow = pickerView.selectedRow(inComponent: 0)
             let currentDayTitle = dayArr[currentDayTitleRow]
@@ -174,7 +176,7 @@ class CustomDatePicker: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
     
     
     // 总数据，需要优化调用
-    func getDataDictionary() -> [String : [String]] {
+    private func getDataDictionary() -> [String : [String]] {
         
         var resultDict: [String : [String]] = [:]
         
