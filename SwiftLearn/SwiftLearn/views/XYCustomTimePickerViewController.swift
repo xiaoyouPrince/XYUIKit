@@ -110,17 +110,15 @@ class CustomDatePicker: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
         print("选中月日时分 = \(resultString)")
         
         // 如果选中月份 < 当前月份则跨年
-//        var realYear = mon
-//        var realMonth = mon
-//        var realDay = mon
-//        if mon.toInt() < getCurrentMonth() {
-//
-//        }
+        var realYear = getCurrentYear()
+        if Int(mon)! < getCurrentMonth() {
+            realYear += 1
+        }
         
         
         let dft = DateFormatter()
         dft.dateFormat = "yyyy:MM:dd HH:mm"
-        if let resultDate = dft.date(from: "\(getCurrentYear()):\(resultString)") {
+        if let resultDate = dft.date(from: "\(realYear):\(resultString)") {
             self.date = resultDate
         }
         // 保存自己时间
