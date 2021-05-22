@@ -269,6 +269,17 @@ class CustomDatePicker: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
         
         var monthDayTitles: [String] = []
         
+        func weekdayHZ(_ wkd: Int) -> String{ // 周数转为汉字
+            if wkd == 1 { return "周日" }
+            if wkd == 2 { return "周一" }
+            if wkd == 3 { return "周二" }
+            if wkd == 4 { return "周三" }
+            if wkd == 5 { return "周四" }
+            if wkd == 6 { return "周五" }
+            if wkd == 7 { return "周六" }
+            return ""
+        }
+        
         // 天数
         let dayCount = Int(maximumDate.timeIntervalSinceNow / 24 / 3600)
         for index in 0..<dayCount {
@@ -290,7 +301,7 @@ class CustomDatePicker: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
             if index == 2 { // 后天
                 month_day_title.append("(后天)")
             }else{
-                month_day_title.append("(周\(weekday))")
+                month_day_title.append("(\(weekdayHZ(weekday)))")
             }
             // 日期数组
             
