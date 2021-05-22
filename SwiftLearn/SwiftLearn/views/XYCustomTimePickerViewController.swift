@@ -53,7 +53,7 @@ class CustomDatePicker: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
 
         if component == 0 {
-            return monthDayTitles[row]
+            return getMonthDayTitles()[row]
         }else{
             return theTimeArr[row]
         }
@@ -173,49 +173,12 @@ class CustomDatePicker: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     
-    // 总数据，需要优化调用
+    // 总数据，使用 dataDict, 只创建一次
     private func getDataDictionary() -> [String : [String]] {
         
         var resultDict: [String : [String]] = [:]
         
-        var monthDayTitles: [String] = []
-        // 天数
-        let dayCount = Int(maximumDate.timeIntervalSinceNow / 24 / 3600)
-        for index in 0..<dayCount {
-            
-            // 日期- 处理
-            let calender = Calendar.current
-            let currentDate = Date() + (TimeInterval)(index * 24 * 3600)
-            let month = calender.component(.month, from: currentDate)
-            let day = calender.component(.day, from: currentDate)
-            var month_day_title = "\(month)月\(day)日"
-            
-            if index == 0 { // 今天
-                month_day_title.append("(今天)")
-            }
-            if index == 1 { // 明天
-                month_day_title.append("(明天)")
-            }
-            if index == 2 { // 后天
-                month_day_title.append("(后天)")
-            }
-            // 日期数组
-            
-            var monthDayTitle = month_day_title as NSString
-            
-            
-            if monthDayTitle.range(of: "月").location == 1 {
-                monthDayTitle = "0\(monthDayTitle)" as NSString
-            }
-            
-            if monthDayTitle.range(of: "日").location == 4 {
-                let monthDayTitle__: NSMutableString  = NSMutableString(string: monthDayTitle)
-                monthDayTitle__.insert("0", at: 3)
-                monthDayTitles.append(monthDayTitle__ as String)
-            }else{
-                monthDayTitles.append(monthDayTitle as String)
-            }
-        }
+        let monthDayTitles: [String] = getMonthDayTitles()
         
         // 此时 monthDay 格式为 MM:dd
         for monthDay in monthDayTitles {
@@ -232,12 +195,10 @@ class CustomDatePicker: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
                 for index in 0..<currentDayCount {
                     
                     let currentHour = getCurrentHour()
-                    let currentMinute = getCurrentMinute()
-                    
-                    
+                                        
                     if currentDayCount % 2 == 0 { // 偶数个，说明是从 【 (currentHour + 1 ):00 】 开始
                         let startHour = currentHour + 1
-                        let startMinute = "00"
+                        // let startMinute = "00"
                         var resultHour = 0
                         var resultMinute = ""
                         
@@ -256,7 +217,7 @@ class CustomDatePicker: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
                         if index == 0 { continue }
                         
                         let startHour = currentHour
-                        let startMinute = "30"
+                        // let startMinute = "30"
                         var resultHour = 0
                         var resultMinute = ""
                         
@@ -275,11 +236,11 @@ class CustomDatePicker: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
                 // 非当天 - 半小时间隔，有48个时间点
                 for index in 0..<48 {
                     
-                    var startHour = 0
-                    var startMinute = "00"
+                    let startHour = 0
+                    let startMinute = "00"
                     var resultHour = 0
                     var resultMinute = ""
-                    var hourMinuteTitle = "0\(startHour):\(startMinute)"
+                    let hourMinuteTitle = "0\(startHour):\(startMinute)"
                     if index == 0 { // 第0组特殊处理
                         timeArray.append(hourMinuteTitle)
                         continue
@@ -303,52 +264,53 @@ class CustomDatePicker: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
     }
     lazy var dataDict: [String: [String]] = getDataDictionary()
     
-    var monthDayTitles: [String] {
-        get {
+    // 不直接用 dataDict.allKeys 是因为其返回的数组顺序错乱
+    private func getMonthDayTitles() -> [String] {
+        
+        var monthDayTitles: [String] = []
+        
+        // 天数
+        let dayCount = Int(maximumDate.timeIntervalSinceNow / 24 / 3600)
+        for index in 0..<dayCount {
             
-            var result: [String] = []
+            // 日期- 处理
+            let calender = Calendar.current
+            let currentDate = Date() + (TimeInterval)(index * 24 * 3600)
+            let month = calender.component(.month, from: currentDate)
+            let day = calender.component(.day, from: currentDate)
+            let weekday = calender.component(.weekday, from: currentDate)
+            var month_day_title = "\(month)月\(day)日"
             
-            // 天数
-            let dayCount = Int(maximumDate.timeIntervalSinceNow / 24 / 3600)
-            for index in 0..<dayCount {
-
-                // 日期- 处理
-                let calender = Calendar.current
-                let currentDate = Date() + (TimeInterval)(index * 24 * 3600)
-                let month = calender.component(.month, from: currentDate)
-                let day = calender.component(.day, from: currentDate)
-                var month_day_title = "\(month)月\(day)日"
-
-                if index == 0 { // 今天
-                    month_day_title.append("(今天)")
-                }
-                if index == 1 { // 明天
-                    month_day_title.append("(明天)")
-                }
-                if index == 2 { // 后天
-                    month_day_title.append("(后天)")
-                }
-                // 日期数组
-
-                var monthDayTitle = month_day_title as NSString
-
-
-                if monthDayTitle.range(of: "月").location == 1 {
-                    monthDayTitle = "0\(monthDayTitle)" as NSString
-                }
-
-                if monthDayTitle.range(of: "日").location == 4 {
-
-                    let monthDayTitle__: NSMutableString  = NSMutableString(string: monthDayTitle)
-                    monthDayTitle__.insert("0", at: 3)
-                    result.append(monthDayTitle__ as String)
-                }else{
-                    result.append(monthDayTitle as String)
-                }
+            if index == 0 { // 今天
+                month_day_title.append("(今天)")
+            }else
+            if index == 1 { // 明天
+                month_day_title.append("(明天)")
+            }else
+            if index == 2 { // 后天
+                month_day_title.append("(后天)")
+            }else{
+                month_day_title.append("(周\(weekday))")
+            }
+            // 日期数组
+            
+            var monthDayTitle = month_day_title as NSString
+            
+            
+            if monthDayTitle.range(of: "月").location == 1 {
+                monthDayTitle = "0\(monthDayTitle)" as NSString
             }
             
-            return result
+            if monthDayTitle.range(of: "日").location == 4 {
+                let monthDayTitle__: NSMutableString  = NSMutableString(string: monthDayTitle)
+                monthDayTitle__.insert("0", at: 3)
+                monthDayTitles.append(monthDayTitle__ as String)
+            }else{
+                monthDayTitles.append(monthDayTitle as String)
+            }
         }
+        
+        return monthDayTitles
     }
     
     open var date: Date?
