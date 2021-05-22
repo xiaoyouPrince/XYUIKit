@@ -301,6 +301,7 @@ class CustomDatePicker: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
         
         return resultDict
     }
+    lazy var dataDict: [String: [String]] = getDataDictionary()
     
     var monthDayTitles: [String] {
         get {
@@ -352,7 +353,7 @@ class CustomDatePicker: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
     
     open var date: Date?
     open var minimumDate = Date()
-    open var maximumDate = Date() + 60*24*3600
+    open var maximumDate = Date() + 360*24*3600
     {
         didSet (oldValue) { // 最大60天
             if oldValue < Date() + 60*24*3600 {
@@ -372,12 +373,21 @@ class CustomDatePicker: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
         self.frame = picker.bounds
         
         // 默认选中 第二天10:00
-        picker.selectRow(1, inComponent: 0, animated: true)
-        picker.selectRow(17, inComponent: 1, animated: true) // 规律为 2n+1
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.picker.selectRow(1, inComponent: 0, animated: true)
+            // 调用一次picker选中某行的代理函数，刷新数据
+            self.pickerView(self.picker, didSelectRow: 1, inComponent: 0)
+            self.picker.selectRow(20, inComponent: 1, animated: true) // 规律为 2n, n代表要选择的时间
+            self.pickerView(self.picker, didSelectRow: 20, inComponent: 1)
+        }
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+        print("时间选择器被释放--")
     }
 }
 
