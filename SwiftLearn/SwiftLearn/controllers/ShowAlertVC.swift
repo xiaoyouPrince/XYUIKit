@@ -7,9 +7,27 @@
 
 import UIKit
 
+class BView: UIView {
+    override func draw(_ rect: CGRect) {
+        
+        let pathbg = UIBezierPath.init(rect: rect)
+        UIColor.white.setFill()
+        pathbg.fill()
+        
+        let path = UIBezierPath.init()
+        path.lineWidth = 23
+        path.move(to: CGPoint(x: rect.width - 100, y: 0))
+        path.addArc(withCenter: CGPoint(x: rect.width - 40, y: 0), radius: 60, startAngle: CGFloat(Double.pi), endAngle: CGFloat(Double.pi/6), clockwise: false)
+        UIColor.red.setStroke()
+        path.stroke()
+    }
+}
+
 class ShowAlertVC: UIViewController {
     
     var label = UILabel()
+    
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +39,9 @@ class ShowAlertVC: UIViewController {
 //        showSheet()
         xy_startShowAlert()
 //        XYPopView.showPopTip(.top, .zero, "dsdsdds")
+        
+        let bView = BView(frame: CGRect(x: 10, y: 200, width: 245, height: 170))
+        view.addSubview(bView)
     }
 }
 

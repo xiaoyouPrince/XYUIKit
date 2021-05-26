@@ -8,9 +8,7 @@
 import UIKit
 
 class CustomDatePicker: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
-    
     var theTimeArr : [String] = []
-    
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 2
@@ -18,28 +16,11 @@ class CustomDatePicker: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         
-//        let dataDict = getDataDictionary() as NSDictionary
         let dataDict = self.dataDict as NSDictionary
-        let dayArr = dataDict.allKeys
+        let dayArr = getMonthDayTitles()
         
         let currentRow = pickerView.selectedRow(inComponent: 0)
-        
         var currentDayTitle = dayArr[currentRow]
-        if currentRow == 0 { // 当天
-            // let currentDayTitle = dayArr[currentRow]
-            // 因为 dict.allkeys 是无序的所以不能直接选用上面方法
-            
-            var monStr = "\(getCurrentMonth())"
-            if monStr.count < 2 {
-                monStr = "0".appending(monStr)
-            }
-            
-            var dayStr = "\(getCurrentDay())"
-            if dayStr.count < 2 {
-                dayStr = "0".appending(dayStr)
-            }
-            currentDayTitle = "\(monStr)月\(dayStr)日(今天)"
-        }
         
         theTimeArr = dataDict[currentDayTitle] as! [String]
         
@@ -71,9 +52,8 @@ class CustomDatePicker: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
         
         
         if component == 0 {
-//            let dataDict = getDataDictionary() as NSDictionary
             let dataDict = self.dataDict as NSDictionary
-            let dayArr = dataDict.allKeys
+            let dayArr = getMonthDayTitles()
             let currentDayTitleRow = pickerView.selectedRow(inComponent: 0)
             let currentDayTitle = dayArr[currentDayTitleRow]
             theTimeArr = dataDict[currentDayTitle] as! [String]
@@ -123,6 +103,24 @@ class CustomDatePicker: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
         }
         // 保存自己时间
         print("创建的date = \(self.date)")
+    }
+    
+    private func isTheSameDay(d1: Date, d2: Date) -> Bool {
+        let currentCalender = Calendar.current
+        
+        let d1Y = currentCalender.component(.year, from: d1)
+        let d1M = currentCalender.component(.month, from: d1)
+        let d1D = currentCalender.component(.day, from: d1)
+        
+        let d2Y = currentCalender.component(.year, from: d2)
+        let d2M = currentCalender.component(.month, from: d2)
+        let d2D = currentCalender.component(.day, from: d2)
+         
+        if d1Y == d2Y && d1M == d2M && d1D == d2D {
+            return true
+        }else{
+            return false
+        }
     }
     
     private func getCurrentYear() -> Int{
@@ -184,7 +182,7 @@ class CustomDatePicker: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
         for monthDay in monthDayTitles {
             // 每天的时间数据
             var timeArray : [String] = []
-            if monthDay == monthDayTitles.first { // 第一天，即当天,计算当天数据
+            if monthDay == monthDayTitles.first, isTheSameDay(d1: minimumDate, d2: Date()) { // 第一天，即当天,计算当天数据
                 
                 let currentDayCount = getCurrentDayTimeCount()
                 // 有一种特殊情况，如 当前时间：23:40 ,当天是没有时间的，特殊处理为 24:00
@@ -281,28 +279,32 @@ class CustomDatePicker: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
         }
         
         // 天数
-        let dayCount = Int(maximumDate.timeIntervalSinceNow / 24 / 3600)
-        for index in 0..<dayCount {
+        var dayCount = Int(maximumDate.timeIntervalSinceNow / 24 / 3600) - Int(minimumDate.timeIntervalSinceNow / 24 / 3600)
+        if dayCount <= 1 {
+            dayCount = 60 // 最小给60天
+        }
+        for index in 0...dayCount {
             
             // 日期- 处理
             let calender = Calendar.current
-            let currentDate = Date() + (TimeInterval)(index * 24 * 3600)
+            let currentDate = minimumDate + (TimeInterval)(index * 24 * 3600)
             let month = calender.component(.month, from: currentDate)
             let day = calender.component(.day, from: currentDate)
             let weekday = calender.component(.weekday, from: currentDate)
             var month_day_title = "\(month)月\(day)日"
             
-            if index == 0 { // 今天
+            if isTheSameDay(d1: currentDate, d2: Date()) { // 今天
                 month_day_title.append("(今天)")
             }else
-            if index == 1 { // 明天
+            if isTheSameDay(d1: currentDate, d2: Date() + 1 * 24 * 3600) { // 明天
                 month_day_title.append("(明天)")
             }else
-            if index == 2 { // 后天
+            if isTheSameDay(d1: currentDate, d2: Date() + 2 * 24 * 3600) { // 后天
                 month_day_title.append("(后天)")
             }else{
                 month_day_title.append("(\(weekdayHZ(weekday)))")
             }
+            
             // 日期数组
             
             var monthDayTitle = month_day_title as NSString
@@ -326,14 +328,8 @@ class CustomDatePicker: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
     
     open var date: Date?
     open var minimumDate = Date()
-    open var maximumDate = Date() + 360*24*3600
-    {
-        didSet (oldValue) { // 最大60天
-            if oldValue < Date() + 60*24*3600 {
-                maximumDate = Date() + 60*24*3600
-            }
-        }
-    }
+    open var maximumDate = Date() + 60*24*3600
+    open var chooseDate : Date?
     
     var picker = UIPickerView()
     
@@ -345,22 +341,80 @@ class CustomDatePicker: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
         addSubview(picker)
         self.frame = picker.bounds
         
-        // 默认选中 第二天10:00
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.picker.selectRow(1, inComponent: 0, animated: true)
-            // 调用一次picker选中某行的代理函数，刷新数据
-            self.pickerView(self.picker, didSelectRow: 1, inComponent: 0)
-            self.picker.selectRow(20, inComponent: 1, animated: true) // 规律为 2n, n代表要选择的时间
-            self.pickerView(self.picker, didSelectRow: 20, inComponent: 1)
+            if let chooseDate_ = self.chooseDate, chooseDate_ > self.minimumDate, chooseDate_ < self.maximumDate {
+                
+                let clander = Calendar.current
+                // 月 日 时 分
+                let mon = clander.component(.month, from: chooseDate_)
+                let day = clander.component(.day, from: chooseDate_)
+                let hour = clander.component(.hour, from: chooseDate_)
+                let min = clander.component(.minute, from: chooseDate_)
+                
+                if min == 0 || min == 30 {
+                    
+                    var monthStr = "\(mon)"
+                    var dayStr = "\(day)"
+                    var hourStr = "\(hour)"
+                    var minuteStr = "\(min)"
+                    
+                    if mon < 10 {
+                        monthStr = "0\(mon)"
+                    }
+                    if day < 10 {
+                        dayStr = "0\(day)"
+                    }
+                    if hour < 10 {
+                        hourStr = "0\(hour)"
+                    }
+                    if min < 10 {
+                        minuteStr = "0\(min)"
+                    }
+                    
+                    let monDayTitle = "\(monthStr)月\(dayStr)日"
+                    let hourMinTitle = "\(hourStr):\(minuteStr)"
+                     
+                    // 计算当前 日期行
+                    var dayRow = -1
+                    for dayTitle in self.getMonthDayTitles() {
+                        dayRow += 1
+                        if dayTitle.contains(monDayTitle) {
+                            break
+                        }
+                    }
+                    
+                    self.picker.selectRow(dayRow, inComponent: 0, animated: true)
+                    self.pickerView(self.picker, didSelectRow: dayRow, inComponent: 0)
+                    
+                    // 计算当前 时间行
+                    var timeRow = -1
+                    for timeTitle in self.theTimeArr {
+                        timeRow += 1
+                        if timeTitle.contains(hourMinTitle) {
+                            break
+                        }
+                    }
+                    
+                    self.picker.selectRow(timeRow, inComponent: 1, animated: true)
+                    self.pickerView(self.picker, didSelectRow: timeRow, inComponent: 1)
+                }
+                
+                
+            }else
+            {
+            // 默认选中 第二天10:00
+                self.picker.selectRow(1, inComponent: 0, animated: true)
+                // 调用一次picker选中某行的代理函数，刷新数据
+                self.pickerView(self.picker, didSelectRow: 1, inComponent: 0)
+                self.picker.selectRow(20, inComponent: 1, animated: true) // 规律为 2n, n代表要选择的时间
+                self.pickerView(self.picker, didSelectRow: 20, inComponent: 1)
+            }
         }
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    deinit {
-        print("时间选择器被释放--")
     }
 }
 
@@ -389,6 +443,11 @@ class XYCustomTimePickerViewController: UIViewController {
 
         datePicker.frame.origin.x = (view.bounds.size.width - datePicker.bounds.size.width)/2
         bgView.frame = CGRect(x: 0, y: view.bounds.height, width: view.bounds.width, height: datePicker.bounds.size.height)
+        
+        // 测试，指定时间参数
+//        datePicker.minimumDate = Date() + 3 * 24 * 3600
+//        datePicker.maximumDate = Date() + 10 * 24 * 3600
+//        datePicker.chooseDate = Date(timeIntervalSince1970: 1622367041)
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(okBtnClick))
         view.addGestureRecognizer(tap)
