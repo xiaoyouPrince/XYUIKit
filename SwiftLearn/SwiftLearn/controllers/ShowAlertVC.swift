@@ -40,7 +40,14 @@ class ShowAlertVC: UIViewController {
         xy_startShowAlert()
 //        XYPopView.showPopTip(.top, .zero, "dsdsdds")
         
-        let bView = BView(frame: CGRect(x: 10, y: 200, width: 245, height: 170))
+        let bView = UIView(frame: CGRect(x: 50, y: 200, width: 245, height: 170))
+        bView.backgroundColor = .white
+        bView.layer.cornerRadius = 10
+//        bView.clipsToBounds = true
+        bView.layer.shadowColor = UIColor.gray.cgColor
+        bView.layer.shadowOffset = CGSize(width: 0, height: 1)
+        bView.layer.shadowOpacity = 0.5
+        bView.layer.shadowRadius = 10
         view.addSubview(bView)
     }
 }
