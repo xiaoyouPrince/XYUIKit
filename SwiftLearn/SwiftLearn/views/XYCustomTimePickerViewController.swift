@@ -279,11 +279,11 @@ class CustomDatePicker: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
         }
         
         // 天数
-        var dayCount = Int(maximumDate.timeIntervalSinceNow / 24 / 3600) - Int(minimumDate.timeIntervalSinceNow / 24 / 3600)
+        var dayCount = Int(maximumDate.timeIntervalSince1970 / 24 / 3600) - Int(minimumDate.timeIntervalSince1970 / 24 / 3600)
         if dayCount <= 1 {
             dayCount = 60 // 最小给60天
         }
-        for index in 0...dayCount {
+        for index in 0..<dayCount {
             
             // 日期- 处理
             let calender = Calendar.current
@@ -447,7 +447,9 @@ class XYCustomTimePickerViewController: UIViewController {
         // 测试，指定时间参数
 //        datePicker.minimumDate = Date() + 3 * 24 * 3600
 //        datePicker.maximumDate = Date() + 10 * 24 * 3600
-//        datePicker.chooseDate = Date(timeIntervalSince1970: 1622367041)
+//        datePicker.minimumDate = Date(timeIntervalSince1970: 1622390400)
+//        datePicker.maximumDate = Date(timeIntervalSince1970: 1623684600)
+        datePicker.chooseDate = Date(timeIntervalSince1970: 1622367041)
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(okBtnClick))
         view.addGestureRecognizer(tap)
