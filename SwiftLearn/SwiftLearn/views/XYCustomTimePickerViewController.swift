@@ -185,48 +185,21 @@ class CustomDatePicker: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
             if monthDay == monthDayTitles.first, isTheSameDay(d1: minimumDate, d2: Date()) { // 第一天，即当天,计算当天数据
                 
                 let currentDayCount = getCurrentDayTimeCount()
-                // 有一种特殊情况，如 当前时间：23:40 ,当天是没有时间的，特殊处理为 24:00
-                if currentDayCount == 0 {
-                    timeArray.append("24:00")
-                }
-                
                 for index in 0..<currentDayCount {
                     
-                    let currentHour = getCurrentHour()
-                                        
-                    if currentDayCount % 2 == 0 { // 偶数个，说明是从 【 (currentHour + 1 ):00 】 开始
-                        let startHour = currentHour + 1
-                        // let startMinute = "00"
-                        var resultHour = 0
-                        var resultMinute = ""
-                        
-                        resultHour = index/2 + startHour
-                        resultMinute = ((index % 2) == 1) ? "30" : "00"
-                        let resultHourMinuteTitle = "\(resultHour):\(resultMinute)" as NSString
-                        if resultHourMinuteTitle.range(of: ":").location == 1 {
-                            timeArray.append("0\(resultHourMinuteTitle)")
-                        }else{
-                            timeArray.append(resultHourMinuteTitle as String)
-                        }
-                        
-                    }else{ // 奇数个，说明是从 【 currentHour:30 】 开始
-                        
-                        // 第 0 个特殊，去掉. egg: 当前时间为 00:10 应该有 47 个。 从 00:30 开始
-                        if index == 0 { continue }
-                        
-                        let startHour = currentHour
-                        // let startMinute = "30"
-                        var resultHour = 0
-                        var resultMinute = ""
-                        
-                        resultHour = index/2 + startHour
-                        resultMinute = ((index % 2) == 1) ? "30" : "00"
-                        let resultHourMinuteTitle = "\(resultHour):\(resultMinute)" as NSString
-                        if resultHourMinuteTitle.range(of: ":").location == 1 {
-                            timeArray.append("0\(resultHourMinuteTitle)")
-                        }else{
-                            timeArray.append(resultHourMinuteTitle as String)
-                        }
+                    let currentYear = getCurrentYear()
+                    let currentMonthStr = getCurrentMonth() >= 10 ? "\(getCurrentMonth())" : "0\(getCurrentMonth())"
+                    let currentDayStr = getCurrentDay() >= 10 ? "\(getCurrentDay())" : "0\(getCurrentDay())"
+                    let lastTimeStemp = "\(currentMonthStr):\(currentDayStr) 23:30"
+                    
+                    let dft = DateFormatter()
+                    dft.dateFormat = "yyyy:MM:dd HH:mm"
+                    if let lastDate = dft.date(from: "\(currentYear):\(lastTimeStemp)") {
+                        let currentDate = lastDate - TimeInterval((currentDayCount - 1 - index) * 30 * 60)
+                        let fmt_ = DateFormatter()
+                        fmt_.dateFormat = "HH:mm"
+                        let currentTimeTitle = fmt_.string(from: currentDate)
+                        timeArray.append(currentTimeTitle)
                     }
                 }
                 
@@ -406,16 +379,11 @@ class CustomDatePicker: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
                     self.picker.selectRow(timeRow, inComponent: 1, animated: true)
                     self.pickerView(self.picker, didSelectRow: timeRow, inComponent: 1)
                 }
-                
-                
-            }else
-            {
-            // 默认选中 第二天10:00
-                self.picker.selectRow(1, inComponent: 0, animated: true)
-                // 调用一次picker选中某行的代理函数，刷新数据
-                self.pickerView(self.picker, didSelectRow: 1, inComponent: 0)
-                self.picker.selectRow(20, inComponent: 1, animated: true) // 规律为 2n, n代表要选择的时间
-                self.pickerView(self.picker, didSelectRow: 20, inComponent: 1)
+            }else{
+                self.picker.selectRow(0, inComponent: 0, animated: true)
+                self.pickerView(self.picker, didSelectRow: 0, inComponent: 0)
+                self.picker.selectRow(0, inComponent: 1, animated: true)
+                self.pickerView(self.picker, didSelectRow: 0, inComponent: 1)
             }
         }
     }
