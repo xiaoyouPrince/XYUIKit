@@ -112,6 +112,12 @@ extension XYViewController {
                 "titleKey": "ShowAlertVC",
                 "value": "",
                 "type": 1
+            ],
+            [
+                "title": "时间相关测试",
+                "titleKey": "TimeViewController",
+                "value": "",
+                "type": 1
             ]
         ]
         

@@ -38,6 +38,8 @@
 		B472C5CA25825C7F005898C5 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B472C5C925825C7F005898C5 /* TableViewController.swift */; };
 		B472C5D2258316D0005898C5 /* ZLNewGreetingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B472C5D1258316D0005898C5 /* ZLNewGreetingView.swift */; };
 		B47EF034260630C200DE7EC3 /* Public.swift in Sources */ = {isa = PBXBuildFile; fileRef = B47EF033260630C200DE7EC3 /* Public.swift */; };
+		B48544912662A13000BC3738 /* Date+XYAdd.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48544902662A13000BC3738 /* Date+XYAdd.swift */; };
+		B49234032665F64A00F3FBED /* TimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49234022665F64A00F3FBED /* TimeViewController.swift */; };
 		B49C5E88264CBC4200AC1F67 /* XYAlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49C5E87264CBC4200AC1F67 /* XYAlertManager.swift */; };
 		B4AB9AD5262053A1006B034B /* MailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AB9AD4262053A1006B034B /* MailViewController.swift */; };
 		B4AD73D7263327E1005EB911 /* UILabel+XYAdd.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AD73D6263327E1005EB911 /* UILabel+XYAdd.swift */; };
@@ -95,6 +97,8 @@
 		B472C5C925825C7F005898C5 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		B472C5D1258316D0005898C5 /* ZLNewGreetingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLNewGreetingView.swift; sourceTree = "<group>"; };
 		B47EF033260630C200DE7EC3 /* Public.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Public.swift; sourceTree = "<group>"; };
+		B48544902662A13000BC3738 /* Date+XYAdd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+XYAdd.swift"; sourceTree = "<group>"; };
+		B49234022665F64A00F3FBED /* TimeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeViewController.swift; sourceTree = "<group>"; };
 		B49C5E87264CBC4200AC1F67 /* XYAlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XYAlertManager.swift; sourceTree = "<group>"; };
 		B4AB9AD4262053A1006B034B /* MailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailViewController.swift; sourceTree = "<group>"; };
 		B4AD73D6263327E1005EB911 /* UILabel+XYAdd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+XYAdd.swift"; sourceTree = "<group>"; };
@@ -181,6 +185,7 @@
 				B44012A52632B5E900C51E78 /* ZLWechatActionSheet.swift */,
 				B44578CF264A5A2900A4EFC8 /* ShowAlertVC.swift */,
 				B44578D2264A5F0E00A4EFC8 /* ZLJobCoordinationAlertController.swift */,
+				B49234022665F64A00F3FBED /* TimeViewController.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -245,6 +250,7 @@
 				B4B6304926355296001AFD02 /* UIColor+XYAdd.swift */,
 				B49C5E87264CBC4200AC1F67 /* XYAlertManager.swift */,
 				B41A87332654BA8500DE1E2E /* XYPopView.swift */,
+				B48544902662A13000BC3738 /* Date+XYAdd.swift */,
 			);
 			path = XYKitSwift;
 			sourceTree = "<group>";
@@ -383,11 +389,13 @@
 				B4D2DFA62611EDE400C2B6F9 /* XYViewController.swift in Sources */,
 				B4AB9AD5262053A1006B034B /* MailViewController.swift in Sources */,
 				B472C57825821DB1005898C5 /* ZLPushNotificationTipView.swift in Sources */,
+				B48544912662A13000BC3738 /* Date+XYAdd.swift in Sources */,
 				B43779962631988200311802 /* TYImageStorage.m in Sources */,
 				B47EF034260630C200DE7EC3 /* Public.swift in Sources */,
 				B49C5E88264CBC4200AC1F67 /* XYAlertManager.swift in Sources */,
 				B43779952631988200311802 /* TYViewStorage.m in Sources */,
 				B472C5D2258316D0005898C5 /* ZLNewGreetingView.swift in Sources */,
+				B49234032665F64A00F3FBED /* TimeViewController.swift in Sources */,
 				B422760F26131B7F0089C7C0 /* RefreshHeader.swift in Sources */,
 				B43779972631988200311802 /* NSMutableAttributedString+TY.m in Sources */,
 				B43779982631988200311802 /* TYImageCache.m in Sources */,
