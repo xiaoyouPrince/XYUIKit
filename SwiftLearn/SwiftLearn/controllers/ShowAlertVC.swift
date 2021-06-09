@@ -87,7 +87,7 @@ extension ShowAlertVC {
         
         
         let jobVC = XYCustomTimePickerViewController()
-        jobVC.cancelBlock = {
+        jobVC.cancelBlock = { (date) in
             item.showNext()
         }
         jobVC.title = item.title

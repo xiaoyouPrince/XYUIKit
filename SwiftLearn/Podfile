@@ -18,7 +18,7 @@ target 'SwiftLearn' do
 #  pod 'ZLProgressHUD', '0.1.2'
   
   
-  pod 'XYInfomationSection'
+  pod 'XYInfomationSection', '1.0.3'
 #  pod 'RealmSwift' 
   
 end

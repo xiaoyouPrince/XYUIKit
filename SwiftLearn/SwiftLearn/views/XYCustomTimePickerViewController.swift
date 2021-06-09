@@ -421,7 +421,10 @@ class CustomDatePicker: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
 class XYCustomTimePickerViewController: UIViewController {
     
     // 取消回调
-    open var cancelBlock: (() -> ())?
+    open var cancelBlock: ((_ choosenDate: Date) -> ())?
+    open var minDate = Date()
+    open var maxDate = Date() + 14 * 24 * 3600
+    open var chooseDate = Date()
     
     private var datePicker = CustomDatePicker()
     private var bgView = UIView()
@@ -449,7 +452,11 @@ class XYCustomTimePickerViewController: UIViewController {
 //        datePicker.maximumDate = Date() + 10 * 24 * 3600
 //        datePicker.minimumDate = Date(timeIntervalSince1970: 1622390400)
 //        datePicker.maximumDate = Date(timeIntervalSince1970: 1623684600)
-        datePicker.chooseDate = Date(timeIntervalSince1970: 1622367041)
+//        datePicker.chooseDate = Date(timeIntervalSince1970: 1622367041)
+        
+        datePicker.minimumDate = minDate
+        datePicker.maximumDate = maxDate
+        datePicker.chooseDate = chooseDate
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(okBtnClick))
         view.addGestureRecognizer(tap)
@@ -480,7 +487,7 @@ extension XYCustomTimePickerViewController {
             self.bgView.transform = .identity
         } completion: { (success) in
             self.dismiss(animated: false) {
-                self.cancelBlock?()
+                self.cancelBlock?(self.datePicker.date!)
             }
         }
     }
