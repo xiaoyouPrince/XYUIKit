@@ -17,7 +17,7 @@ class CustomDatePicker: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         
         let dataDict = self.dataDict as NSDictionary
-        let dayArr = getMonthDayTitles()
+        let dayArr = self.monthDayTitles
         
         let currentRow = pickerView.selectedRow(inComponent: 0)
         var currentDayTitle = dayArr[currentRow]
@@ -34,7 +34,7 @@ class CustomDatePicker: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
 
         if component == 0 {
-            return getMonthDayTitles()[row]
+            return self.monthDayTitles[row]
         }else{
             return theTimeArr[row]
         }
@@ -53,7 +53,7 @@ class CustomDatePicker: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
         
         if component == 0 {
             let dataDict = self.dataDict as NSDictionary
-            let dayArr = getMonthDayTitles()
+            let dayArr = self.monthDayTitles
             let currentDayTitleRow = pickerView.selectedRow(inComponent: 0)
             let currentDayTitle = dayArr[currentDayTitleRow]
             theTimeArr = dataDict[currentDayTitle] as! [String]
@@ -176,7 +176,7 @@ class CustomDatePicker: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
         
         var resultDict: [String : [String]] = [:]
         
-        let monthDayTitles: [String] = getMonthDayTitles()
+        let monthDayTitles: [String] = self.monthDayTitles
         
         // 此时 monthDay 格式为 MM:dd
         for monthDay in monthDayTitles {
@@ -234,6 +234,7 @@ class CustomDatePicker: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
         return resultDict
     }
     lazy var dataDict: [String: [String]] = getDataDictionary()
+    lazy var monthDayTitles: [String] = getMonthDayTitles()
     
     // 不直接用 dataDict.allKeys 是因为其返回的数组顺序错乱
     private func getMonthDayTitles() -> [String] {
@@ -357,7 +358,7 @@ class CustomDatePicker: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
                      
                     // 计算当前 日期行
                     var dayRow = -1
-                    for dayTitle in self.getMonthDayTitles() {
+                    for dayTitle in self.monthDayTitles {
                         dayRow += 1
                         if dayTitle.contains(monDayTitle) {
                             break
