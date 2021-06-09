@@ -327,7 +327,14 @@ class CustomDatePicker: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     open var date: Date?
-    open var minimumDate = Date()
+    open var minimumDate = Date() {
+        didSet{
+            // 如果设置的最小时间为 23：30 之后，直接将最小时间设置为次日 00：00
+            if Calendar.current.component(.hour, from: minimumDate) == 23, Calendar.current.component(.minute, from: minimumDate) >= 30 {
+                minimumDate = minimumDate + 30 * 60 // 直接加 30 分钟即可
+            }
+        }
+    }
     open var maximumDate = Date() + 60*24*3600
     open var chooseDate : Date?
     
