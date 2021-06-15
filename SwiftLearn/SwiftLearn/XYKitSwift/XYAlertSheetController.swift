@@ -272,7 +272,7 @@ extension XYAlertSheetController {
     
     func start() {
         
-        let isIPhoneX = UIScreen.main.bounds.size.height > 812
+        let isIPhoneX = UIScreen.main.bounds.size.height >= 812
         contentView.snp.remakeConstraints { (make) in
             make.left.right.equalToSuperview()
             if isIPhoneX{

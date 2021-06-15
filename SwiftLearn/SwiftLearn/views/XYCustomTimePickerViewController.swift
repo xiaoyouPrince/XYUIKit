@@ -322,6 +322,12 @@ class CustomDatePicker: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
         addSubview(picker)
         self.frame = picker.bounds
         
+        // 默认选中第一行
+        self.picker.selectRow(0, inComponent: 0, animated: true)
+        self.pickerView(self.picker, didSelectRow: 0, inComponent: 0)
+        self.picker.selectRow(0, inComponent: 1, animated: true)
+        self.pickerView(self.picker, didSelectRow: 0, inComponent: 1)
+        
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             if let chooseDate_ = self.chooseDate, chooseDate_ > self.minimumDate, chooseDate_ < self.maximumDate {
@@ -380,11 +386,6 @@ class CustomDatePicker: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
                     self.picker.selectRow(timeRow, inComponent: 1, animated: true)
                     self.pickerView(self.picker, didSelectRow: timeRow, inComponent: 1)
                 }
-            }else{
-                self.picker.selectRow(0, inComponent: 0, animated: true)
-                self.pickerView(self.picker, didSelectRow: 0, inComponent: 0)
-                self.picker.selectRow(0, inComponent: 1, animated: true)
-                self.pickerView(self.picker, didSelectRow: 0, inComponent: 1)
             }
         }
     }
