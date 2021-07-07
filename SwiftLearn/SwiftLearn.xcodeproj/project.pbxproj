@@ -45,6 +45,7 @@
 		B4AD73D7263327E1005EB911 /* UILabel+XYAdd.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AD73D6263327E1005EB911 /* UILabel+XYAdd.swift */; };
 		B4AD73DA2634699E005EB911 /* XYAlertSheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AD73D92634699E005EB911 /* XYAlertSheetController.swift */; };
 		B4B6304A26355296001AFD02 /* UIColor+XYAdd.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B6304926355296001AFD02 /* UIColor+XYAdd.swift */; };
+		B4CEBBD02693249300C3194B /* String+XYAdd.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4CEBBCF2693249300C3194B /* String+XYAdd.swift */; };
 		B4D2DFA62611EDE400C2B6F9 /* XYViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D2DFA52611EDE400C2B6F9 /* XYViewController.swift */; };
 		B4D9B11225998CD9006FB07D /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D9B11125998CD9006FB07D /* GradientView.swift */; };
 		DE9ED769F8970D5043F0EF7D /* Pods_SwiftLearn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E2B9E7E36D67F48D617BAC0 /* Pods_SwiftLearn.framework */; };
@@ -104,6 +105,7 @@
 		B4AD73D6263327E1005EB911 /* UILabel+XYAdd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+XYAdd.swift"; sourceTree = "<group>"; };
 		B4AD73D92634699E005EB911 /* XYAlertSheetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XYAlertSheetController.swift; sourceTree = "<group>"; };
 		B4B6304926355296001AFD02 /* UIColor+XYAdd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+XYAdd.swift"; sourceTree = "<group>"; };
+		B4CEBBCF2693249300C3194B /* String+XYAdd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+XYAdd.swift"; sourceTree = "<group>"; };
 		B4D2DFA52611EDE400C2B6F9 /* XYViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XYViewController.swift; sourceTree = "<group>"; };
 		B4D9B11125998CD9006FB07D /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		CD83975391CE8A4E380E2F03 /* Pods-SwiftLearn.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftLearn.debug.xcconfig"; path = "Target Support Files/Pods-SwiftLearn/Pods-SwiftLearn.debug.xcconfig"; sourceTree = "<group>"; };
@@ -251,6 +253,7 @@
 				B49C5E87264CBC4200AC1F67 /* XYAlertManager.swift */,
 				B41A87332654BA8500DE1E2E /* XYPopView.swift */,
 				B48544902662A13000BC3738 /* Date+XYAdd.swift */,
+				B4CEBBCF2693249300C3194B /* String+XYAdd.swift */,
 			);
 			path = XYKitSwift;
 			sourceTree = "<group>";
@@ -381,6 +384,7 @@
 				B43779942631988200311802 /* TYDrawStorage.m in Sources */,
 				B472C56125821D58005898C5 /* AppDelegate.swift in Sources */,
 				B44578D3264A5F0E00A4EFC8 /* ZLJobCoordinationAlertController.swift in Sources */,
+				B4CEBBD02693249300C3194B /* String+XYAdd.swift in Sources */,
 				B472C56325821D58005898C5 /* SceneDelegate.swift in Sources */,
 				B4AD73DA2634699E005EB911 /* XYAlertSheetController.swift in Sources */,
 				B4B6304A26355296001AFD02 /* UIColor+XYAdd.swift in Sources */,

@@ -76,6 +76,18 @@ class ViewController: UIViewController {
         // 打电话
         let phone = "13263226845#1401"
         type(of: self).openPhoneCall(phone)
+        
+        
+        
+        let header = HeaderView()
+        self.view.addSubview(header)
+        header.backgroundColor = .gray
+        header.snp.makeConstraints { (make) in
+            make.top.left.right.equalToSuperview()
+        }
+        
+        
+        
     }
 
     @IBAction func gotoTableVC(_ sender: Any) {
@@ -173,5 +185,145 @@ extension ViewController {
         } else {
             print("您的设备不支持打电话")
         }
+    }
+}
+
+class HeaderView: UIView {
+    
+    private class Item: UIView {
+        let margin = 12
+        
+        init(icon: UIImage, title: String, isLeft: Bool = false, isRight: Bool = false, isSecond: Bool = false, isThird: Bool = false) {
+            super.init(frame: .zero)
+            
+            let imageView = UIImageView(image: icon)
+            addSubview(imageView)
+            imageView.snp.makeConstraints { (make) in
+                make.top.equalTo(0)
+                
+                if isLeft == true {
+                    make.left.equalToSuperview()
+                }else if isRight == true {
+                    make.right.equalToSuperview()
+                }else{
+                    
+                    var margin = UIScreen.main.bounds.width == 375 ? 6 : 7;
+                    
+                    if isSecond {
+                        make.centerX.equalToSuperview().offset(-margin)
+                    }
+                    if isThird {
+                        make.centerX.equalToSuperview().offset(margin)
+                    }
+                }
+            }
+            
+            let titleLabel = UILabel()
+            titleLabel.text = title
+            titleLabel.font = UIFont.systemFont(ofSize: 13)
+            titleLabel.textColor = .red
+            addSubview(titleLabel)
+            titleLabel.snp.makeConstraints { (make) in
+                make.top.equalTo(imageView.snp.bottom).offset(8.5)
+                make.centerX.equalTo(imageView)
+            }
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+    }
+    
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        let imageView = UIImageView(image: UIImage(named: "ic_sheet_icon"))
+        addSubview(imageView)
+        imageView.snp.makeConstraints { (make) in
+            make.top.equalTo(30)
+            make.left.equalTo(22.5)
+            make.width.height.equalTo(80)
+        }
+        
+        let titleLabel = UILabel()
+        titleLabel.text = "正确示范"
+        titleLabel.font = UIFont.systemFont(ofSize: 16)
+        titleLabel.textColor = .red
+        addSubview(titleLabel)
+        titleLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(imageView).offset(2)
+            make.left.equalTo(imageView.snp.right).offset(20)
+        }
+        
+        let attText = NSMutableAttributedString(string: "上传真实头像，更容易获得人才信任，提升招聘效率哦～")
+        
+        let para = NSMutableParagraphStyle()
+        para.lineSpacing = 6
+        attText.addAttributes([.font : UIFont.systemFont(ofSize: 14),
+                               .foregroundColor: UIColor.green,
+                               .paragraphStyle : para], range: NSRange(location: 0, length: attText.length))
+        
+        let descLabel = UILabel()
+        descLabel.attributedText = attText
+        descLabel.numberOfLines = 2
+        addSubview(descLabel)
+        descLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(titleLabel.snp.bottom).offset(12)
+            make.left.equalTo(titleLabel)
+            make.right.equalToSuperview().offset(-44)
+        }
+        
+        let titleLabel2 = UILabel()
+        titleLabel2.text = "错误示范"
+        titleLabel2.font = UIFont.systemFont(ofSize: 16)
+        titleLabel2.textColor = .yellow
+        addSubview(titleLabel2)
+        titleLabel2.snp.makeConstraints { (make) in
+            make.top.equalTo(imageView.snp.bottom).offset(30)
+            make.left.equalTo(imageView)
+        }
+        
+        let titles = ["非人物照","五官遮挡","模糊不清","衣着不当"]
+        let margin: CGFloat = 23.0
+        let width = (UIScreen.main.bounds.width - 2*margin) / 4.0
+        for index in 0...3 {
+            
+            var item = Item(icon: UIImage(named: "ic_sheet_0")!, title: titles[index])
+            
+            
+            if index == 0 {
+                item = Item(icon: UIImage(named: "ic_sheet_0")!, title: titles[index],isLeft: true)
+                item.backgroundColor = .red
+            }
+            if index == 1 {
+                item = Item(icon: UIImage(named: "ic_sheet_0")!, title: titles[index],isSecond: true)
+                item.backgroundColor = .blue
+            }
+            if index == 2 {
+                item = Item(icon: UIImage(named: "ic_sheet_0")!, title: titles[index],isThird: true)
+                item.backgroundColor = .green
+            }
+            if index == 3 {
+                item = Item(icon: UIImage(named: "ic_sheet_0")!, title: titles[index],isRight: true)
+                item.backgroundColor = .yellow
+            }
+            
+            
+            
+            addSubview(item)
+            let index_ = CGFloat(index)
+            item.snp.makeConstraints { (make) in
+                make.left.equalTo(margin + index_ * width)
+                make.top.equalTo(titleLabel2.snp.bottom).offset(23)
+                make.width.equalTo(width)
+                make.height.equalTo(82)
+                make.bottom.equalToSuperview().offset(-10)
+            }
+        }
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
