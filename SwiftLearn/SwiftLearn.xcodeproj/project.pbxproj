@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		B41A87342654BA8500DE1E2E /* XYPopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B41A87332654BA8500DE1E2E /* XYPopView.swift */; };
 		B422760F26131B7F0089C7C0 /* RefreshHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B422760E26131B7F0089C7C0 /* RefreshHeader.swift */; };
+		B42AD11226B3BCAD003E191D /* NestedXYInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42AD11126B3BCAD003E191D /* NestedXYInfoViewController.swift */; };
 		B43779782631519D00311802 /* TipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43779772631519D00311802 /* TipView.swift */; };
 		B437797B2631522000311802 /* CustomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B437797A2631522000311802 /* CustomViewController.swift */; };
 		B43779932631988200311802 /* TYLinkTextStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = B43779802631988200311802 /* TYLinkTextStorage.m */; };
@@ -56,6 +57,7 @@
 		6FF8FF640A47B548767CBFF7 /* Pods-SwiftLearn.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftLearn.release.xcconfig"; path = "Target Support Files/Pods-SwiftLearn/Pods-SwiftLearn.release.xcconfig"; sourceTree = "<group>"; };
 		B41A87332654BA8500DE1E2E /* XYPopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XYPopView.swift; sourceTree = "<group>"; };
 		B422760E26131B7F0089C7C0 /* RefreshHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshHeader.swift; sourceTree = "<group>"; };
+		B42AD11126B3BCAD003E191D /* NestedXYInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestedXYInfoViewController.swift; sourceTree = "<group>"; };
 		B43779772631519D00311802 /* TipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipView.swift; sourceTree = "<group>"; };
 		B437797A2631522000311802 /* CustomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomViewController.swift; sourceTree = "<group>"; };
 		B437797F2631988200311802 /* TYAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYAttributedLabel.h; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 				B44578CF264A5A2900A4EFC8 /* ShowAlertVC.swift */,
 				B44578D2264A5F0E00A4EFC8 /* ZLJobCoordinationAlertController.swift */,
 				B49234022665F64A00F3FBED /* TimeViewController.swift */,
+				B42AD11126B3BCAD003E191D /* NestedXYInfoViewController.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -401,6 +404,7 @@
 				B472C5D2258316D0005898C5 /* ZLNewGreetingView.swift in Sources */,
 				B49234032665F64A00F3FBED /* TimeViewController.swift in Sources */,
 				B422760F26131B7F0089C7C0 /* RefreshHeader.swift in Sources */,
+				B42AD11226B3BCAD003E191D /* NestedXYInfoViewController.swift in Sources */,
 				B43779972631988200311802 /* NSMutableAttributedString+TY.m in Sources */,
 				B43779982631988200311802 /* TYImageCache.m in Sources */,
 				B44AB1FF262584B0006CB306 /* AnimationViewController.swift in Sources */,

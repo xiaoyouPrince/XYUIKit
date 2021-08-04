@@ -19,6 +19,6 @@ target 'SwiftLearn' do
   
   
   pod 'XYInfomationSection', '1.0.3'
-#  pod 'RealmSwift' 
+#  pod 'RealmSwift'
   
 end

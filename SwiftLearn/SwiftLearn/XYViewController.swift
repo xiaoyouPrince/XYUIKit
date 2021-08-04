@@ -121,8 +121,18 @@ extension XYViewController {
             ]
         ]
         
+        let b = [
+            [
+                "title": "内嵌的 XYInfomationVC",
+                "titleKey": "NestedXYInfoViewController",
+                "value": "去查看",
+                "type": 1
+            ]
+        ]
+        
         
         result.append(a)
+        result.append(b)
         
         return result
     }
