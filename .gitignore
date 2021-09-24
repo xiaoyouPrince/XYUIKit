@@ -1,0 +1,13 @@
+Pods
+Pods/
+Podfile.lock
+build/
+DerivedData/
+xcshareddata
+*.tar.gz
+##pod
+xcuserdata/
+*.xcuserstate
+*.DS_Store
+UserInterface.xcuserstate
+

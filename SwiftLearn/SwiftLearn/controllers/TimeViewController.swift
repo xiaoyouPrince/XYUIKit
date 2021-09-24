@@ -14,6 +14,21 @@ class TimeViewController: XYInfomationBaseViewController {
         super.viewDidLoad()
         view.backgroundColor = .groupTableViewBackground
         
+        if #available(iOS 14.0, *) {
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "返回", image: nil, primaryAction: nil, menu: nil)
+        } else {
+            // Fallback on earlier versions
+        }
+        
+        print(self.respondChainContains(NestedXYInfoViewController.self))
+        print(self.respondChainContains(XYViewController.self))
+        print(self.respondChainContains(NestedXYInfoViewController.self))
+        
+        print(self.respondChain())
+        print(self.view.respondChain())
+        
+        
+        
         self.setContentWithData(dataArr(), itemConfig: { (item) in
             item.titleWidthRate = 0.3
         }, sectionConfig: { (section) in
@@ -70,6 +85,17 @@ class TimeViewController: XYInfomationBaseViewController {
         print("TimeViewController - deinit")
         let params = getAllParams()
         print(params)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        print(self.respondChainContains(NestedXYInfoViewController.self))
+        print(self.respondChainContains(XYViewController.self))
+        print(self.respondChainContains(NestedXYInfoViewController.self))
+        
+        print(self.respondChain())
+        print(self.view.respondChain())
     }
 
 }

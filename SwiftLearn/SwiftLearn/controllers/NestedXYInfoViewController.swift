@@ -16,6 +16,8 @@ class NestedXYInfoViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .red
         
+        self.navigationController?.navigationBar.isTranslucent = false
+        
         reloadUI()
         
         let add = UIButton(type: .contactAdd)

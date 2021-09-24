@@ -15,6 +15,29 @@ class XYViewController: XYInfomationBaseViewController {
         super.viewDidLoad()
         self.view.backgroundColor = .groupTableViewBackground
         
+        
+        let label = UILabel()
+        label.text = "import XYInfomationSectionimport XYInfomationSectionimport XYInfomationSectionimport XYInfomationSectionimport XYInfomationSectionimport XYInfomationSectionimport XYInfomationSectionimport XYInfomationSectionimport XYInfomationSectionimport XYInfomationSection"
+        label.numberOfLines = 0
+        
+        view.addSubview(label)
+        label.snp.makeConstraints { (make) in
+            make.top.equalToSuperview().offset(100)
+            make.left.equalToSuperview().offset(30)
+            make.right.equalToSuperview().offset(-30)
+        }
+        
+        print("直接拿height",label.frame.height)
+        
+        view.setNeedsLayout()
+        view.layoutIfNeeded()
+        print("layout后height",label.frame.height)
+        
+        label.sizeToFit()
+        print("layout后height",label.frame.height)
+        
+        return;
+        
         self.scrollView.mj_header = MJRefreshNormalHeader(refreshingBlock: {
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
                 self.scrollView.mj_header?.endRefreshing()
@@ -125,6 +148,12 @@ extension XYViewController {
             [
                 "title": "内嵌的 XYInfomationVC",
                 "titleKey": "NestedXYInfoViewController",
+                "value": "去查看",
+                "type": 1
+            ],
+            [
+                "title": "页面绘制",
+                "titleKey": "CapatureViewController",
                 "value": "去查看",
                 "type": 1
             ]
