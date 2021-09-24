@@ -1,6 +1,0 @@
-framework module XYInfomationSection {
-  umbrella header "XYInfomationSection-umbrella.h"
-
-  export *
-  module * { export * }
-}
