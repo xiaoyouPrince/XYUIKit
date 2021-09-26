@@ -13,30 +13,30 @@ class XYViewController: XYInfomationBaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .groupTableViewBackground
+        self.view.backgroundColor = .yellow
         
         
-        let label = UILabel()
-        label.text = "import XYInfomationSectionimport XYInfomationSectionimport XYInfomationSectionimport XYInfomationSectionimport XYInfomationSectionimport XYInfomationSectionimport XYInfomationSectionimport XYInfomationSectionimport XYInfomationSectionimport XYInfomationSection"
-        label.numberOfLines = 0
-        
-        view.addSubview(label)
-        label.snp.makeConstraints { (make) in
-            make.top.equalToSuperview().offset(100)
-            make.left.equalToSuperview().offset(30)
-            make.right.equalToSuperview().offset(-30)
-        }
-        
-        print("直接拿height",label.frame.height)
-        
-        view.setNeedsLayout()
-        view.layoutIfNeeded()
-        print("layout后height",label.frame.height)
-        
-        label.sizeToFit()
-        print("layout后height",label.frame.height)
-        
-        return;
+//        let label = UILabel()
+//        label.text = "import XYInfomationSectionimport XYInfomationSectionimport XYInfomationSectionimport XYInfomationSectionimport XYInfomationSectionimport XYInfomationSectionimport XYInfomationSectionimport XYInfomationSectionimport XYInfomationSectionimport XYInfomationSection"
+//        label.numberOfLines = 0
+//        
+//        view.addSubview(label)
+//        label.snp.makeConstraints { (make) in
+//            make.top.equalToSuperview().offset(100)
+//            make.left.equalToSuperview().offset(30)
+//            make.right.equalToSuperview().offset(-30)
+//        }
+//        
+//        print("直接拿height",label.frame.height)
+//        
+//        view.setNeedsLayout()
+//        view.layoutIfNeeded()
+//        print("layout后height",label.frame.height)
+//        
+//        label.sizeToFit()
+//        print("layout后height",label.frame.height)
+//        
+//        return;
         
         self.scrollView.mj_header = MJRefreshNormalHeader(refreshingBlock: {
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {

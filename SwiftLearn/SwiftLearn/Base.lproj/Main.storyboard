@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--root-->
         <scene sceneID="5WI-8D-DaJ">
             <objects>
                 <viewController id="RSG-dh-1At" customClass="XYViewController" customModule="SwiftLearn" customModuleProvider="target" sceneMemberID="viewController">
@@ -19,7 +19,7 @@
                         <viewLayoutGuide key="safeArea" id="cYN-5T-1vP"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="oC5-hn-KBU"/>
+                    <navigationItem key="navigationItem" title="root" id="oC5-hn-KBU"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="P0C-CP-h6x" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -67,7 +67,7 @@
         <!--Navigation Controller-->
         <scene sceneID="m5i-kT-bAo">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="4lj-TQ-CfU" customClass="XYNavigationController" customModule="XYNav" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="4lj-TQ-CfU" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="30O-wY-Vc4">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>

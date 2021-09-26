@@ -7,18 +7,25 @@
 
 import XYInfomationSection
 import SVProgressHUD
+import XYNav
 
 class TimeViewController: XYInfomationBaseViewController {
+    
+    weak var timer: Timer?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .groupTableViewBackground
         
-        if #available(iOS 14.0, *) {
-            self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "返回", image: nil, primaryAction: nil, menu: nil)
-        } else {
-            // Fallback on earlier versions
-        }
+//        self.xy_isPopGestureEnable = false
+//        self.xy_popGestureRatio = 0.5
+        
+        view.backgroundColor = .green
+        
+        self.navigationItem.leftBarButtonItems = [UIBarButtonItem(title: "回去上一级", style: .plain, target: self, action: #selector(goback)),
+                                                  UIBarButtonItem(title: "回去上一级2", style: .plain, target: self, action: #selector(goback))]
+        self.navigationItem.title = "时间相关"
+        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(title: "回去上一级", style: .plain, target: self, action: #selector(goback))]
+        
         
         print(self.respondChainContains(NestedXYInfoViewController.self))
         print(self.respondChainContains(XYViewController.self))
@@ -28,12 +35,11 @@ class TimeViewController: XYInfomationBaseViewController {
         print(self.view.respondChain())
         
         
-        
         self.setContentWithData(dataArr(), itemConfig: { (item) in
             item.titleWidthRate = 0.3
         }, sectionConfig: { (section) in
             
-        }, sectionDistance: 10, contentEdgeInsets: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)) { (index, cell) in
+        }, sectionDistance: 10, contentEdgeInsets: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)) {[weak self] (index, cell) in
             
             if cell.model.titleKey == "currentTime" {
                 UIPasteboard.general.string = cell.model.value
@@ -45,7 +51,7 @@ class TimeViewController: XYInfomationBaseViewController {
                 return
             }
             let detailVC = clz.init()
-            let params = self.getAllParams()[1]
+            let params = self?.getAllParams()[1] ?? [:]
             detailVC.minDate = Date.date(withFormatter: "yyyy-MM-dd HH:mm:ss", dateString: params["minDate"]!) ?? Date()
             detailVC.maxDate = Date.date(withFormatter: "yyyy-MM-dd HH:mm:ss", dateString: params["maxDate"]!) ?? Date()
             detailVC.chooseDate = Date.date(withFormatter: "yyyy-MM-dd HH:mm:ss", dateString: params["chooseDate"]!) ?? Date()
@@ -54,10 +60,18 @@ class TimeViewController: XYInfomationBaseViewController {
                 let model = cell.model
                 cell.model = model
             }
-            self.present(detailVC, animated: false, completion: nil)
+            self?.present(detailVC, animated: false, completion: nil)
         }
         
         addFirstCellTimeRuns()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+//        self.navigationController?.navigationBar.isHidden = true
+    }
+    
+    @objc func goback(){
+        self.navigationController?.popViewController(animated: true)
     }
     
     func addFirstCellTimeRuns() {
@@ -70,6 +84,7 @@ class TimeViewController: XYInfomationBaseViewController {
             firstCell.model = model
         }
         RunLoop.current.add(timer, forMode: .common)
+        self.timer = timer
     }
     
     func getAllParams() -> [[String: String]] {
@@ -79,6 +94,10 @@ class TimeViewController: XYInfomationBaseViewController {
             params.append(section.contentKeyValues as! [String: String])
         }
         return params
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        self.timer?.invalidate()
     }
     
     deinit {
