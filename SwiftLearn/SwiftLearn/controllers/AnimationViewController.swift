@@ -76,7 +76,7 @@ class AnimationViewController: UIViewController {
             closeBtn = UIImageView(image: closeImage)
             superView.addSubview(closeBtn)
 
-            let starImage = UIImage(named: "alert_resume_expose")
+            let starImage = UIImage(named: "alert_resume_expose")?.xy_blurImage(0.9)
             bgView = UIImageView(image: starImage)
             superView.addSubview(bgView)
             
@@ -162,6 +162,7 @@ class AnimationViewController: UIViewController {
             bgView.snp.remakeConstraints { (make) in
                 make.top.equalTo(187)
                 make.centerX.equalToSuperview()
+                make.size.equalTo(UIImage(named: "alert_resume_expose")!.size)
             }
             tipLabel.snp.remakeConstraints { (make) in
                 make.top.equalTo(bgView!.snp.top).offset(221)

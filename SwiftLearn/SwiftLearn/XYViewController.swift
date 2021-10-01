@@ -14,6 +14,7 @@ class XYViewController: XYInfomationBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .yellow
+//        self.navigationController?.navigationBar.isTranslucent = false
         
         
 //        let label = UILabel()
@@ -68,6 +69,8 @@ class XYViewController: XYInfomationBaseViewController {
             
 //            let detailVC = clz.self.init()
             let detailVC = clz.init()
+            detailVC.title = cell.model.title
+            detailVC.xy_popGestureRatio = 0.3
             
             print(detailVC)
             print("goto sub vc")

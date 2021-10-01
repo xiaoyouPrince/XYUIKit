@@ -73,7 +73,7 @@ class ZLJobCoordinationAlertController: UIViewController {
             make.left.right.equalToSuperview()
             make.top.equalTo(topIV.snp.bottom)
         }
-        let image_bg = UIImage(named: "job_coordination")
+        let image_bg = UIImage(named: "job_coordination")?.xy_blurImage(0.99)
         let bg_IV = UIImageView(image: image_bg)
         bg_IV.sizeToFit()
         bottomView.addSubview(bg_IV)
@@ -84,7 +84,7 @@ class ZLJobCoordinationAlertController: UIViewController {
             make.bottom.equalToSuperview()
         }
         
-        let image_ok = UIImage(named: "job_okBtn")
+        let image_ok = UIImage(named: "job_okBtn")?.xy_blurImage(0.6)
         let okBtn = UIButton()
         okBtn.setImage(image_ok, for: .normal)
         okBtn.sizeToFit()

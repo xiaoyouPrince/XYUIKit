@@ -29,6 +29,7 @@
 		B45CE06826BA956200639E27 /* CapatureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45CE06626BA956200639E27 /* CapatureViewController.swift */; };
 		B45CE06926BA956200639E27 /* CapatureViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B45CE06726BA956200639E27 /* CapatureViewController.xib */; };
 		B45CE06D26BA957F00639E27 /* Capture.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45CE06C26BA957F00639E27 /* Capture.swift */; };
+		B45D60BF2700BC7F0093E9C0 /* UIImage+XYAdd.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45D60BE2700BC7F0093E9C0 /* UIImage+XYAdd.swift */; };
 		B460DB5D25F5F8C300AF3685 /* Image.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B460DB5C25F5F8C300AF3685 /* Image.xcassets */; };
 		B46930992615D3C600512B2F /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46930982615D3C600512B2F /* File.swift */; };
 		B471EF362657B950004FD238 /* XYCustomTimePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B471EF352657B950004FD238 /* XYCustomTimePickerViewController.swift */; };
@@ -92,6 +93,7 @@
 		B45CE06626BA956200639E27 /* CapatureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapatureViewController.swift; sourceTree = "<group>"; };
 		B45CE06726BA956200639E27 /* CapatureViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CapatureViewController.xib; sourceTree = "<group>"; };
 		B45CE06C26BA957F00639E27 /* Capture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Capture.swift; sourceTree = "<group>"; };
+		B45D60BE2700BC7F0093E9C0 /* UIImage+XYAdd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+XYAdd.swift"; sourceTree = "<group>"; };
 		B460DB5C25F5F8C300AF3685 /* Image.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Image.xcassets; sourceTree = "<group>"; };
 		B46930982615D3C600512B2F /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		B471EF352657B950004FD238 /* XYCustomTimePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XYCustomTimePickerViewController.swift; sourceTree = "<group>"; };
@@ -277,6 +279,7 @@
 				B48544902662A13000BC3738 /* Date+XYAdd.swift */,
 				B4CEBBCF2693249300C3194B /* String+XYAdd.swift */,
 				B4EC40CE26CCFED200A35D74 /* UIResponder+XYAdd.swift */,
+				B45D60BE2700BC7F0093E9C0 /* UIImage+XYAdd.swift */,
 			);
 			path = XYKitSwift;
 			sourceTree = "<group>";
@@ -433,6 +436,7 @@
 				B43779982631988200311802 /* TYImageCache.m in Sources */,
 				B44AB1FF262584B0006CB306 /* AnimationViewController.swift in Sources */,
 				B437797B2631522000311802 /* CustomViewController.swift in Sources */,
+				B45D60BF2700BC7F0093E9C0 /* UIImage+XYAdd.swift in Sources */,
 				B46930992615D3C600512B2F /* File.swift in Sources */,
 				B44012A62632B5E900C51E78 /* ZLWechatActionSheet.swift in Sources */,
 				B437799B2631988200311802 /* TYTextContainer+Extended.m in Sources */,

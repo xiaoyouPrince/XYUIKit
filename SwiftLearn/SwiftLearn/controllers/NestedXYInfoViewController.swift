@@ -11,6 +11,8 @@ import SVProgressHUD
 import XYInfomationSection
 
 class NestedXYInfoViewController: UIViewController {
+    
+    var addBtn: UIButton?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +25,8 @@ class NestedXYInfoViewController: UIViewController {
         let add = UIButton(type: .contactAdd)
         self.view.addSubview(add)
         add.addTarget(self, action: #selector(touchesBegan__), for: .touchUpInside)
-        add.frame = CGRect(x: 100, y: 200, width: 50, height: 50)
+        add.frame = CGRect(x: 100, y: 400, width: 50, height: 50)
+        addBtn = add
     }
     
     @objc func touchesBegan__() {
@@ -31,6 +34,7 @@ class NestedXYInfoViewController: UIViewController {
         navigationController?.setNavigationBarHidden(rad, animated: true)
         
         reloadUI()
+        view.bringSubviewToFront(addBtn!)
     }
     
     
