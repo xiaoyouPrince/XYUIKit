@@ -26,6 +26,7 @@
 		B44578D0264A5A2900A4EFC8 /* ShowAlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44578CF264A5A2900A4EFC8 /* ShowAlertVC.swift */; };
 		B44578D3264A5F0E00A4EFC8 /* ZLJobCoordinationAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44578D2264A5F0E00A4EFC8 /* ZLJobCoordinationAlertController.swift */; };
 		B44AB1FF262584B0006CB306 /* AnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44AB1FE262584B0006CB306 /* AnimationViewController.swift */; };
+		B4569D3D27170D880038E972 /* IMViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4569D3C27170D880038E972 /* IMViewController.swift */; };
 		B45CE06826BA956200639E27 /* CapatureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45CE06626BA956200639E27 /* CapatureViewController.swift */; };
 		B45CE06926BA956200639E27 /* CapatureViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B45CE06726BA956200639E27 /* CapatureViewController.xib */; };
 		B45CE06D26BA957F00639E27 /* Capture.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45CE06C26BA957F00639E27 /* Capture.swift */; };
@@ -90,6 +91,7 @@
 		B44578CF264A5A2900A4EFC8 /* ShowAlertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowAlertVC.swift; sourceTree = "<group>"; };
 		B44578D2264A5F0E00A4EFC8 /* ZLJobCoordinationAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLJobCoordinationAlertController.swift; sourceTree = "<group>"; };
 		B44AB1FE262584B0006CB306 /* AnimationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationViewController.swift; sourceTree = "<group>"; };
+		B4569D3C27170D880038E972 /* IMViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IMViewController.swift; sourceTree = "<group>"; };
 		B45CE06626BA956200639E27 /* CapatureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapatureViewController.swift; sourceTree = "<group>"; };
 		B45CE06726BA956200639E27 /* CapatureViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CapatureViewController.xib; sourceTree = "<group>"; };
 		B45CE06C26BA957F00639E27 /* Capture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Capture.swift; sourceTree = "<group>"; };
@@ -211,6 +213,7 @@
 				B44578D2264A5F0E00A4EFC8 /* ZLJobCoordinationAlertController.swift */,
 				B49234022665F64A00F3FBED /* TimeViewController.swift */,
 				B42AD11126B3BCAD003E191D /* NestedXYInfoViewController.swift */,
+				B4569D3C27170D880038E972 /* IMViewController.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -430,6 +433,7 @@
 				B4EC40CF26CCFED200A35D74 /* UIResponder+XYAdd.swift in Sources */,
 				B49234032665F64A00F3FBED /* TimeViewController.swift in Sources */,
 				B45CE06D26BA957F00639E27 /* Capture.swift in Sources */,
+				B4569D3D27170D880038E972 /* IMViewController.swift in Sources */,
 				B422760F26131B7F0089C7C0 /* RefreshHeader.swift in Sources */,
 				B42AD11226B3BCAD003E191D /* NestedXYInfoViewController.swift in Sources */,
 				B43779972631988200311802 /* NSMutableAttributedString+TY.m in Sources */,

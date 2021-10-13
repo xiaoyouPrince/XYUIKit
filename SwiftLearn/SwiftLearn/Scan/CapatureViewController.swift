@@ -16,6 +16,12 @@ class CapatureViewController: UIViewController {
         
         let cap = CapatureView()
         self.view.addSubview(cap)
+        
+        if #available(iOS 14.0, *) {
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(title: "返回", style: .plain, target: self, action: #selector(goback))
+        } else {
+            // Fallback on earlier versions
+        }
 
     }
     
@@ -23,6 +29,10 @@ class CapatureViewController: UIViewController {
         self.view.subviews.first?.frame = view.bounds
         
         print(Date.init())
+    }
+    
+    @objc func goback(){
+        self.navigationController?.popViewController(animated: true)
     }
 }
 
