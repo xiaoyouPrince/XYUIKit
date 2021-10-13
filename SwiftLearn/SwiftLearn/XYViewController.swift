@@ -159,6 +159,12 @@ extension XYViewController {
                 "titleKey": "CapatureViewController",
                 "value": "去查看",
                 "type": 1
+            ],
+            [
+                "title": "消息输入框",
+                "titleKey": "IMViewController",
+                "value": "去查看",
+                "type": 1
             ]
         ]
         
