@@ -5,22 +5,30 @@
 //  Created by 渠晓友 on 2021/10/13.
 //
 
+func isIPhoneX() -> Bool {
+    return UIApplication.shared.statusBarFrame.height != 20
+}
+func bottomSafeH() -> CGFloat {
+    return isIPhoneX() ? 34 : 0
+}
 
 import UIKit
 
 class IMViewController: UIViewController {
+    
+    var bar = IMInputBar()
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .groupTableViewBackground
         
-        let bar = IMInputBar(frame: .zero)
+        bar = IMInputBar(frame: .zero)
         view.addSubview(bar)
-        if #available(iOS 11.0, *) {
-            bar.frame = CGRect(x: 0, y: self.view.bounds.height - 34 - 56, width: UIScreen.main.bounds.width, height: 56)
-            
-        } else {
-            bar.frame = CGRect(x: 0, y: 420, width: UIScreen.main.bounds.width, height: 56)
-        }
+    
+        bar.frame = CGRect(x: 0, y: self.view.bounds.height - bottomSafeH() - 56, width: UIScreen.main.bounds.width, height: 56)
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        bar.textView.resignFirstResponder()
     }
 }
 
@@ -42,6 +50,7 @@ class IMInputBar: UIView, UITextViewDelegate {
         textView.backgroundColor = .red//UIColor.groupTableViewBackground
         textView.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         textView.textContainerInset = UIEdgeInsets(top: 9, left: 16, bottom: 9, right: 16)
+        textView.returnKeyType = .send
         self.addSubview(textView)
         return textView
     }()
@@ -61,7 +70,7 @@ class IMInputBar: UIView, UITextViewDelegate {
         textView.frame = CGRect(x: 12, y: 8, width: UIScreen.main.bounds.width - 100, height: 40)
         sendBtn.frame = CGRect(x: textView.frame.maxX + 12, y: 8, width: 70, height: 40)
         
-//        self.frame = CGRect(x: 0, y: 420, width: UIScreen.main.bounds.width, height: 56)
+        self.addKeyNotification()
     }
     
     required init?(coder: NSCoder) {
@@ -120,5 +129,40 @@ class IMInputBar: UIView, UITextViewDelegate {
                 subView.frame = CGRect(x: subView.frame.origin.x, y: self.bounds.height - subView.frame.size.height - vInset, width: subView.frame.size.width, height: subView.frame.size.height)
             }
         }
+    }
+    
+    
+    func addKeyNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: IMInputBar.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: IMInputBar.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc func keyboardWillShow(_ noti: Notification){
+        print(noti)
+        
+        guard let userInfo = noti.userInfo as? [String: Any],
+            let kbHeight = userInfo["UIKeyboardBoundsUserInfoKey"] as? CGRect,
+            let time = userInfo["UIKeyboardAnimationDurationUserInfoKey"] as? TimeInterval else {
+            return
+        }
+
+        UIView.animate(withDuration: time, delay: 0, options: .allowAnimatedContent) {
+            self.frame.origin.y -= kbHeight.height - bottomSafeH()
+        } completion: { finish in }
+    }
+    
+    @objc func keyboardWillHide(_ noti: Notification){
+        print(noti)
+
+        
+        guard let userInfo = noti.userInfo as? [String: Any],
+            let kbHeight = userInfo["UIKeyboardBoundsUserInfoKey"] as? CGRect,
+            let time = userInfo["UIKeyboardAnimationDurationUserInfoKey"] as? TimeInterval else {
+            return
+        }
+        
+        UIView.animate(withDuration: time, delay: 0, options: .allowAnimatedContent) {
+            self.frame.origin.y += kbHeight.height - bottomSafeH()
+        } completion: { finish in }
     }
 }
