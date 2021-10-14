@@ -34,7 +34,7 @@ class IMViewController: UIViewController {
 
 
 /// 类会自适应高度，无需设置高度
-class IMInputBar: UIView, UITextViewDelegate {
+class IMInputBar: UIView {
     
     // MARK: - 私有属性内部使用
     /// 上次高度，内部自适应输入内容高度
@@ -59,6 +59,7 @@ class IMInputBar: UIView, UITextViewDelegate {
         let sendBtn = UIButton()
         sendBtn.backgroundColor = UIColor.blue.withAlphaComponent(0.85)
         sendBtn.setTitle("发送", for: .normal)
+        sendBtn.addTarget(self, action: #selector(sendBtnClick), for: .touchUpInside)
         self.addSubview(sendBtn)
         return sendBtn
     }()
@@ -73,12 +74,40 @@ class IMInputBar: UIView, UITextViewDelegate {
         self.addKeyNotification()
     }
     
+    @objc func sendBtnClick(){
+        
+        if textView.inputView == nil {
+            
+            textView.resignFirstResponder()
+            let inputView = UIView()
+            inputView.backgroundColor = .green
+            inputView.frame = CGRect(x: 0, y: 0, width: 300, height: 200)
+            
+            textView.inputView = inputView
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+                self.textView.becomeFirstResponder()
+            }
+        }else{
+            textView.resignFirstResponder()
+            textView.inputView = nil
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+                self.textView.becomeFirstResponder()
+            }
+        }
+        
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - UITextViewDelegate
-    func textViewDidChange(_ textView: UITextView) {
+    
+    
+    /// textView 内部内容改动时候适配高度
+    /// - Parameter textView: 调整的 textView，即内部 textView
+    func adjustSelfFrame(with textView: UITextView){
         
         lastHeight = textView.frame.height
         // print(textView.contentSize)
@@ -138,29 +167,52 @@ class IMInputBar: UIView, UITextViewDelegate {
     }
     
     @objc func keyboardWillShow(_ noti: Notification){
-        //print(noti)
+        print(noti)
         guard let userInfo = noti.userInfo as? [String: Any],
-            let kbRect = userInfo["UIKeyboardBoundsUserInfoKey"] as? CGRect,
+            let kbEndFrame = userInfo["UIKeyboardFrameEndUserInfoKey"] as? CGRect,
             let time = userInfo["UIKeyboardAnimationDurationUserInfoKey"] as? TimeInterval else {
             return
         }
 
+        if time == 0 {
+            self.layer.removeAllAnimations()
+            let deltaY = self.frame.origin.y - kbEndFrame.origin.y + self.frame.height
+            self.frame = CGRect(x: self.frame.origin.x, y: self.frame.origin.y - deltaY, width: self.frame.size.width, height: self.frame.size.height)
+            return
+        }
         UIView.animate(withDuration: time, delay: 0, options: .allowAnimatedContent) {
-            let deltaY = kbRect.size.height - bottomSafeH()
-            self.transform = CGAffineTransform.init(translationX: 0, y: -deltaY)
+            let deltaY = self.frame.origin.y - kbEndFrame.origin.y + self.frame.height
+            self.frame = CGRect(x: self.frame.origin.x, y: self.frame.origin.y - deltaY, width: self.frame.size.width, height: self.frame.size.height)
         } completion: { finish in }
     }
     
     @objc func keyboardWillHide(_ noti: Notification){
-        //print(noti)
+        print(noti)
         guard let userInfo = noti.userInfo as? [String: Any],
-            //let kbRect = userInfo["UIKeyboardBoundsUserInfoKey"] as? CGRect,
+            let kbEndFrame = userInfo["UIKeyboardFrameEndUserInfoKey"] as? CGRect,
             let time = userInfo["UIKeyboardAnimationDurationUserInfoKey"] as? TimeInterval else {
             return
         }
         
+        if time == 0 {
+            self.layer.removeAllAnimations()
+            let deltaY = self.frame.origin.y - kbEndFrame.origin.y + self.frame.height + bottomSafeH()
+            self.frame = CGRect(x: self.frame.origin.x, y: self.frame.origin.y - deltaY, width: self.frame.size.width, height: self.frame.size.height)
+            return
+        }
         UIView.animate(withDuration: time, delay: 0, options: .allowAnimatedContent) {
-            self.transform = .identity
+            let deltaY = self.frame.origin.y - kbEndFrame.origin.y + self.frame.height + bottomSafeH()
+            self.frame = CGRect(x: self.frame.origin.x, y: self.frame.origin.y - deltaY, width: self.frame.size.width, height: self.frame.size.height)
         } completion: { finish in }
     }
+}
+
+extension IMInputBar: UITextViewDelegate {
+    
+    // MARK: - UITextViewDelegate
+    func textViewDidChange(_ textView: UITextView) {
+        adjustSelfFrame(with: textView)
+    }
+    
+
 }
