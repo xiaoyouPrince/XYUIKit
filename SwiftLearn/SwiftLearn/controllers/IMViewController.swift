@@ -24,7 +24,8 @@ class IMViewController: UIViewController {
         bar = IMInputBar(frame: .zero)
         view.addSubview(bar)
     
-        bar.frame = CGRect(x: 0, y: self.view.bounds.height - bottomSafeH() - 56, width: UIScreen.main.bounds.width, height: 56)
+        //bar.frame = CGRect(x: 0, y: self.view.bounds.height - 56, width: view.bounds.width, height: 56)
+        bar.frame.origin.y = 100
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -34,6 +35,7 @@ class IMViewController: UIViewController {
 
 
 /// 类会自适应高度，无需设置高度
+/// 初始默认高度 56，默认会设置 frame 为 screen 宽度
 class IMInputBar: UIView {
     
     // MARK: - 私有属性内部使用
@@ -70,6 +72,7 @@ class IMInputBar: UIView {
         
         textView.frame = CGRect(x: 12, y: 8, width: UIScreen.main.bounds.width - 100, height: 40)
         sendBtn.frame = CGRect(x: textView.frame.maxX + 12, y: 8, width: 70, height: 40)
+        self.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 56)
         
         self.addKeyNotification()
     }
