@@ -138,31 +138,29 @@ class IMInputBar: UIView, UITextViewDelegate {
     }
     
     @objc func keyboardWillShow(_ noti: Notification){
-        print(noti)
-        
+        //print(noti)
         guard let userInfo = noti.userInfo as? [String: Any],
-            let kbHeight = userInfo["UIKeyboardBoundsUserInfoKey"] as? CGRect,
+            let kbRect = userInfo["UIKeyboardBoundsUserInfoKey"] as? CGRect,
             let time = userInfo["UIKeyboardAnimationDurationUserInfoKey"] as? TimeInterval else {
             return
         }
 
         UIView.animate(withDuration: time, delay: 0, options: .allowAnimatedContent) {
-            self.frame.origin.y -= kbHeight.height - bottomSafeH()
+            let deltaY = kbRect.size.height - bottomSafeH()
+            self.transform = CGAffineTransform.init(translationX: 0, y: -deltaY)
         } completion: { finish in }
     }
     
     @objc func keyboardWillHide(_ noti: Notification){
-        print(noti)
-
-        
+        //print(noti)
         guard let userInfo = noti.userInfo as? [String: Any],
-            let kbHeight = userInfo["UIKeyboardBoundsUserInfoKey"] as? CGRect,
+            //let kbRect = userInfo["UIKeyboardBoundsUserInfoKey"] as? CGRect,
             let time = userInfo["UIKeyboardAnimationDurationUserInfoKey"] as? TimeInterval else {
             return
         }
         
         UIView.animate(withDuration: time, delay: 0, options: .allowAnimatedContent) {
-            self.frame.origin.y += kbHeight.height - bottomSafeH()
+            self.transform = .identity
         } completion: { finish in }
     }
 }
