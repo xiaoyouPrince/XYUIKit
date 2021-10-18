@@ -51,6 +51,15 @@
 		B4AD73D7263327E1005EB911 /* UILabel+XYAdd.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AD73D6263327E1005EB911 /* UILabel+XYAdd.swift */; };
 		B4AD73DA2634699E005EB911 /* XYAlertSheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AD73D92634699E005EB911 /* XYAlertSheetController.swift */; };
 		B4B6304A26355296001AFD02 /* UIColor+XYAdd.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B6304926355296001AFD02 /* UIColor+XYAdd.swift */; };
+		B4C88D3E2718090E007921EB /* EmotionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C88D342718090E007921EB /* EmotionViewCell.swift */; };
+		B4C88D3F2718090E007921EB /* Emoticons.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B4C88D352718090E007921EB /* Emoticons.bundle */; };
+		B4C88D402718090E007921EB /* FindEmotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C88D362718090E007921EB /* FindEmotion.swift */; };
+		B4C88D412718090E007921EB /* EmotionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C88D382718090E007921EB /* EmotionManager.swift */; };
+		B4C88D422718090E007921EB /* EmotionPackage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C88D392718090E007921EB /* EmotionPackage.swift */; };
+		B4C88D432718090E007921EB /* Emotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C88D3A2718090E007921EB /* Emotion.swift */; };
+		B4C88D442718090E007921EB /* UITextView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C88D3B2718090E007921EB /* UITextView+Extension.swift */; };
+		B4C88D452718090E007921EB /* EmotionAttchment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C88D3C2718090E007921EB /* EmotionAttchment.swift */; };
+		B4C88D462718090E007921EB /* EmotionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C88D3D2718090E007921EB /* EmotionController.swift */; };
 		B4CEBBD02693249300C3194B /* String+XYAdd.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4CEBBCF2693249300C3194B /* String+XYAdd.swift */; };
 		B4D2DFA62611EDE400C2B6F9 /* XYViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D2DFA52611EDE400C2B6F9 /* XYViewController.swift */; };
 		B4D9B11225998CD9006FB07D /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D9B11125998CD9006FB07D /* GradientView.swift */; };
@@ -118,6 +127,15 @@
 		B4AD73D6263327E1005EB911 /* UILabel+XYAdd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+XYAdd.swift"; sourceTree = "<group>"; };
 		B4AD73D92634699E005EB911 /* XYAlertSheetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XYAlertSheetController.swift; sourceTree = "<group>"; };
 		B4B6304926355296001AFD02 /* UIColor+XYAdd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+XYAdd.swift"; sourceTree = "<group>"; };
+		B4C88D342718090E007921EB /* EmotionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionViewCell.swift; sourceTree = "<group>"; };
+		B4C88D352718090E007921EB /* Emoticons.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Emoticons.bundle; sourceTree = "<group>"; };
+		B4C88D362718090E007921EB /* FindEmotion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindEmotion.swift; sourceTree = "<group>"; };
+		B4C88D382718090E007921EB /* EmotionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionManager.swift; sourceTree = "<group>"; };
+		B4C88D392718090E007921EB /* EmotionPackage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionPackage.swift; sourceTree = "<group>"; };
+		B4C88D3A2718090E007921EB /* Emotion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Emotion.swift; sourceTree = "<group>"; };
+		B4C88D3B2718090E007921EB /* UITextView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextView+Extension.swift"; sourceTree = "<group>"; };
+		B4C88D3C2718090E007921EB /* EmotionAttchment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionAttchment.swift; sourceTree = "<group>"; };
+		B4C88D3D2718090E007921EB /* EmotionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionController.swift; sourceTree = "<group>"; };
 		B4CEBBCF2693249300C3194B /* String+XYAdd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+XYAdd.swift"; sourceTree = "<group>"; };
 		B4D2DFA52611EDE400C2B6F9 /* XYViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XYViewController.swift; sourceTree = "<group>"; };
 		B4D9B11125998CD9006FB07D /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
@@ -157,6 +175,7 @@
 		B437797D2631986D00311802 /* 3td */ = {
 			isa = PBXGroup;
 			children = (
+				B4C88D332718090E007921EB /* Emotion */,
 				B437797E2631988200311802 /* TYAttributedLabel */,
 			);
 			path = 3td;
@@ -287,6 +306,30 @@
 			path = XYKitSwift;
 			sourceTree = "<group>";
 		};
+		B4C88D332718090E007921EB /* Emotion */ = {
+			isa = PBXGroup;
+			children = (
+				B4C88D342718090E007921EB /* EmotionViewCell.swift */,
+				B4C88D352718090E007921EB /* Emoticons.bundle */,
+				B4C88D362718090E007921EB /* FindEmotion.swift */,
+				B4C88D372718090E007921EB /* Model */,
+				B4C88D3B2718090E007921EB /* UITextView+Extension.swift */,
+				B4C88D3C2718090E007921EB /* EmotionAttchment.swift */,
+				B4C88D3D2718090E007921EB /* EmotionController.swift */,
+			);
+			path = Emotion;
+			sourceTree = "<group>";
+		};
+		B4C88D372718090E007921EB /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B4C88D382718090E007921EB /* EmotionManager.swift */,
+				B4C88D392718090E007921EB /* EmotionPackage.swift */,
+				B4C88D3A2718090E007921EB /* Emotion.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -347,6 +390,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B472C56D25821D5A005898C5 /* LaunchScreen.storyboard in Resources */,
+				B4C88D3F2718090E007921EB /* Emoticons.bundle in Resources */,
 				B45CE06926BA956200639E27 /* CapatureViewController.xib in Resources */,
 				B460DB5D25F5F8C300AF3685 /* Image.xcassets in Resources */,
 				B472C56A25821D5A005898C5 /* Assets.xcassets in Resources */,
@@ -403,6 +447,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B4C88D452718090E007921EB /* EmotionAttchment.swift in Sources */,
+				B4C88D442718090E007921EB /* UITextView+Extension.swift in Sources */,
 				B437799A2631988200311802 /* TYAttributedLabel.m in Sources */,
 				B471EF362657B950004FD238 /* XYCustomTimePickerViewController.swift in Sources */,
 				B437799C2631988200311802 /* TYTextContainer.m in Sources */,
@@ -433,13 +479,19 @@
 				B4EC40CF26CCFED200A35D74 /* UIResponder+XYAdd.swift in Sources */,
 				B49234032665F64A00F3FBED /* TimeViewController.swift in Sources */,
 				B45CE06D26BA957F00639E27 /* Capture.swift in Sources */,
+				B4C88D3E2718090E007921EB /* EmotionViewCell.swift in Sources */,
+				B4C88D402718090E007921EB /* FindEmotion.swift in Sources */,
 				B4569D3D27170D880038E972 /* IMViewController.swift in Sources */,
 				B422760F26131B7F0089C7C0 /* RefreshHeader.swift in Sources */,
+				B4C88D422718090E007921EB /* EmotionPackage.swift in Sources */,
+				B4C88D432718090E007921EB /* Emotion.swift in Sources */,
 				B42AD11226B3BCAD003E191D /* NestedXYInfoViewController.swift in Sources */,
 				B43779972631988200311802 /* NSMutableAttributedString+TY.m in Sources */,
 				B43779982631988200311802 /* TYImageCache.m in Sources */,
 				B44AB1FF262584B0006CB306 /* AnimationViewController.swift in Sources */,
+				B4C88D462718090E007921EB /* EmotionController.swift in Sources */,
 				B437797B2631522000311802 /* CustomViewController.swift in Sources */,
+				B4C88D412718090E007921EB /* EmotionManager.swift in Sources */,
 				B45D60BF2700BC7F0093E9C0 /* UIImage+XYAdd.swift in Sources */,
 				B46930992615D3C600512B2F /* File.swift in Sources */,
 				B44012A62632B5E900C51E78 /* ZLWechatActionSheet.swift in Sources */,

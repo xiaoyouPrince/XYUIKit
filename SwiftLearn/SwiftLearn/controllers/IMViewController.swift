@@ -5,6 +5,18 @@
 //  Created by 渠晓友 on 2021/10/13.
 //
 
+// MARK: - 打印增强
+func Dlog<T>(_ message : T ,file : String = #file , funName : String = #function , lineNum : Int = #line){
+    
+    let filePath = (file as NSString).lastPathComponent
+    
+    #if DEBUG
+        
+        print("\(filePath):\(funName):第\(lineNum)行-\n\(message)")
+        
+    #endif
+}
+
 func isIPhoneX() -> Bool {
     return UIApplication.shared.statusBarFrame.height != 20
 }
@@ -24,8 +36,9 @@ class IMViewController: UIViewController {
         bar = IMInputBar(frame: .zero)
         view.addSubview(bar)
     
-        //bar.frame = CGRect(x: 0, y: self.view.bounds.height - 56, width: view.bounds.width, height: 56)
-        bar.frame.origin.y = 100
+        let inputBarY = self.view.bounds.height - bottomSafeH() - 56
+        bar.frame = CGRect(x: 0, y: inputBarY, width: view.bounds.width, height: 56)
+        //bar.frame.origin.y = 100
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -41,6 +54,9 @@ class IMInputBar: UIView {
     // MARK: - 私有属性内部使用
     /// 上次高度，内部自适应输入内容高度
     private var lastHeight: CGFloat = 0
+    fileprivate lazy var emotionVC : EmotionController = EmotionController {[unowned self] (emtion) in
+        self.insertEmotionIntoTextView(emtion)
+    }
     
     // MARK: - 共有有属性，可外部使用
     /// 默认自适应高度最大值，当输入内容自适应高度大于此值，不再变高，输入内容变为可滚动
@@ -84,9 +100,9 @@ class IMInputBar: UIView {
             textView.resignFirstResponder()
             let inputView = UIView()
             inputView.backgroundColor = .green
-            inputView.frame = CGRect(x: 0, y: 0, width: 300, height: 200)
+            inputView.frame = CGRect(x: 0, y: 0, width: 300, height: 600)
             
-            textView.inputView = inputView
+            textView.inputView = emotionVC.view
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
                 self.textView.becomeFirstResponder()
@@ -106,6 +122,10 @@ class IMInputBar: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    fileprivate func insertEmotionIntoTextView(_ emotion : Emotion){
+        textView.insertEmotionToTextView(emotion: emotion)
+        textView.didChangeValue(forKey: "")
+    }
     
     
     /// textView 内部内容改动时候适配高度
