@@ -9,6 +9,6 @@
 //#define SwiftLearn-Bridging-Header_h
 
 #import "TYAttributedLabel.h"
-
+#import "SVProgressHUD.h"
 
 //#endif /* Header_h */

@@ -62,6 +62,11 @@
 		B4C88D462718090E007921EB /* EmotionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C88D3D2718090E007921EB /* EmotionController.swift */; };
 		B4CEBBD02693249300C3194B /* String+XYAdd.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4CEBBCF2693249300C3194B /* String+XYAdd.swift */; };
 		B4D2DFA62611EDE400C2B6F9 /* XYViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D2DFA52611EDE400C2B6F9 /* XYViewController.swift */; };
+		B4D811C52741A32D00E02582 /* SVRadialGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B4D811BC2741A32D00E02582 /* SVRadialGradientLayer.m */; };
+		B4D811C62741A32D00E02582 /* SVProgressAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = B4D811BF2741A32D00E02582 /* SVProgressAnimatedView.m */; };
+		B4D811C72741A32D00E02582 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = B4D811C12741A32D00E02582 /* SVProgressHUD.m */; };
+		B4D811C82741A32D00E02582 /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = B4D811C22741A32D00E02582 /* SVIndefiniteAnimatedView.m */; };
+		B4D811C92741A32D00E02582 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B4D811C32741A32D00E02582 /* SVProgressHUD.bundle */; };
 		B4D9B11225998CD9006FB07D /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D9B11125998CD9006FB07D /* GradientView.swift */; };
 		B4EC40CF26CCFED200A35D74 /* UIResponder+XYAdd.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EC40CE26CCFED200A35D74 /* UIResponder+XYAdd.swift */; };
 		DE9ED769F8970D5043F0EF7D /* Pods_SwiftLearn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E2B9E7E36D67F48D617BAC0 /* Pods_SwiftLearn.framework */; };
@@ -138,6 +143,15 @@
 		B4C88D3D2718090E007921EB /* EmotionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionController.swift; sourceTree = "<group>"; };
 		B4CEBBCF2693249300C3194B /* String+XYAdd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+XYAdd.swift"; sourceTree = "<group>"; };
 		B4D2DFA52611EDE400C2B6F9 /* XYViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XYViewController.swift; sourceTree = "<group>"; };
+		B4D811BC2741A32D00E02582 /* SVRadialGradientLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVRadialGradientLayer.m; sourceTree = "<group>"; };
+		B4D811BD2741A32D00E02582 /* SVIndefiniteAnimatedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVIndefiniteAnimatedView.h; sourceTree = "<group>"; };
+		B4D811BE2741A32D00E02582 /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
+		B4D811BF2741A32D00E02582 /* SVProgressAnimatedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressAnimatedView.m; sourceTree = "<group>"; };
+		B4D811C02741A32D00E02582 /* SVRadialGradientLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVRadialGradientLayer.h; sourceTree = "<group>"; };
+		B4D811C12741A32D00E02582 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
+		B4D811C22741A32D00E02582 /* SVIndefiniteAnimatedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVIndefiniteAnimatedView.m; sourceTree = "<group>"; };
+		B4D811C32741A32D00E02582 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
+		B4D811C42741A32D00E02582 /* SVProgressAnimatedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressAnimatedView.h; sourceTree = "<group>"; };
 		B4D9B11125998CD9006FB07D /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		B4EC40CE26CCFED200A35D74 /* UIResponder+XYAdd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIResponder+XYAdd.swift"; sourceTree = "<group>"; };
 		CD83975391CE8A4E380E2F03 /* Pods-SwiftLearn.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftLearn.debug.xcconfig"; path = "Target Support Files/Pods-SwiftLearn/Pods-SwiftLearn.debug.xcconfig"; sourceTree = "<group>"; };
@@ -175,6 +189,7 @@
 		B437797D2631986D00311802 /* 3td */ = {
 			isa = PBXGroup;
 			children = (
+				B4D811BB2741A32D00E02582 /* SVProgressHUD */,
 				B4C88D332718090E007921EB /* Emotion */,
 				B437797E2631988200311802 /* TYAttributedLabel */,
 			);
@@ -330,6 +345,22 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		B4D811BB2741A32D00E02582 /* SVProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				B4D811BC2741A32D00E02582 /* SVRadialGradientLayer.m */,
+				B4D811BD2741A32D00E02582 /* SVIndefiniteAnimatedView.h */,
+				B4D811BE2741A32D00E02582 /* SVProgressHUD.h */,
+				B4D811BF2741A32D00E02582 /* SVProgressAnimatedView.m */,
+				B4D811C02741A32D00E02582 /* SVRadialGradientLayer.h */,
+				B4D811C12741A32D00E02582 /* SVProgressHUD.m */,
+				B4D811C22741A32D00E02582 /* SVIndefiniteAnimatedView.m */,
+				B4D811C32741A32D00E02582 /* SVProgressHUD.bundle */,
+				B4D811C42741A32D00E02582 /* SVProgressAnimatedView.h */,
+			);
+			path = SVProgressHUD;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -389,6 +420,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B4D811C92741A32D00E02582 /* SVProgressHUD.bundle in Resources */,
 				B472C56D25821D5A005898C5 /* LaunchScreen.storyboard in Resources */,
 				B4C88D3F2718090E007921EB /* Emoticons.bundle in Resources */,
 				B45CE06926BA956200639E27 /* CapatureViewController.xib in Resources */,
@@ -452,6 +484,7 @@
 				B437799A2631988200311802 /* TYAttributedLabel.m in Sources */,
 				B471EF362657B950004FD238 /* XYCustomTimePickerViewController.swift in Sources */,
 				B437799C2631988200311802 /* TYTextContainer.m in Sources */,
+				B4D811C72741A32D00E02582 /* SVProgressHUD.m in Sources */,
 				B43779782631519D00311802 /* TipView.swift in Sources */,
 				B472C5CA25825C7F005898C5 /* TableViewController.swift in Sources */,
 				B472C56525821D58005898C5 /* ViewController.swift in Sources */,
@@ -466,6 +499,7 @@
 				B4B6304A26355296001AFD02 /* UIColor+XYAdd.swift in Sources */,
 				B43779992631988200311802 /* TYTextStorage.m in Sources */,
 				B44578D0264A5A2900A4EFC8 /* ShowAlertVC.swift in Sources */,
+				B4D811C82741A32D00E02582 /* SVIndefiniteAnimatedView.m in Sources */,
 				B4D2DFA62611EDE400C2B6F9 /* XYViewController.swift in Sources */,
 				B4AB9AD5262053A1006B034B /* MailViewController.swift in Sources */,
 				B472C57825821DB1005898C5 /* ZLPushNotificationTipView.swift in Sources */,
@@ -482,12 +516,14 @@
 				B4C88D3E2718090E007921EB /* EmotionViewCell.swift in Sources */,
 				B4C88D402718090E007921EB /* FindEmotion.swift in Sources */,
 				B4569D3D27170D880038E972 /* IMViewController.swift in Sources */,
+				B4D811C52741A32D00E02582 /* SVRadialGradientLayer.m in Sources */,
 				B422760F26131B7F0089C7C0 /* RefreshHeader.swift in Sources */,
 				B4C88D422718090E007921EB /* EmotionPackage.swift in Sources */,
 				B4C88D432718090E007921EB /* Emotion.swift in Sources */,
 				B42AD11226B3BCAD003E191D /* NestedXYInfoViewController.swift in Sources */,
 				B43779972631988200311802 /* NSMutableAttributedString+TY.m in Sources */,
 				B43779982631988200311802 /* TYImageCache.m in Sources */,
+				B4D811C62741A32D00E02582 /* SVProgressAnimatedView.m in Sources */,
 				B44AB1FF262584B0006CB306 /* AnimationViewController.swift in Sources */,
 				B4C88D462718090E007921EB /* EmotionController.swift in Sources */,
 				B437797B2631522000311802 /* CustomViewController.swift in Sources */,

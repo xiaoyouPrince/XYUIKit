@@ -6,7 +6,6 @@
 //
 
 import XYInfomationSection
-import SVProgressHUD
 import XYNav
 
 class TimeViewController: XYInfomationBaseViewController {

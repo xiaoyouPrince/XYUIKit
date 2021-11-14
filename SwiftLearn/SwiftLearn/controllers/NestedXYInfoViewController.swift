@@ -7,7 +7,6 @@
 //  支持内嵌 XYInfomationSection 使用
 
 import UIKit
-import SVProgressHUD
 import XYInfomationSection
 
 class NestedXYInfoViewController: UIViewController {

@@ -18,30 +18,12 @@ import Foundation
 extension Date {
     
     // MARK: - 获取 Date 的 世纪、年、月、日、时、分、秒、周、周汉字版、周英文版、是当年第几周、是当月第几周、是否闰年
-    
-    func currentYear() -> Int{
+    /// 获取当前 Date 内容
+    /// - Parameter com: 日历组件
+    /// - Returns: the result
+    func current(component com: Calendar.Component) -> Int {
         let calender = Calendar.current
-        return calender.component(.year, from: self)
-    }
-    
-    func currentMonth() -> Int{
-        let calender = Calendar.current
-        return calender.component(.month, from: self)
-    }
-    
-    func currentDay() -> Int{
-        let calender = Calendar.current
-        return calender.component(.day, from: self)
-    }
-    
-    func currentHour() -> Int{
-        let calender = Calendar.current
-        return calender.component(.hour, from: self)
-    }
-    
-    func currentMinute() -> Int{
-        let calender = Calendar.current
-        return calender.component(.minute, from: self)
+        return calender.component(com, from: self)
     }
     
     // MARK: - 时间比较

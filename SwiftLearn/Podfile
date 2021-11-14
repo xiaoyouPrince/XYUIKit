@@ -14,8 +14,7 @@ target 'SwiftLearn' do
   
   # pod 'TYAttributedLabel', '~> 2.6.2' // 网络上下不了，直接导入了
   
-  pod 'SVProgressHUD'
-#  pod 'ZLProgressHUD', '0.1.2'
+  #pod 'SVProgressHUD'
   
   
   pod 'XYInfomationSection'#, '1.0.3'
