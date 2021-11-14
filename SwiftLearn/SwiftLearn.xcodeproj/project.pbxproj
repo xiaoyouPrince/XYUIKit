@@ -259,7 +259,7 @@
 			isa = PBXGroup;
 			children = (
 				B45CE06526BA921800639E27 /* Scan */,
-				B4AD73D526332756005EB911 /* XYKitSwift */,
+				B4AD73D526332756005EB911 /* XYSwiftExtension */,
 				B437797D2631986D00311802 /* 3td */,
 				B46930962615CFD900512B2F /* controllers */,
 				B472C57625821DA0005898C5 /* views */,
@@ -290,7 +290,7 @@
 			path = views;
 			sourceTree = "<group>";
 		};
-		B4AD73D526332756005EB911 /* XYKitSwift */ = {
+		B4AD73D526332756005EB911 /* XYSwiftExtension */ = {
 			isa = PBXGroup;
 			children = (
 				B4AD73D6263327E1005EB911 /* UILabel+XYAdd.swift */,
@@ -303,7 +303,7 @@
 				B4EC40CE26CCFED200A35D74 /* UIResponder+XYAdd.swift */,
 				B45D60BE2700BC7F0093E9C0 /* UIImage+XYAdd.swift */,
 			);
-			path = XYKitSwift;
+			path = XYSwiftExtension;
 			sourceTree = "<group>";
 		};
 		B4C88D332718090E007921EB /* Emotion */ = {

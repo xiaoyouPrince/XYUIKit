@@ -102,7 +102,8 @@ class IMInputBar: UIView {
             inputView.backgroundColor = .green
             inputView.frame = CGRect(x: 0, y: 0, width: 300, height: 600)
             
-            textView.inputView = emotionVC.view
+            textView.inputView = inputView
+//            textView.inputView = emotionVC.view
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
                 self.textView.becomeFirstResponder()
