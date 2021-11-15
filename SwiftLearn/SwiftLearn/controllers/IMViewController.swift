@@ -39,6 +39,37 @@ class IMViewController: UIViewController {
         let inputBarY = self.view.bounds.height - bottomSafeH() - 56
         bar.frame = CGRect(x: 0, y: inputBarY, width: view.bounds.width, height: 56)
         //bar.frame.origin.y = 100
+        
+//        var hasShow = false
+//        UILabel.xy_showTip("before show  -- \(hasShow)", self.view)
+//        doSth(withName: "showIMVC", maxTimes: 3, timeInterval: 60) { shouldDo, count in
+//            if shouldDo {
+//                UILabel.xy_showTip("showIMVC" + "count - \(count)", self.view)
+//            }else{
+//                UILabel.xy_showTip("Unable to show", self.view)
+//            }
+//
+//            hasShow = shouldDo
+//        }
+//        UILabel.xy_showTip("after show -- \(hasShow)", self.view)
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        
+        let presentVC = UIViewController()
+        presentVC.view.backgroundColor = .red
+        self.present(presentVC, animated: true) {
+            print(currentVisibleController())
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            let presentVC2 = UIViewController()
+            presentVC2.view.backgroundColor = .yellow
+            presentVC.present(presentVC2, animated: true) {
+                print(currentVisibleController())
+            }
+        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

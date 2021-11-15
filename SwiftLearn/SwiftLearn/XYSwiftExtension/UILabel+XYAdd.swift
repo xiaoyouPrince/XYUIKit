@@ -22,7 +22,7 @@ extension UILabel {
     ///   - animationDuration: 动画时间
     ///   - exitsTime: 存在的时间
     static func xy_showTip(_ tip: String,
-                 _ superView: UIView?,
+                 _ superView: UIView? = nil,
                  _ textColor: UIColor = .white,
                  _ bgColor: UIColor = UIColor.black.withAlphaComponent(0.85),
                  _ fontSize: CGFloat = 14,

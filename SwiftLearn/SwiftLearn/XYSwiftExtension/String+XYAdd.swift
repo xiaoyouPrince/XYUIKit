@@ -10,6 +10,10 @@ import Foundation
 
 extension String {
     
+    func length() -> Int {
+        return self.count
+    }
+    
     static func getAttributeString(with orginStr: String, font: UIFont = UIFont.systemFont(ofSize: 14), textColor: UIColor = .black, lineSpace: Int = 4) -> NSAttributedString? {
         
         let paraph = NSMutableParagraphStyle()
@@ -23,15 +27,7 @@ extension String {
     }
     
     func getAttributeString(with font: UIFont = UIFont.systemFont(ofSize: 14), textColor: UIColor = .black, lineSpace: Int = 4) -> NSAttributedString? {
-        
-        let paraph = NSMutableParagraphStyle()
-        paraph.lineSpacing = 4
-        let tipAttriStr: NSMutableAttributedString = NSMutableAttributedString(string: self, attributes: [
-            .font : font,
-            .foregroundColor : textColor,
-            .paragraphStyle : paraph
-            ])
-        return tipAttriStr
+        String.getAttributeString(with: self, font: font, textColor: textColor, lineSpace: lineSpace)
     }
     
 }

@@ -90,6 +90,15 @@ class XYViewController: XYInfomationBaseViewController {
                 }
             }
         }
+        
+        print("".length())
+        print("1".length())
+        print("12".length())
+        print("sdf".length())
+        print("1ddg".length())
+        print("你好".length())
+        print("你好123😆".length())
+        
     }
 }
 
