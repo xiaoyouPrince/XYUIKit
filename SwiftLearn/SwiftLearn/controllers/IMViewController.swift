@@ -57,19 +57,19 @@ class IMViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         
-        let presentVC = UIViewController()
-        presentVC.view.backgroundColor = .red
-        self.present(presentVC, animated: true) {
-            print(currentVisibleController())
-        }
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            let presentVC2 = UIViewController()
-            presentVC2.view.backgroundColor = .yellow
-            presentVC.present(presentVC2, animated: true) {
-                print(currentVisibleController())
-            }
-        }
+//        let presentVC = UIViewController()
+//        presentVC.view.backgroundColor = .red
+//        self.present(presentVC, animated: true) {
+//            print(currentVisibleController())
+//        }
+//
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+//            let presentVC2 = UIViewController()
+//            presentVC2.view.backgroundColor = .yellow
+//            presentVC.present(presentVC2, animated: true) {
+//                print(currentVisibleController())
+//            }
+//        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

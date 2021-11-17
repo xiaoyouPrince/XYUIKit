@@ -51,3 +51,21 @@ func doSth(withName name: String, maxTimes times: Int, timeInterval: TimeInterva
     let doneCount = UserDefaults.standard.object(forKey: SomeThingCountKey) as? Int
     sth(shouldDo, doneCount ?? 0)
 }
+
+/// 在对象的生命周期内只执行一次事件
+/// - Parameters:
+///   - obj: 执行回调的对象，通常为 viewController 中
+///   - function: 要执行的函数回调
+///   - file: 当前文件，无需手动入参
+///   - funName: 当前执行的所在的函数名，无需入参
+///   - lineNum: 当前执行所在的行数，无需入参
+func doOnce(inObjLife obj: AnyObject, _ function: ()->(), file : String = #file , funName : String = #function , lineNum : Int = #line) {
+
+    var key = file + funName + "\(lineNum)"
+    guard let hasDone = objc_getAssociatedObject(obj, &key) as? String else {
+        
+        function()
+        objc_setAssociatedObject(obj, &key, key, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        return
+    }
+}
