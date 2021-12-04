@@ -51,6 +51,7 @@
 		B4AD73D7263327E1005EB911 /* UILabel+XYAdd.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AD73D6263327E1005EB911 /* UILabel+XYAdd.swift */; };
 		B4AD73DA2634699E005EB911 /* XYAlertSheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AD73D92634699E005EB911 /* XYAlertSheetController.swift */; };
 		B4B6304A26355296001AFD02 /* UIColor+XYAdd.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B6304926355296001AFD02 /* UIColor+XYAdd.swift */; };
+		B4C14146275A19A10006B73F /* XYRefreshTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C14145275A19A10006B73F /* XYRefreshTableViewController.swift */; };
 		B4C88D3E2718090E007921EB /* EmotionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C88D342718090E007921EB /* EmotionViewCell.swift */; };
 		B4C88D3F2718090E007921EB /* Emoticons.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B4C88D352718090E007921EB /* Emoticons.bundle */; };
 		B4C88D402718090E007921EB /* FindEmotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C88D362718090E007921EB /* FindEmotion.swift */; };
@@ -69,6 +70,7 @@
 		B4D811C92741A32D00E02582 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B4D811C32741A32D00E02582 /* SVProgressHUD.bundle */; };
 		B4D811CB2741A4C900E02582 /* XYFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D811CA2741A4C900E02582 /* XYFunctions.swift */; };
 		B4D9B11225998CD9006FB07D /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D9B11125998CD9006FB07D /* GradientView.swift */; };
+		B4DD65F9275A73A300151635 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DD65F8275A73A300151635 /* ListViewController.swift */; };
 		B4EC40CF26CCFED200A35D74 /* UIResponder+XYAdd.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EC40CE26CCFED200A35D74 /* UIResponder+XYAdd.swift */; };
 		DE9ED769F8970D5043F0EF7D /* Pods_SwiftLearn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E2B9E7E36D67F48D617BAC0 /* Pods_SwiftLearn.framework */; };
 /* End PBXBuildFile section */
@@ -133,6 +135,7 @@
 		B4AD73D6263327E1005EB911 /* UILabel+XYAdd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+XYAdd.swift"; sourceTree = "<group>"; };
 		B4AD73D92634699E005EB911 /* XYAlertSheetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XYAlertSheetController.swift; sourceTree = "<group>"; };
 		B4B6304926355296001AFD02 /* UIColor+XYAdd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+XYAdd.swift"; sourceTree = "<group>"; };
+		B4C14145275A19A10006B73F /* XYRefreshTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XYRefreshTableViewController.swift; sourceTree = "<group>"; };
 		B4C88D342718090E007921EB /* EmotionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionViewCell.swift; sourceTree = "<group>"; };
 		B4C88D352718090E007921EB /* Emoticons.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Emoticons.bundle; sourceTree = "<group>"; };
 		B4C88D362718090E007921EB /* FindEmotion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindEmotion.swift; sourceTree = "<group>"; };
@@ -155,6 +158,7 @@
 		B4D811C42741A32D00E02582 /* SVProgressAnimatedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressAnimatedView.h; sourceTree = "<group>"; };
 		B4D811CA2741A4C900E02582 /* XYFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XYFunctions.swift; sourceTree = "<group>"; };
 		B4D9B11125998CD9006FB07D /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		B4DD65F8275A73A300151635 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		B4EC40CE26CCFED200A35D74 /* UIResponder+XYAdd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIResponder+XYAdd.swift"; sourceTree = "<group>"; };
 		CD83975391CE8A4E380E2F03 /* Pods-SwiftLearn.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftLearn.debug.xcconfig"; path = "Target Support Files/Pods-SwiftLearn/Pods-SwiftLearn.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -250,6 +254,7 @@
 				B49234022665F64A00F3FBED /* TimeViewController.swift */,
 				B42AD11126B3BCAD003E191D /* NestedXYInfoViewController.swift */,
 				B4569D3C27170D880038E972 /* IMViewController.swift */,
+				B4DD65F8275A73A300151635 /* ListViewController.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -320,6 +325,7 @@
 				B4EC40CE26CCFED200A35D74 /* UIResponder+XYAdd.swift */,
 				B45D60BE2700BC7F0093E9C0 /* UIImage+XYAdd.swift */,
 				B4D811CA2741A4C900E02582 /* XYFunctions.swift */,
+				B4C14145275A19A10006B73F /* XYRefreshTableViewController.swift */,
 			);
 			path = XYSwiftExtension;
 			sourceTree = "<group>";
@@ -482,6 +488,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B4DD65F9275A73A300151635 /* ListViewController.swift in Sources */,
 				B4C88D452718090E007921EB /* EmotionAttchment.swift in Sources */,
 				B4C88D442718090E007921EB /* UITextView+Extension.swift in Sources */,
 				B437799A2631988200311802 /* TYAttributedLabel.m in Sources */,
@@ -490,6 +497,7 @@
 				B4D811C72741A32D00E02582 /* SVProgressHUD.m in Sources */,
 				B4D811CB2741A4C900E02582 /* XYFunctions.swift in Sources */,
 				B43779782631519D00311802 /* TipView.swift in Sources */,
+				B4C14146275A19A10006B73F /* XYRefreshTableViewController.swift in Sources */,
 				B472C5CA25825C7F005898C5 /* TableViewController.swift in Sources */,
 				B472C56525821D58005898C5 /* ViewController.swift in Sources */,
 				B41A87342654BA8500DE1E2E /* XYPopView.swift in Sources */,

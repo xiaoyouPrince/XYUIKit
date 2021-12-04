@@ -171,7 +171,9 @@ extension XYViewController {
             ],
             [
                 "title": "消息输入框",
-                "titleKey": "IMViewController",
+                "titleKey": "ListViewController",
+                //"titleKey": "XYRefreshTableViewController",
+                //"titleKey": "IMViewController",
                 "value": "去查看",
                 "type": 1
             ]
