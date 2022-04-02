@@ -72,6 +72,7 @@
 		B4D9B11225998CD9006FB07D /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D9B11125998CD9006FB07D /* GradientView.swift */; };
 		B4DD65F9275A73A300151635 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DD65F8275A73A300151635 /* ListViewController.swift */; };
 		B4EC40CF26CCFED200A35D74 /* UIResponder+XYAdd.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EC40CE26CCFED200A35D74 /* UIResponder+XYAdd.swift */; };
+		B4FBF4F727F8A48500BFE0CE /* XYTagsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FBF4F627F8A48500BFE0CE /* XYTagsView.swift */; };
 		DE9ED769F8970D5043F0EF7D /* Pods_SwiftLearn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E2B9E7E36D67F48D617BAC0 /* Pods_SwiftLearn.framework */; };
 /* End PBXBuildFile section */
 
@@ -160,6 +161,7 @@
 		B4D9B11125998CD9006FB07D /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		B4DD65F8275A73A300151635 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		B4EC40CE26CCFED200A35D74 /* UIResponder+XYAdd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIResponder+XYAdd.swift"; sourceTree = "<group>"; };
+		B4FBF4F627F8A48500BFE0CE /* XYTagsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XYTagsView.swift; sourceTree = "<group>"; };
 		CD83975391CE8A4E380E2F03 /* Pods-SwiftLearn.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftLearn.debug.xcconfig"; path = "Target Support Files/Pods-SwiftLearn/Pods-SwiftLearn.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -326,6 +328,7 @@
 				B45D60BE2700BC7F0093E9C0 /* UIImage+XYAdd.swift */,
 				B4D811CA2741A4C900E02582 /* XYFunctions.swift */,
 				B4C14145275A19A10006B73F /* XYRefreshTableViewController.swift */,
+				B4FBF4F627F8A48500BFE0CE /* XYTagsView.swift */,
 			);
 			path = XYSwiftExtension;
 			sourceTree = "<group>";
@@ -523,6 +526,7 @@
 				B472C5D2258316D0005898C5 /* ZLNewGreetingView.swift in Sources */,
 				B45CE06826BA956200639E27 /* CapatureViewController.swift in Sources */,
 				B4EC40CF26CCFED200A35D74 /* UIResponder+XYAdd.swift in Sources */,
+				B4FBF4F727F8A48500BFE0CE /* XYTagsView.swift in Sources */,
 				B49234032665F64A00F3FBED /* TimeViewController.swift in Sources */,
 				B45CE06D26BA957F00639E27 /* Capture.swift in Sources */,
 				B4C88D3E2718090E007921EB /* EmotionViewCell.swift in Sources */,
