@@ -105,6 +105,18 @@ class XYViewController: XYInfomationBaseViewController {
 
 extension XYViewController {
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if #available(iOS 15.0, *) {
+            let app = UITabBarAppearance()
+            tabBarController?.tabBar.scrollEdgeAppearance = app
+        } else {
+            // Fallback on earlier versions
+        }
+        
+    }
+    
     func dataArr() -> [Any] {
         var result: [[[String: Any]]] = [
             [

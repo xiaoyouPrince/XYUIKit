@@ -17,7 +17,11 @@ class NestedXYInfoViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .red
         
-        self.navigationController?.navigationBar.isTranslucent = false
+//        navigationController?.navigationBar.barTintColor = UIColor.green//.withAlphaComponent(0.5)
+//        self.navigationController?.navigationBar.isTranslucent = false
+        
+//        navigationController?.navigationBar.barTintColor = .black
+        
         
         reloadUI()
         

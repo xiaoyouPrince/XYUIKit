@@ -12,6 +12,9 @@ import MJRefresh
 
 protocol XYRefreshTableProtocol {
     
+    var theEmptyView: UIView { get }
+    var theTableView: UITableView { get }
+    
     /// 开始头部刷新
     func startHeaderRefresh()
     /// 开始尾部刷新
@@ -185,17 +188,69 @@ open class XYRefreshTableViewController: UITableViewController {
 }
 
 extension XYRefreshTableViewController: XYRefreshTableProtocol {
+    
+    var theEmptyView: UIView {
+        return emptyView
+    }
+    
+    var theTableView: UITableView {
+        return tableView
+    }
+    
+//    func hideEmpty() {
+//        emptyView.isHidden = true
+//        tableView.isScrollEnabled = emptyView.isHidden
+//    }
+//    
+//    func startHeaderRefresh() {
+//        tableView.mj_header?.beginRefreshing()
+//    }
+//    
+//    func startFooterRefresh() {
+//        tableView.mj_footer?.beginRefreshing()
+//    }
+//    
+//    func headerRefreshHandler() {
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+//            self.endRefresh()
+//        }
+//    }
+//    
+//    func footerRefreshHandler() {
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+//            self.endRefresh()
+//        }
+//    }
+//    
+//    func endRefresh() {
+//        tableView.mj_header?.endRefreshing()
+//        tableView.mj_footer?.endRefreshing()
+//    }
+//    
+//    func showEmpty(_ image: UIImage, _ descString: String? = nil, _ callBack: (() -> ())? = nil) {
+//        
+//        if let empty = emptyView as? XYRefreshEmptyView {
+//            empty.setImage(image: image, descStr: descString, retryCallBack: callBack)
+//        }
+//        tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
+//        emptyView.isHidden = false
+//        tableView.isScrollEnabled = emptyView.isHidden
+//    }
+}
+
+extension XYRefreshTableProtocol {
+    
     func hideEmpty() {
-        emptyView.isHidden = true
-        tableView.isScrollEnabled = emptyView.isHidden
+        theEmptyView.isHidden = true
+        theTableView.isScrollEnabled = theEmptyView.isHidden
     }
     
     func startHeaderRefresh() {
-        tableView.mj_header?.beginRefreshing()
+        theTableView.mj_header?.beginRefreshing()
     }
     
     func startFooterRefresh() {
-        tableView.mj_footer?.beginRefreshing()
+        theTableView.mj_footer?.beginRefreshing()
     }
     
     func headerRefreshHandler() {
@@ -211,18 +266,18 @@ extension XYRefreshTableViewController: XYRefreshTableProtocol {
     }
     
     func endRefresh() {
-        tableView.mj_header?.endRefreshing()
-        tableView.mj_footer?.endRefreshing()
+        theTableView.mj_header?.endRefreshing()
+        theTableView.mj_footer?.endRefreshing()
     }
     
     func showEmpty(_ image: UIImage, _ descString: String? = nil, _ callBack: (() -> ())? = nil) {
         
-        if let empty = emptyView as? XYRefreshEmptyView {
+        if let empty = theEmptyView as? XYRefreshEmptyView {
             empty.setImage(image: image, descStr: descString, retryCallBack: callBack)
         }
-        tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
-        emptyView.isHidden = false
-        tableView.isScrollEnabled = emptyView.isHidden
+        theTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
+        theEmptyView.isHidden = false
+        theTableView.isScrollEnabled = theEmptyView.isHidden
     }
+    
 }
-

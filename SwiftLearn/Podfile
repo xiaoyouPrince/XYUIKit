@@ -20,6 +20,6 @@ target 'SwiftLearn' do
   pod 'XYInfomationSection'#, '1.0.3'
 #  pod 'RealmSwift'
 
-#  pod 'XYNav', :path => '/Users/quxiaoyou/Documents/GitHub/XYNav/'
-  pod 'XYNav'
+  pod 'XYNav', :path => '/Users/quxiaoyou/Desktop/XYNav/'
+#  pod 'XYNav'
 end

@@ -15,6 +15,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+//        UINavigationBar.appearance().tintColor = .red
+//        UINavigationBar.appearance().barTintColor = .cyan
+//        UINavigationBar.appearance().isTranslucent = false
+//        UINavigationBar.appearance().shadowImage = UIImage(named: "im_list_newgreet_bg")
+        
+    
+        
+        
         NotificationCenter.default.addObserver(self, selector: #selector(noti), name: NSNotification.Name(rawValue: "noti"), object: nil)
         
         print("和红烧豆ios腐(RPO)".unicodeScalars.count)
