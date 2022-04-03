@@ -10,10 +10,22 @@ import XYInfomationSection
 import MJRefresh
 
 class XYViewController: XYInfomationBaseViewController {
+    
+    var nameSpase: String {
+        let man = UIApplication.shared.delegate!.description
+        let start = man.index(after: man.startIndex)
+        let end = man.firstIndex(of: ".")!
+        let nameSpace = man[start..<end]
+        return String(nameSpace)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .yellow
+        
+        let nameSpase = nameSpase
+        
+        
 //        self.navigationController?.navigationBar.isTranslucent = false
         
         
@@ -46,7 +58,7 @@ class XYViewController: XYInfomationBaseViewController {
         })
         
         self.setContentWithData(dataArr(), itemConfig:{(item) in
-            item.titleKey = "SwiftLearn.\(item.titleKey)"
+            item.titleKey = "\(nameSpase).\(item.titleKey)"
             item.titleWidthRate = 0.5
         } , sectionConfig: nil, sectionDistance: 10, contentEdgeInsets: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)) { (index, cell) in
             
@@ -55,7 +67,7 @@ class XYViewController: XYInfomationBaseViewController {
             }
             print(clz)
             
-            if clz.description() == "SwiftLearn.ViewController" {
+            if clz.description() == "\(nameSpase).ViewController" {
                 
                 if #available(iOS 13.0, *) {
                     let detailVC = UIStoryboard.init(name: "Main", bundle: .main).instantiateViewController(identifier: "100")

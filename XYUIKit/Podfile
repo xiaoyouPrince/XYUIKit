@@ -5,7 +5,7 @@ platform :ios, '10.0'
 # 使用动态库
 use_frameworks!
 
-target 'SwiftLearn' do
+target 'XYUIKit' do
   
   pod 'MJExtension', '3.2.2'
   pod 'MJRefresh', '3.5.0'
