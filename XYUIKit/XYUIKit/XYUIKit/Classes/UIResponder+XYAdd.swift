@@ -7,12 +7,12 @@
 
 import UIKit
 
-extension UIResponder {
+public extension UIResponder {
     
     /// 判断响应者链条是否包含某具体类
     /// - Parameter className: 需要被检测的类型
     /// - Returns: true/false
-    public func respondChainContains(_ className: UIResponder.Type) -> Bool {
+    func respondChainContains(_ className: UIResponder.Type) -> Bool {
         var nextRes = self.next
         while nextRes != nil {
             
@@ -27,7 +27,7 @@ extension UIResponder {
     
     /// 返回从当前开始的倒序响应者链条
     /// - Returns: self -> self.next -> self.next.next -> ...
-    public func respondChain() -> String {
+    func respondChain() -> String {
         
         
         

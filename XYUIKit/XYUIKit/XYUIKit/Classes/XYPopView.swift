@@ -9,6 +9,7 @@
  */
 
 import UIKit
+import SnapKit
 
 enum XYPopAnchorType {
     case top

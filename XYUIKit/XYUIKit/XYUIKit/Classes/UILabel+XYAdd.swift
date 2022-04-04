@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension UILabel {
+public extension UILabel {
     
     
     /// 快速创建一个 tip

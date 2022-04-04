@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import XYUIKit
 
 class BView: UIView {
     override func draw(_ rect: CGRect) {
@@ -55,11 +56,11 @@ class ShowAlertVC: UIViewController {
 // 实现show Alert 方法
 extension ShowAlertVC {
     
-    func alertTitles() -> [String] {
+    override func alertTitles() -> [String] {
         return ["你","好","世","界","！"]
     }
     
-    func showAlert(item: XYAlertItem) {
+    override func showAlert(item: XYAlertItem) {
 //        if item.index%2 != 0 { // 或者直接判断 item.title 同上面方法是对应的
 //            // 1. 展示，用户的回调中调用下一个，或者直接停止
 //

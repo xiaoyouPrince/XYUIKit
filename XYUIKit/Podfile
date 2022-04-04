@@ -5,7 +5,7 @@ platform :ios, '10.0'
 # 使用动态库
 use_frameworks!
 
-target 'XYUIKit' do
+target 'XYUIKitDemo' do
   
   pod 'MJExtension', '3.2.2'
   pod 'MJRefresh', '3.5.0'
@@ -21,5 +21,6 @@ target 'XYUIKit' do
 #  pod 'RealmSwift'
 
   pod 'XYNav', :path => '/Users/quxiaoyou/Desktop/XYNav/'
+  pod 'XYUIKit', :path => '../.'
 #  pod 'XYNav'
 end

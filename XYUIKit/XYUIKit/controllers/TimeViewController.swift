@@ -7,6 +7,7 @@
 
 import XYInfomationSection
 import XYNav
+import XYUIKit
 
 class TimeViewController: XYInfomationBaseViewController {
     

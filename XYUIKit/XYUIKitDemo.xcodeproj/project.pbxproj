@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B41A87342654BA8500DE1E2E /* XYPopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B41A87332654BA8500DE1E2E /* XYPopView.swift */; };
 		B422760F26131B7F0089C7C0 /* RefreshHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B422760E26131B7F0089C7C0 /* RefreshHeader.swift */; };
 		B42AD11226B3BCAD003E191D /* NestedXYInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42AD11126B3BCAD003E191D /* NestedXYInfoViewController.swift */; };
 		B43779782631519D00311802 /* TipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43779772631519D00311802 /* TipView.swift */; };
@@ -30,7 +29,6 @@
 		B45CE06826BA956200639E27 /* CapatureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45CE06626BA956200639E27 /* CapatureViewController.swift */; };
 		B45CE06926BA956200639E27 /* CapatureViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B45CE06726BA956200639E27 /* CapatureViewController.xib */; };
 		B45CE06D26BA957F00639E27 /* Capture.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45CE06C26BA957F00639E27 /* Capture.swift */; };
-		B45D60BF2700BC7F0093E9C0 /* UIImage+XYAdd.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45D60BE2700BC7F0093E9C0 /* UIImage+XYAdd.swift */; };
 		B460DB5D25F5F8C300AF3685 /* Image.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B460DB5C25F5F8C300AF3685 /* Image.xcassets */; };
 		B46930992615D3C600512B2F /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46930982615D3C600512B2F /* File.swift */; };
 		B471EF362657B950004FD238 /* XYCustomTimePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B471EF352657B950004FD238 /* XYCustomTimePickerViewController.swift */; };
@@ -44,14 +42,9 @@
 		B472C5CA25825C7F005898C5 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B472C5C925825C7F005898C5 /* TableViewController.swift */; };
 		B472C5D2258316D0005898C5 /* ZLNewGreetingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B472C5D1258316D0005898C5 /* ZLNewGreetingView.swift */; };
 		B47EF034260630C200DE7EC3 /* Public.swift in Sources */ = {isa = PBXBuildFile; fileRef = B47EF033260630C200DE7EC3 /* Public.swift */; };
-		B48544912662A13000BC3738 /* Date+XYAdd.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48544902662A13000BC3738 /* Date+XYAdd.swift */; };
 		B49234032665F64A00F3FBED /* TimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49234022665F64A00F3FBED /* TimeViewController.swift */; };
-		B49C5E88264CBC4200AC1F67 /* XYAlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49C5E87264CBC4200AC1F67 /* XYAlertManager.swift */; };
+		B4AB92E227FAA2A900E0CE21 /* XYUIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4AB92E127FAA2A900E0CE21 /* XYUIKit.framework */; };
 		B4AB9AD5262053A1006B034B /* MailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AB9AD4262053A1006B034B /* MailViewController.swift */; };
-		B4AD73D7263327E1005EB911 /* UILabel+XYAdd.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AD73D6263327E1005EB911 /* UILabel+XYAdd.swift */; };
-		B4AD73DA2634699E005EB911 /* XYAlertSheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AD73D92634699E005EB911 /* XYAlertSheetController.swift */; };
-		B4B6304A26355296001AFD02 /* UIColor+XYAdd.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B6304926355296001AFD02 /* UIColor+XYAdd.swift */; };
-		B4C14146275A19A10006B73F /* XYRefreshTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C14145275A19A10006B73F /* XYRefreshTableViewController.swift */; };
 		B4C88D3E2718090E007921EB /* EmotionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C88D342718090E007921EB /* EmotionViewCell.swift */; };
 		B4C88D3F2718090E007921EB /* Emoticons.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B4C88D352718090E007921EB /* Emoticons.bundle */; };
 		B4C88D402718090E007921EB /* FindEmotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C88D362718090E007921EB /* FindEmotion.swift */; };
@@ -61,25 +54,19 @@
 		B4C88D442718090E007921EB /* UITextView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C88D3B2718090E007921EB /* UITextView+Extension.swift */; };
 		B4C88D452718090E007921EB /* EmotionAttchment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C88D3C2718090E007921EB /* EmotionAttchment.swift */; };
 		B4C88D462718090E007921EB /* EmotionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C88D3D2718090E007921EB /* EmotionController.swift */; };
-		B4CEBBD02693249300C3194B /* String+XYAdd.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4CEBBCF2693249300C3194B /* String+XYAdd.swift */; };
 		B4D2DFA62611EDE400C2B6F9 /* XYViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D2DFA52611EDE400C2B6F9 /* XYViewController.swift */; };
 		B4D811C52741A32D00E02582 /* SVRadialGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B4D811BC2741A32D00E02582 /* SVRadialGradientLayer.m */; };
 		B4D811C62741A32D00E02582 /* SVProgressAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = B4D811BF2741A32D00E02582 /* SVProgressAnimatedView.m */; };
 		B4D811C72741A32D00E02582 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = B4D811C12741A32D00E02582 /* SVProgressHUD.m */; };
 		B4D811C82741A32D00E02582 /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = B4D811C22741A32D00E02582 /* SVIndefiniteAnimatedView.m */; };
 		B4D811C92741A32D00E02582 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B4D811C32741A32D00E02582 /* SVProgressHUD.bundle */; };
-		B4D811CB2741A4C900E02582 /* XYFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D811CA2741A4C900E02582 /* XYFunctions.swift */; };
 		B4D9B11225998CD9006FB07D /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D9B11125998CD9006FB07D /* GradientView.swift */; };
 		B4DD65F9275A73A300151635 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DD65F8275A73A300151635 /* ListViewController.swift */; };
-		B4EC40CF26CCFED200A35D74 /* UIResponder+XYAdd.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EC40CE26CCFED200A35D74 /* UIResponder+XYAdd.swift */; };
-		B4FBF4F727F8A48500BFE0CE /* XYTagsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FBF4F627F8A48500BFE0CE /* XYTagsView.swift */; };
-		FADDDAC8778689ADAB32AD64 /* Pods_XYUIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 567878E0438237CC2E39DC65 /* Pods_XYUIKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		567878E0438237CC2E39DC65 /* Pods_XYUIKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_XYUIKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F6A10BE187088343905B2EA /* Pods-XYUIKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XYUIKit.debug.xcconfig"; path = "Target Support Files/Pods-XYUIKit/Pods-XYUIKit.debug.xcconfig"; sourceTree = "<group>"; };
-		B41A87332654BA8500DE1E2E /* XYPopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XYPopView.swift; sourceTree = "<group>"; };
+		B3FD1A699EB891F55B57190B /* Pods-XYUIKitDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XYUIKitDemo.debug.xcconfig"; path = "Target Support Files/Pods-XYUIKitDemo/Pods-XYUIKitDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		B422760E26131B7F0089C7C0 /* RefreshHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshHeader.swift; sourceTree = "<group>"; };
 		B42AD11126B3BCAD003E191D /* NestedXYInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestedXYInfoViewController.swift; sourceTree = "<group>"; };
 		B43779772631519D00311802 /* TipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipView.swift; sourceTree = "<group>"; };
@@ -113,11 +100,10 @@
 		B45CE06626BA956200639E27 /* CapatureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapatureViewController.swift; sourceTree = "<group>"; };
 		B45CE06726BA956200639E27 /* CapatureViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CapatureViewController.xib; sourceTree = "<group>"; };
 		B45CE06C26BA957F00639E27 /* Capture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Capture.swift; sourceTree = "<group>"; };
-		B45D60BE2700BC7F0093E9C0 /* UIImage+XYAdd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+XYAdd.swift"; sourceTree = "<group>"; };
 		B460DB5C25F5F8C300AF3685 /* Image.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Image.xcassets; sourceTree = "<group>"; };
 		B46930982615D3C600512B2F /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		B471EF352657B950004FD238 /* XYCustomTimePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XYCustomTimePickerViewController.swift; sourceTree = "<group>"; };
-		B472C55D25821D58005898C5 /* XYUIKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XYUIKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B472C55D25821D58005898C5 /* XYUIKitDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XYUIKitDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B472C56025821D58005898C5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B472C56225821D58005898C5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		B472C56425821D58005898C5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -129,14 +115,9 @@
 		B472C5C925825C7F005898C5 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		B472C5D1258316D0005898C5 /* ZLNewGreetingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLNewGreetingView.swift; sourceTree = "<group>"; };
 		B47EF033260630C200DE7EC3 /* Public.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Public.swift; sourceTree = "<group>"; };
-		B48544902662A13000BC3738 /* Date+XYAdd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+XYAdd.swift"; sourceTree = "<group>"; };
 		B49234022665F64A00F3FBED /* TimeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeViewController.swift; sourceTree = "<group>"; };
-		B49C5E87264CBC4200AC1F67 /* XYAlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XYAlertManager.swift; sourceTree = "<group>"; };
+		B4AB92E127FAA2A900E0CE21 /* XYUIKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = XYUIKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4AB9AD4262053A1006B034B /* MailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailViewController.swift; sourceTree = "<group>"; };
-		B4AD73D6263327E1005EB911 /* UILabel+XYAdd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+XYAdd.swift"; sourceTree = "<group>"; };
-		B4AD73D92634699E005EB911 /* XYAlertSheetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XYAlertSheetController.swift; sourceTree = "<group>"; };
-		B4B6304926355296001AFD02 /* UIColor+XYAdd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+XYAdd.swift"; sourceTree = "<group>"; };
-		B4C14145275A19A10006B73F /* XYRefreshTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XYRefreshTableViewController.swift; sourceTree = "<group>"; };
 		B4C88D342718090E007921EB /* EmotionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionViewCell.swift; sourceTree = "<group>"; };
 		B4C88D352718090E007921EB /* Emoticons.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Emoticons.bundle; sourceTree = "<group>"; };
 		B4C88D362718090E007921EB /* FindEmotion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindEmotion.swift; sourceTree = "<group>"; };
@@ -146,7 +127,6 @@
 		B4C88D3B2718090E007921EB /* UITextView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextView+Extension.swift"; sourceTree = "<group>"; };
 		B4C88D3C2718090E007921EB /* EmotionAttchment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionAttchment.swift; sourceTree = "<group>"; };
 		B4C88D3D2718090E007921EB /* EmotionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionController.swift; sourceTree = "<group>"; };
-		B4CEBBCF2693249300C3194B /* String+XYAdd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+XYAdd.swift"; sourceTree = "<group>"; };
 		B4D2DFA52611EDE400C2B6F9 /* XYViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XYViewController.swift; sourceTree = "<group>"; };
 		B4D811BC2741A32D00E02582 /* SVRadialGradientLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVRadialGradientLayer.m; sourceTree = "<group>"; };
 		B4D811BD2741A32D00E02582 /* SVIndefiniteAnimatedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVIndefiniteAnimatedView.h; sourceTree = "<group>"; };
@@ -157,12 +137,11 @@
 		B4D811C22741A32D00E02582 /* SVIndefiniteAnimatedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVIndefiniteAnimatedView.m; sourceTree = "<group>"; };
 		B4D811C32741A32D00E02582 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
 		B4D811C42741A32D00E02582 /* SVProgressAnimatedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressAnimatedView.h; sourceTree = "<group>"; };
-		B4D811CA2741A4C900E02582 /* XYFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XYFunctions.swift; sourceTree = "<group>"; };
 		B4D9B11125998CD9006FB07D /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		B4DD65F8275A73A300151635 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
-		B4EC40CE26CCFED200A35D74 /* UIResponder+XYAdd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIResponder+XYAdd.swift"; sourceTree = "<group>"; };
-		B4FBF4F627F8A48500BFE0CE /* XYTagsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XYTagsView.swift; sourceTree = "<group>"; };
+		B56AE06D585E0FDD3ACC7117 /* Pods_XYUIKitDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_XYUIKitDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5AA29A06725D9355D257169 /* Pods-XYUIKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XYUIKit.release.xcconfig"; path = "Target Support Files/Pods-XYUIKit/Pods-XYUIKit.release.xcconfig"; sourceTree = "<group>"; };
+		EE4BC38589420CBB12FD7A71 /* Pods-XYUIKitDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XYUIKitDemo.release.xcconfig"; path = "Target Support Files/Pods-XYUIKitDemo/Pods-XYUIKitDemo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,7 +149,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FADDDAC8778689ADAB32AD64 /* Pods_XYUIKit.framework in Frameworks */,
+				B4AB92E227FAA2A900E0CE21 /* XYUIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -182,6 +161,8 @@
 			children = (
 				9F6A10BE187088343905B2EA /* Pods-XYUIKit.debug.xcconfig */,
 				D5AA29A06725D9355D257169 /* Pods-XYUIKit.release.xcconfig */,
+				B3FD1A699EB891F55B57190B /* Pods-XYUIKitDemo.debug.xcconfig */,
+				EE4BC38589420CBB12FD7A71 /* Pods-XYUIKitDemo.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -189,7 +170,8 @@
 		81A1CE2EE4E0699471832F7C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				567878E0438237CC2E39DC65 /* Pods_XYUIKit.framework */,
+				B4AB92E127FAA2A900E0CE21 /* XYUIKit.framework */,
+				B56AE06D585E0FDD3ACC7117 /* Pods_XYUIKitDemo.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -275,7 +257,7 @@
 		B472C55E25821D58005898C5 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B472C55D25821D58005898C5 /* XYUIKit.app */,
+				B472C55D25821D58005898C5 /* XYUIKitDemo.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -284,7 +266,6 @@
 			isa = PBXGroup;
 			children = (
 				B45CE06526BA921800639E27 /* Scan */,
-				B4AD73D526332756005EB911 /* XYUIKit */,
 				B437797D2631986D00311802 /* 3td */,
 				B46930962615CFD900512B2F /* controllers */,
 				B472C57625821DA0005898C5 /* views */,
@@ -313,25 +294,6 @@
 				B471EF352657B950004FD238 /* XYCustomTimePickerViewController.swift */,
 			);
 			path = views;
-			sourceTree = "<group>";
-		};
-		B4AD73D526332756005EB911 /* XYUIKit */ = {
-			isa = PBXGroup;
-			children = (
-				B4AD73D6263327E1005EB911 /* UILabel+XYAdd.swift */,
-				B4AD73D92634699E005EB911 /* XYAlertSheetController.swift */,
-				B4B6304926355296001AFD02 /* UIColor+XYAdd.swift */,
-				B49C5E87264CBC4200AC1F67 /* XYAlertManager.swift */,
-				B41A87332654BA8500DE1E2E /* XYPopView.swift */,
-				B48544902662A13000BC3738 /* Date+XYAdd.swift */,
-				B4CEBBCF2693249300C3194B /* String+XYAdd.swift */,
-				B4EC40CE26CCFED200A35D74 /* UIResponder+XYAdd.swift */,
-				B45D60BE2700BC7F0093E9C0 /* UIImage+XYAdd.swift */,
-				B4D811CA2741A4C900E02582 /* XYFunctions.swift */,
-				B4C14145275A19A10006B73F /* XYRefreshTableViewController.swift */,
-				B4FBF4F627F8A48500BFE0CE /* XYTagsView.swift */,
-			);
-			path = XYUIKit;
 			sourceTree = "<group>";
 		};
 		B4C88D332718090E007921EB /* Emotion */ = {
@@ -377,9 +339,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		B472C55C25821D58005898C5 /* XYUIKit */ = {
+		B472C55C25821D58005898C5 /* XYUIKitDemo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B472C57125821D5A005898C5 /* Build configuration list for PBXNativeTarget "XYUIKit" */;
+			buildConfigurationList = B472C57125821D5A005898C5 /* Build configuration list for PBXNativeTarget "XYUIKitDemo" */;
 			buildPhases = (
 				960BDD81AD0D6BC8E4AF55BD /* [CP] Check Pods Manifest.lock */,
 				B472C55925821D58005898C5 /* Sources */,
@@ -391,9 +353,9 @@
 			);
 			dependencies = (
 			);
-			name = XYUIKit;
+			name = XYUIKitDemo;
 			productName = SwiftLearn;
-			productReference = B472C55D25821D58005898C5 /* XYUIKit.app */;
+			productReference = B472C55D25821D58005898C5 /* XYUIKitDemo.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -404,7 +366,7 @@
 			attributes = {
 				CLASSPREFIX = XY;
 				LastSwiftUpdateCheck = 1220;
-				LastUpgradeCheck = 1220;
+				LastUpgradeCheck = 1320;
 				ORGANIZATIONNAME = XYUIKit;
 				TargetAttributes = {
 					B472C55C25821D58005898C5 = {
@@ -412,7 +374,7 @@
 					};
 				};
 			};
-			buildConfigurationList = B472C55825821D58005898C5 /* Build configuration list for PBXProject "XYUIKit" */;
+			buildConfigurationList = B472C55825821D58005898C5 /* Build configuration list for PBXProject "XYUIKitDemo" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -425,7 +387,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B472C55C25821D58005898C5 /* XYUIKit */,
+				B472C55C25821D58005898C5 /* XYUIKitDemo */,
 			);
 		};
 /* End PBXProject section */
@@ -454,15 +416,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-XYUIKit/Pods-XYUIKit-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-XYUIKitDemo/Pods-XYUIKitDemo-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-XYUIKit/Pods-XYUIKit-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-XYUIKitDemo/Pods-XYUIKitDemo-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-XYUIKit/Pods-XYUIKit-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-XYUIKitDemo/Pods-XYUIKitDemo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		960BDD81AD0D6BC8E4AF55BD /* [CP] Check Pods Manifest.lock */ = {
@@ -480,7 +442,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-XYUIKit-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-XYUIKitDemo-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -501,35 +463,25 @@
 				B471EF362657B950004FD238 /* XYCustomTimePickerViewController.swift in Sources */,
 				B437799C2631988200311802 /* TYTextContainer.m in Sources */,
 				B4D811C72741A32D00E02582 /* SVProgressHUD.m in Sources */,
-				B4D811CB2741A4C900E02582 /* XYFunctions.swift in Sources */,
 				B43779782631519D00311802 /* TipView.swift in Sources */,
-				B4C14146275A19A10006B73F /* XYRefreshTableViewController.swift in Sources */,
 				B472C5CA25825C7F005898C5 /* TableViewController.swift in Sources */,
 				B472C56525821D58005898C5 /* ViewController.swift in Sources */,
-				B41A87342654BA8500DE1E2E /* XYPopView.swift in Sources */,
 				B43779932631988200311802 /* TYLinkTextStorage.m in Sources */,
 				B43779942631988200311802 /* TYDrawStorage.m in Sources */,
 				B472C56125821D58005898C5 /* AppDelegate.swift in Sources */,
 				B44578D3264A5F0E00A4EFC8 /* ZLJobCoordinationAlertController.swift in Sources */,
-				B4CEBBD02693249300C3194B /* String+XYAdd.swift in Sources */,
 				B472C56325821D58005898C5 /* SceneDelegate.swift in Sources */,
-				B4AD73DA2634699E005EB911 /* XYAlertSheetController.swift in Sources */,
-				B4B6304A26355296001AFD02 /* UIColor+XYAdd.swift in Sources */,
 				B43779992631988200311802 /* TYTextStorage.m in Sources */,
 				B44578D0264A5A2900A4EFC8 /* ShowAlertVC.swift in Sources */,
 				B4D811C82741A32D00E02582 /* SVIndefiniteAnimatedView.m in Sources */,
 				B4D2DFA62611EDE400C2B6F9 /* XYViewController.swift in Sources */,
 				B4AB9AD5262053A1006B034B /* MailViewController.swift in Sources */,
 				B472C57825821DB1005898C5 /* ZLPushNotificationTipView.swift in Sources */,
-				B48544912662A13000BC3738 /* Date+XYAdd.swift in Sources */,
 				B43779962631988200311802 /* TYImageStorage.m in Sources */,
 				B47EF034260630C200DE7EC3 /* Public.swift in Sources */,
-				B49C5E88264CBC4200AC1F67 /* XYAlertManager.swift in Sources */,
 				B43779952631988200311802 /* TYViewStorage.m in Sources */,
 				B472C5D2258316D0005898C5 /* ZLNewGreetingView.swift in Sources */,
 				B45CE06826BA956200639E27 /* CapatureViewController.swift in Sources */,
-				B4EC40CF26CCFED200A35D74 /* UIResponder+XYAdd.swift in Sources */,
-				B4FBF4F727F8A48500BFE0CE /* XYTagsView.swift in Sources */,
 				B49234032665F64A00F3FBED /* TimeViewController.swift in Sources */,
 				B45CE06D26BA957F00639E27 /* Capture.swift in Sources */,
 				B4C88D3E2718090E007921EB /* EmotionViewCell.swift in Sources */,
@@ -547,12 +499,10 @@
 				B4C88D462718090E007921EB /* EmotionController.swift in Sources */,
 				B437797B2631522000311802 /* CustomViewController.swift in Sources */,
 				B4C88D412718090E007921EB /* EmotionManager.swift in Sources */,
-				B45D60BF2700BC7F0093E9C0 /* UIImage+XYAdd.swift in Sources */,
 				B46930992615D3C600512B2F /* File.swift in Sources */,
 				B44012A62632B5E900C51E78 /* ZLWechatActionSheet.swift in Sources */,
 				B437799B2631988200311802 /* TYTextContainer+Extended.m in Sources */,
 				B4D9B11225998CD9006FB07D /* GradientView.swift in Sources */,
-				B4AD73D7263327E1005EB911 /* UILabel+XYAdd.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -696,14 +646,14 @@
 		};
 		B472C57225821D5A005898C5 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9F6A10BE187088343905B2EA /* Pods-XYUIKit.debug.xcconfig */;
+			baseConfigurationReference = B3FD1A699EB891F55B57190B /* Pods-XYUIKitDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = J9CJUEB6H8;
 				INFOPLIST_FILE = "$(SRCROOT)/XYUIKit/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -718,14 +668,14 @@
 		};
 		B472C57325821D5A005898C5 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D5AA29A06725D9355D257169 /* Pods-XYUIKit.release.xcconfig */;
+			baseConfigurationReference = EE4BC38589420CBB12FD7A71 /* Pods-XYUIKitDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = J9CJUEB6H8;
 				INFOPLIST_FILE = "$(SRCROOT)/XYUIKit/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -741,7 +691,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		B472C55825821D58005898C5 /* Build configuration list for PBXProject "XYUIKit" */ = {
+		B472C55825821D58005898C5 /* Build configuration list for PBXProject "XYUIKitDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B472C56F25821D5A005898C5 /* Debug */,
@@ -750,7 +700,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B472C57125821D5A005898C5 /* Build configuration list for PBXNativeTarget "XYUIKit" */ = {
+		B472C57125821D5A005898C5 /* Build configuration list for PBXNativeTarget "XYUIKitDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B472C57225821D5A005898C5 /* Debug */,

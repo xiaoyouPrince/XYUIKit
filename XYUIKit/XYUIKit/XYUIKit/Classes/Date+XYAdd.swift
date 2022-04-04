@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension Date {
+public extension Date {
     
     // MARK: - 获取 Date 的 世纪、年、月、日、时、分、秒、周、周汉字版、周英文版、是当年第几周、是当月第几周、是否闰年
     /// 获取当前 Date 内容
@@ -26,7 +26,7 @@ extension Date {
     ///   - date0: date0
     ///   - date1: date1
     /// - Returns: true / false
-    public static func isSameDay(_ date0: Date, otherDate date1: Date) -> Bool {
+    static func isSameDay(_ date0: Date, otherDate date1: Date) -> Bool {
         return date0.current(component: .year) == date1.current(component: .year) &&
         date0.current(component: .month) == date1.current(component: .month) &&
         date0.current(component: .day) == date1.current(component: .day)

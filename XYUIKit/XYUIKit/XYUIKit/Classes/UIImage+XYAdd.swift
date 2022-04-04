@@ -10,7 +10,7 @@ import Foundation
 //import QuartzCore
 import Accelerate
 
-extension UIImage {
+public extension UIImage {
     
     /// 给当前 image 设置模糊
     /// - Parameter blur: 模糊系数 0.0~1.0

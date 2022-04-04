@@ -26,16 +26,14 @@ import UIKit
 
 public typealias XYAlertSheetBlock = ((_ index :Int) -> Void)
 
-open
-class XYAlertSheetAction: NSObject{
+open class XYAlertSheetAction: NSObject{
     var title: String?
     var defaultHeight: CGFloat = 60
     var textColor = UIColor(red: 0.42, green: 0.65, blue: 0.98, alpha: 1)
     var font = UIFont.systemFont(ofSize: 14)
 }
 
-open
-class XYAlertSheetController: UIViewController {
+open class XYAlertSheetController: UIViewController {
     
     private var contentView = UIView()
     private var customHeader: UIView?

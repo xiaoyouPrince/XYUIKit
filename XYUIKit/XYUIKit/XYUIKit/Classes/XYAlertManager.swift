@@ -53,22 +53,23 @@
 
 import UIKit
 
-@objc public protocol XYAlertManagerDelegate: NSObjectProtocol {
+@objc
+public protocol XYAlertManagerDelegate: NSObjectProtocol {
     
     /// 要展示的弹框数组，title 是为了给每个 alert 一个名字便于识别记忆。
-    @objc optional func alertTitles() -> [String]
+    @objc func alertTitles() -> [String]
     
     /// 展示弹框的回调
     /// - Parameter item: 代表了当前的弹框， item.title 是之前给alert设置的名称， item.index 是当期alert的索引
-    @objc optional func showAlert(item: XYAlertItem)
+    @objc func showAlert(item: XYAlertItem)
 }
 
 open class XYAlertItem: NSObject {
-    var title: String?
-    var index: Int = -1
-    var manager: XYAlertManager?
+    public var title: String?
+    public var index: Int = -1
+    public var manager: XYAlertManager?
     
-    func showNext() {
+    public func showNext() {
         self.manager?.startShowAlert(index+1)
     }
 }
@@ -77,10 +78,10 @@ open class XYAlertManager: NSObject {
     
     weak public var delegate: XYAlertManagerDelegate?
     
-    func startShowAlert(_ index: Int = 0) {
+    public func startShowAlert(_ index: Int = 0) {
         
         // 必须有入参，获取要展示title
-        guard let alertTitles = self.delegate?.alertTitles?() else {
+        guard let alertTitles = self.delegate?.alertTitles() else {
             assertionFailure("请遵守XYAlertManagerDelegate协议，并实现 alertTitles 方法")
             return
         }
@@ -100,11 +101,15 @@ open class XYAlertManager: NSObject {
         }
         
         // 调用showAlert
-        self.delegate?.showAlert?(item: alertItems[index])
+        self.delegate?.showAlert(item: alertItems[index])
     }
 }
 
 extension UIViewController: XYAlertManagerDelegate {
+    open func alertTitles() -> [String] {[]}
+    
+    open func showAlert(item: XYAlertItem) {}
+    
     public func xy_startShowAlert() {
         let mgr = XYAlertManager()
         mgr.delegate = self
