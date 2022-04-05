@@ -22,7 +22,7 @@ public extension UILabel {
     ///   - animationDuration: 动画时间
     ///   - exitsTime: 存在的时间
     static func xy_showTip(_ tip: String,
-                 _ superView: UIView? = nil,
+                 onView: UIView,
                  _ textColor: UIColor = .white,
                  _ bgColor: UIColor = UIColor.black.withAlphaComponent(0.85),
                  _ fontSize: CGFloat = 14,
@@ -33,15 +33,7 @@ public extension UILabel {
         let label = UILabel()
         label.text = tip
         
-        if let superview = superView{
-            superview.addSubview(label)
-        }else{
-            for window in UIApplication.shared.windows {
-                if window.isKeyWindow {
-                    window.addSubview(label)
-                }
-            }
-        }
+        onView.addSubview(label)
         
         label.backgroundColor = bgColor
         label.textAlignment = .center

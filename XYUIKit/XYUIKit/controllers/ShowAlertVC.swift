@@ -107,6 +107,7 @@ extension ShowAlertVC {
         ]
         
         let callback = {[weak self](index: Int) in
+            guard let self = self else { return }
             if index >= 0 {
                 
                 // 展示弹框
@@ -116,10 +117,10 @@ extension ShowAlertVC {
                 }
                 jobVC.topImage = UIImage(named: "job_okBtn")
                 jobVC.topCons = 200
-                self?.present(jobVC, animated: false, completion: nil)
+                self.present(jobVC, animated: false, completion: nil)
                 
             }else{
-                UILabel.xy_showTip("用户取消了选择", self?.view)
+                UILabel.xy_showTip("用户取消了选择", onView: self.view)
             }
         }
         

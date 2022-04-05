@@ -100,30 +100,31 @@ extension CustomViewController {
         ]
         
         let callback = {[weak self](index: Int) in
+            guard let self = self else { return  }
             if index >= 0 {
 //                UILabel.xy_showTip(actions[index], self.view)
                 if index == 0 {
-                    self?.showAttrLabel()
+                    self.showAttrLabel()
                 }else if index == 1{
-                    UILabel.xy_showTip(actions[index], self?.view)
+                    UILabel.xy_showTip(actions[index], onView: self.view)
                 }else if index == 2{
-                    self?.showTipLabel()
+                    self.showTipLabel()
                 }else if index == 3{
-                    self?.svpressHUDConfig()
+                    self.svpressHUDConfig()
                     SVProgressHUD.show()
                 }else if index == 4{
-                    self?.svpressHUDConfig()
+                    self.svpressHUDConfig()
                     SVProgressHUD.showSuccess(withStatus: "陈功能")
                 }
                 else if index == 5{
-                    self?.svpressHUDConfig()
+                    self.svpressHUDConfig()
                     SVProgressHUD.showError(withStatus: "失败")
                 }
                 else if index == 6{
-                    self?.svpressHUDConfig()
+                    self.svpressHUDConfig()
                     SVProgressHUD.showInfo(withStatus: "info")
                 }else if index == 7{
-                    self?.svpressHUDConfig()
+                    self.svpressHUDConfig()
                     
                     var progress: Float = 0.0
                     for i in 1...100 {
@@ -136,7 +137,7 @@ extension CustomViewController {
                     
                 }
             }else{
-                UILabel.xy_showTip("用户取消了选择", self?.view)
+                UILabel.xy_showTip("用户取消了选择", onView: self.view)
             }
         }
         
