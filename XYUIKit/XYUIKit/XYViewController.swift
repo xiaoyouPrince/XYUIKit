@@ -8,6 +8,9 @@
 import UIKit
 import XYInfomationSection
 import MJRefresh
+import XYUIKit
+
+typealias XYToast = Toast
 
 class XYViewController: XYInfomationBaseViewController {
     
@@ -61,6 +64,10 @@ class XYViewController: XYInfomationBaseViewController {
             item.titleKey = "\(nameSpase).\(item.titleKey)"
             item.titleWidthRate = 0.5
         } , sectionConfig: nil, sectionDistance: 10, contentEdgeInsets: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)) { (index, cell) in
+            
+            
+//            Toast.make("点击\(index) - \(cell.model.title)")
+            XYToast.make("点击\(index) - \(cell.model.title)")
             
             guard let clz = NSClassFromString(cell.model.titleKey) as? UIViewController.Type else{
                 return
