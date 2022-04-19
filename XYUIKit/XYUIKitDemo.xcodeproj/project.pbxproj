@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A881B65309E20E456F510436 /* Pods_XYUIKitDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B56AE06D585E0FDD3ACC7117 /* Pods_XYUIKitDemo.framework */; };
 		B422760F26131B7F0089C7C0 /* RefreshHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B422760E26131B7F0089C7C0 /* RefreshHeader.swift */; };
 		B42AD11226B3BCAD003E191D /* NestedXYInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42AD11126B3BCAD003E191D /* NestedXYInfoViewController.swift */; };
 		B43779782631519D00311802 /* TipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43779772631519D00311802 /* TipView.swift */; };
@@ -150,6 +151,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B4AB92E227FAA2A900E0CE21 /* XYUIKit.framework in Frameworks */,
+				A881B65309E20E456F510436 /* Pods_XYUIKitDemo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
