@@ -7,6 +7,18 @@
 
 import UIKit
 
+public func kHexColor(_ valueRGB: UInt) -> UIColor {
+    return kHexColor(valueRGB, alpha: 1.0)
+}
+
+public func kHexColor(_ valueRGB: UInt, alpha: CGFloat) -> UIColor {
+    return UIColor.init(
+        red: CGFloat((valueRGB & 0xFF0000) >> 16) / 255.0,
+        green: CGFloat((valueRGB & 0x00FF00) >> 8) / 255.0,
+        blue: CGFloat((valueRGB & 0x0000FF) >> 0) / 255.0,
+        alpha: alpha)
+}
+
 public extension UIColor {
     
     @objc static func xy_getColor(hex: Int) -> UIColor {
