@@ -45,38 +45,3 @@ public extension Date {
         return fmt_.string(from: self)
     }
 }
-
-
-public func currentVisibleController() -> UIViewController {
-    
-    var keyWindow: UIWindow? = nil
-    for window in UIApplication.shared.windows {
-        if window.isKeyWindow {
-            keyWindow = window
-            break
-        }
-    }
-    
-    var topController = keyWindow!.rootViewController!
-    
-    if let tabBarVC = topController as? UITabBarController {
-        topController = tabBarVC.selectedViewController ?? topController
-        
-        if let nav = topController as? UINavigationController {
-            topController = nav.visibleViewController ?? topController
-            
-            while topController.presentedViewController != nil {
-                topController = topController.presentedViewController!
-            }
-        }
-        return topController
-    }
-    
-    if let nav = topController as? UINavigationController {
-        topController = nav.visibleViewController ?? topController
-        while topController.presentedViewController != nil {
-            topController = topController.presentedViewController!
-        }
-    }
-    return topController
-}
