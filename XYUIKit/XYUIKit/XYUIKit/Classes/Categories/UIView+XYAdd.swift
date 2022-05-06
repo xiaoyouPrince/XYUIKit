@@ -12,3 +12,86 @@ public func cornerRadius(_ cornerRadius: CGFloat, forView view: UIView){
     view.clipsToBounds = true
 }
 
+// MARK: - 添加渐变色
+public enum GradientType: Int, CustomStringConvertible {
+    /// 上到下
+    case top2bottom
+    /// 左到右
+    case left2Right
+    /// 左上到右下
+    case leftTop2rightBottom
+    /// 左下到右上
+    case leftBottom2rightTop
+    
+    /*
+     [0,0] is the bottom-leftcorner of the layer,
+     [1,1] is the top-right corner.)
+     The default values are [.5,0] and [.5,1] */
+    var startPoint: CGPoint {
+        var start: CGPoint = .zero
+        switch self {
+        case .top2bottom:
+            start = .init(x: 0, y: 0)
+        case .left2Right:
+            start = .init(x: 0, y: 0)
+        case .leftTop2rightBottom:
+            start = .init(x: 0, y: 0)
+        case .leftBottom2rightTop:
+            start = .init(x: 0, y: 1)
+        }
+        
+        return start
+    }
+    
+    var endPoint: CGPoint {
+        var end: CGPoint = .zero
+        switch self {
+        case .top2bottom:
+            end = .init(x: 0, y: 1)
+        case .left2Right:
+            end = .init(x: 1, y: 0)
+        case .leftTop2rightBottom:
+            end = .init(x: 1, y: 1)
+        case .leftBottom2rightTop:
+            end = .init(x: 1, y: 0)
+        }
+        
+        return end
+    }
+    
+    public var description: String{
+        switch self {
+        case .top2bottom:
+            return "top2bottom"
+        case .left2Right:
+            return "left2Right"
+        case .leftTop2rightBottom:
+            return "leftTop2rightBottom"
+        case .leftBottom2rightTop:
+            return "leftBottom2rightTop"
+        }
+    }
+}
+
+public extension UIView {
+    
+    @discardableResult
+    /// 给当前 UIView 设置渐变色
+    /// - Parameters:
+    ///   - type: 指定渐变类型
+    ///   - size: 指定渐变色区域大小
+    ///   - gradientColors: 渐变色颜色数组
+    /// - Returns: 返回一个 CAGradientLayer，调用者可以自己管理返回值的生命周期，避免重复设置渐变色
+    func setGradient(withType type: GradientType,
+                     size: CGSize,
+                     gradientColors: [UIColor]) -> CAGradientLayer{
+        
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.colors = gradientColors.map({$0.cgColor})
+        gradientLayer.startPoint = type.startPoint
+        gradientLayer.endPoint = type.endPoint
+        gradientLayer.frame = CGRect(origin: .zero, size: size)
+        layer.insertSublayer(gradientLayer, at: 0)
+        return gradientLayer
+    }
+}
