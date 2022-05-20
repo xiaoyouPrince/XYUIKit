@@ -21,6 +21,12 @@ class XYViewController: XYInfomationBaseViewController {
         let nameSpace = man[start..<end]
         return String(nameSpace)
     }
+    
+    @objc func injected() {
+            print("I've been injected: \(self)")
+            
+            self.viewDidLoad()
+        }
 
     override func viewDidLoad() {
         super.viewDidLoad()

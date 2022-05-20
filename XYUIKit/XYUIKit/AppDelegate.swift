@@ -30,6 +30,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let str = "和红烧豆ios腐(RPO)" as NSString
         print(str.substring(to: 4))
         
+#if DEBUG
+    Bundle(path: "/Applications/InjectionIII.app/Contents/Resources/iOSInjection.bundle")?.load()
+    //for tvOS:
+//    Bundle(path: "/Applications/InjectionIII.app/Contents/Resources/tvOSInjection.bundle")?.load()
+//    //Or for macOS:
+//    Bundle(path: "/Applications/InjectionIII.app/Contents/Resources/macOSInjection.bundle")?.load()
+#endif
+        
         return true
     }
     
