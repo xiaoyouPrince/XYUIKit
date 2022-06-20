@@ -87,6 +87,119 @@ extension CustomViewController {
 
     func showSheet() {
         
+        class ItemView: UIView {
+            
+            let title: String
+
+            private let iconView = UIImageView()
+            private let titleLabel = UILabel()
+            private let tipIcon = UIImageView()
+            private let callback: ((ItemView) -> ())?
+            
+            /// 快速创建一个 item
+            /// - Parameters:
+            ///   - icon: icon
+            ///   - title: title
+            ///   - tip: tip
+            ///   - callback: 点击回调
+            init(icon: String, title: String, tip: String?, callback: @escaping (ItemView) -> ()) {
+                self.title = title
+                self.callback = callback
+                super.init(frame: .zero)
+                iconView.image = UIImage(named: icon)
+                titleLabel.text = title
+                if let tip = tip {
+                    tipIcon.image = UIImage(named: tip)
+                }
+                
+                addSubview(iconView)
+                addSubview(titleLabel)
+                addSubview(tipIcon)
+                
+                iconView.snp.makeConstraints { make in
+                    make.top.equalToSuperview()
+                    make.centerX.equalToSuperview()
+                    make.size.equalTo(CGSize(width: 62, height: 62))
+                }
+                
+                titleLabel.snp.makeConstraints { make in
+                    make.top.equalTo(iconView.snp.bottom).offset(8)
+                    make.centerX.equalTo(iconView)
+                }
+                
+                tipIcon.snp.makeConstraints { make in
+                    make.left.equalTo(iconView.snp.centerX)
+                    make.centerY.equalTo(iconView.snp.top)
+                }
+                
+                let tap = UITapGestureRecognizer(target: self, action: #selector(click))
+                addGestureRecognizer(tap)
+            }
+            
+            required init?(coder: NSCoder) {
+                fatalError("init(coder:) has not been implemented")
+            }
+            
+            @objc func click(){
+                if let cb = callback {
+                    cb(self)
+                }
+            }
+        }
+        
+        let myView = UIButton()
+        myView.backgroundColor = .white
+        myView.snp.makeConstraints { make in
+            make.height.equalTo(200)
+        }
+        
+        let label = UILabel()
+        label.text = "请选择面试方式"
+        label.sizeToFit()
+        myView.addSubview(label)
+        
+        let close = UIButton(type: .system)
+        close.setImage(UIImage(named: "ic_risk_tip_close"), for: .normal)
+        close.tintColor = UIColor.random
+        close.sizeToFit()
+        myView.addSubview(close)
+        
+        label.snp.makeConstraints { make in
+            make.left.equalTo(16)
+            make.top.equalTo(28)
+        }
+        
+        close.snp.makeConstraints { make in
+            make.top.equalTo(15)
+            make.right.equalToSuperview().offset(-15)
+        }
+        
+        let item = ItemView(icon: "ic_sheet_0", title: "现场面试", tip: "ic_risk_tip_close") { item in
+            UILabel.xy_showTip(item.title, onView: self.view)
+        }
+        let item2 = ItemView(icon: "ic_sheet_0", title: "视频面试", tip: "ic_risk_tip_close") { item in
+            UILabel.xy_showTip(item.title, onView: self.view)
+        }
+        
+        myView.addSubview(item)
+        myView.addSubview(item2)
+        item.snp.makeConstraints { make in
+            make.top.equalTo(86)
+            make.centerX.equalToSuperview().multipliedBy(0.5)
+            make.width.equalToSuperview().multipliedBy(0.5)
+            make.height.equalTo(90)
+        }
+        item2.snp.makeConstraints { make in
+            make.top.equalTo(item)
+            make.centerX.equalToSuperview().multipliedBy(1.5)
+            make.width.equalTo(item)
+            make.height.equalTo(item)
+        }
+        
+        XYAlertSheetController.showCustom(on: self, customContentView: myView).isBackClickCancelEnable = true
+        
+        return
+        
         let actions = [
             "TYAttributeLabel 示例",
             "Label 展示简单 tip 示例",

@@ -37,12 +37,16 @@ open class XYAlertSheetController: UIViewController {
     
     private var contentView = UIView()
     private var customHeader: UIView?
+    private var customView: UIView?
     
     private var titleString: String? = nil
     private var subTitleString: String? = nil
     private var actions: [XYAlertSheetAction] = []
     private var block: XYAlertSheetBlock?
     
+    /// 是否支持直接点击背景空白区取消操作，defalut is true
+    public var isBackClickCancelEnable = true
+
     @objc public class func showCustom(on
                                         vc: UIViewController,
                                        title: String?,
@@ -78,6 +82,22 @@ open class XYAlertSheetController: UIViewController {
         alertSheet.block = callBack
         alertSheet.actions = actions_
         vc.present(alertSheet, animated: false, completion: nil)
+    }
+    
+    /// 展示自定义的 sheetContent
+    /// - Parameters:
+    ///   - vc: 要弹出框的 VC
+    ///   - customContentView: 自定义内容视图。需要其自动布局且有高度约束
+    @discardableResult
+    @objc public class func showCustom(on
+                                        vc: UIViewController,
+                                       customContentView:UIView) -> XYAlertSheetController {
+        
+        let alertSheet = XYAlertSheetController()
+        alertSheet.customView = customContentView
+        vc.present(alertSheet, animated: false, completion: nil)
+        
+        return alertSheet
     }
     
     @objc public class func showDefault(on vc: UIViewController,
@@ -131,6 +151,19 @@ extension XYAlertSheetController {
         contentView.snp.makeConstraints { (make) in
             make.left.right.equalToSuperview()
             make.top.equalTo(view.snp.bottom)
+        }
+        
+        if let customV = customView { // 完全自定义
+            
+            contentView.addSubview(customV) // 需要contentView 自动布局且有高度约束
+            customV.snp.makeConstraints { make in
+                make.left.top.right.equalToSuperview()
+                make.bottom.equalToSuperview().offset(-34)
+            }
+            
+            self.view.setNeedsLayout()
+            self.view.layoutIfNeeded()
+            return
         }
         
         // 创建 header
@@ -258,6 +291,10 @@ extension XYAlertSheetController {
     }
     
     @objc func actionClick(tap: UITapGestureRecognizer){
+        
+        if tap.view == view, isBackClickCancelEnable == false {
+            return
+        }
         
         if let index = tap.view?.tag {
             end(index: index)
