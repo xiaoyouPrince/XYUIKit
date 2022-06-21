@@ -5,6 +5,7 @@
 //  Created by 渠晓友 on 2021/4/24.
 //
 //  自定义 AlertSheet 控制器，样式仿写 UIAlertController，
+//  0. 支持内部 contentView 完全自定义,需指定高度约束
 //  1. 支持内部 HeaderView 自定义,需指定 headerView.frame.size.height 或高度约束
 //  2. 支持内部 Action 自定义
 //  3. 使用可以专注于内容与业务，方便快捷
