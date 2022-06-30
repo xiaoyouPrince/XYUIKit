@@ -46,6 +46,7 @@
 		B49234032665F64A00F3FBED /* TimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49234022665F64A00F3FBED /* TimeViewController.swift */; };
 		B4AB92E227FAA2A900E0CE21 /* XYUIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4AB92E127FAA2A900E0CE21 /* XYUIKit.framework */; };
 		B4AB9AD5262053A1006B034B /* MailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AB9AD4262053A1006B034B /* MailViewController.swift */; };
+		B4C374E328616C8E00266440 /* XYCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C374E228616C8E00266440 /* XYCards.swift */; };
 		B4C88D3E2718090E007921EB /* EmotionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C88D342718090E007921EB /* EmotionViewCell.swift */; };
 		B4C88D3F2718090E007921EB /* Emoticons.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B4C88D352718090E007921EB /* Emoticons.bundle */; };
 		B4C88D402718090E007921EB /* FindEmotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C88D362718090E007921EB /* FindEmotion.swift */; };
@@ -119,6 +120,7 @@
 		B49234022665F64A00F3FBED /* TimeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeViewController.swift; sourceTree = "<group>"; };
 		B4AB92E127FAA2A900E0CE21 /* XYUIKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = XYUIKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4AB9AD4262053A1006B034B /* MailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailViewController.swift; sourceTree = "<group>"; };
+		B4C374E228616C8E00266440 /* XYCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XYCards.swift; sourceTree = "<group>"; };
 		B4C88D342718090E007921EB /* EmotionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionViewCell.swift; sourceTree = "<group>"; };
 		B4C88D352718090E007921EB /* Emoticons.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Emoticons.bundle; sourceTree = "<group>"; };
 		B4C88D362718090E007921EB /* FindEmotion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindEmotion.swift; sourceTree = "<group>"; };
@@ -294,6 +296,7 @@
 				B422760E26131B7F0089C7C0 /* RefreshHeader.swift */,
 				B43779772631519D00311802 /* TipView.swift */,
 				B471EF352657B950004FD238 /* XYCustomTimePickerViewController.swift */,
+				B4C374E228616C8E00266440 /* XYCards.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -480,6 +483,7 @@
 				B4AB9AD5262053A1006B034B /* MailViewController.swift in Sources */,
 				B472C57825821DB1005898C5 /* ZLPushNotificationTipView.swift in Sources */,
 				B43779962631988200311802 /* TYImageStorage.m in Sources */,
+				B4C374E328616C8E00266440 /* XYCards.swift in Sources */,
 				B47EF034260630C200DE7EC3 /* Public.swift in Sources */,
 				B43779952631988200311802 /* TYViewStorage.m in Sources */,
 				B472C5D2258316D0005898C5 /* ZLNewGreetingView.swift in Sources */,

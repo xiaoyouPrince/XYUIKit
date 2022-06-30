@@ -34,6 +34,15 @@ class ShowAlertVC: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .groupTableViewBackground
         
+        
+        let card = XYCards(frame: .zero)
+        card.frame = CGRect(x: 50, y: 200, width: UIScreen.main.bounds.width - 100, height: 160)
+        view.addSubview(card)
+        
+        return;
+        
+        
+        
         label.font = UIFont.systemFont(ofSize: 55)
         view.addSubview(label)
         
