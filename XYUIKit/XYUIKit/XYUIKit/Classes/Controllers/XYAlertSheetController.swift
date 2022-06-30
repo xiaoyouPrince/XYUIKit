@@ -5,7 +5,7 @@
 //  Created by 渠晓友 on 2021/4/24.
 //
 //  自定义 AlertSheet 控制器，样式仿写 UIAlertController，
-//  0. 支持内部 contentView 完全自定义,需指定高度约束
+//  0. 支持内部 contentView 自定义,需指定高度约束
 //  1. 支持内部 HeaderView 自定义,需指定 headerView.frame.size.height 或高度约束
 //  2. 支持内部 Action 自定义
 //  3. 使用可以专注于内容与业务，方便快捷
@@ -26,6 +26,7 @@
 import UIKit
 
 public typealias XYAlertSheetBlock = ((_ index :Int) -> Void)
+public typealias AlertSheetController = XYAlertSheetController
 
 open class XYAlertSheetAction: NSObject{
     var title: String?
@@ -116,6 +117,10 @@ open class XYAlertSheetController: UIViewController {
         showCustom(on: vc, title: title, subTitle: subTitle, actions: actionModels, callBack: callBack)
     }
     
+    @objc public class func dissmiss() {
+        NotificationCenter.default.post(name: NSNotification.Name("XYAlertSheetController.dissmiss"), object: nil)
+    }
+    
     open override var modalPresentationStyle: UIModalPresentationStyle{
         set{}
         get{
@@ -131,6 +136,14 @@ open class XYAlertSheetController: UIViewController {
         view.addGestureRecognizer(tap)
 
         buildUI()
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name("XYAlertSheetController.dissmiss"), object: nil, queue: .main) {[weak self] noti in
+            self?.end(index: 0)
+        }
+    }
+    
+    deinit {
+        debugPrint("NSNotification.Name(XYAlertSheetController.dissmiss)")
     }
     
     open override func viewDidAppear(_ animated: Bool) {
@@ -247,7 +260,7 @@ extension XYAlertSheetController {
                 make.top.equalToSuperview()
                 if customHeaderView.frame.size.height > 0 {
                     make.height.equalTo(customHeaderView.frame.size.height)
-                } 
+                }
             }
             
             resultView = customHeaderView
