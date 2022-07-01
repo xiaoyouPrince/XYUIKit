@@ -57,6 +57,12 @@ open class XYNetTool: NSObject {
         let session = URLSession(configuration: URLSessionConfiguration.default, delegate: shared, delegateQueue: OperationQueue.main)
         session.dataTask(with: request as URLRequest) { data, response, error in
             
+            if error != nil { // 网络异常
+                DispatchQueue.main.async {
+                    failure(error!.localizedDescription)
+                }
+            }
+            
             if let data = data, let resultJson = try? JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed), let dict = resultJson as? [String: Any] {
                 if let code = dict["code"] as? Int, code == 200 {
                     DispatchQueue.main.async {
@@ -72,16 +78,9 @@ open class XYNetTool: NSObject {
                         print(dict)
                     }
                 }
-            }
-            
-            //if let response = response {
-            //    Toast.make(response.description)
-            //}
-            
-            if error != nil { // 网络异常
-                DispatchQueue.main.async {
-                    failure("网络异常")
-                }
+            }else{
+                // 非JSON格式返回
+                success([:])
             }
             
         }.resume()
