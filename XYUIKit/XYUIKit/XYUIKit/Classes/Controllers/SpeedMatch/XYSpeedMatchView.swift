@@ -44,9 +44,9 @@ open class XYSpeedMatchView: UIView {
     public var showItemsNumber: Int = 2 {didSet{reloadData()}}
     public var isCyclically = true
     public private(set) var currentIndex: Int = 0
-    var delegate: XYSpeedMatchViewDelegate?
+    public weak var delegate: XYSpeedMatchViewDelegate?
     
-    private var dataSource: XYSpeedMatchViewDataSource!
+    private weak var dataSource: XYSpeedMatchViewDataSource!
     private var itemsArray: [UIView] = []
     private var originalPoint: CGPoint = .zero
     private var xFromCenter: CGFloat = .zero
