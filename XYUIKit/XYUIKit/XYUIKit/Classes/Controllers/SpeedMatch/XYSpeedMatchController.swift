@@ -70,6 +70,7 @@ extension XYSpeedMatchController: XYSpeedMatchViewDataSource, XYSpeedMatchViewDe
     }
     
     open func speedMatch(view: XYSpeedMatchView, beforeSwipingItemAt index: Int) {}
+    open func speedMatch(view: XYSpeedMatchView, afterSwipingItemAt index: Int) {}
     open func speedMatch(view: XYSpeedMatchView, didRemovedItemAt index: Int) {}
     open func speedMatch(view: XYSpeedMatchView, didLeftRemovedItemAt index: Int) {}
     open func speedMatch(view: XYSpeedMatchView, didRightRemovedItemAt index: Int) {}

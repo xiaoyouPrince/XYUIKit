@@ -27,15 +27,22 @@ public protocol XYSpeedMatchViewDataSource: NSObjectProtocol {
 
 public protocol XYSpeedMatchViewDelegate: NSObjectProtocol {
     func speedMatch(view: XYSpeedMatchView, beforeSwipingItemAt index: Int)
+    func speedMatch(view: XYSpeedMatchView, afterSwipingItemAt index: Int)
     func speedMatch(view: XYSpeedMatchView, didRemovedItemAt index: Int)
     func speedMatch(view: XYSpeedMatchView, didLeftRemovedItemAt index: Int)
     func speedMatch(view: XYSpeedMatchView, didRightRemovedItemAt index: Int)
 }
 public extension XYSpeedMatchViewDelegate {
     func speedMatch(view: XYSpeedMatchView, beforeSwipingItemAt index: Int) { }
+    func speedMatch(view: XYSpeedMatchView, afterSwipingItemAt index: Int) { }
     func speedMatch(view: XYSpeedMatchView, didRemovedItemAt index: Int) { }
     func speedMatch(view: XYSpeedMatchView, didLeftRemovedItemAt index: Int) { }
     func speedMatch(view: XYSpeedMatchView, didRightRemovedItemAt index: Int) { }
+}
+
+public enum MatchViewSuportedDirection: CaseIterable {
+    case all
+    case left, right
 }
 
 open class XYSpeedMatchView: UIView {
@@ -43,6 +50,9 @@ open class XYSpeedMatchView: UIView {
     public var offSet: CGSize = .zero {didSet{reloadData()}}
     public var showItemsNumber: Int = 2 {didSet{reloadData()}}
     public var isCyclically = true
+    /// 可以设置滑动删除方向，默认所有方向可以滑动
+    ///  - egg：设置为 .left 则只能左滑删除，右滑动会回到原来位置
+    public var suportedDirection = MatchViewSuportedDirection.all
     public private(set) var currentIndex: Int = 0
     public weak var delegate: XYSpeedMatchViewDelegate?
     
@@ -182,19 +192,23 @@ private extension XYSpeedMatchView {
     func endSwiped(view: UIView) {
         //当这个差值大于kActionMargin 让它从右边消失
         if (self.xFromCenter > kActionMargin) {
-            viewDismissFromRight(view: view)
+            if suportedDirection == .left {
+                viewResetOriginalPalce(view: view)
+            }else{
+                viewDismissFromRight(view: view)
+            }
         }
-        //当这个差值小雨-kActionMargin 让它从左边消失
+        //当这个差值小于kActionMargin 让它从左边消失
         else if (self.xFromCenter < -kActionMargin ){
-            viewDismissFromLeft(view: view)
+            if suportedDirection == .right {
+                viewResetOriginalPalce(view: view)
+            }else{
+                viewDismissFromLeft(view: view)
+            }
         }
         //其他情况恢复原来的位置
         else{
-            self.swipeEnded = true;
-            UIView.animate(withDuration: 0.3) { [weak self] in
-                view.center = self?.originalPoint ?? .zero
-                view.transform = CGAffineTransform(rotationAngle: 0)
-            }
+            viewResetOriginalPalce(view: view)
         }
     }
 
@@ -223,6 +237,17 @@ private extension XYSpeedMatchView {
             
             self.delegate?.speedMatch(view: self, didLeftRemovedItemAt: self.currentIndex)
             self.viewSwipAction(view: view)
+        }
+    }
+    
+    func viewResetOriginalPalce(view: UIView){
+        self.swipeEnded = true;
+        UIView.animate(withDuration: 0.3) { [weak self] in
+            view.center = self?.originalPoint ?? .zero
+            view.transform = CGAffineTransform(rotationAngle: 0)
+        }completion: { [weak self] completed in
+            guard let self = self else { return }
+            self.delegate?.speedMatch(view: self, afterSwipingItemAt: self.currentIndex)
         }
     }
     
