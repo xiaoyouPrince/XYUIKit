@@ -23,3 +23,17 @@ public extension Collection {
         return nil
     }
 }
+
+public extension Array {
+    
+    func first(step: Int, where predicate: (Self.Element) throws -> Bool) rethrows -> Self.Element? {
+        var tmpArray = self
+        for _ in 0..<step {
+            if let index = try? firstIndex(where: predicate) {
+                tmpArray.replaceSubrange(index...index, with: [])
+            }
+        }
+        
+        return try? tmpArray.first(where:predicate)
+    }
+}
