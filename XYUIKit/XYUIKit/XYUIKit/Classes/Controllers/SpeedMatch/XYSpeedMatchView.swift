@@ -8,7 +8,7 @@
 import UIKit
 
 //判断当前view消失的一个距离设置
-var kActionMargin: CGFloat = 120;
+var kActionMargin: CGFloat = 20;
 // how quickly the card shrinks. Higher = slower shrinking
 var kScaleStrength: CGFloat = 4;
 // upper bar for how much the card shrinks. Higher = shrinks less
@@ -167,20 +167,34 @@ private extension XYSpeedMatchView {
         case .began:
             originalPoint = topView.center
         case .changed:
-            //取相对较小的值
-            let rotationStrength: CGFloat = min(self.xFromCenter/kRotationStrength, kRotationMax);
-            //旋转角度
-            let  rotationAngel: CGFloat = rotationStrength * kRotationAngle;
-            //比例
-            let scale: CGFloat = max(1 - abs(rotationStrength)/kScaleStrength, kScaleMax);
-            //重置中点
-            topView.center = CGPoint(x: self.originalPoint.x + self.xFromCenter, y: self.originalPoint.y + self.yFromCenter)
-            //旋转
-            let transform: CGAffineTransform  = CGAffineTransform(rotationAngle: rotationAngel);
-            //缩放
-            let scaleTransform: CGAffineTransform = transform.scaledBy(x: scale, y: scale);
             
-            topView.transform = scaleTransform;
+            switch suportedDirection {
+            case .left:
+                //重置中点
+                let centerX = min(self.originalPoint.x, self.originalPoint.x + self.xFromCenter)
+                topView.center = CGPoint(x: centerX, y: self.originalPoint.y)
+            case .right:
+                //重置中点
+                let centerX = max(self.originalPoint.x, self.originalPoint.x + self.xFromCenter)
+                topView.center = CGPoint(x: centerX, y: self.originalPoint.y)
+
+            default:
+                
+                //取相对较小的值
+                let rotationStrength: CGFloat = min(self.xFromCenter/kRotationStrength, kRotationMax);
+                //旋转角度
+                let  rotationAngel: CGFloat = rotationStrength * kRotationAngle;
+                //比例
+                let scale: CGFloat = max(1 - abs(rotationStrength)/kScaleStrength, kScaleMax);
+                //重置中点
+                topView.center = CGPoint(x: self.originalPoint.x + self.xFromCenter, y: self.originalPoint.y + self.yFromCenter)
+                //旋转
+                let transform: CGAffineTransform  = CGAffineTransform(rotationAngle: rotationAngel);
+                //缩放
+                let scaleTransform: CGAffineTransform = transform.scaledBy(x: scale, y: scale);
+                
+                topView.transform = scaleTransform;
+            }
             
         case .ended:
             endSwiped(view: topView)
