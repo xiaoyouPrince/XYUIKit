@@ -8,22 +8,23 @@
 
 import UIKit
 
+open
 class XYTagsView: UIView {
     
-    class Config {
-        var tagBackgroundColor = UIColor.orange.withAlphaComponent(0.3)
-        var tagTextColor = UIColor.orange
-        var tagFont = UIFont.systemFont(ofSize: 17)
-        var tagEdgeInsets = UIEdgeInsets(top: 4, left: 8, bottom: 4, right: 8)
-        var tagMargin: CGFloat = 6
-        var tagCornerRadius: CGFloat = 5
+    open class Config {
+        public var tagBackgroundColor = UIColor.orange.withAlphaComponent(0.3)
+        public var tagTextColor = UIColor.orange
+        public var tagFont = UIFont.systemFont(ofSize: 17)
+        public var tagEdgeInsets = UIEdgeInsets(top: 4, left: 8, bottom: 4, right: 8)
+        public var tagMargin: CGFloat = 6
+        public var tagCornerRadius: CGFloat = 5
     }
     
-    static let config: Config = Config()
+    static public let config: Config = Config()
     
-    private(set) var height: CGFloat = 0
-    private(set) var tagTtiles: [String] = []
-    var tagClickCallback: ((String) -> ())?
+    public private(set) var height: CGFloat = 0
+    public private(set) var tagTtiles: [String] = []
+    public var tagClickCallback: ((String) -> ())?
     
     class Tag: UIView {
         var name: String
@@ -49,7 +50,7 @@ class XYTagsView: UIView {
         }
     }
     
-    init(titles: [String], maxWitdh: CGFloat) {
+    public init(titles: [String], maxWitdh: CGFloat) {
         super.init(frame: .zero)
         tagTtiles = titles
         
@@ -85,7 +86,7 @@ class XYTagsView: UIView {
         }
     }
     
-    required init?(coder: NSCoder) {
+    required public init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }

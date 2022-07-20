@@ -55,3 +55,28 @@ public extension String {
     }
     
 }
+
+public extension String {
+    
+    /// 快速创建一个子字符串，裁剪到指定长度。
+    /// - Parameter to: 最大长度
+    /// - Returns: 裁剪后字符串
+    ///  完整展示指定长度，最后加 ...
+    func substringToIndex(to: Int) -> String {
+        if self.length() > to {
+            return String(format: "%@...", self.prefix(to) as CVarArg)
+        }
+        return self
+    }
+    
+    /// 快速创建一个子字符串，裁剪到指定长度。
+    /// - Parameter before: 最大长度
+    /// - Returns: 裁剪后字符串
+    ///  完整展示指定长度，超长后最后一个字 ...
+    func substringBeforeIndex(before: Int) -> String {
+        if self.length() > before {
+            return String(format: "%@...", self.prefix(before-1) as CVarArg)
+        }
+        return self
+    }
+}
