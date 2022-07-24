@@ -279,8 +279,9 @@ private extension XYSpeedMatchView {
         })
         
         view.removeFromSuperview()
-        let totalNumber = dataSource.numberOfItems(in: self)
+        delegate?.speedMatch(view: self, didRemovedItemAt: currentIndex)
         
+        let totalNumber = dataSource.numberOfItems(in: self)
         var newView: UIView? = nil
         var newIndex: Int = currentIndex + showItemsNumber;
         if (newIndex < totalNumber) {
@@ -306,8 +307,6 @@ private extension XYSpeedMatchView {
                 }
             self.itemsArray.append(newView)
         }
-        
-        delegate?.speedMatch(view: self, didRemovedItemAt: currentIndex)
         
         currentIndex += 1;
         layoutViews()
