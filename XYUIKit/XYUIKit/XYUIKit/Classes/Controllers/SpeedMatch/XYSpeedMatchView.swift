@@ -27,6 +27,7 @@ public protocol XYSpeedMatchViewDataSource: NSObjectProtocol {
 
 public protocol XYSpeedMatchViewDelegate: NSObjectProtocol {
     func speedMatch(view: XYSpeedMatchView, beforeSwipingItemAt index: Int)
+    func speedMatch(view: XYSpeedMatchView, inSwipingItemAt index: Int)
     func speedMatch(view: XYSpeedMatchView, afterSwipingItemAt index: Int)
     func speedMatch(view: XYSpeedMatchView, didRemovedItemAt index: Int)
     func speedMatch(view: XYSpeedMatchView, didLeftRemovedItemAt index: Int)
@@ -34,6 +35,7 @@ public protocol XYSpeedMatchViewDelegate: NSObjectProtocol {
 }
 public extension XYSpeedMatchViewDelegate {
     func speedMatch(view: XYSpeedMatchView, beforeSwipingItemAt index: Int) { }
+    func speedMatch(view: XYSpeedMatchView, inSwipingItemAt index: Int) { }
     func speedMatch(view: XYSpeedMatchView, afterSwipingItemAt index: Int) { }
     func speedMatch(view: XYSpeedMatchView, didRemovedItemAt index: Int) { }
     func speedMatch(view: XYSpeedMatchView, didLeftRemovedItemAt index: Int) { }
@@ -195,6 +197,8 @@ private extension XYSpeedMatchView {
                 
                 topView.transform = scaleTransform;
             }
+            
+            delegate?.speedMatch(view: self, inSwipingItemAt: currentIndex)
             
         case .ended:
             endSwiped(view: topView)
