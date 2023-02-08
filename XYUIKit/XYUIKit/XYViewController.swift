@@ -12,6 +12,18 @@ import XYUIKit
 
 typealias XYToast = Toast
 
+extension Dictionary {
+    
+    func allValues() -> [Value] {
+        var result: [Value] = []
+        values.forEach { item in
+            result.append(item)
+        }
+        return result
+    }
+    
+}
+
 class XYViewController: XYInfomationBaseViewController {
     
     var nameSpase: String {
@@ -33,6 +45,20 @@ class XYViewController: XYInfomationBaseViewController {
         self.view.backgroundColor = .yellow
         
         let nameSpase = nameSpase
+
+        let arr = ["1","2","3"]
+        let first = arr.first?.first(where: \.isNumber)
+        print("first = \(String(describing: first))")
+        
+        let second = arr.first?.first(where: {$0 == "2"})
+        print("second = \(String(describing: second))")
+        
+        print("Int.max == \(Int.max)")
+        
+        let dict = ["1": 1, "2":2]
+        
+        
+        print(dict.keys as? [String], dict.allValues() )
         
         
 //        self.navigationController?.navigationBar.isTranslucent = false
@@ -107,6 +133,13 @@ class XYViewController: XYInfomationBaseViewController {
                 return
             }
             
+            if cell.model.value == "present" {
+                //detailVC.jobTitle = "去你去你妹的去你妹的去你妹的去你妹的去你妹的去你妹的的"
+                self.present(detailVC, animated: false) {
+                }
+                return
+            }
+            
             if let nav = self.navigationController {
                 nav.pushViewController(detailVC, animated: true)
             }else{
@@ -158,9 +191,9 @@ extension XYViewController {
                     "type": 1
                 ],
                 [
-                    "title": "发送邮件",
-                    "titleKey": "MailViewController",
-                    "value": "",
+                    "title": "时间/日期选择",
+                    "titleKey": "PlayDataTimePickerController",
+                    "value": "present",
                     "type": 1
                 ]
             ]

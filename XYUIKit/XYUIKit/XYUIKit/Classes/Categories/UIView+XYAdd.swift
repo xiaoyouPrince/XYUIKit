@@ -12,6 +12,25 @@ public func cornerRadius(_ cornerRadius: CGFloat, forView view: UIView){
     view.clipsToBounds = true
 }
 
+public extension UIView {
+    /// 切圆角
+    /// - Parameter radius: 圆角大小
+    func corner(radius: CGFloat) {
+        self.layer.cornerRadius = radius
+        self.clipsToBounds = true
+    }
+    
+    /// 设置边框
+    /// - Parameters:
+    ///   - color: 边框颜色
+    ///   - width: 边框宽度
+    func border(color: UIColor, width: CGFloat) {
+        self.layer.borderColor = color.cgColor
+        self.layer.borderWidth = width
+    }
+}
+
+
 // MARK: - 添加渐变色
 public enum GradientType: Int, CustomStringConvertible {
     /// 上到下
