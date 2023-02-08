@@ -48,6 +48,7 @@ struct DataSource_Time {
 class PlayDataTimePickerController: UIViewController {
     typealias CallBack = ([String: Any])->()
     private var callback: CallBack?
+    private var pickerTitle: String?
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -66,14 +67,21 @@ class PlayDataTimePickerController: UIViewController {
         get{.custom}
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+//        showPlayTimeAlert(params: ["tags": ["01:00","10:00"]]) { result in
+//            print("result = \(result)")
+//        }
+        
+        showPlayDateAlert(params: ["tags": ["01:00","10:00"]]) { result in
+            print("result = \(result)")
+        }
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         showContent()
-        
-        let a = Date().timeIntervalSince1970.getMonDayWeekStr()
-        print("a = \(a)")
-        
-        contentView.reloadDate(DataSource_Date())
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -83,25 +91,55 @@ class PlayDataTimePickerController: UIViewController {
     func showPlayTimeAlert(params: [String: Any], callback: ((Any)->Void)?) {
         debugPrint("params = \(params)")
         
+        var date = DataSource_Time()
+        if let start = params["start"] as? Int {
+            date.start = start
+        }
+        if let end = params["end"] as? Int {
+            date.end = end
+        }
+        if let choosed = params["choosed"] as? String {
+            date.choosed = choosed
+        }
+        if let interval = params["interval"] as? Int {
+            date.interval = interval
+        }
+        if let tags = params["tags"] as? [String] {
+            date.tags = tags
+        }
+                
+        setup(title: "播出时间", callback: callback) {
+            self.contentView.reloadTime(date)
+        }
     }
     
     func showPlayDateAlert(params: [String: Any], callback: ((Any)->Void)?) {
         debugPrint("params = \(params)")
         
-        var data = DataSource_Date()
+        var date = DataSource_Date()
         if let start = params["start"] as? Double {
-            data.start = start
+            date.start = start
         }
         if let end = params["end"] as? Double {
-            data.end = end
+            date.end = end
         }
         if let choosed = params["choosed"] as? Double {
-            data.choosed = choosed
+            date.choosed = choosed
+        }
+        
+        setup(title: "播出日期", callback: callback) {
+            contentView.reloadDate(date)
         }
     }
     
+    func setup(title: String, callback: CallBack?, completed: ()->()) {
+        self.pickerTitle = title
+        self.callback = callback
+        completed()
+    }
+    
     lazy var contentView: PickerContentView = {
-        let a = PickerContentView(title: "播出日期"){[weak self] index in
+        let a = PickerContentView(title: self.pickerTitle ?? ""){[weak self] index in
             //Toast.make("点击了 \(index)")
             self?.dismissContent()
             
@@ -142,7 +180,6 @@ extension PlayDataTimePickerController {
         }
     }
 }
-
 
 class PickerHeaderView: UIView {
     
@@ -267,15 +304,68 @@ class PickerContentView: UIControl {
             self.picker.selectRow(choosedRow, inComponent: 0, animated: true)
         }
     }
+    
+    func reloadTime(_ date: DataSource_Time) {
+        dataArray.removeAll()
+        let hourCount = (date.end - date.start)
+        var choosedRow = 0
+        for i in 0...hourCount {
+            if (60 % date.interval) == 0 {
+                for index in 0...date.interval {
+                    var hour = "\(date.start + i)"
+                    var min = "\((60/date.interval) * index)"
+                    if min == "60" { continue }
+                    if hour.count == 1 {
+                        hour = "0" + hour
+                    }
+                    if min.count == 1 {
+                        min = "0" + min
+                    }
+                    
+                    let title = hour + ":" + min
+                    dataArray.append(PickerCellModel(title: title, resultStr: title))
+                }
+            }else{
+                // defalut just hour
+                let hour = "\(date.start + i)"
+                let min = "00"
+                let title = hour + ":" + min
+                dataArray.append(PickerCellModel(title: title, resultStr: title))
+            }
+        }
+        
+        dataArray = dataArray.map { model -> PickerCellModel in
+            if date.tags.contains(model.title) {
+                var result = PickerCellModel(title: model.title, resultStr: model.resultStr)
+                result.recommand = true
+                return result
+            }
+            return model
+        }
+        
+        for (i, item) in dataArray.enumerated() {
+            if item.title == date.choosed {
+                choosedRow = i
+            }
+        }
+        
+        picker.reloadAllComponents()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+            self.picker.selectRow(choosedRow, inComponent: 0, animated: true)
+        }
+    }
 }
 
 extension TimeInterval {
     func getMonDayWeekStr() -> (String, String) {
-        let month = Calendar.current.component(.month, from: Date.init(timeIntervalSince1970: self))
-        let day = Calendar.current.component(.day, from: Date.init(timeIntervalSince1970: self))
+        let month_int = Calendar.current.component(.month, from: Date.init(timeIntervalSince1970: self))
+        let day_int = Calendar.current.component(.day, from: Date.init(timeIntervalSince1970: self))
         let weekday = Calendar.current.component(.weekday, from: Date.init(timeIntervalSince1970: self))
         
-        if month == 1 && day == 1 {
+        let month = month_int < 10 ? "0\(month_int)" : "\(month_int)"
+        let day = day_int < 10 ? "0\(day_int)" : "\(day_int)"
+        
+        if month == "01" && day == "01" {
             let year = Calendar.current.component(.year, from: Date.init(timeIntervalSince1970: self))
             let title = "\(year)年\(month)月\(day)日 \(getTailStr(with: weekday))"
             let resultStr = "\(Int(self))"
@@ -360,31 +450,41 @@ extension PickerContentView: UIPickerViewDataSource, UIPickerViewDelegate {
 
 struct PickerCellModel {
     let title: String
-    let recommand: Bool = false
+    var recommand: Bool = false
     let resultStr: String
 }
 
 class PickerCell: UIView {
     
     private var label = UILabel()
-    private var recommandView = UIView()
+    private var recommandLabel = UILabel()
     
     init(model: PickerCellModel) {
         super.init(frame: .zero)
         
         addSubview(label)
-        addSubview(recommandView)
+        addSubview(recommandLabel)
         
         label.snp.makeConstraints { make in
             make.center.equalToSuperview()
         }
         
-        recommandView.snp.makeConstraints { make in
-            make.left.equalTo(label).offset(10)
+        recommandLabel.snp.makeConstraints { make in
+            make.left.equalTo(label.snp.right).offset(10)
+            make.centerY.equalToSuperview()
+            make.size.equalTo(CGSize(width: 32, height: 16))
         }
         
         label.text = model.title
-        recommandView.isHidden = model.recommand
+        recommandLabel.text = "推荐"
+        recommandLabel.backgroundColor = .red
+        recommandLabel.font = UIFont.boldSystemFont(ofSize: 10)
+        recommandLabel.textColor = .white
+        recommandLabel.textAlignment = .center
+        recommandLabel.corner(radius: 8)
+        recommandLabel.isHidden = !model.recommand
+        
+        
     }
     
     required init?(coder: NSCoder) {
