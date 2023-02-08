@@ -67,23 +67,6 @@ class PlayDataTimePickerController: UIViewController {
         get{.custom}
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-//        showPlayTimeAlert(params: ["tags": ["01:00","10:00"]]) { result in
-//            print("result = \(result)")
-//        }
-        
-        showPlayDateAlert(params: ["tags": ["01:00","10:00"]]) { result in
-            print("result = \(result)")
-        }
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        showContent()
-    }
-    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         dismissContent()
     }
@@ -136,6 +119,11 @@ class PlayDataTimePickerController: UIViewController {
         self.pickerTitle = title
         self.callback = callback
         completed()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + animationInterval) {
+            self.showContent()
+        }
+        
     }
     
     lazy var contentView: PickerContentView = {
@@ -167,7 +155,7 @@ extension PlayDataTimePickerController {
         
         UIView.animate(withDuration: animationInterval) {
             self.view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
-            self.contentView.frame.origin.y -= self.contentView.frame.size.height
+            self.contentView.transform = CGAffineTransform(translationX: 0, y: -self.contentView.frame.size.height)
         }
     }
     
@@ -175,6 +163,7 @@ extension PlayDataTimePickerController {
         UIView.animate(withDuration: animationInterval) {
             self.view.backgroundColor = UIColor.clear
             self.contentView.frame.origin.y += self.contentView.frame.size.height
+            self.contentView.transform = .identity
         } completion: { success in
             self.dismiss(animated: false, completion: nil)
         }
@@ -483,8 +472,6 @@ class PickerCell: UIView {
         recommandLabel.textAlignment = .center
         recommandLabel.corner(radius: 8)
         recommandLabel.isHidden = !model.recommand
-        
-        
     }
     
     required init?(coder: NSCoder) {

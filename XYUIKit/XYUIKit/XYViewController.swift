@@ -134,9 +134,13 @@ class XYViewController: XYInfomationBaseViewController {
             }
             
             if cell.model.value == "present" {
-                //detailVC.jobTitle = "去你去你妹的去你妹的去你妹的去你妹的去你妹的去你妹的的"
-                self.present(detailVC, animated: false) {
+                
+                self.showPlayDateAlert(params: ["tags": ["01:00","10:00"]]) { result in
+                    print("result = \(result)")
                 }
+                
+//                self.present(detailVC, animated: false) {
+//                }
                 return
             }
             
@@ -156,6 +160,17 @@ class XYViewController: XYInfomationBaseViewController {
         print("1ddg".length())
         print("你好".length())
         print("你好123😆".length())
+        
+    }
+    
+    func showPlayDateAlert(params: [String: Any], callback: ((Any)->Void)?) {
+        debugPrint("params = \(params)")
+        
+        
+        let de = PlayDataTimePickerController()
+        self.present(de, animated: false) {
+            de.showPlayTimeAlert(params: params, callback: callback)
+        }
         
     }
 }
