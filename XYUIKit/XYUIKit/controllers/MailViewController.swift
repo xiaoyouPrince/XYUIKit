@@ -264,7 +264,7 @@ class PickerContentView: UIControl {
         picker.snp.makeConstraints { make in
             make.left.right.equalToSuperview()
             make.top.equalTo(header.snp.bottom)
-            make.height.equalTo(165)
+            make.bottom.equalToSuperview().offset(-20)
         }
     }
     
