@@ -45,7 +45,18 @@ class XYViewController: XYInfomationBaseViewController {
         self.view.backgroundColor = .yellow
         
         let nameSpase = nameSpase
+        
+        nav_hideDefaultBackBtn()
 
+        
+//        if #available(iOS 13.0, *) {
+//            let appearance = UINavigationBarAppearance()
+//            appearance.backgroundColor = UIColor.green
+//            self.navigationController?.navigationBar.scrollEdgeAppearance = appearance
+//            self.navigationController?.navigationBar.prefersLargeTitles = true
+//        } else {}
+        
+        
         let arr = ["1","2","3"]
         let first = arr.first?.first(where: \.isNumber)
         print("first = \(String(describing: first))")
@@ -137,6 +148,11 @@ class XYViewController: XYInfomationBaseViewController {
                 
                 self.showPlayDateAlert(params: ["tags": ["01:00","10:00"]]) { result in
                     print("result = \(result)")
+                    
+                    if let dic = result as? [String: Any], let val = dic["result"] as? String {
+                        print("result = \(Date.init(timeIntervalSince1970: TimeInterval(val) ?? 0))")
+                    }
+                    
                 }
                 
 //                self.present(detailVC, animated: false) {
@@ -261,6 +277,12 @@ extension XYViewController {
                 "titleKey": "IMViewController",
                 "value": "去查看",
                 "type": 1
+            ],
+            [
+                "title": "Combine_Demo",
+                "titleKey": "CombineViewController",
+                "value": "去查看",
+                "type": 1
             ]
         ]
         
@@ -270,4 +292,24 @@ extension XYViewController {
         
         return result
     }
+    
+    // FIXME:  [your bug fix reminder].
+    
+    // TODO: - [your to-do item] -
+    
+    // MARK: - [your content]. -
+    
+    func a() {
+        
+        ["q", "e"].lastString
+        
+        [1 , 2].last
+        
+
+    }
+}
+
+
+extension Array where Array.Element == String {
+    var lastString: Element { self.last ?? "" }
 }

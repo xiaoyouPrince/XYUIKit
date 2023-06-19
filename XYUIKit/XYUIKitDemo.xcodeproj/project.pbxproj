@@ -46,6 +46,7 @@
 		B49234032665F64A00F3FBED /* TimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49234022665F64A00F3FBED /* TimeViewController.swift */; };
 		B4AB92E227FAA2A900E0CE21 /* XYUIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4AB92E127FAA2A900E0CE21 /* XYUIKit.framework */; };
 		B4AB9AD5262053A1006B034B /* MailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AB9AD4262053A1006B034B /* MailViewController.swift */; };
+		B4B0DC4529AB853F003C1971 /* Demo_Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B0DC4429AB853F003C1971 /* Demo_Combine.swift */; };
 		B4C374E328616C8E00266440 /* XYCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C374E228616C8E00266440 /* XYCards.swift */; };
 		B4C88D3E2718090E007921EB /* EmotionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C88D342718090E007921EB /* EmotionViewCell.swift */; };
 		B4C88D3F2718090E007921EB /* Emoticons.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B4C88D352718090E007921EB /* Emoticons.bundle */; };
@@ -120,6 +121,7 @@
 		B49234022665F64A00F3FBED /* TimeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeViewController.swift; sourceTree = "<group>"; };
 		B4AB92E127FAA2A900E0CE21 /* XYUIKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = XYUIKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4AB9AD4262053A1006B034B /* MailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailViewController.swift; sourceTree = "<group>"; };
+		B4B0DC4429AB853F003C1971 /* Demo_Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Demo_Combine.swift; sourceTree = "<group>"; };
 		B4C374E228616C8E00266440 /* XYCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XYCards.swift; sourceTree = "<group>"; };
 		B4C88D342718090E007921EB /* EmotionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionViewCell.swift; sourceTree = "<group>"; };
 		B4C88D352718090E007921EB /* Emoticons.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Emoticons.bundle; sourceTree = "<group>"; };
@@ -243,6 +245,7 @@
 				B42AD11126B3BCAD003E191D /* NestedXYInfoViewController.swift */,
 				B4569D3C27170D880038E972 /* IMViewController.swift */,
 				B4DD65F8275A73A300151635 /* ListViewController.swift */,
+				B4B0DC4429AB853F003C1971 /* Demo_Combine.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -492,6 +495,7 @@
 				B45CE06D26BA957F00639E27 /* Capture.swift in Sources */,
 				B4C88D3E2718090E007921EB /* EmotionViewCell.swift in Sources */,
 				B4C88D402718090E007921EB /* FindEmotion.swift in Sources */,
+				B4B0DC4529AB853F003C1971 /* Demo_Combine.swift in Sources */,
 				B4569D3D27170D880038E972 /* IMViewController.swift in Sources */,
 				B4D811C52741A32D00E02582 /* SVRadialGradientLayer.m in Sources */,
 				B422760F26131B7F0089C7C0 /* RefreshHeader.swift in Sources */,

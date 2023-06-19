@@ -55,7 +55,7 @@ class NestedXYInfoViewController: UIViewController {
                 return
             }
 
-            guard let clz = NSClassFromString("XYUIKit.\(cell.model.titleKey)") as? XYCustomTimePickerViewController.Type else{
+            guard let clz = NSClassFromString("XYUIKitDemo.\(cell.model.titleKey)") as? XYCustomTimePickerViewController.Type else{
                 return
             }
             let detailVC = clz.init()

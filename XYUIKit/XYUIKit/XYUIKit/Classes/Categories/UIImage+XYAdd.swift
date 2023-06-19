@@ -7,7 +7,6 @@
 //  algorithm from: http://indieambitions.com/idevblogaday/perform-blur-vimage-accelerate-framework-tutorial/?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed%3A+IndieAmbitions+%28Indie+Ambitions%29
 
 import Foundation
-//import QuartzCore
 import Accelerate
 
 public extension UIImage {
@@ -15,7 +14,7 @@ public extension UIImage {
     /// 给当前 image 设置模糊
     /// - Parameter blur: 模糊系数 0.0~1.0
     /// - Returns: 模糊后的 Image
-    func xy_blurImage(_ blur: CGFloat) -> UIImage {
+    @objc func xy_blurImage(_ blur: CGFloat) -> UIImage {
         
         var blur = blur
         if blur < 0.0 || blur > 1.0 {
@@ -61,5 +60,18 @@ public extension UIImage {
         
         free(pixelBuffer)
         return returnImage
+    }
+    
+    
+    /// 通过颜色创建一个 UIImage
+    /// - Parameter color: 指定的颜色
+    /// - Returns: 返回目标 UIImage
+    @objc static func image(with color: UIColor) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(CGSize(width: 1, height: 1), false, 0)
+        let ctx = UIGraphicsGetCurrentContext()
+        ctx?.setFillColor(color.cgColor)
+        ctx?.fill(CGRect(x: 0, y: 0, width: 1, height: 1))
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        return image ?? UIImage()
     }
 }

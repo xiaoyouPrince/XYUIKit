@@ -94,13 +94,13 @@ public enum GradientType: Int, CustomStringConvertible {
 
 public extension UIView {
     
-    @discardableResult
     /// 给当前 UIView 设置渐变色
     /// - Parameters:
     ///   - type: 指定渐变类型
     ///   - size: 指定渐变色区域大小
     ///   - gradientColors: 渐变色颜色数组
     /// - Returns: 返回一个 CAGradientLayer，调用者可以自己管理返回值的生命周期，避免重复设置渐变色
+    @discardableResult
     func setGradient(withType type: GradientType,
                      size: CGSize,
                      gradientColors: [UIColor]) -> CAGradientLayer{
@@ -112,5 +112,20 @@ public extension UIView {
         gradientLayer.frame = CGRect(origin: .zero, size: size)
         layer.insertSublayer(gradientLayer, at: 0)
         return gradientLayer
+    }
+}
+
+public extension UIView {
+
+    var viewController: UIViewController? {
+        var nextRes = next
+        while nextRes != nil {
+            if let VC = nextRes as? UIViewController {
+                return VC
+            }
+            nextRes = nextRes?.next
+        }
+        
+        return nil
     }
 }

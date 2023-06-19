@@ -52,6 +52,8 @@ class ViewController: UIViewController {
 //            print(false)
 //        }
         
+        title = "a"
+        
         let person = Person()
         person.name = "张三"
         Person.age = "10"

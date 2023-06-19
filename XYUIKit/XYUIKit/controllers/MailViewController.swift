@@ -275,6 +275,10 @@ class PickerContentView: UIControl {
     func reloadDate(_ date: DataSource_Date) {
         dataArray.removeAll()
         let count = Int((date.end - date.start)/86400)
+        
+        print("count - \(count)")
+        print("count = \(date.start.getDiffDay(with: date.end))")
+        
         var choosedRow = 0
         for i in 0..<count {
             let currentInterval = (date.start + Double(i * 86400))
@@ -407,6 +411,10 @@ extension TimeInterval {
         {
             return "\(getHZ(wkd: wkd))"
         }
+    }
+    
+    func getDiffDay(with time: TimeInterval) -> Int {
+        Calendar.current.dateComponents([.day], from: Date.init(timeIntervalSince1970: self), to: Date.init(timeIntervalSince1970: time)).day ?? 0
     }
 }
 
