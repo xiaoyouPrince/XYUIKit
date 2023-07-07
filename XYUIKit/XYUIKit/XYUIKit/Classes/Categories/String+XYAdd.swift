@@ -80,3 +80,17 @@ public extension String {
         return self
     }
 }
+
+public extension String {
+    
+    /// 字符串的首字符转拼音
+    /// - Returns: 大写汉语拼音字母. egg:“你好”-> N
+    func firstCharacterToPinyin() -> String {
+        let mutableString = NSMutableString(string: self) as CFMutableString
+        CFStringTransform(mutableString, nil, kCFStringTransformToLatin, false)
+        CFStringTransform(mutableString, nil, kCFStringTransformStripCombiningMarks, false)
+        let pinyin = (mutableString as String).capitalized
+        return String(pinyin.prefix(1))
+    }
+}
+

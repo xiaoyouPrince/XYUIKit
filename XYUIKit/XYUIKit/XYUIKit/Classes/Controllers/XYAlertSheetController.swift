@@ -27,12 +27,18 @@ import UIKit
 
 public typealias XYAlertSheetBlock = ((_ index :Int) -> Void)
 public typealias AlertSheetController = XYAlertSheetController
+fileprivate let CancelCode = -1
 
 open class XYAlertSheetAction: NSObject{
     var title: String?
     var defaultHeight: CGFloat = 60
     var textColor = UIColor(red: 0.42, green: 0.65, blue: 0.98, alpha: 1)
     var font = UIFont.systemFont(ofSize: 14)
+    
+    public convenience init(title: String) {
+        self.init()
+        self.title = title
+    }
 }
 
 open class XYAlertSheetController: UIViewController {
@@ -131,14 +137,14 @@ open class XYAlertSheetController: UIViewController {
     open override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.clear
-        self.view.tag = -1
+        self.view.tag = CancelCode
         let tap = UITapGestureRecognizer(target: self, action: #selector(actionClick(tap:)))
         view.addGestureRecognizer(tap)
 
         buildUI()
         
         NotificationCenter.default.addObserver(forName: NSNotification.Name("XYAlertSheetController.dissmiss"), object: nil, queue: .main) {[weak self] noti in
-            self?.end(index: 0)
+            self?.end(index: CancelCode)
         }
     }
     
@@ -204,7 +210,7 @@ extension XYAlertSheetController {
             label.tag = index
             if action == actions.last {
                 label.textColor = .lightGray
-                label.tag = -1
+                label.tag = CancelCode
             }
             let tap = UITapGestureRecognizer(target: self, action: #selector(actionClick(tap:)))
             label.addGestureRecognizer(tap)
@@ -224,7 +230,7 @@ extension XYAlertSheetController {
                 if action == actions.last {
                     make.height.equalTo(8)
                 }else{
-                    make.height.equalTo(0.5)
+                    make.height.equalTo(1.0/UIScreen.main.scale)
                 }
             }
             

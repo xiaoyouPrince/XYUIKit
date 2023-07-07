@@ -69,4 +69,18 @@ public extension UILabel {
         }
     }
     
+    
+    /// 快速创建一个label
+    /// - Parameters:
+    ///   - title: 文本
+    ///   - font: 字号
+    ///   - textColor: 字体颜色
+    ///   - textAlignment: 对齐方式
+    convenience init(title: String?, font: UIFont, textColor: UIColor, textAlignment: NSTextAlignment){
+        self.init(frame: .zero)
+        self.font = font
+        self.textColor = textColor
+        self.textAlignment = textAlignment
+    }
+    
 }

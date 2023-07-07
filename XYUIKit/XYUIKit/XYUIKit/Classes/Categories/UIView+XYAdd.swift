@@ -28,7 +28,35 @@ public extension UIView {
         self.layer.borderColor = color.cgColor
         self.layer.borderWidth = width
     }
+    
+    /// 返回一个 1 像素的横线
+    static var line: UIView {
+        let line = UIView.init(frame: .init(origin: .zero, size: .init(width: .width, height: .line)))
+        line.backgroundColor = UIColor.init(r: 193, g: 193, b: 193)
+        return line
+    }
+    
 }
+
+public extension UIView {
+    
+    /// 给 UIView 快速添加系统 blur 效果
+    /// - Parameter style: 模糊类型
+    func addBlurEffect(style: UIBlurEffect.Style = .light) {
+        let blurEffect = UIBlurEffect(style: style)
+        let blurView = UIVisualEffectView(effect: blurEffect)
+        blurView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(blurView)
+        
+        NSLayoutConstraint.activate([
+            blurView.topAnchor.constraint(equalTo: topAnchor),
+            blurView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            blurView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            blurView.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
+    }
+}
+
 
 
 // MARK: - 添加渐变色
@@ -116,7 +144,8 @@ public extension UIView {
 }
 
 public extension UIView {
-
+    
+    /// 当前 View 所属的控制器
     var viewController: UIViewController? {
         var nextRes = next
         while nextRes != nil {
@@ -127,5 +156,43 @@ public extension UIView {
         }
         
         return nil
+    }
+}
+
+// MARK: - 给 UIView 添加一个 tap 事件
+public extension UIView {
+    
+    typealias viewTapCallBack = (_ sender: UIView)->()
+    fileprivate struct AssociatedKeys {
+        static var viewTapCallbackKey: String = "viewTapKey"
+    }
+    
+    // MARK: - 是否启用侧滑返回功能
+    /// 默认支持侧滑返回功能
+    @objc private var viewTapCallback: (viewTapCallBack)? {
+        set{
+            objc_setAssociatedObject(self, &AssociatedKeys.viewTapCallbackKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+        get{
+            guard let viewTapCallback = objc_getAssociatedObject(self, &AssociatedKeys.viewTapCallbackKey) as? viewTapCallBack else {
+                return nil
+            }
+            return viewTapCallback
+        }
+    }
+    
+    /// 给当前 view 添加 tap 事件,并设置回调
+    /// - Parameter callback: 所添加的 tap 事件回调, 参数为被 tap 对象本身, 内部若引用其他强指针需自行进行内存处理
+    @discardableResult
+    func addTap(callback: @escaping viewTapCallBack) -> UITapGestureRecognizer {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(viewTapGestureAction))
+        isUserInteractionEnabled = true
+        addGestureRecognizer(tap)
+        viewTapCallback = callback
+        return tap
+    }
+    
+    @objc fileprivate func viewTapGestureAction() {
+        viewTapCallback?(self)
     }
 }

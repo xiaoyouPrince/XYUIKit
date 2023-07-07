@@ -41,10 +41,10 @@ extension CGFloat {
         }
     }
     
-    /// 导航条高度
+    /// 导航条高度 44
     public static let naviHeight: CGFloat = 44
     
-    /// 导航栏高度
+    /// 导航栏高度 statusBar + naviHeight
     public static let naviBar = naviHeight + statusBar
     
     /// 底部安全区 高度
@@ -112,4 +112,6 @@ extension CGFloat {
     /// tabBar 高度
     public static let tabBar = safeBottom + 49
     
+    /// 一像素横线高度
+    public static let line = 1.0 / UIScreen.main.scale
 }
