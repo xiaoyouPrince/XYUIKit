@@ -63,20 +63,12 @@ public struct XYFileManager {
     /// - Returns: 返回指定的文件模型数组
     @discardableResult
     static public func appendFile<Model: Codable>(with pathOrFileName: String, model: Model) -> [Model] {
-        guard let url = rootURL?.appendingPathComponent(pathOrFileName) else { return [] }
+        guard (rootURL?.appendingPathComponent(pathOrFileName)) != nil else { return [] }
         
         var origin: [Model] = readFile(with: pathOrFileName)
         origin.append(model)
         
-        let encoder = JSONEncoder()
-        encoder.outputFormatting = .prettyPrinted  // 可选：设置输出格式更易读
-        do {
-            let data = try encoder.encode(origin) // 将数据写入文件
-            try data.write(to: url)
-        } catch {
-            print("Failed to store contact data: \(error)")
-        }
-        
+        writeFile(with: pathOrFileName, models: origin)
         return origin
     }
     
@@ -84,11 +76,10 @@ public struct XYFileManager {
     /// - Parameter pathOrFileName: 传入文件路径或者文件名 egg: tools/a.tool 或者 a.tool
     /// - Returns: 返回指定的文件模型数组
     @discardableResult
-    static public func writeFile<Model: Codable>(with pathOrFileName: String, model: Model) -> [Model] {
+    static public func writeFile<Model: Codable>(with pathOrFileName: String, models: [Model]) -> [Model] {
         guard let url = rootURL?.appendingPathComponent(pathOrFileName) else { return [] }
         
-        var origin: [Model] = readFile(with: pathOrFileName)
-        origin.append(model)
+        let origin = models
         
         let encoder = JSONEncoder()
         encoder.outputFormatting = .prettyPrinted  // 可选：设置输出格式更易读

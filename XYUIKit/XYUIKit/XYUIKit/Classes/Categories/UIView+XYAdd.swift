@@ -159,16 +159,17 @@ public extension UIView {
     }
 }
 
-// MARK: - 给 UIView 添加一个 tap 事件
+// MARK: - 给 UIView 添加一个 tap 事件 & longpress 事件
+
 public extension UIView {
     
     typealias viewTapCallBack = (_ sender: UIView)->()
     fileprivate struct AssociatedKeys {
         static var viewTapCallbackKey: String = "viewTapKey"
+        static var viewLongPressCallbackKey: String = "viewLongPressKey"
     }
     
-    // MARK: - 是否启用侧滑返回功能
-    /// 默认支持侧滑返回功能
+    // MARK: - view tap 回调
     @objc private var viewTapCallback: (viewTapCallBack)? {
         set{
             objc_setAssociatedObject(self, &AssociatedKeys.viewTapCallbackKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
@@ -195,4 +196,61 @@ public extension UIView {
     @objc fileprivate func viewTapGestureAction() {
         viewTapCallback?(self)
     }
+    
+    // MARK: - view longPress 回调
+    @objc private var viewLongPressCallback: (viewTapCallBack)? {
+        set{
+            objc_setAssociatedObject(self, &AssociatedKeys.viewLongPressCallbackKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+        get{
+            guard let viewTapCallback = objc_getAssociatedObject(self, &AssociatedKeys.viewLongPressCallbackKey) as? viewTapCallBack else {
+                return nil
+            }
+            return viewTapCallback
+        }
+    }
+    
+    /// 给当前 view 添加 long press 事件,并设置回调
+    /// - Parameter callback: 所添加的 longpress 事件回调, 参数为被 longpress 对象本身, 内部若引用其他强指针需自行进行内存处理
+    @discardableResult
+    func addLongPress(callback: @escaping viewTapCallBack) -> UILongPressGestureRecognizer {
+        let longpress = UILongPressGestureRecognizer(target: self, action: #selector(viewLongPressGestureAction))
+        isUserInteractionEnabled = true
+        addGestureRecognizer(longpress)
+        viewLongPressCallback = callback
+        return longpress
+    }
+    
+    @objc fileprivate func viewLongPressGestureAction() {
+        viewLongPressCallback?(self)
+    }
+}
+
+public extension UIView {
+    
+    /// 找到指定子视图
+    /// - Parameter where: 返回找到的子视图,调用方可做自己的事 如:拿出子视图的引用
+    /// - 回调的参数返回值是 Bool 类型,返回 true 代表找到目标 view, 会停止后续查找 
+    func findSubView(where callback: (UIView)->(Bool)) {
+        for subview in subviews {
+            let find = callback(subview)
+            if find == true {
+                return
+            }
+        }
+    }
+    
+    /// 递归找到指定子视图
+    /// - Parameter where: 返回找到的子视图,调用方可做自己的事 如:拿出子视图的引用, 调整属性等
+    /// - 回调的参数返回值是 Bool 类型,返回 true 代表找到目标 view, 会停止后续查找
+    func findSubViewRecursion(where callback: (UIView)->(Bool)) {
+        for subView in subviews {
+            let find = callback(subView)
+            if find == true {
+                return
+            }
+            subView.findSubViewRecursion(where: callback)
+        }
+    }
+    
 }

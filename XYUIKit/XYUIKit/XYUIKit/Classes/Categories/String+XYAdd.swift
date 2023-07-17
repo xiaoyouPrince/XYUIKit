@@ -94,3 +94,203 @@ public extension String {
     }
 }
 
+public extension String {
+    
+    /// 文本的宽高
+    /// - Parameters:
+    ///   - font: 字号
+    ///   - size: 大小
+    ///   - lineSpacing: 行间距
+    /// - Returns: 宽高
+    func getTextRect(font: UIFont, size: CGSize, lineSpacing: CGFloat = 0) -> CGSize {
+        var attributes: [NSAttributedString.Key: Any] = [.font: font]
+        
+        if lineSpacing > 0 {
+            let paraStyle = NSMutableParagraphStyle()
+            paraStyle.lineSpacing = lineSpacing
+            attributes[.paragraphStyle] = paraStyle
+        }
+        
+        return self.boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: attributes, context: nil).size
+    }
+    
+    /// 富文本
+    /// - Parameters:
+    ///   - lineSpacing：行间距
+    func lineHeight(_ lineSpacing: CGFloat) -> NSAttributedString {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = lineSpacing
+        let attributes = [NSAttributedString.Key.paragraphStyle: paragraphStyle]
+        return NSAttributedString(string: self, attributes: attributes)
+    }
+    
+    /// 文本的高度
+    /// - Parameters:
+    ///   - font: 字号
+    ///   - size: 大小
+    ///   - lineSpacing: 行间距
+    /// - Returns: 高度
+    func heightOf(font: UIFont, size: CGSize, lineSpacing: CGFloat = 0) -> CGFloat {
+        var attributes: [NSAttributedString.Key: Any] = [.font: font]
+        if lineSpacing > 0 {
+            let paraStyle = NSMutableParagraphStyle()
+            paraStyle.lineSpacing = lineSpacing
+            attributes[.paragraphStyle] = paraStyle
+        }
+        return NSAttributedString(string: self, attributes: attributes).boundingRect(with: size, options: .usesLineFragmentOrigin, context: nil).size.height
+        
+    }
+    
+    /// 文本的宽度
+    /// - Parameters:
+    ///   - font: 字号
+    ///   - height: 高度
+    ///   - lineSpacing: 行间距
+    /// - Returns: 高度
+    func widthOf(height: CGFloat, font: UIFont, lineSpacing: CGFloat = 0) -> CGFloat {
+        
+        var attributes: [NSAttributedString.Key: Any] = [.font: font]
+        if lineSpacing > 0 {
+            let paraStyle = NSMutableParagraphStyle()
+            paraStyle.lineSpacing = lineSpacing
+            attributes[.paragraphStyle] = paraStyle
+        }
+        
+        return NSAttributedString(string: self, attributes: attributes).boundingRect(with: CGSize(width: .greatestFiniteMagnitude, height: height), options: .usesLineFragmentOrigin, context: nil).size.width
+    }
+    
+    /// 文本的宽高
+    /// - Parameters:
+    ///   - font: 字号
+    ///   - size: 大小
+    /// - Returns: 宽高
+    func boundingSize(font: UIFont, size: CGSize) -> CGSize {
+        return NSAttributedString(string: self, attributes: [.font: font]).boundingRect(with: size, options: .usesLineFragmentOrigin, context: nil).size
+    }
+
+}
+
+
+// MARK: - url 相关
+extension String {
+    /// 返回完全decode之后的url string
+    public var urlDecoded: String {
+        var url = self
+        while let decodeUrl = url.removingPercentEncoding {
+            if decodeUrl == url {
+                return decodeUrl
+            }
+            url = decodeUrl
+        }
+        return url
+    }
+    
+    /// 返回encode 后的 url String
+    public var urlEncoded: String {
+        let custom = CharacterSet(charactersIn: "!*'\"();:@&=+$,/?%#[]%").inverted
+        if let result = self.addingPercentEncoding(withAllowedCharacters: custom) {
+            return result
+        }
+        return self
+    }
+    
+    /// 通过URL 得到参数
+    public var urlParams: [String: String] {
+        let components = URLComponents(string: self)?.queryItems ?? []
+        return Dictionary(components.compactMap { ($0.name, $0.value ?? "") }) { $1 }
+    }
+    
+    public var toUrl: URL? { URL(string: self) }
+}
+
+// MARK: - 类型转换相关
+extension String {
+    /// String -> Int?
+    public var int: Int? { Int(self) }
+    
+    /// String -> Int
+    public var intValue: Int { Int(self) ?? 0 }
+    
+    /// String -> Int32
+    public var int32Value: Int32 { Int32(self) ?? 0 }
+    
+    /// String -> Int64
+    public var int64Value: Int64 { Int64(self) ?? 0 }
+    
+    /// String -> Float?
+    public var float: Float? { Float(self) }
+    
+    /// String -> Float
+    public var floatValue: Float { Float(self) ?? 0 }
+    
+    /// String -> Double?
+    public var double: Double? { Double(self) }
+    
+    /// String -> Double
+    public var doubleValue: Double { Double(self) ?? 0 }
+    
+    /// String -> CGFloat?
+    public var cgFloat: CGFloat? {
+        if let float = float {
+            return CGFloat(float)
+        }
+        return nil
+    }
+    
+    /// String -> CGFloat
+    public var cgValue: CGFloat { CGFloat(floatValue) }
+    
+    /// String -> Data?
+    public var toData: Data? {
+        self.data(using: .utf8)
+    }
+    
+    /// String -> [Any]?
+    public var toArray: [Any]? {
+        guard let data = toData else {
+            return nil
+        }
+        return (try? JSONSerialization.jsonObject(with: data, options: [])) as? [Any]
+    }
+    
+    /// String -> [String: Any]?
+    public var toDictionary: [String: Any]? {
+        guard let data = toData else {
+            return nil
+        }
+        return (try? JSONSerialization.jsonObject(with: data, options: [])) as? [String: Any]
+    }
+    
+    /// String -> Any?
+    public var toJson: Any? {
+        guard let data = toData else {
+            return nil
+        }
+        return try? JSONSerialization.jsonObject(with: data, options: [])
+    }
+}
+
+/// 其它
+extension String {
+    
+    public func trim() -> String {
+        return trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+    }
+    
+    public static func insertData(text: String,index: Int, newElement: Character) -> String {
+        var result : String = text
+        if result.count > index {
+            result.insert(newElement, at: result.index(result.startIndex, offsetBy: index))
+        }
+        return result
+    }
+    
+    public static func removeData(text: String,index: Int ) -> String {
+        var result = text
+        if result.count > index {
+            result.remove(at: result.index(result.startIndex, offsetBy: index))
+        }
+        return result
+    }
+}
+
