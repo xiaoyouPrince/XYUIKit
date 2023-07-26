@@ -43,7 +43,8 @@ open class XYAlertSheetAction: NSObject{
 
 open class XYAlertSheetController: UIViewController {
     
-    private var contentView = UIView()
+    private var contentView = UIButton()
+    private var bottomSafeAreaView = UIView()
     private var customHeader: UIView?
     private var customView: UIView?
     
@@ -54,6 +55,7 @@ open class XYAlertSheetController: UIViewController {
     
     /// 是否支持直接点击背景空白区取消操作，defalut is true
     public var isBackClickCancelEnable = true
+    public var dismissCallback: (()->())?
 
     @objc public class func showCustom(on
                                         vc: UIViewController,
@@ -156,6 +158,12 @@ open class XYAlertSheetController: UIViewController {
         super.viewDidAppear(animated)
         start()
     }
+    
+    /// 设置弹出容器底部安全区域的背景颜色
+    /// - Parameter color: 颜色
+    public func setBottomSafeAreaBackgroundColor(_ color: UIColor) {
+        bottomSafeAreaView.backgroundColor = color
+    }
 }
 
 
@@ -167,10 +175,17 @@ extension XYAlertSheetController {
         contentView.layer.cornerRadius = 15
         contentView.clipsToBounds = true
         view.addSubview(contentView)
+        contentView.addSubview(bottomSafeAreaView)
         
         contentView.snp.makeConstraints { (make) in
             make.left.right.equalToSuperview()
             make.top.equalTo(view.snp.bottom)
+        }
+        
+        bottomSafeAreaView.isUserInteractionEnabled = false
+        bottomSafeAreaView.snp.makeConstraints { (make) in
+            make.left.right.bottom.equalToSuperview()
+            make.height.equalTo(CGFloat.safeBottom)
         }
         
         if let customV = customView { // 完全自定义
@@ -178,7 +193,7 @@ extension XYAlertSheetController {
             contentView.addSubview(customV) // 需要contentView 自动布局且有高度约束
             customV.snp.makeConstraints { make in
                 make.left.top.right.equalToSuperview()
-                make.bottom.equalToSuperview().offset(-34)
+                make.bottom.equalToSuperview().offset(-CGFloat.safeBottom)
             }
             
             self.view.setNeedsLayout()
@@ -327,10 +342,10 @@ extension XYAlertSheetController {
     
     func start() {
         
-        let isIPhoneX = UIScreen.main.bounds.size.height >= 812
+        let isIPhoneX = CGFloat.isIPhoneX
         contentView.snp.remakeConstraints { (make) in
             make.left.right.equalToSuperview()
-            if isIPhoneX{
+            if isIPhoneX {
                 make.bottom.equalToSuperview()
             }else
             {
@@ -357,6 +372,10 @@ extension XYAlertSheetController {
             self.dismiss(animated: false) {
                 if let blk = self.block {
                     blk(index)
+                }
+                
+                if let dismissCallback = self.dismissCallback {
+                    dismissCallback()
                 }
             }
         }

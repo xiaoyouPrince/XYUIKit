@@ -36,6 +36,10 @@ public extension XYColor {
         return randomColor()
     }
     
+    static var line: XYColor {
+        return .xy_getColor(red: 193, green: 193, blue: 193)
+    }
+    
     // MARK:-便利构造方法
     convenience init(r: CGFloat, g: CGFloat, b: CGFloat){
         // MARK:-必须通过self调用显式的构造方法

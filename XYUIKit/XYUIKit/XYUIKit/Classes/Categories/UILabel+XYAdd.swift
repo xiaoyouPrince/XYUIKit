@@ -78,6 +78,7 @@ public extension UILabel {
     ///   - textAlignment: 对齐方式
     convenience init(title: String?, font: UIFont, textColor: UIColor, textAlignment: NSTextAlignment){
         self.init(frame: .zero)
+        self.text = title
         self.font = font
         self.textColor = textColor
         self.textAlignment = textAlignment
