@@ -43,7 +43,8 @@ open class XYAlertSheetAction: NSObject{
 
 open class XYAlertSheetController: UIViewController {
     
-    private var contentView = UIButton()
+    private var coverBtn = UIButton()
+    private var contentView = UIView()
     private var bottomSafeAreaView = UIView()
     private var customHeader: UIView?
     private var customView: UIView?
@@ -139,9 +140,6 @@ open class XYAlertSheetController: UIViewController {
     open override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.clear
-        self.view.tag = CancelCode
-        let tap = UITapGestureRecognizer(target: self, action: #selector(actionClick(tap:)))
-        view.addGestureRecognizer(tap)
 
         buildUI()
         
@@ -170,6 +168,12 @@ open class XYAlertSheetController: UIViewController {
 extension XYAlertSheetController {
     
     func buildUI() {
+        
+        view.addSubview(coverBtn)
+        coverBtn.addTarget(self, action: #selector(coverBtnClick(sender:)), for: .touchUpInside)
+        coverBtn.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
         
         contentView.backgroundColor = .white
         contentView.layer.cornerRadius = 15
@@ -325,12 +329,15 @@ extension XYAlertSheetController {
         return resultView
     }
     
-    @objc func actionClick(tap: UITapGestureRecognizer){
-        
-        if tap.view == view, isBackClickCancelEnable == false {
+    @objc func coverBtnClick(sender: UIButton){
+        if isBackClickCancelEnable == false {
             return
         }
         
+        end(index: CancelCode)
+    }
+    
+    @objc func actionClick(tap: UITapGestureRecognizer){
         if let index = tap.view?.tag {
             end(index: index)
         }
