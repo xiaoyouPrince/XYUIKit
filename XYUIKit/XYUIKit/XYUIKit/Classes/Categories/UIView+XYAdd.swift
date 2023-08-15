@@ -20,6 +20,16 @@ public extension UIView {
         self.clipsToBounds = true
     }
     
+    /// 切圆角
+    /// - Parameter radius: 圆角大小
+    /// - Parameter markedCorner: 指定要切的圆角 1/2/4/8 分别代表四个角, 可以用各个角的加和来组合
+    @available(iOS 11.0, *)
+    func corner(radius: CGFloat, markedCorner: UInt) {
+        self.layer.cornerRadius = radius
+        self.clipsToBounds = true
+        self.layer.maskedCorners = .init(rawValue: markedCorner)
+    }
+    
     /// 设置边框
     /// - Parameters:
     ///   - color: 边框颜色
@@ -166,6 +176,7 @@ public extension UIView {
     typealias viewTapCallBack = (_ sender: UIView)->()
     fileprivate struct AssociatedKeys {
         static var viewTapCallbackKey: String = "viewTapKey"
+        static var viewLongPressGestureKey: String = "viewLongPressGestureKey"
         static var viewLongPressCallbackKey: String = "viewLongPressKey"
     }
     
@@ -198,6 +209,17 @@ public extension UIView {
     }
     
     // MARK: - view longPress 回调
+    @objc private var viewLongPress: (UILongPressGestureRecognizer)? {
+        set{
+            objc_setAssociatedObject(self, &AssociatedKeys.viewLongPressGestureKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+        get{
+            guard let longPress = objc_getAssociatedObject(self, &AssociatedKeys.viewLongPressGestureKey) as? UILongPressGestureRecognizer else {
+                return nil
+            }
+            return longPress
+        }
+    }
     @objc private var viewLongPressCallback: (viewTapCallBack)? {
         set{
             objc_setAssociatedObject(self, &AssociatedKeys.viewLongPressCallbackKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
@@ -214,10 +236,16 @@ public extension UIView {
     /// - Parameter callback: 所添加的 longpress 事件回调, 参数为被 longpress 对象本身, 内部若引用其他强指针需自行进行内存处理
     @discardableResult
     func addLongPress(callback: @escaping viewTapCallBack) -> UILongPressGestureRecognizer {
+        if let viewLongPress = viewLongPress {
+            return viewLongPress
+        }
+        
+        viewLongPress?.removeTarget(nil, action: nil)
         let longpress = UILongPressGestureRecognizer(target: self, action: #selector(viewLongPressGestureAction))
         isUserInteractionEnabled = true
         addGestureRecognizer(longpress)
         viewLongPressCallback = callback
+        viewLongPress = longpress
         return longpress
     }
     

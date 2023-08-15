@@ -23,6 +23,8 @@ class XYTagsView: UIView {
     static public let config: Config = Config()
     
     public private(set) var height: CGFloat = 0
+    public private(set) var width: CGFloat = 0
+    public var contentSize: CGSize { .init(width: width, height: height)}
     public private(set) var tagTtiles: [String] = []
     public var tagClickCallback: ((String) -> ())?
     
@@ -77,7 +79,12 @@ class XYTagsView: UIView {
             
             tag.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.tagClick)))
         }
+        
+        // update real height width
         self.height = lastTag!.frame.maxY
+        subviews.forEach { subv in
+            width = max(subv.frame.maxX, width)
+        }
     }
     
     @objc func tagClick(_ tap: UITapGestureRecognizer){
