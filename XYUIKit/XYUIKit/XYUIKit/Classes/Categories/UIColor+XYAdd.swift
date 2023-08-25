@@ -37,7 +37,7 @@ public extension XYColor {
     }
     
     static var line: XYColor {
-        return .xy_getColor(red: 193, green: 193, blue: 193)
+        return .xy_getColor(red: 221, green: 221, blue: 221)
     }
     
     // MARK:-便利构造方法

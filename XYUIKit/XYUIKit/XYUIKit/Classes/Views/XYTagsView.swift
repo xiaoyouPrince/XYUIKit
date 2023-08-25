@@ -52,6 +52,38 @@ class XYTagsView: UIView {
         }
     }
     
+    public init(customView views: [UIView], maxWitdh: CGFloat) {
+        super.init(frame: .zero)
+        
+        var lastTag: UIView?
+        var row: CGFloat = 0 // 行
+        let margin: CGFloat = XYTagsView.config.tagMargin
+        for view in views {
+            let tag = view
+            addSubview(tag)
+            
+            if let last = lastTag {
+                var tagX = last.frame.maxX + margin
+                if maxWitdh <= last.frame.maxX + margin + tag.bounds.width {
+                    row += 1
+                    tagX = 0
+                }
+                
+                tag.frame = CGRect(x: tagX, y: row * (tag.bounds.height + margin), width: tag.bounds.width, height: tag.bounds.height)
+            }else{
+                tag.frame = tag.bounds
+            }
+            
+            lastTag = tag
+        }
+        
+        // update real height width
+        self.height = lastTag!.frame.maxY
+        subviews.forEach { subv in
+            width = max(subv.frame.maxX, width)
+        }
+    }
+    
     public init(titles: [String], maxWitdh: CGFloat) {
         super.init(frame: .zero)
         tagTtiles = titles

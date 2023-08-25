@@ -35,7 +35,7 @@ extension UIControl: XYUIControlAddBlockTargetsProtocol {
         addTarget(target, action: action, for: controlEvents)
     }
     
-    public func addBlock(for controlEvents: Event, block: @escaping (Any) -> ()) {
+    public func addBlock(for controlEvents: Event, block: @escaping (_ sender: Any) -> ()) {
         let target = XYUIControlBlockTarget(block: block, events: controlEvents)
         addTarget(target, action: #selector(target.invoke(_:)), for: controlEvents)
         allUIControlBlockTargets.append(target)

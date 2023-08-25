@@ -268,6 +268,19 @@ extension String {
         }
         return try? JSONSerialization.jsonObject(with: data, options: [])
     }
+    
+    /// String -> 金额样式  egg: "2" -> "2.00"
+    public var toMoneyString: String {
+        String(format: "%.2f", floatValue)
+    }
+    
+    /// String -> 返回 bool 值 egg: "1" -> true  /  "true" -> true
+    public var boolValue: Bool {
+        if self == "1" || self == "true" {
+            return true
+        }
+        return false
+    }
 }
 
 /// 其它

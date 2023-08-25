@@ -12,37 +12,33 @@ public extension UIResponder {
     /// 判断响应者链条是否包含某具体类
     /// - Parameter className: 需要被检测的类型
     /// - Returns: true/false
-    func respondChainContains(_ className: UIResponder.Type) -> Bool {
+    func responderChainContains(_ className: UIResponder.Type) -> Bool {
+        return responderChainToString.contains(className.debugDescription())
+    }
+    
+    /// 返回从当前开始的响应者链条
+    /// - Returns: [UIResponder]
+    var responderChain: [UIResponder] {
+        var result = [self]
+        
         var nextRes = self.next
         while nextRes != nil {
-            
-            if let next = nextRes,
-               type(of: next) == className {
-                return true
+            if let next = nextRes {
+                result.append(next)
             }
             nextRes = nextRes?.next
         }
-        return false
+        
+        return result
     }
     
     /// 返回从当前开始的倒序响应者链条
     /// - Returns: self -> self.next -> self.next.next -> ...
-    func respondChain() -> String {
-        
-        
-        
-        var result = "\(type(of: self))"
-        
-        var nextRes = self.next
-        while nextRes != nil {
-            
-            if let next = nextRes {
-                let className = type(of: next)
-                result.append(" -> \(className)")
-            }
-            nextRes = nextRes?.next
+    var responderChainToString: String {
+        var result = "\(type(of: self).debugDescription())"
+        for chain in responderChain.dropFirst() {
+            result.append(" -> \(type(of: chain).debugDescription())")
         }
-        
         return result
     }
 }

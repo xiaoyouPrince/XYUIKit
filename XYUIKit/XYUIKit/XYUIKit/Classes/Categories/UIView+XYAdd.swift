@@ -42,7 +42,7 @@ public extension UIView {
     /// 返回一个 1 像素的横线
     static var line: UIView {
         let line = UIView.init(frame: .init(origin: .zero, size: .init(width: .width, height: .line)))
-        line.backgroundColor = UIColor.init(r: 193, g: 193, b: 193)
+        line.backgroundColor = UIColor.line
         return line
     }
     

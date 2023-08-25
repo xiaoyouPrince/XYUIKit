@@ -241,7 +241,11 @@ extension XYAlertSheetController {
                 make.left.right.equalToSuperview()
                 
                 if action == actions.first, customHeader == nil {
-                    make.top.equalTo(lastView.snp.bottom).offset(20)
+                    if lastView is UILabel {
+                        make.top.equalTo(lastView.snp.bottom).offset(20)
+                    }else{
+                        make.top.equalTo(lastView.snp.bottom)
+                    }
                 }else{
                     make.top.equalTo(lastView.snp.bottom)
                 }
@@ -291,39 +295,52 @@ extension XYAlertSheetController {
             resultView = customHeaderView
         }else{
             
-            let titleLabel = UILabel()
-            titleLabel.text = titleString
-            titleLabel.textColor = .black
-            titleLabel.font = UIFont.systemFont(ofSize: 17)
-            titleLabel.textAlignment = .center
-            titleLabel.numberOfLines = 0
-            contentView.addSubview(titleLabel)
-            
-            let subTitleLabel = UILabel()
-            subTitleLabel.text = subTitleString
-            subTitleLabel.textColor = .gray
-            subTitleLabel.font = UIFont.systemFont(ofSize: 12)
-            subTitleLabel.textAlignment = .center
-            subTitleLabel.numberOfLines = 0
-            contentView.addSubview(subTitleLabel)
-            
-            titleLabel.snp.makeConstraints { (make) in
-                make.left.equalToSuperview().offset(15)
-                make.right.equalToSuperview().offset(-15)
-                make.top.equalToSuperview().offset(20)
+            let topline = UIView.line
+            topline.backgroundColor = .clear
+            contentView.addSubview(topline)
+            topline.snp.makeConstraints { make in
+                make.left.right.top.equalToSuperview()
+                make.height.equalTo(0)
             }
+            resultView = topline
             
-            subTitleLabel.snp.makeConstraints { (make) in
-                make.left.equalToSuperview().offset(15)
-                make.right.equalToSuperview().offset(-15)
-                if let count = subTitleString?.count, count > 0 {
-                    make.top.equalTo(titleLabel.snp.bottom).offset(10)
-                }else{
-                    make.top.equalTo(titleLabel.snp.bottom)
+            if titleString?.isEmpty == false {
+                let titleLabel = UILabel()
+                titleLabel.text = titleString
+                titleLabel.textColor = .black
+                titleLabel.font = UIFont.systemFont(ofSize: 17)
+                titleLabel.textAlignment = .center
+                titleLabel.numberOfLines = 0
+                contentView.addSubview(titleLabel)
+                titleLabel.snp.makeConstraints { (make) in
+                    make.left.equalToSuperview().offset(15)
+                    make.right.equalToSuperview().offset(-15)
+                    make.top.equalToSuperview().offset(20)
                 }
+                
+                resultView = titleLabel
             }
             
-            resultView = subTitleLabel
+            if subTitleString?.isEmpty == false {
+                let subTitleLabel = UILabel()
+                subTitleLabel.text = subTitleString
+                subTitleLabel.textColor = .gray
+                subTitleLabel.font = UIFont.systemFont(ofSize: 12)
+                subTitleLabel.textAlignment = .center
+                subTitleLabel.numberOfLines = 0
+                contentView.addSubview(subTitleLabel)
+                subTitleLabel.snp.makeConstraints { (make) in
+                    make.left.equalToSuperview().offset(15)
+                    make.right.equalToSuperview().offset(-15)
+                    if titleString?.isEmpty == true {
+                        make.top.equalTo(resultView.snp.bottom).offset(20)
+                    }else{
+                        make.top.equalTo(resultView.snp.bottom).offset(10)
+                    }
+                }
+                
+                resultView = subTitleLabel
+            }
         }
         
         return resultView
