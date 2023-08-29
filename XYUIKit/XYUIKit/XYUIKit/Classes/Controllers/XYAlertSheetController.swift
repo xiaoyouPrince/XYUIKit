@@ -29,19 +29,7 @@ public typealias XYAlertSheetBlock = ((_ index :Int) -> Void)
 public typealias AlertSheetController = XYAlertSheetController
 fileprivate let CancelCode = -1
 
-open class XYAlertSheetAction: NSObject{
-    var title: String?
-    var defaultHeight: CGFloat = 60
-    var textColor = UIColor(red: 0.42, green: 0.65, blue: 0.98, alpha: 1)
-    var font = UIFont.systemFont(ofSize: 14)
-    
-    public convenience init(title: String) {
-        self.init()
-        self.title = title
-    }
-}
-
-open class XYAlertSheetController: UIViewController {
+public class XYAlertSheetController: UIViewController {
     
     private var coverBtn = UIButton()
     private var contentView = UIView()
@@ -228,7 +216,7 @@ extension XYAlertSheetController {
             label.isUserInteractionEnabled = true
             label.tag = index
             if action == actions.last {
-                label.textColor = .lightGray
+                //label.textColor = .lightGray
                 label.tag = CancelCode
             }
             let tap = UITapGestureRecognizer(target: self, action: #selector(actionClick(tap:)))
@@ -402,6 +390,20 @@ extension XYAlertSheetController {
                     dismissCallback()
                 }
             }
+        }
+    }
+}
+
+extension XYAlertSheetController {
+    public class XYAlertSheetAction: NSObject{
+        public var title: String?
+        public var defaultHeight: CGFloat = 60
+        public var textColor = UIColor.black
+        public var font = UIFont.systemFont(ofSize: 20)
+        
+        public convenience init(title: String) {
+            self.init()
+            self.title = title
         }
     }
 }

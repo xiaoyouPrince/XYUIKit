@@ -8,10 +8,109 @@
 
 import UIKit
 
-open
-class XYTagsView: UIView {
+public class XYTagsView: UIView {
+    static public let config: Config = Config()
+    public private(set) var height: CGFloat = 0
+    public private(set) var width: CGFloat = 0
+    public var contentSize: CGSize { .init(width: width, height: height)}
+    public private(set) var tagTtiles: [String] = []
+    public var tagClickCallback: ((String) -> ())?
+    private let maxWidth: CGFloat
+    private var customViews: [UIView] = []
     
-    open class Config {
+    public init(customView views: [UIView], maxWitdh: CGFloat) {
+        self.maxWidth = maxWitdh
+        super.init(frame: .zero)
+        self.customViews = views
+        
+        layoutSubCustomViews()
+    }
+    
+    public init(titles: [String], maxWitdh: CGFloat) {
+        self.maxWidth = maxWitdh
+        super.init(frame: .zero)
+        tagTtiles = titles
+        layoutSubTags()
+    }
+    
+    @objc func tagClick(_ tap: UITapGestureRecognizer){
+        if let tag = tap.view as? Tag {
+            tagClickCallback?(tag.name)
+        }
+    }
+    
+    required public init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+extension XYTagsView {
+    
+    func layoutSubCustomViews() {
+        var lastTag: UIView?
+        var row: CGFloat = 0 // 行
+        let margin: CGFloat = XYTagsView.config.tagMargin
+        for view in customViews {
+            let tag = view
+            addSubview(tag)
+            
+            if let last = lastTag {
+                var tagX = last.frame.maxX + margin
+                if maxWidth <= last.frame.maxX + margin + tag.bounds.width {
+                    row += 1
+                    tagX = 0
+                }
+                
+                tag.frame = CGRect(x: tagX, y: row * (tag.bounds.height + margin), width: tag.bounds.width, height: tag.bounds.height)
+            }else{
+                tag.frame = tag.bounds
+            }
+            
+            lastTag = tag
+        }
+        
+        // update real height width
+        self.height = lastTag!.frame.maxY
+        subviews.forEach { subv in
+            width = max(subv.frame.maxX, width)
+        }
+    }
+    
+    func layoutSubTags() {
+        var lastTag: Tag?
+        var row: CGFloat = 0 // 行
+        let margin: CGFloat = XYTagsView.config.tagMargin
+        for title in tagTtiles {
+            let tag = Tag(name: title)
+            addSubview(tag)
+            
+            if let last = lastTag {
+                var tagX = last.frame.maxX + margin
+                if maxWidth <= last.frame.maxX + margin + tag.bounds.width {
+                    row += 1
+                    tagX = 0
+                }
+                
+                tag.frame = CGRect(x: tagX, y: row * (tag.bounds.height + margin), width: tag.bounds.width, height: tag.bounds.height)
+            }else{
+                tag.frame = tag.bounds
+            }
+            
+            lastTag = tag
+            
+            tag.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.tagClick)))
+        }
+        
+        // update real height width
+        self.height = lastTag!.frame.maxY
+        subviews.forEach { subv in
+            width = max(subv.frame.maxX, width)
+        }
+    }
+}
+
+extension XYTagsView {
+    public class Config {
         public var tagBackgroundColor = UIColor.orange.withAlphaComponent(0.3)
         public var tagTextColor = UIColor.orange
         public var tagFont = UIFont.systemFont(ofSize: 17)
@@ -19,14 +118,6 @@ class XYTagsView: UIView {
         public var tagMargin: CGFloat = 6
         public var tagCornerRadius: CGFloat = 5
     }
-    
-    static public let config: Config = Config()
-    
-    public private(set) var height: CGFloat = 0
-    public private(set) var width: CGFloat = 0
-    public var contentSize: CGSize { .init(width: width, height: height)}
-    public private(set) var tagTtiles: [String] = []
-    public var tagClickCallback: ((String) -> ())?
     
     class Tag: UIView {
         var name: String
@@ -50,83 +141,6 @@ class XYTagsView: UIView {
         required init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
-    }
-    
-    public init(customView views: [UIView], maxWitdh: CGFloat) {
-        super.init(frame: .zero)
-        
-        var lastTag: UIView?
-        var row: CGFloat = 0 // 行
-        let margin: CGFloat = XYTagsView.config.tagMargin
-        for view in views {
-            let tag = view
-            addSubview(tag)
-            
-            if let last = lastTag {
-                var tagX = last.frame.maxX + margin
-                if maxWitdh <= last.frame.maxX + margin + tag.bounds.width {
-                    row += 1
-                    tagX = 0
-                }
-                
-                tag.frame = CGRect(x: tagX, y: row * (tag.bounds.height + margin), width: tag.bounds.width, height: tag.bounds.height)
-            }else{
-                tag.frame = tag.bounds
-            }
-            
-            lastTag = tag
-        }
-        
-        // update real height width
-        self.height = lastTag!.frame.maxY
-        subviews.forEach { subv in
-            width = max(subv.frame.maxX, width)
-        }
-    }
-    
-    public init(titles: [String], maxWitdh: CGFloat) {
-        super.init(frame: .zero)
-        tagTtiles = titles
-        
-        var lastTag: Tag?
-        var row: CGFloat = 0 // 行
-        let margin: CGFloat = XYTagsView.config.tagMargin
-        for title in titles {
-            let tag = Tag(name: title)
-            addSubview(tag)
-            
-            if let last = lastTag {
-                var tagX = last.frame.maxX + margin
-                if maxWitdh <= last.frame.maxX + margin + tag.bounds.width {
-                    row += 1
-                    tagX = 0
-                }
-                
-                tag.frame = CGRect(x: tagX, y: row * (tag.bounds.height + margin), width: tag.bounds.width, height: tag.bounds.height)
-            }else{
-                tag.frame = tag.bounds
-            }
-            
-            lastTag = tag
-            
-            tag.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.tagClick)))
-        }
-        
-        // update real height width
-        self.height = lastTag!.frame.maxY
-        subviews.forEach { subv in
-            width = max(subv.frame.maxX, width)
-        }
-    }
-    
-    @objc func tagClick(_ tap: UITapGestureRecognizer){
-        if let tag = tap.view as? Tag {
-            tagClickCallback?(tag.name)
-        }
-    }
-    
-    required public init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }
 
