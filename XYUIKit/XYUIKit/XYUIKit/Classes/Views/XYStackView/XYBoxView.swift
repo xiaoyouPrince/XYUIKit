@@ -48,12 +48,31 @@ public class HStack: UIStackView {
 
 public typealias BoxView = XYBoxView
 public class XYBoxView: UIView {
-    public var edgeInsets = UIEdgeInsets.zero { didSet { layoutContent() } }
+    public var edgeInsets: UIEdgeInsets { didSet { updateContent() } }
     
+    /// 初始化一个 BoxView
+    /// - Parameters:
+    ///   - subView: 需要被包裹的 view
+    ///   - edgeInsets: 内边距
     public init(with subView: UIView, edgeInsets: UIEdgeInsets = .zero) {
+        self.edgeInsets = edgeInsets
         super.init(frame: .zero)
         addSubview(subView)
+        layoutContent()
+    }
+    
+    /// 初始化一个 BoxView
+    /// - Parameters:
+    ///   - title: 标题
+    ///   - edgeInsets: 内边距
+    public init(withTitle title: String, font: UIFont = .systemFont(ofSize: 17), edgeInsets: UIEdgeInsets = .zero) {
         self.edgeInsets = edgeInsets
+        super.init(frame: .zero)
+        let label = UILabel()
+        label.font = font
+        label.text = title
+        addSubview(label)
+        layoutContent()
     }
 
     required init(coder: NSCoder) {
@@ -62,11 +81,50 @@ public class XYBoxView: UIView {
     
     private func layoutContent(){
         if let subView = subviews.first {
-            subView.snp.remakeConstraints { make in
-                make.edges.equalTo(edgeInsets)
+            subView.snp.remakeConstraints({ make in
+                make.left.equalToSuperview().offset(edgeInsets.left)
+                make.top.equalToSuperview().offset(edgeInsets.top)
+                make.right.equalToSuperview().offset(-edgeInsets.right)
+                make.bottom.equalToSuperview().offset(-edgeInsets.bottom)
+            })
+        }
+    }
+    
+    private func updateContent(){
+        if let subView = subviews.first {
+            subView.snp.updateConstraints { make in
+                subView.snp.remakeConstraints({ make in
+                    make.left.equalToSuperview().offset(edgeInsets.left)
+                    make.top.equalToSuperview().offset(edgeInsets.top)
+                    make.right.equalToSuperview().offset(-edgeInsets.right)
+                    make.bottom.equalToSuperview().offset(-edgeInsets.bottom)
+                })
             }
         }
     }
+}
+
+extension UIView {
+    /// 快速封装一个边距
+    /// - Parameters:
+    /// - Parameter edgeInsets: 内边距
+    /// - Returns: 返回 BoxView
+    public func boxView(with edgeInsets: UIEdgeInsets = .zero) -> BoxView {
+        BoxView(with: self, edgeInsets: edgeInsets)
+    }
+    
+    /// 快速封装一个边距
+    /// - Parameters:
+    ///   - top: top
+    ///   - left: left
+    ///   - bottom: bottom
+    ///   - right: right
+    /// - Returns: 返回 BoxView
+    public func boxView(top: CGFloat = .zero, left: CGFloat = .zero, bottom: CGFloat = .zero, right: CGFloat = .zero) -> BoxView {
+        BoxView(with: self, edgeInsets: .init(top: top, left: left, bottom: bottom, right: right))
+    }
+    
+
 }
 
 
