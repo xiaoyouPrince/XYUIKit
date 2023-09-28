@@ -307,3 +307,14 @@ extension String {
     }
 }
 
+/// 密码学相关
+extension String {
+    
+    public var base64ToUTF8String: String {
+        if let data = Data(base64Encoded: self) {
+            return String(data: data, encoding: .utf8) ?? ""
+        }
+        return ""
+    }
+}
+

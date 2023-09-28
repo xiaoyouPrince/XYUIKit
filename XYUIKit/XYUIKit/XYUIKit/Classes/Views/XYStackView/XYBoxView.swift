@@ -49,6 +49,7 @@ public class HStack: UIStackView {
 public typealias BoxView = XYBoxView
 public class XYBoxView: UIView {
     public var edgeInsets: UIEdgeInsets { didSet { updateContent() } }
+    public private(set) var view: UIView
     
     /// 初始化一个 BoxView
     /// - Parameters:
@@ -56,6 +57,7 @@ public class XYBoxView: UIView {
     ///   - edgeInsets: 内边距
     public init(with subView: UIView, edgeInsets: UIEdgeInsets = .zero) {
         self.edgeInsets = edgeInsets
+        self.view = subView
         super.init(frame: .zero)
         addSubview(subView)
         layoutContent()
@@ -67,8 +69,10 @@ public class XYBoxView: UIView {
     ///   - edgeInsets: 内边距
     public init(withTitle title: String, font: UIFont = .systemFont(ofSize: 17), edgeInsets: UIEdgeInsets = .zero) {
         self.edgeInsets = edgeInsets
-        super.init(frame: .zero)
         let label = UILabel()
+        self.view = label
+        super.init(frame: .zero)
+        
         label.font = font
         label.text = title
         addSubview(label)

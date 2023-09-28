@@ -282,3 +282,27 @@ public extension UIView {
     }
     
 }
+
+public extension UIView {
+    
+    /// 返回视图快照
+    @objc var snapshotImage: UIImage? {
+        UIGraphicsBeginImageContextWithOptions(bounds.size, isOpaque, 0)
+        defer { UIGraphicsEndImageContext() }
+        guard let context = UIGraphicsGetCurrentContext() else { return nil }
+        layer.render(in: context)
+        return UIGraphicsGetImageFromCurrentImageContext()
+    }
+    
+    /// 给指定角,切圆角
+    /// - Parameters:
+    ///   - cornerRadius: 圆角半径
+    ///   - byRoundingCorners: 角
+    func bezierPath(cornerRadius: CGFloat, byRoundingCorners: UIRectCorner = .allCorners) {
+        let maskPath = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: byRoundingCorners, cornerRadii:CGSize(width:cornerRadius, height: cornerRadius))
+        let maskLayer = CAShapeLayer()
+        maskLayer.path = maskPath.cgPath
+        self.layer.mask = maskLayer
+    }
+}
+
