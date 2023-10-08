@@ -115,3 +115,64 @@ extension CGFloat {
     /// 一像素横线高度
     public static let line = 1.0 / UIScreen.main.scale
 }
+
+
+public protocol AutoFitProtocol {}
+public extension AutoFitProtocol {
+    var fit_width: Double {
+        get {
+            let KScreenWidth = UIScreen.main.bounds.width
+            let referenceWidth: CGFloat = 375.0
+            
+            if let realSelf = self as? Int {
+                return CGFloat(Double(KScreenWidth) / Double(referenceWidth)) * Double(realSelf)
+            }
+
+            if let realSelf = self as? CGFloat {
+                return CGFloat(Double(KScreenWidth) / Double(referenceWidth)) * Double(realSelf)
+            }
+
+            if let realSelf = self as? Float {
+                return CGFloat(Double(KScreenWidth) / Double(referenceWidth)) * Double(realSelf)
+            }
+
+            if let realSelf = self as? Double {
+                return CGFloat(Double(KScreenWidth) / Double(referenceWidth)) * Double(realSelf)
+            }
+            
+            return 0
+        }
+    }
+    
+    var fit_height: Double {
+        get {
+            let screenHeight = UIScreen.main.bounds.height
+            let referenceheight: CGFloat = 667.0
+            
+            if let realSelf = self as? Int {
+                return CGFloat(Double(screenHeight) / Double(referenceheight)) * Double(realSelf)
+            }
+            
+            if let realSelf = self as? CGFloat {
+                return CGFloat(Double(screenHeight) / Double(referenceheight)) * Double(realSelf)
+            }
+            
+            if let realSelf = self as? Float {
+                return CGFloat(Double(screenHeight) / Double(referenceheight)) * Double(realSelf)
+            }
+            
+            if let realSelf = self as? Double {
+                return CGFloat(Double(screenHeight) / Double(referenceheight)) * Double(realSelf)
+            }
+            
+            return 0
+        }
+    }
+}
+
+extension Int: AutoFitProtocol {}
+extension CGFloat: AutoFitProtocol {}
+extension Float: AutoFitProtocol {}
+extension Double: AutoFitProtocol {}
+
+
