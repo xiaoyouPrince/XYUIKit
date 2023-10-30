@@ -39,6 +39,22 @@ public extension UIView {
         self.layer.borderWidth = width
     }
     
+    /// 设置 shadow
+    /// - Parameters:
+    ///   - color: shadow 的颜色
+    ///   - radius: 圆角
+    ///   - offset: 偏移量
+    ///   - opacity: 不透明度 0-1
+    func shadow(color: CGColor, radius: CGFloat = 10, offset: CGSize = .zero, opacity: Float = 0.5){
+        clipsToBounds = false
+        backgroundColor = .init(cgColor: color)
+        layer.cornerRadius = radius
+        layer.shadowRadius = radius
+        layer.shadowColor = color
+        layer.shadowOffset = offset
+        layer.shadowOpacity = opacity
+    }
+    
     /// 返回一个 1 像素的横线
     static var line: UIView {
         let line = UIView.init(frame: .init(origin: .zero, size: .init(width: .width, height: .line)))
