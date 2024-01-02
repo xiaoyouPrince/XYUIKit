@@ -10,6 +10,6 @@
 
 ### 使用 CocoaPods 安装
 
-‘’‘ruby
+```ruby
 pod YYUIKit
-’‘’
+```
