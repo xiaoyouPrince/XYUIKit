@@ -3,11 +3,10 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A881B65309E20E456F510436 /* Pods_XYUIKitDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B56AE06D585E0FDD3ACC7117 /* Pods_XYUIKitDemo.framework */; };
 		B422760F26131B7F0089C7C0 /* RefreshHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B422760E26131B7F0089C7C0 /* RefreshHeader.swift */; };
 		B42AD11226B3BCAD003E191D /* NestedXYInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42AD11126B3BCAD003E191D /* NestedXYInfoViewController.swift */; };
 		B43779782631519D00311802 /* TipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43779772631519D00311802 /* TipView.swift */; };
@@ -44,7 +43,6 @@
 		B472C5D2258316D0005898C5 /* ZLNewGreetingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B472C5D1258316D0005898C5 /* ZLNewGreetingView.swift */; };
 		B47EF034260630C200DE7EC3 /* Public.swift in Sources */ = {isa = PBXBuildFile; fileRef = B47EF033260630C200DE7EC3 /* Public.swift */; };
 		B49234032665F64A00F3FBED /* TimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49234022665F64A00F3FBED /* TimeViewController.swift */; };
-		B4AB92E227FAA2A900E0CE21 /* XYUIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4AB92E127FAA2A900E0CE21 /* XYUIKit.framework */; };
 		B4AB9AD5262053A1006B034B /* MailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AB9AD4262053A1006B034B /* MailViewController.swift */; };
 		B4B0DC4529AB853F003C1971 /* Demo_Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B0DC4429AB853F003C1971 /* Demo_Combine.swift */; };
 		B4C374E328616C8E00266440 /* XYCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C374E228616C8E00266440 /* XYCards.swift */; };
@@ -65,11 +63,13 @@
 		B4D811C92741A32D00E02582 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B4D811C32741A32D00E02582 /* SVProgressHUD.bundle */; };
 		B4D9B11225998CD9006FB07D /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D9B11125998CD9006FB07D /* GradientView.swift */; };
 		B4DD65F9275A73A300151635 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DD65F8275A73A300151635 /* ListViewController.swift */; };
+		FA07289596E3FD94A2DB1D22 /* Pods_XYUIKitDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 906EC8A73E389964B2690AA9 /* Pods_XYUIKitDemo.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		9F6A10BE187088343905B2EA /* Pods-XYUIKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XYUIKit.debug.xcconfig"; path = "Target Support Files/Pods-XYUIKit/Pods-XYUIKit.debug.xcconfig"; sourceTree = "<group>"; };
-		B3FD1A699EB891F55B57190B /* Pods-XYUIKitDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XYUIKitDemo.debug.xcconfig"; path = "Target Support Files/Pods-XYUIKitDemo/Pods-XYUIKitDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		906EC8A73E389964B2690AA9 /* Pods_XYUIKitDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_XYUIKitDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A17D102AFFCC397191391CC8 /* Pods-XYUIKitDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XYUIKitDemo.release.xcconfig"; path = "Target Support Files/Pods-XYUIKitDemo/Pods-XYUIKitDemo.release.xcconfig"; sourceTree = "<group>"; };
+		ABB93778FA5EFABD095FFE8E /* Pods-XYUIKitDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XYUIKitDemo.debug.xcconfig"; path = "Target Support Files/Pods-XYUIKitDemo/Pods-XYUIKitDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		B422760E26131B7F0089C7C0 /* RefreshHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshHeader.swift; sourceTree = "<group>"; };
 		B42AD11126B3BCAD003E191D /* NestedXYInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestedXYInfoViewController.swift; sourceTree = "<group>"; };
 		B43779772631519D00311802 /* TipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipView.swift; sourceTree = "<group>"; };
@@ -119,7 +119,6 @@
 		B472C5D1258316D0005898C5 /* ZLNewGreetingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZLNewGreetingView.swift; sourceTree = "<group>"; };
 		B47EF033260630C200DE7EC3 /* Public.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Public.swift; sourceTree = "<group>"; };
 		B49234022665F64A00F3FBED /* TimeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeViewController.swift; sourceTree = "<group>"; };
-		B4AB92E127FAA2A900E0CE21 /* XYUIKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = XYUIKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4AB9AD4262053A1006B034B /* MailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailViewController.swift; sourceTree = "<group>"; };
 		B4B0DC4429AB853F003C1971 /* Demo_Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Demo_Combine.swift; sourceTree = "<group>"; };
 		B4C374E228616C8E00266440 /* XYCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XYCards.swift; sourceTree = "<group>"; };
@@ -144,9 +143,6 @@
 		B4D811C42741A32D00E02582 /* SVProgressAnimatedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressAnimatedView.h; sourceTree = "<group>"; };
 		B4D9B11125998CD9006FB07D /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		B4DD65F8275A73A300151635 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
-		B56AE06D585E0FDD3ACC7117 /* Pods_XYUIKitDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_XYUIKitDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D5AA29A06725D9355D257169 /* Pods-XYUIKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XYUIKit.release.xcconfig"; path = "Target Support Files/Pods-XYUIKit/Pods-XYUIKit.release.xcconfig"; sourceTree = "<group>"; };
-		EE4BC38589420CBB12FD7A71 /* Pods-XYUIKitDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XYUIKitDemo.release.xcconfig"; path = "Target Support Files/Pods-XYUIKitDemo/Pods-XYUIKitDemo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,30 +150,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B4AB92E227FAA2A900E0CE21 /* XYUIKit.framework in Frameworks */,
-				A881B65309E20E456F510436 /* Pods_XYUIKitDemo.framework in Frameworks */,
+				FA07289596E3FD94A2DB1D22 /* Pods_XYUIKitDemo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2C98CC959610E53EC055F605 /* Pods */ = {
+		9E5479BF46CA27194D852E31 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				9F6A10BE187088343905B2EA /* Pods-XYUIKit.debug.xcconfig */,
-				D5AA29A06725D9355D257169 /* Pods-XYUIKit.release.xcconfig */,
-				B3FD1A699EB891F55B57190B /* Pods-XYUIKitDemo.debug.xcconfig */,
-				EE4BC38589420CBB12FD7A71 /* Pods-XYUIKitDemo.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
-		81A1CE2EE4E0699471832F7C /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				B4AB92E127FAA2A900E0CE21 /* XYUIKit.framework */,
-				B56AE06D585E0FDD3ACC7117 /* Pods_XYUIKitDemo.framework */,
+				906EC8A73E389964B2690AA9 /* Pods_XYUIKitDemo.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -255,8 +238,8 @@
 			children = (
 				B472C55F25821D58005898C5 /* XYUIKit */,
 				B472C55E25821D58005898C5 /* Products */,
-				2C98CC959610E53EC055F605 /* Pods */,
-				81A1CE2EE4E0699471832F7C /* Frameworks */,
+				E34856FF10D7B3382E24C8F3 /* Pods */,
+				9E5479BF46CA27194D852E31 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 			usesTabs = 0;
@@ -342,6 +325,16 @@
 				B4D811C42741A32D00E02582 /* SVProgressAnimatedView.h */,
 			);
 			path = SVProgressHUD;
+			sourceTree = "<group>";
+		};
+		E34856FF10D7B3382E24C8F3 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				ABB93778FA5EFABD095FFE8E /* Pods-XYUIKitDemo.debug.xcconfig */,
+				A17D102AFFCC397191391CC8 /* Pods-XYUIKitDemo.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -656,7 +649,7 @@
 		};
 		B472C57225821D5A005898C5 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B3FD1A699EB891F55B57190B /* Pods-XYUIKitDemo.debug.xcconfig */;
+			baseConfigurationReference = ABB93778FA5EFABD095FFE8E /* Pods-XYUIKitDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -678,7 +671,7 @@
 		};
 		B472C57325821D5A005898C5 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EE4BC38589420CBB12FD7A71 /* Pods-XYUIKitDemo.release.xcconfig */;
+			baseConfigurationReference = A17D102AFFCC397191391CC8 /* Pods-XYUIKitDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

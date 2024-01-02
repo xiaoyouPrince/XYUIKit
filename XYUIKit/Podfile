@@ -23,6 +23,6 @@ target 'XYUIKitDemo' do
 #  pod 'RealmSwift'
 
   pod 'XYNav', :path => '/Users/quxiaoyou/Desktop/XYNav/'
-  pod 'XYUIKIT', :path => '../.'
+  pod 'YYUIKit', :path => '../.'
 #  pod 'XYNav'
 end

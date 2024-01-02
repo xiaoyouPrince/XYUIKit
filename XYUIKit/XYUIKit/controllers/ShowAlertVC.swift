@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import XYUIKIT
+import YYUIKit
 
 class BView: UIView {
     override func draw(_ rect: CGRect) {

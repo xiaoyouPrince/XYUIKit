@@ -8,7 +8,7 @@
 import UIKit
 import XYInfomationSection
 import MJRefresh
-import XYUIKIT
+import YYUIKit
 
 typealias XYToast = Toast
 
