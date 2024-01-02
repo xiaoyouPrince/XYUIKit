@@ -7,8 +7,8 @@
 #
 
 Pod::Spec.new do |s|
-  s.name             = 'XYUIKit'
-  s.version          = '1.0.0'
+  s.name             = 'XYUIKIT'
+  s.version          = '0.0.1'
   s.summary          = 'XYUIKit 是我在开发中总结的一套 UI 类库'
 
 # This description is used to generate tags and improve search results.

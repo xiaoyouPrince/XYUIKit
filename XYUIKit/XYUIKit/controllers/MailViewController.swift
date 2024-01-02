@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import XYUIKit
+import XYUIKIT
 
 /*
  时间参数规则：

@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import XYUIKit
+import XYUIKIT
 
 class CustomViewController: UIViewController {
 

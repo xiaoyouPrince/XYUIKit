@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import XYUIKit
+import XYUIKIT
 
 class XYCards: UIView {
 
