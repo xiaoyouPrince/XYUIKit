@@ -27,12 +27,12 @@ class TimeViewController: XYInfomationBaseViewController {
         self.navigationItem.rightBarButtonItems = [UIBarButtonItem(title: "回去上一级", style: .plain, target: self, action: #selector(goback))]
         
         
-        print(self.respondChainContains(NestedXYInfoViewController.self))
-        print(self.respondChainContains(XYViewController.self))
-        print(self.respondChainContains(NestedXYInfoViewController.self))
+        print(self.responderChainContains(NestedXYInfoViewController.self))
+        print(self.responderChainContains(XYViewController.self))
+        print(self.responderChainContains(NestedXYInfoViewController.self))
         
-        print(self.respondChain())
-        print(self.view.respondChain())
+        print(self.responderChain)
+        print(self.view.responderChain)
         
         
         self.setContentWithData(dataArr(), itemConfig: { (item) in
@@ -109,12 +109,12 @@ class TimeViewController: XYInfomationBaseViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        print(self.respondChainContains(NestedXYInfoViewController.self))
-        print(self.respondChainContains(XYViewController.self))
-        print(self.respondChainContains(NestedXYInfoViewController.self))
+        print(self.responderChainContains(NestedXYInfoViewController.self))
+        print(self.responderChainContains(XYViewController.self))
+        print(self.responderChainContains(NestedXYInfoViewController.self))
         
-        print(self.respondChain())
-        print(self.view.respondChain())
+        print(self.responderChain)
+        print(self.view.responderChain)
     }
 
 }

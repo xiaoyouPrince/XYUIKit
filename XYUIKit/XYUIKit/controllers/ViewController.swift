@@ -113,7 +113,7 @@ class ViewController: UIViewController {
         view.addSubview(gView)
         gView.frame = CGRect(x: 0, y: 300, width: UIScreen.main.bounds.size.width, height: 88)
         
-        return
+        return;
         
         if !sender.isOn {
             
@@ -127,8 +127,7 @@ class ViewController: UIViewController {
                 greetView = nil
             }
             
-        }else
-        {
+        } else {
             
             if myTipView == nil {
                 
