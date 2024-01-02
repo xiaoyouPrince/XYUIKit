@@ -22,8 +22,10 @@ import Foundation
 
 public struct XYFileManager {
     
-    /// 根路径
+    /// 根路径 url
     static let rootURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+    /// document 文档目录 pathString
+    static let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first
     
     /// 创建文件
     /// - Parameter pathOrFileName: 传入文件路径或者文件名 egg: tools/a.tool 或者 a.tool
@@ -94,3 +96,21 @@ public struct XYFileManager {
     }
     
 }
+
+extension XYFileManager {
+    
+    /// 展示指定目录下所有的子文件夹/目录
+    /// - Parameter forPath: 指定的文件目录
+    /// - Returns: 当前文件夹下面所有子文件目录
+    @discardableResult
+    static func showFileAndPath(_ forPath: String = documentPath ?? "") -> [String] {
+        if forPath.isEmpty { return [] }
+        
+        let subPaths = FileManager.default.subpaths(atPath: forPath) ?? []
+        subPaths.forEach { subPath in
+            print(forPath + "/" + subPath)
+        }
+        return subPaths
+    }
+}
+
