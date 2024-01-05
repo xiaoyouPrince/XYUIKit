@@ -23,15 +23,15 @@ import Foundation
 public struct XYFileManager {
     
     /// 根路径 url
-    static let rootURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+    public static let rootURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
     /// document 文档目录 pathString
-    static let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first
+    public static let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first
     
     /// 创建文件
     /// - Parameter pathOrFileName: 传入文件路径或者文件名 egg: tools/a.tool 或者 a.tool
     /// - Returns: 默认返回true, 当出现异常返回 false
     @discardableResult
-    static public func creatFile(with pathOrFileName: String) -> Bool {
+    public static func creatFile(with pathOrFileName: String) -> Bool {
         guard let url = rootURL?.appendingPathComponent(pathOrFileName) else { return false }
         
         if FileManager.default.fileExists(atPath: url.path ) == false { // 文件不存在,先创建
@@ -45,7 +45,7 @@ public struct XYFileManager {
     /// 读取文件中保存的模型
     /// - Parameter pathOrFileName: 传入文件路径或者文件名 egg: tools/a.tool 或者 a.tool
     /// - Returns: 返回指定的文件模型数组
-    static public func readFile<Model: Codable>(with pathOrFileName: String) -> [Model] {
+    public static func readFile<Model: Codable>(with pathOrFileName: String) -> [Model] {
         guard let url = rootURL?.appendingPathComponent(pathOrFileName) else { return [] }
         
         do {
@@ -64,7 +64,7 @@ public struct XYFileManager {
     /// - Parameter pathOrFileName: 传入文件路径或者文件名 egg: tools/a.tool 或者 a.tool
     /// - Returns: 返回指定的文件模型数组
     @discardableResult
-    static public func appendFile<Model: Codable>(with pathOrFileName: String, model: Model) -> [Model] {
+    public static func appendFile<Model: Codable>(with pathOrFileName: String, model: Model) -> [Model] {
         guard (rootURL?.appendingPathComponent(pathOrFileName)) != nil else { return [] }
         
         var origin: [Model] = readFile(with: pathOrFileName)
@@ -78,7 +78,7 @@ public struct XYFileManager {
     /// - Parameter pathOrFileName: 传入文件路径或者文件名 egg: tools/a.tool 或者 a.tool
     /// - Returns: 返回指定的文件模型数组
     @discardableResult
-    static public func writeFile<Model: Codable>(with pathOrFileName: String, models: [Model]) -> [Model] {
+    public static func writeFile<Model: Codable>(with pathOrFileName: String, models: [Model]) -> [Model] {
         guard let url = rootURL?.appendingPathComponent(pathOrFileName) else { return [] }
         
         let origin = models
@@ -103,12 +103,13 @@ extension XYFileManager {
     /// - Parameter forPath: 指定的文件目录
     /// - Returns: 当前文件夹下面所有子文件目录
     @discardableResult
-    static func showFileAndPath(_ forPath: String = documentPath ?? "") -> [String] {
+    public static func showFileAndPath(_ forPath: String = documentPath ?? "") -> [String] {
         if forPath.isEmpty { return [] }
         
         let subPaths = FileManager.default.subpaths(atPath: forPath) ?? []
+        print("Starting show file path for: \n", forPath)
         subPaths.forEach { subPath in
-            print(forPath + "/" + subPath)
+            print(subPath)
         }
         return subPaths
     }
