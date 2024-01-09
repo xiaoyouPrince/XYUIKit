@@ -66,7 +66,7 @@ public extension UIImage {
     /// 通过颜色创建一个 UIImage
     /// - Parameter color: 指定的颜色
     /// - Returns: 返回目标 UIImage
-    @objc static func image(with color: UIColor) -> UIImage {
+    @objc static func image(withColor color: UIColor) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(CGSize(width: 1, height: 1), false, 0)
         let ctx = UIGraphicsGetCurrentContext()
         ctx?.setFillColor(color.cgColor)
@@ -74,4 +74,6 @@ public extension UIImage {
         let image = UIGraphicsGetImageFromCurrentImageContext()
         return image ?? UIImage()
     }
+    
+    
 }
