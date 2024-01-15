@@ -76,4 +76,18 @@ public extension UIImage {
     }
     
     
+    /// 裁剪图片到指定 rect
+    /// - Parameter rect: 指定需要裁剪的范围
+    /// - Returns: 裁剪之后得到的 image
+    func crop(toRect rect: CGRect) -> UIImage? {
+        let scale = UIScreen().scale
+        let realRect: CGRect = .init(x: rect.minX * scale, y: rect.minY * scale, width: rect.width * scale, height: rect.height * scale)
+        
+        guard let cgImage = self.cgImage else { return nil }
+        guard let croppedCGImage = cgImage.cropping(to: realRect) else { return nil }
+        
+        let croppedImage = UIImage(cgImage: croppedCGImage)
+        return croppedImage
+    }
+    
 }

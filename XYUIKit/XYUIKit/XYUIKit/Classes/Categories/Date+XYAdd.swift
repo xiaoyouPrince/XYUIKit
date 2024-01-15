@@ -33,15 +33,128 @@ public extension Date {
     }
     
     // MARK: - 便利构造方法，字符串创建时间，Date 创建字符串
+    /// 给定格式和时间字符串构造时间
+    /// - Parameters:
+    ///   - fmt: 格式
+    ///   - dateStr: 时间字符串
+    /// - Returns: Date 对象
     static func date(withFormatter fmt: String, dateString dateStr: String) -> Date? {
         let fmt_ = DateFormatter()
         fmt_.dateFormat = fmt
         return fmt_.date(from: dateStr)
     }
     
+    /// 返回指定格式的时间字符串
+    /// - Parameter fmt: 格式
+    /// - Returns: 时间字符串
     func string(withFormatter fmt:String) -> String {
         let fmt_ = DateFormatter()
         fmt_.dateFormat = fmt
         return fmt_.string(from: self)
     }
+    
+    /// 计算该 Date 距离今天剩余时间
+    /// - Parameter component: 指定计算类型 如小时/分钟/秒
+    /// - Returns: 距离今天结束剩余的时间, 注意,需要指定的时间范围为今天
+    func timeRemainingInDay(component: Calendar.Component) -> Int? {
+        let calendar = Calendar.current
+        // 获取当前日期的年、月、日
+        let currentDateComponents = calendar.dateComponents([.year, .month, .day], from: Date())
+        // 获取给定日期的年、月、日
+        let targetDateComponents = calendar.dateComponents([.year, .month, .day], from: self)
+        // 如果给定日期的年、月、日不是当前日期，直接返回 nil，表示无法计算
+        guard currentDateComponents == targetDateComponents else {
+            return nil
+        }
+        
+        // 获取今天结束的时间
+        if let endOfDay = calendar.date(bySettingHour: 23, minute: 59, second: 59, of: Date()) {
+            // 计算给定时间距离今天结束的差异
+            let components = calendar.dateComponents([component], from: self, to: endOfDay)
+            if let timeRemaining = components.value(for: component) {
+                return timeRemaining
+            }
+        }
+        
+        return nil
+    }
+    
+    /// 计算当前日期距离今天结束还有几个小时
+    /// - Returns: 剩余小时数. 注意: 当前日期需要为今天的日期
+    func hoursRemainingInDay() -> Int? {
+        timeRemainingInDay(component: .hour)
+    }
+    
+    /// 计算当前日期距离今天结束还有多少分钟
+    /// - Returns: 剩余分钟数. 注意: 当前日期需要为今天的日期
+    func minutesRemainingInDay() -> Int? {
+        timeRemainingInDay(component: .minute)
+    }
+    
+    /// 计算该 Date 距离今年结束剩余的天数
+    /// - Returns: 剩余天数, 注意: 当前日期需要时今年的日期
+    func daysRemainingInYear() -> Int? {
+        let calendar = Calendar.current
+        
+        // 获取当前日期的年份
+        let currentYear = calendar.component(.year, from: Date())
+        // 获取给定日期的年份
+        let targetYear = calendar.component(.year, from: self)
+        // 如果给定日期的年份不是当前年份，直接返回 nil，表示无法计算
+        guard currentYear == targetYear else {
+            return nil
+        }
+        
+        // 获取当前日期的最后一天
+        if let lastDayOfYear = calendar.date(from: DateComponents(year: currentYear, month: 12, day: 31)) {
+            // 计算给定日期距离今年结束的天数
+            let components = calendar.dateComponents([.day], from: self, to: lastDayOfYear)
+            if let daysRemaining = components.day {
+                return daysRemaining
+            }
+        }
+        
+        return nil
+    }
+    
+    /// 计算该 Date 距离本月结束剩余的天数
+    /// - Returns: 剩余天数, 注意: 当前日期需要时今年的日期
+    func daysRemainingInMonth() -> Int? {
+        let calendar = Calendar.current
+        let range = calendar.range(of: .day, in: .month, for: self)
+        
+        // 获取本月总天数
+        guard let totalDaysInMonth = range?.count else {
+            return nil
+        }
+        
+        // 获取当前日期的日
+        let components = calendar.dateComponents([.day], from: self)
+        guard let currentDay = components.day else {
+            return nil
+        }
+        
+        // 计算距离本月结束的天数
+        let daysRemainingInMonth = totalDaysInMonth - currentDay
+        return daysRemainingInMonth
+    }
+
+    /// 计算该 Date 距离本周结束剩余的天数
+    /// - Returns: 剩余天数, 注意: 当前日期需要时今年的日期
+    func daysRemainingInWeek() -> Int? {
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.weekday], from: self)
+        
+        // 获取当前日期是星期几
+        guard let currentWeekday = components.weekday else {
+            return nil
+        }
+        
+        // 计算距离本周结束的天数
+        let daysRemainingInWeek = 8 - currentWeekday
+        return daysRemainingInWeek
+    }
+        
+
+
 }
