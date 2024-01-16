@@ -53,6 +53,33 @@ public extension Date {
         return fmt_.string(from: self)
     }
     
+    /// 计算该 date 距离指定 date 之间剩余的时间, 自己指定时间类型, 仅支持 ‘年月日时分秒’, 其余返回 0
+    /// - Parameter date: 指定的 date
+    /// - Parameter component: 指定计算类型 如小时/分钟/秒
+    /// - Returns: 距离指定 Dete 之间剩余的时间结果
+    func timeBetweenToDate(_ date: Date, component: Calendar.Component) -> Int {
+        let timeInterval = date.timeIntervalSince1970 - self.timeIntervalSince1970
+        if component == .year {
+            return Int(timeInterval / (365 * 24 * 3600)) // 假设每年365天 -
+        }
+        if component == .month {
+            return Int(timeInterval / (30 * 24 * 3600)) // 假设每月30天
+        }
+        if component == .day {
+            return Int(timeInterval / (24 * 3600))
+        }
+        if component == .hour {
+            return Int(timeInterval / (3600))
+        }
+        if component == .minute {
+            return Int(timeInterval / (60))
+        }
+        if component == .year {
+            return Int(timeInterval)
+        }
+        return 0
+    }
+    
     /// 计算该 Date 距离今天剩余时间
     /// - Parameter component: 指定计算类型 如小时/分钟/秒
     /// - Returns: 距离今天结束剩余的时间, 注意,需要指定的时间范围为今天
@@ -154,7 +181,27 @@ public extension Date {
         let daysRemainingInWeek = 8 - currentWeekday
         return daysRemainingInWeek
     }
-        
 
+    /// 计算距离下次生日剩余天数
+    /// - Parameter birthday: 指定生日的 date
+    /// - Returns: 距离下次过生日剩余的天数
+    func daysUntilBirthday(birthday: Date) -> Int {
+        let calendar = Calendar.current
+        // 获取当前日期
+        let currentDate = Date()
+        var nextBirthday = birthday
+        // 如果今年的生日已经过去，就计算下一年的生日
+        while currentDate > nextBirthday {
+            nextBirthday = calendar.date(byAdding: .year, value: 1, to: nextBirthday)!
+        }
+        
+        // 计算距离生日的天数
+        let components = calendar.dateComponents([.day], from: currentDate, to: nextBirthday)
+        if let daysUntilBirthday = components.day {
+            return daysUntilBirthday
+        }
+        
+        return 0
+    }
 
 }
