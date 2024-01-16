@@ -189,7 +189,9 @@ public extension Date {
         let calendar = Calendar.current
         // 获取当前日期
         let currentDate = Date()
-        var nextBirthday = birthday
+        var nextBirthday = birthday + 86400// 以当天24:00 为截止
+        
+        
         // 如果今年的生日已经过去，就计算下一年的生日
         while currentDate > nextBirthday {
             nextBirthday = calendar.date(byAdding: .year, value: 1, to: nextBirthday)!
