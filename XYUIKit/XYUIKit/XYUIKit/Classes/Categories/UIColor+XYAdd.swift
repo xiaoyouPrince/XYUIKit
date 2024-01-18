@@ -107,4 +107,24 @@ public extension XYColor {
         }
         return UIColor(red: CGFloat(red) / 255.0, green: CGFloat(green) / 255.0, blue: CGFloat(blue) / 255.0, alpha: CGFloat(alpha))
     }
+    
+    func getRGBA() -> (red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat) {
+        var red: CGFloat = 0
+        var green: CGFloat = 0
+        var blue: CGFloat = 0
+        var alpha: CGFloat = 0
+        
+        self.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+        return (red, green, blue, alpha)
+    }
+    
+    /// 返回颜色的16进制汉字表示,  #FFFFFF
+    @objc func toHexString() -> String {
+        let rgb = getRGBA()
+        let redInt = Int(rgb.red * 255)
+        let greenInt = Int(rgb.green * 255)
+        let blueInt = Int(rgb.blue * 255)
+        
+        return String(format: "#%02X%02X%02X", redInt, greenInt, blueInt)
+    }
 }
