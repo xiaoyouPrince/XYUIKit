@@ -36,7 +36,7 @@ import Foundation
 }
 
 extension DebugTool {
-    @objc static func doInDebug(callback: @escaping ()->()) {
+    @objc public static func doInDebug(callback: @escaping ()->()) {
 #if DEBUG
         callback()
 #else
@@ -44,7 +44,7 @@ extension DebugTool {
 #endif
     }
     
-    @objc func doInDebug(callback: @escaping ()->()) {
+    @objc public func doInDebug(callback: @escaping ()->()) {
         DebugTool.doInDebug {
             callback()
         }
@@ -56,7 +56,7 @@ extension DebugTool {
     /// 移除指定目录下的指定路径,
     /// - NOTE: 这是一个测试代码, 本代码移除指定路径下的 /testZip 路径, 比如 ~/testZip/a.png --> ~/a.png
     /// - Parameter forPath: 指定目录, 默认为项目的文档目录
-    @objc static func rmTestZipPath(_ forPath: String? = XYFileManager.documentPath) {
+    @objc public static func rmTestZipPath(_ forPath: String? = XYFileManager.documentPath) {
         let fm = FileManager.default
         guard let basePath = forPath else { return }
         var contentsDir: [String]? = fm.subpaths(atPath: basePath)
