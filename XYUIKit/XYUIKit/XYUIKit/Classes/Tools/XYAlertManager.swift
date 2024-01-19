@@ -64,17 +64,19 @@ public protocol XYAlertManagerDelegate: NSObjectProtocol {
     @objc func showAlert(item: XYAlertItem)
 }
 
-open class XYAlertItem: NSObject {
+@objcMembers
+public class XYAlertItem: NSObject {
     public var title: String?
     public var index: Int = -1
     public var manager: XYAlertManager?
     
-    public func showNext() {
+    @objc public func showNext() {
         self.manager?.startShowAlert(index+1)
     }
 }
 
-open class XYAlertManager: NSObject {
+@objc
+public class XYAlertManager: NSObject {
     
     weak public var delegate: XYAlertManagerDelegate?
     
@@ -106,11 +108,11 @@ open class XYAlertManager: NSObject {
 }
 
 extension UIViewController: XYAlertManagerDelegate {
-    open func alertTitles() -> [String] {[]}
+    @objc public func alertTitles() -> [String] {[]}
     
-    open func showAlert(item: XYAlertItem) {}
+    @objc public func showAlert(item: XYAlertItem) {}
     
-    public func xy_startShowAlert() {
+    @objc public func xy_startShowAlert() {
         let mgr = XYAlertManager()
         mgr.delegate = self
         mgr.startShowAlert()
