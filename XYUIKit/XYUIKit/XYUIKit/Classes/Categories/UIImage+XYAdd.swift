@@ -90,6 +90,64 @@ public extension UIImage {
         return croppedImage
     }
     
+    /// 是否是横图, width > height
+    var isLandscape: Bool {
+        size.width > size.height
+    }
+    
+    /// 是否是人像模式的图 heiget > width
+    var isPortrait: Bool {
+        size.width < size.height
+    }
+    
+    /// 是否是正方形的图 width = height
+    var isSquare: Bool {
+        size.width == size.height
+    }
+    
+    
+    /// 将图片等比缩放到指定宽高 Square, 获取等比缩放之后图片最终 Size
+    /// - Parameter maxWH: 指定最大范围的宽高
+    /// - Returns: 缩放后图片的 size
+    func imageSize(with maxWH: CGFloat) -> CGSize {
+        let size = size
+        let maxWH: CGFloat = maxWH
+        var imageSize: CGSize = .init(width: maxWH, height: maxWH)
+        
+        if isLandscape { // 宽图片
+            if size.width > maxWH { // 压缩宽度
+                let scale = size.width / maxWH
+                let scaleHeight = size.height / scale
+                imageSize.width = maxWH
+                imageSize.height = scaleHeight
+            }
+        } else { // 窄图片 / 正方形图
+            if size.height > maxWH { // 压缩高度
+                let scale = size.height / maxWH
+                let scaleWidth = size.width / scale
+                imageSize.width = scaleWidth
+                imageSize.height = maxWH
+            }
+        }
+        
+        return imageSize
+    }
+    
+    /// 将图像缩放到指定大小。
+    ///
+    /// - Parameter newSize: 目标大小，指定图像将缩放到的大小。
+    /// - Returns: 缩放后的图像。如果缩放失败，返回 nil。
+    func scaleToSize(_ newSize: CGSize) -> UIImage? {
+        let renderer = UIGraphicsImageRenderer(size: newSize)
+        // 使用渲染器创建新的图像
+        let scaledImage = renderer.image { (context) in
+            // 在目标大小的矩形中绘制原始图像
+            self.draw(in: CGRect(origin: .zero, size: newSize))
+        }
+        
+        return scaledImage
+    }
+    
 }
 
 public extension UIImage {
