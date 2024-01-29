@@ -279,7 +279,7 @@ extension XYViewController {
                 "type": 1
             ],
             [
-                "title": "Combine_Demo",
+                "title": "视频选取/截断/提取音频",
                 "titleKey": "CombineViewController",
                 "value": "去查看",
                 "type": 1
