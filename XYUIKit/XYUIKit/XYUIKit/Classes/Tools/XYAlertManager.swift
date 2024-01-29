@@ -65,7 +65,7 @@ public protocol XYAlertManagerDelegate: NSObjectProtocol {
 }
 
 @objcMembers
-public class XYAlertItem: NSObject {
+open class XYAlertItem: NSObject {
     public var title: String?
     public var index: Int = -1
     public var manager: XYAlertManager?
@@ -76,11 +76,11 @@ public class XYAlertItem: NSObject {
 }
 
 @objc
-public class XYAlertManager: NSObject {
+open class XYAlertManager: NSObject {
     
     weak public var delegate: XYAlertManagerDelegate?
     
-    public func startShowAlert(_ index: Int = 0) {
+    open func startShowAlert(_ index: Int = 0) {
         
         // 必须有入参，获取要展示title
         guard let alertTitles = self.delegate?.alertTitles() else {
@@ -108,11 +108,11 @@ public class XYAlertManager: NSObject {
 }
 
 extension UIViewController: XYAlertManagerDelegate {
-    @objc public func alertTitles() -> [String] {[]}
+    @objc open func alertTitles() -> [String] {[]}
     
-    @objc public func showAlert(item: XYAlertItem) {}
+    @objc open func showAlert(item: XYAlertItem) {}
     
-    @objc public func xy_startShowAlert() {
+    @objc open func xy_startShowAlert() {
         let mgr = XYAlertManager()
         mgr.delegate = self
         mgr.startShowAlert()
