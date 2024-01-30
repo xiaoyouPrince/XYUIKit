@@ -110,38 +110,29 @@ fileprivate extension AVAsset {
         }
     }
     
-    private func write(to url: URL,
-                       success: @escaping () -> (),
-                       failure: @escaping (Error) -> ()) {
+    private func write(to url: URL, success: @escaping () -> (), failure: @escaping (Error) -> ()) {
         try? FileManager().removeItem(at: url)
         
-        // Create an export session that will output an
-        // audio track (CAF file)
-        guard let exportSession = AVAssetExportSession(asset: self,
-                                                       presetName: AVAssetExportPresetPassthrough) else {
-            // This is just a generic error
-            let error = NSError(domain: "domain",
-                                code: 0,
-                                userInfo: nil)
-            failure(error)
+        // Create an export session that will output an audio track (CAF file)
+        if let exportSession = AVAssetExportSession(asset: self, presetName: AVAssetExportPresetPassthrough) {
             
-            return
-        }
-        
-        exportSession.outputFileType = .caf
-        exportSession.outputURL = url
-        
-        exportSession.exportAsynchronously {
-            switch exportSession.status {
-            case .completed:
-                success()
-            default:
-                let error = NSError(domain: "domain", code: 0, userInfo: nil)
-                failure(error)
-                break
+            exportSession.outputFileType = .caf
+            exportSession.outputURL = url
+            
+            exportSession.exportAsynchronously {
+                switch exportSession.status {
+                case .completed:
+                    success()
+                default:
+                    let error = NSError(domain: "提取音频失败", code: 0, userInfo: nil)
+                    failure(error)
+                    break
+                }
             }
+        }else{
+            let error = NSError(domain: "提取音频失败", code: 0, userInfo: nil)
+            failure(error)
         }
-        
     }
     
     private func audioAsset() throws -> AVAsset {
