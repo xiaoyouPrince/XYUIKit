@@ -21,7 +21,9 @@ public typealias AppUtils = XYUtils
                                         choosenDate: Date,
                                         callback: @escaping (_ date: Date)->()) {
         XYDatePicker.chooseDate(title: title, choosenDate: choosenDate) { date in
-            callback(date)
+            DispatchQueue.safeMain {
+                callback(date)
+            }
         }
     }
     
@@ -30,8 +32,12 @@ public typealias AppUtils = XYUtils
     /// - Parameter callback: 选择颜色回调
     @available(iOS 14.0, *)
     @objc public static func chooseColor(callback: @escaping (_ color: UIColor)->()) {
-        XYColorPicker.showColorPicker { color in
-            callback(color)
+        DispatchQueue.safeMain {
+            XYColorPicker.showColorPicker { color in
+                DispatchQueue.safeMain {
+                    callback(color)
+                }
+            }
         }
     }
     
@@ -39,8 +45,12 @@ public typealias AppUtils = XYUtils
     /// - Parameter callback: 选择照片回调
     /// - NOTE: 需要在 Info.plist 中加入 NSPhotoLibraryUsageDescription, 说明原因
     @objc public static func chooseImage(callback: @escaping (_ image: UIImage)->()) {
-        XYImagePicker.chooseImage { image in
-            callback(image)
+        DispatchQueue.safeMain {
+            XYImagePicker.chooseImage { image in
+                DispatchQueue.safeMain {
+                    callback(image)
+                }
+            }
         }
     }
     
@@ -48,8 +58,12 @@ public typealias AppUtils = XYUtils
     /// - Parameter callback: 选择照片回调
     /// - NOTE: 需要在 Info.plist 中加入 NSCameraUsageDescription, 说明原因
     @objc public static func takePhoto(callback: @escaping (_ image: UIImage)->()) {
-        XYImagePicker.takePhoto { image in
-            callback(image)
+        DispatchQueue.safeMain {
+            XYImagePicker.takePhoto { image in
+                DispatchQueue.safeMain {
+                    callback(image)
+                }
+            }
         }
     }
     
@@ -57,25 +71,62 @@ public typealias AppUtils = XYUtils
     /// - Parameter callback: 拍摄视频回调
     /// - NOTE: 需要在 Info.plist 中加入 NSCameraUsageDescription & NSMicrophoneUsageDescription, 说明原因
     @objc public static func takeVideo(callback: @escaping (_ movieUrl: URL)->()) {
-        XYImagePicker.takeVideo { movieUrl in
-            callback(movieUrl)
+        DispatchQueue.safeMain {
+            XYImagePicker.takeVideo { movieUrl in
+                DispatchQueue.safeMain {
+                    callback(movieUrl)
+                }
+            }
         }
     }
     
     /// 选择视频
     /// - Parameter callback: 选择视频回调, 返回 videoURL
     @objc public static func chooseVideo(callback: @escaping (_ movieUrl: URL)->()) {
-        XYImagePicker.chooseVideo { movieUrl in
-            callback(movieUrl)
+        DispatchQueue.safeMain {
+            XYImagePicker.chooseVideo { movieUrl in
+                DispatchQueue.safeMain {
+                    callback(movieUrl)
+                }
+            }
         }
     }
     
     /// 选择音频, 从视频中提取
     /// - Parameter callback: 选择音频回调, 返回 audioURL
     @objc public static func chooseAudioFromVideo(callback: @escaping (_ audioURL: URL)->()) {
-        XYImagePicker.chooseAudioFromVideo { audioURL in
-            callback(audioURL)
+        DispatchQueue.safeMain {
+            XYImagePicker.chooseAudioFromVideo { audioURL in
+                DispatchQueue.safeMain {
+                    callback(audioURL)
+                }
+            }
         }
     }
+    
+    /// 播放音频
+    /// - Parameter url: 音频的文件地址
+    @objc public static func playAudio(url: URL) {
+        if let data = try? Data(contentsOf: url) {
+            playAudio(data: data)
+        }
+    }
+    
+    /// 播放音频
+    /// - Parameter data: 音频文件
+    @objc public static func playAudio(data: Data) {
+        DispatchQueue.safeMain {
+            XYMediaPlayer.playAudio(data: data)
+        }
+    }
+    
+    /// 播放视频
+    /// - Parameter url: 视频的文件地址
+    @objc public static func playVideo(url: URL) {
+        DispatchQueue.safeMain {
+            XYMediaPlayer.playVideo(url: url)
+        }
+    }
+    
     
 }
