@@ -56,11 +56,18 @@ public typealias AppUtils = XYUtils
     /// 拍摄视频
     /// - Parameter callback: 拍摄视频回调
     /// - NOTE: 需要在 Info.plist 中加入 NSCameraUsageDescription & NSMicrophoneUsageDescription, 说明原因
-    @objc public static func takeVideo(callback: @escaping (Data)->()) {
-        XYImagePicker.takeVideo { data in
-            callback(data)
+    @objc public static func takeVideo(callback: @escaping (URL)->()) {
+        XYImagePicker.takeVideo { movieUrl in
+            callback(movieUrl)
         }
     }
     
+    /// 选择视频
+    /// - Parameter callback: 选择视频回调, 返回 videoURL
+    @objc public static func chooseVideo(callback: @escaping (URL)->()) {
+        XYImagePicker.chooseVideo { movieUrl in
+            callback(movieUrl)
+        }
+    }
     
 }

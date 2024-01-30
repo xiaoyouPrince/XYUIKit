@@ -15,7 +15,7 @@ class XYImagePicker: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     private var imageCallback: ((UIImage)->())?
-    private var movieCallback: ((Data)->())?
+    private var movieCallback: ((URL)->())?
     private var ps: UIViewController?
     
     static func chooseImage(_ callback: @escaping (UIImage)->()) {
@@ -38,13 +38,24 @@ class XYImagePicker: UIViewController {
         currentVisibleVC.present(ps, animated: true)
     }
     
-    static func takeVideo(_ callback: @escaping (Data)->()) {
+    static func takeVideo(_ callback: @escaping (URL)->()) {
         let ps = UIImagePickerController()
         ps.sourceType = .camera
         ps.delegate = shared
         ps.mediaTypes = ["public.movie"]
         ps.videoQuality = .typeHigh
         ps.cameraDevice = .rear
+        shared.movieCallback = callback
+        shared.ps = ps
+        currentVisibleVC.present(ps, animated: true)
+    }
+    
+    static func chooseVideo(callback: @escaping (URL)->()) {
+        let ps = UIImagePickerController()
+        ps.sourceType = .photoLibrary
+        ps.delegate = shared
+        ps.mediaTypes = ["public.movie"]
+        ps.allowsEditing = true
         shared.movieCallback = callback
         shared.ps = ps
         currentVisibleVC.present(ps, animated: true)
@@ -59,9 +70,8 @@ extension XYImagePicker: UIImagePickerControllerDelegate & UINavigationControlle
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             XYImagePicker.shared.imageCallback?(image)
         }else 
-        if let movieUrl = info[UIImagePickerController.InfoKey.mediaURL] as? URL,
-           let data = try? Data(contentsOf: movieUrl) {
-            XYImagePicker.shared.movieCallback?(data)
+        if let movieUrl = info[UIImagePickerController.InfoKey.mediaURL] as? URL {
+            XYImagePicker.shared.movieCallback?(movieUrl)
         }else{
             Toast.make("an error occurred")
         }
