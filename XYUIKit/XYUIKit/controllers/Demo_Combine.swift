@@ -182,6 +182,7 @@ class CombineViewController: UIViewController, UIImagePickerControllerDelegate &
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .random
         
         let selectButton = UIButton(type: .system)
         selectButton.setTitle("Select Video", for: .normal)
@@ -210,7 +211,14 @@ class CombineViewController: UIViewController, UIImagePickerControllerDelegate &
             dismiss(animated: true, completion: nil)
             
             // 提取音频并播放
-            extractAudioAndPlay(videoURL: videoURL)
+//            extractAudioAndPlay(videoURL: videoURL)
+            extractAudioFromVideo(videoURL: videoURL) { audioUrl in
+                
+                let audioPlayer = try! AVAudioPlayer(contentsOf: audioUrl!)
+                audioPlayer.prepareToPlay()
+                audioPlayer.volume = 1.0
+                audioPlayer.play()
+            }
         }
     }
     
@@ -285,3 +293,47 @@ extension AVMutableComposition {
     }
 }
 
+
+
+import AVFoundation
+
+func extractAudioFromVideo(videoURL: URL, completion: @escaping (URL?) -> Void) {
+    let asset = AVURLAsset(url: videoURL)
+    
+    // 使用AVAssetExportSession来导出音频
+    guard let exportSession = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetAppleM4A) else {
+        completion(nil)
+        return
+    }
+    
+    // 设置导出的文件路径
+    let outputURL = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString).appendingPathExtension("m4a")
+    exportSession.outputURL = outputURL
+    exportSession.outputFileType = .m4a
+    
+    // 执行导出
+    exportSession.exportAsynchronously {
+        switch exportSession.status {
+        case .completed:
+            print("Export completed: \(outputURL)")
+            completion(outputURL)
+        case .failed, .cancelled:
+            print("Export failed: \(exportSession.error?.localizedDescription ?? "Unknown error")")
+            completion(nil)
+        default:
+            break
+        }
+    }
+}
+
+//// 使用示例
+//let videoURL = URL(fileURLWithPath: "path/to/your/video.mp4")
+//
+//extractAudioFromVideo(videoURL: videoURL) { audioURL in
+//    if let audioURL = audioURL {
+//        // 在这里处理提取出的音频文件，比如播放
+//        print("Audio URL: \(audioURL)")
+//    } else {
+//        print("Failed to extract audio from video.")
+//    }
+//}
