@@ -10,6 +10,27 @@ import UIKit
 public extension UIApplication {
     
     /// 获取 keyWindow
+    @available(iOS 13.0, *)
+    var keyWindow_: UIWindow? {
+        let connectedScenes = UIApplication.shared.connectedScenes
+            .filter{$0.activationState == .foregroundActive}
+            .compactMap { $0 as? UIWindowScene }
+        let window = connectedScenes.first?
+            .windows
+            .first{ $0.isKeyWindow }
+        return window
+    }
+    
+    /// 获取当前 App 的截图
+    var snapShot: UIImage? {
+        UIApplication.shared.getKeyWindow()?.snapshotImage
+    }
+    
+}
+
+public extension UIApplication {
+    
+    /// 获取 keyWindow
     /// - Returns: keyWindow
     func getKeyWindow() -> UIWindow? {
         if #available(iOS 15.0, *) {
@@ -22,23 +43,18 @@ public extension UIApplication {
         }
     }
     
-    /// 获取 keyWindow
-    @available(iOS 13.0, *)
-    var keyWindow_: UIWindow? {
-        let connectedScenes = UIApplication.shared.connectedScenes
-            .filter{$0.activationState == .foregroundActive}
-            .compactMap { $0 as? UIWindowScene }
-        let window = connectedScenes.first?
-            .windows
-            .first{ $0.isKeyWindow }
-        return window
+    
+    
+    /// 挂起 App
+    static func suspend() { shared.suspend() }
+    /// 挂起 App
+    func suspend() {
+        DispatchQueue.main.async {
+            if UIApplication.shared.applicationState != .background {
+                UIApplication.shared.perform(#selector(NSXPCConnection.suspend))
+            }
+        }
     }
-    
-    
-    /// 获取当前 App 的截图
-    var snapShot: UIImage? {
-        UIApplication.shared.getKeyWindow()?.snapshotImage
-    }
-    
+
 }
 
