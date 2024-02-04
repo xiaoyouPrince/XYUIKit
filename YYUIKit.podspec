@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'YYUIKit'
-  s.version          = '0.2.0'
+  s.version          = '0.2.1'
   s.summary          = 'YYUIKit 是我在开发中总结的一套 UI 类库'
 
   s.description      = <<-DESC
@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
   s.author           = { 'xiaoyouPrince' => 'xiaoyouPrince@163.com' }
   s.source           = { :git => 'https://github.com/xiaoyouPrince/XYUIKit.git', :tag => s.version.to_s }
 
-  s.ios.deployment_target = '9.0'
+  s.ios.deployment_target = '10.0'
   s.swift_version = '5.0'
 
   # s.source_files = 'XYUIKit/Classes/**/*'
