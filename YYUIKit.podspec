@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'YYUIKit'
-  s.version          = '0.1.0'
+  s.version          = '0.1.1'
   s.summary          = 'YYUIKit 是我在开发中总结的一套 UI 类库'
 
   s.description      = <<-DESC
@@ -17,12 +17,17 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '10.0'
   s.swift_version = '5.0'
 
-  s.source_files = 'XYUIKit/XYUIKit/XYUIKit/Classes/**/*'
+  # s.source_files = 'XYUIKit/XYUIKit/XYUIKit/Classes/**/*'
   # s.resources      = "XYUIKit/XYUIKit/XYUIKit/Resources/*.{bundle}"
-  s.dependency 'SnapKit'
+  # s.dependency 'SnapKit'
   
-  s.subspec 'Foundation' do |core|
-    core.source_files   = "XYUIKit/XYUIKit/XYUIKit/Classes/Categories/Foundation/**/*"
+  s.subspec 'Foundation' do |sub|
+    sub.source_files   = "XYUIKit/XYUIKit/XYUIKit/Classes/Categories/Foundation/**/*"
+  end
+    
+  s.subspec 'UIKit' do |sub|
+    sub.source_files   = 'XYUIKit/XYUIKit/XYUIKit/Classes/**/*'
+    sub.dependency 'SnapKit'
   end
   
 end
