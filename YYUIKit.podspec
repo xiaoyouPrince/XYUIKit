@@ -14,19 +14,19 @@ Pod::Spec.new do |s|
   s.author           = { 'xiaoyouPrince' => 'xiaoyouPrince@163.com' }
   s.source           = { :git => 'https://github.com/xiaoyouPrince/XYUIKit.git', :tag => s.version.to_s }
 
-  s.ios.deployment_target = '10.0'
+  s.ios.deployment_target = '9.0'
   s.swift_version = '5.0'
 
-  # s.source_files = 'XYUIKit/XYUIKit/XYUIKit/Classes/**/*'
-  # s.resources      = "XYUIKit/XYUIKit/XYUIKit/Resources/*.{bundle}"
+  # s.source_files = 'XYUIKit/Classes/**/*'
+  # s.resources      = "XYUIKit/Resources/*.{bundle}"
   # s.dependency 'SnapKit'
   
   s.subspec 'Foundation' do |sub|
-    sub.source_files   = "XYUIKit/XYUIKit/XYUIKit/Classes/Foundation/**/*"
+    sub.source_files   = "XYUIKit/Classes/Foundation/**/*"
   end
     
   s.subspec 'UIKit' do |sub|
-    sub.source_files   = 'XYUIKit/XYUIKit/XYUIKit/Classes/UIKit/**/*'
+    sub.source_files   = 'XYUIKit/Classes/UIKit/**/*'
     sub.dependency 'YYUIKit/Foundation'
     sub.dependency 'SnapKit'
   end
