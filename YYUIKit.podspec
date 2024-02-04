@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'YYUIKit'
-  s.version          = '0.1.1'
+  s.version          = '0.1.2'
   s.summary          = 'YYUIKit 是我在开发中总结的一套 UI 类库'
 
   s.description      = <<-DESC
@@ -22,11 +22,12 @@ Pod::Spec.new do |s|
   # s.dependency 'SnapKit'
   
   s.subspec 'Foundation' do |sub|
-    sub.source_files   = "XYUIKit/XYUIKit/XYUIKit/Classes/Categories/Foundation/**/*"
+    sub.source_files   = "XYUIKit/XYUIKit/XYUIKit/Classes/Foundation/**/*"
   end
     
   s.subspec 'UIKit' do |sub|
-    sub.source_files   = 'XYUIKit/XYUIKit/XYUIKit/Classes/**/*'
+    sub.source_files   = 'XYUIKit/XYUIKit/XYUIKit/Classes/UIKit/**/*'
+    sub.dependency 'YYUIKit/Foundation'
     sub.dependency 'SnapKit'
   end
   
