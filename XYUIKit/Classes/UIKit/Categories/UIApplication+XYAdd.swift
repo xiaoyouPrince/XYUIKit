@@ -26,6 +26,15 @@ public extension UIApplication {
         UIApplication.shared.getKeyWindow()?.snapshotImage
     }
     
+    /// 获取当前App的命名空间
+    var nameSpase: String {
+        let man = UIApplication.shared.delegate!.description
+        let start = man.index(after: man.startIndex)
+        let end = man.firstIndex(of: ".")!
+        let nameSpace = man[start..<end]
+        return String(nameSpace)
+    }
+    
 }
 
 public extension UIApplication {

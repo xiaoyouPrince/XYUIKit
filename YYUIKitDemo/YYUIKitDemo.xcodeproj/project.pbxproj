@@ -9,11 +9,32 @@
 /* Begin PBXBuildFile section */
 		3AB4C2A720E6EE4930982A99 /* Pods_YYUIKitDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 018D7CEC2FA65CDD5DE7852D /* Pods_YYUIKitDemo.framework */; };
 		B45D377D2B6F71860092C5D6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45D377C2B6F71860092C5D6 /* AppDelegate.swift */; };
-		B45D377F2B6F71860092C5D6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45D377E2B6F71860092C5D6 /* SceneDelegate.swift */; };
 		B45D37812B6F71860092C5D6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45D37802B6F71860092C5D6 /* ViewController.swift */; };
 		B45D37842B6F71860092C5D6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B45D37822B6F71860092C5D6 /* Main.storyboard */; };
 		B45D37862B6F71870092C5D6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B45D37852B6F71870092C5D6 /* Assets.xcassets */; };
 		B45D37892B6F71870092C5D6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B45D37872B6F71870092C5D6 /* LaunchScreen.storyboard */; };
+		B45D37D92B6FB3B30092C5D6 /* IMViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45D37CA2B6FB3B30092C5D6 /* IMViewController.swift */; };
+		B45D37DA2B6FB3B30092C5D6 /* AnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45D37CB2B6FB3B30092C5D6 /* AnimationViewController.swift */; };
+		B45D37DB2B6FB3B30092C5D6 /* ViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45D37CC2B6FB3B30092C5D6 /* ViewController2.swift */; };
+		B45D37DC2B6FB3B30092C5D6 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45D37CD2B6FB3B30092C5D6 /* ListViewController.swift */; };
+		B45D37DD2B6FB3B30092C5D6 /* MailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45D37CE2B6FB3B30092C5D6 /* MailViewController.swift */; };
+		B45D37DE2B6FB3B30092C5D6 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45D37CF2B6FB3B30092C5D6 /* File.swift */; };
+		B45D37DF2B6FB3B30092C5D6 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45D37D02B6FB3B30092C5D6 /* TableViewController.swift */; };
+		B45D37E02B6FB3B30092C5D6 /* Demo_Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45D37D12B6FB3B30092C5D6 /* Demo_Combine.swift */; };
+		B45D37E12B6FB3B30092C5D6 /* ShowAlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45D37D22B6FB3B30092C5D6 /* ShowAlertVC.swift */; };
+		B45D37E22B6FB3B30092C5D6 /* AnimationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B45D37D32B6FB3B30092C5D6 /* AnimationViewController.xib */; };
+		B45D37E32B6FB3B30092C5D6 /* ZLWechatActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45D37D42B6FB3B30092C5D6 /* ZLWechatActionSheet.swift */; };
+		B45D37E42B6FB3B30092C5D6 /* ZLJobCoordinationAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45D37D52B6FB3B30092C5D6 /* ZLJobCoordinationAlertController.swift */; };
+		B45D37E52B6FB3B30092C5D6 /* CustomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45D37D62B6FB3B30092C5D6 /* CustomViewController.swift */; };
+		B45D37E62B6FB3B30092C5D6 /* NestedXYInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45D37D72B6FB3B30092C5D6 /* NestedXYInfoViewController.swift */; };
+		B45D37E72B6FB3B30092C5D6 /* TimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45D37D82B6FB3B30092C5D6 /* TimeViewController.swift */; };
+		B45D37F02B6FB3E60092C5D6 /* XYCustomTimePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45D37E92B6FB3E60092C5D6 /* XYCustomTimePickerViewController.swift */; };
+		B45D37F12B6FB3E60092C5D6 /* TipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45D37EA2B6FB3E60092C5D6 /* TipView.swift */; };
+		B45D37F22B6FB3E60092C5D6 /* RefreshHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45D37EB2B6FB3E60092C5D6 /* RefreshHeader.swift */; };
+		B45D37F32B6FB3E60092C5D6 /* ZLPushNotificationTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45D37EC2B6FB3E60092C5D6 /* ZLPushNotificationTipView.swift */; };
+		B45D37F42B6FB3E60092C5D6 /* XYCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45D37ED2B6FB3E60092C5D6 /* XYCards.swift */; };
+		B45D37F52B6FB3E60092C5D6 /* ZLNewGreetingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45D37EE2B6FB3E60092C5D6 /* ZLNewGreetingView.swift */; };
+		B45D37F62B6FB3E60092C5D6 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45D37EF2B6FB3E60092C5D6 /* GradientView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,12 +43,33 @@
 		7260AA21A27D92F5AB0A0982 /* Pods-YYUIKitDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YYUIKitDemo.release.xcconfig"; path = "Target Support Files/Pods-YYUIKitDemo/Pods-YYUIKitDemo.release.xcconfig"; sourceTree = "<group>"; };
 		B45D37792B6F71860092C5D6 /* YYUIKitDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YYUIKitDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B45D377C2B6F71860092C5D6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B45D377E2B6F71860092C5D6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		B45D37802B6F71860092C5D6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		B45D37832B6F71860092C5D6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B45D37852B6F71870092C5D6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B45D37882B6F71870092C5D6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B45D378A2B6F71870092C5D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B45D37CA2B6FB3B30092C5D6 /* IMViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMViewController.swift; sourceTree = "<group>"; };
+		B45D37CB2B6FB3B30092C5D6 /* AnimationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationViewController.swift; sourceTree = "<group>"; };
+		B45D37CC2B6FB3B30092C5D6 /* ViewController2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController2.swift; sourceTree = "<group>"; };
+		B45D37CD2B6FB3B30092C5D6 /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
+		B45D37CE2B6FB3B30092C5D6 /* MailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MailViewController.swift; sourceTree = "<group>"; };
+		B45D37CF2B6FB3B30092C5D6 /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		B45D37D02B6FB3B30092C5D6 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		B45D37D12B6FB3B30092C5D6 /* Demo_Combine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Demo_Combine.swift; sourceTree = "<group>"; };
+		B45D37D22B6FB3B30092C5D6 /* ShowAlertVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowAlertVC.swift; sourceTree = "<group>"; };
+		B45D37D32B6FB3B30092C5D6 /* AnimationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AnimationViewController.xib; sourceTree = "<group>"; };
+		B45D37D42B6FB3B30092C5D6 /* ZLWechatActionSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZLWechatActionSheet.swift; sourceTree = "<group>"; };
+		B45D37D52B6FB3B30092C5D6 /* ZLJobCoordinationAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZLJobCoordinationAlertController.swift; sourceTree = "<group>"; };
+		B45D37D62B6FB3B30092C5D6 /* CustomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomViewController.swift; sourceTree = "<group>"; };
+		B45D37D72B6FB3B30092C5D6 /* NestedXYInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NestedXYInfoViewController.swift; sourceTree = "<group>"; };
+		B45D37D82B6FB3B30092C5D6 /* TimeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeViewController.swift; sourceTree = "<group>"; };
+		B45D37E92B6FB3E60092C5D6 /* XYCustomTimePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XYCustomTimePickerViewController.swift; sourceTree = "<group>"; };
+		B45D37EA2B6FB3E60092C5D6 /* TipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TipView.swift; sourceTree = "<group>"; };
+		B45D37EB2B6FB3E60092C5D6 /* RefreshHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefreshHeader.swift; sourceTree = "<group>"; };
+		B45D37EC2B6FB3E60092C5D6 /* ZLPushNotificationTipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZLPushNotificationTipView.swift; sourceTree = "<group>"; };
+		B45D37ED2B6FB3E60092C5D6 /* XYCards.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XYCards.swift; sourceTree = "<group>"; };
+		B45D37EE2B6FB3E60092C5D6 /* ZLNewGreetingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZLNewGreetingView.swift; sourceTree = "<group>"; };
+		B45D37EF2B6FB3E60092C5D6 /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,15 +113,60 @@
 		B45D377B2B6F71860092C5D6 /* YYUIKitDemo */ = {
 			isa = PBXGroup;
 			children = (
+				B45D37E82B6FB3E60092C5D6 /* views */,
+				B45D37C92B6FB3B30092C5D6 /* controllers */,
+				B45D37C82B6FB3840092C5D6 /* Resource */,
+			);
+			path = YYUIKitDemo;
+			sourceTree = "<group>";
+		};
+		B45D37C82B6FB3840092C5D6 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
 				B45D377C2B6F71860092C5D6 /* AppDelegate.swift */,
-				B45D377E2B6F71860092C5D6 /* SceneDelegate.swift */,
 				B45D37802B6F71860092C5D6 /* ViewController.swift */,
 				B45D37822B6F71860092C5D6 /* Main.storyboard */,
 				B45D37852B6F71870092C5D6 /* Assets.xcassets */,
 				B45D37872B6F71870092C5D6 /* LaunchScreen.storyboard */,
 				B45D378A2B6F71870092C5D6 /* Info.plist */,
 			);
-			path = YYUIKitDemo;
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		B45D37C92B6FB3B30092C5D6 /* controllers */ = {
+			isa = PBXGroup;
+			children = (
+				B45D37CA2B6FB3B30092C5D6 /* IMViewController.swift */,
+				B45D37CB2B6FB3B30092C5D6 /* AnimationViewController.swift */,
+				B45D37CC2B6FB3B30092C5D6 /* ViewController2.swift */,
+				B45D37CD2B6FB3B30092C5D6 /* ListViewController.swift */,
+				B45D37CE2B6FB3B30092C5D6 /* MailViewController.swift */,
+				B45D37CF2B6FB3B30092C5D6 /* File.swift */,
+				B45D37D02B6FB3B30092C5D6 /* TableViewController.swift */,
+				B45D37D12B6FB3B30092C5D6 /* Demo_Combine.swift */,
+				B45D37D22B6FB3B30092C5D6 /* ShowAlertVC.swift */,
+				B45D37D32B6FB3B30092C5D6 /* AnimationViewController.xib */,
+				B45D37D42B6FB3B30092C5D6 /* ZLWechatActionSheet.swift */,
+				B45D37D52B6FB3B30092C5D6 /* ZLJobCoordinationAlertController.swift */,
+				B45D37D62B6FB3B30092C5D6 /* CustomViewController.swift */,
+				B45D37D72B6FB3B30092C5D6 /* NestedXYInfoViewController.swift */,
+				B45D37D82B6FB3B30092C5D6 /* TimeViewController.swift */,
+			);
+			path = controllers;
+			sourceTree = "<group>";
+		};
+		B45D37E82B6FB3E60092C5D6 /* views */ = {
+			isa = PBXGroup;
+			children = (
+				B45D37E92B6FB3E60092C5D6 /* XYCustomTimePickerViewController.swift */,
+				B45D37EA2B6FB3E60092C5D6 /* TipView.swift */,
+				B45D37EB2B6FB3E60092C5D6 /* RefreshHeader.swift */,
+				B45D37EC2B6FB3E60092C5D6 /* ZLPushNotificationTipView.swift */,
+				B45D37ED2B6FB3E60092C5D6 /* XYCards.swift */,
+				B45D37EE2B6FB3E60092C5D6 /* ZLNewGreetingView.swift */,
+				B45D37EF2B6FB3E60092C5D6 /* GradientView.swift */,
+			);
+			path = views;
 			sourceTree = "<group>";
 		};
 		B5404D56202CA71D9EF135FC /* Pods */ = {
@@ -154,6 +241,7 @@
 				B45D37892B6F71870092C5D6 /* LaunchScreen.storyboard in Resources */,
 				B45D37862B6F71870092C5D6 /* Assets.xcassets in Resources */,
 				B45D37842B6F71860092C5D6 /* Main.storyboard in Resources */,
+				B45D37E22B6FB3B30092C5D6 /* AnimationViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -206,9 +294,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B45D37DB2B6FB3B30092C5D6 /* ViewController2.swift in Sources */,
+				B45D37F62B6FB3E60092C5D6 /* GradientView.swift in Sources */,
+				B45D37F02B6FB3E60092C5D6 /* XYCustomTimePickerViewController.swift in Sources */,
+				B45D37E72B6FB3B30092C5D6 /* TimeViewController.swift in Sources */,
+				B45D37E62B6FB3B30092C5D6 /* NestedXYInfoViewController.swift in Sources */,
+				B45D37E52B6FB3B30092C5D6 /* CustomViewController.swift in Sources */,
+				B45D37E32B6FB3B30092C5D6 /* ZLWechatActionSheet.swift in Sources */,
+				B45D37DD2B6FB3B30092C5D6 /* MailViewController.swift in Sources */,
+				B45D37E02B6FB3B30092C5D6 /* Demo_Combine.swift in Sources */,
+				B45D37F12B6FB3E60092C5D6 /* TipView.swift in Sources */,
 				B45D37812B6F71860092C5D6 /* ViewController.swift in Sources */,
+				B45D37DC2B6FB3B30092C5D6 /* ListViewController.swift in Sources */,
+				B45D37F32B6FB3E60092C5D6 /* ZLPushNotificationTipView.swift in Sources */,
+				B45D37F52B6FB3E60092C5D6 /* ZLNewGreetingView.swift in Sources */,
+				B45D37E42B6FB3B30092C5D6 /* ZLJobCoordinationAlertController.swift in Sources */,
+				B45D37D92B6FB3B30092C5D6 /* IMViewController.swift in Sources */,
+				B45D37DE2B6FB3B30092C5D6 /* File.swift in Sources */,
+				B45D37F22B6FB3E60092C5D6 /* RefreshHeader.swift in Sources */,
 				B45D377D2B6F71860092C5D6 /* AppDelegate.swift in Sources */,
-				B45D377F2B6F71860092C5D6 /* SceneDelegate.swift in Sources */,
+				B45D37E12B6FB3B30092C5D6 /* ShowAlertVC.swift in Sources */,
+				B45D37DF2B6FB3B30092C5D6 /* TableViewController.swift in Sources */,
+				B45D37F42B6FB3E60092C5D6 /* XYCards.swift in Sources */,
+				B45D37DA2B6FB3B30092C5D6 /* AnimationViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -363,7 +471,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = J9CJUEB6H8;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = YYUIKitDemo/Info.plist;
+				INFOPLIST_FILE = YYUIKitDemo/Resource/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -393,7 +501,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = J9CJUEB6H8;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = YYUIKitDemo/Info.plist;
+				INFOPLIST_FILE = YYUIKitDemo/Resource/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
