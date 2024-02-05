@@ -14,7 +14,7 @@ import Foundation
 ///   - timeInterval: 时间间隔，用于在一段事件内实现对某件事的最大可执行次数
 ///   - sth: 具体要做的事情的回调
 /// - Returns: 是否可以执行
-func doSth(withName name: String, maxTimes times: Int, timeInterval: TimeInterval, sth: (_ shouldDo: Bool, _ currentCount: Int)->()) {
+public func doSth(withName name: String, maxTimes times: Int, timeInterval: TimeInterval, sth: (_ shouldDo: Bool, _ currentCount: Int)->()) {
     
     let SomeThingNameKey = name
     let SomeThingCountKey = name + "count"
@@ -59,7 +59,7 @@ func doSth(withName name: String, maxTimes times: Int, timeInterval: TimeInterva
 ///   - file: 当前文件，无需手动入参
 ///   - funName: 当前执行的所在的函数名，无需入参
 ///   - lineNum: 当前执行所在的行数，无需入参
-func doOnce(inObjLife obj: AnyObject, _ function: ()->(), file : String = #file , funName : String = #function , lineNum : Int = #line) {
+public func doOnce(inObjLife obj: AnyObject, _ function: ()->(), file : String = #file , funName : String = #function , lineNum : Int = #line) {
 
     var key = file + funName + "\(lineNum)"
     guard let hasDone = objc_getAssociatedObject(obj, &key) as? String else {
