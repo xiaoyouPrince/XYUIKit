@@ -7,18 +7,22 @@
 
 import UIKit
 
+@objc public protocol XYDebugViewProtocol: NSObjectProtocol {
+    
+}
+
 @objc public class XYDebugView: UIView {
     static private var shared: XYDebugView!
-    private let iconView = UIImageView()
-    private let titleLabel = UILabel(title: "", font: .boldSystemFont(ofSize: 20), textColor: .black, textAlignment: .left)
-    private let view = UIView()
-    private let button = UIButton(type: .system)
+    private var tableView = UITableView()
+    private var actions = [String]()
     private var initialCenter: CGPoint = CGPoint()
     private var animator: UIViewPropertyAnimator?
         
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupContent()
+        
+        actions = ["我是默认的title"]
     }
     
     required init?(coder: NSCoder) {
@@ -34,35 +38,78 @@ import UIKit
             debugView.corner(radius: 50)
         }
     }
+    
+    @objc public static func addAction(title: String, action: @escaping ()->()) {
+//        if !shared.actions.keys.contains(title) {
+//            shared.actions[title] = action
+//        }
+    }
 }
 
 extension XYDebugView {
     
     func setupContent() {
-        layoutContetnt()
         backgroundColor = .random
         addPanGesture()
-        button.addTap { sender in
-            self.window!.addSubview(self.view)
-            self.view.frame = self.frame
-            self.view.isUserInteractionEnabled = true
+        setAction()
+    }
+
+    func displayCustom() {
+        addSubview(tableView)
+        tableView.frame = .init(origin: .init(x: 0, y: .naviBar), size: .init(width: .width, height: .height - .naviBar))
+        tableView.delegate = self
+        tableView.dataSource = self
+    }
+}
+
+extension XYDebugView : UITableViewDelegate, UITableViewDataSource {
+    public func numberOfSections(in tableView: UITableView) -> Int { 1 }
+    
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        self.actions.count
+    }
+    
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var cell = tableView.dequeueReusableCell(withIdentifier: "cell")
+        if cell == nil {
+            cell = UITableViewCell(style: .default, reuseIdentifier: "cell")
+        }
+        cell!.textLabel?.text = self.actions[indexPath.row]
+        return cell!
+    }
+    
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        Toast.make("hhsdf")
+    }
+}
+
+
+// MARK: - animations
+private extension XYDebugView {
+    func setAction() {
+        addTap { [weak self] sender in
+            guard let self = self else { return }
+            let oldFrame = self.frame
+            let oldColor = self.backgroundColor
+            let oldRadius = self.layer.cornerRadius
+            self.window!.addSubview(self)
+            self.frame = oldFrame
             UIView.animate(withDuration: 0.25) {
-                self.view.frame = self.superview?.bounds ?? .zero
-                self.view.backgroundColor = .white
+                self.frame = self.superview?.bounds ?? .zero
+                self.backgroundColor = .white
+                self.displayCustom()
             } completion: { complete in
                 if complete {
-                    self.view.addTap { [weak self] sender in
+                    self.addTap { [weak self] sender in
                         guard let self = self else { return }
-                        self.addSubview(self.view)
-                        self.view.frame = self.window!.bounds
-                        self.view.isUserInteractionEnabled = false
+                        self.frame = self.window!.bounds
                         UIView.animate(withDuration: 0.25) {
-                            self.view.frame = self.bounds
-                            self.corner(radius: self.layer.cornerRadius)
-                            self.view.backgroundColor = self.backgroundColor
-                        }completion: { complete in
+                            self.frame = oldFrame
+                            self.corner(radius: oldRadius)
+                            self.backgroundColor = oldColor
+                        } completion: { complete in
                             if complete {
-                                self.view.backgroundColor = .clear
+                                self.setAction()
                             }
                         }
                     }
@@ -138,35 +185,5 @@ extension XYDebugView {
         }
         
         Runlooper.stopLoop(forKey: "mave")
-    }
-    
-    func layoutContetnt() {
-        addSubview(iconView)
-        addSubview(titleLabel)
-        addSubview(view)
-        addSubview(button)
-        
-        iconView.snp.makeConstraints { make in
-            make.left.equalToSuperview()
-            make.top.equalToSuperview()
-            make.right.equalToSuperview()
-            make.bottom.equalToSuperview()
-        }
-        
-        titleLabel.snp.makeConstraints { make in
-            make.left.equalToSuperview()
-            make.top.equalToSuperview()
-            make.right.equalToSuperview()
-            make.bottom.equalToSuperview()
-        }
-        
-        view.frame = .init(origin: .zero, size: .init(width: 100, height: 100))
-        
-        button.snp.makeConstraints { make in
-            make.left.equalToSuperview()
-            make.top.equalToSuperview()
-            make.right.equalToSuperview()
-            make.bottom.equalToSuperview()
-        }
     }
 }
