@@ -13,6 +13,9 @@ class ViewController: XYInfomationBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         buildUI()
+        
+        
+        XYDebugView.show()
     }
     
     let dataModel: [String: UIViewController.Type] =
@@ -26,16 +29,13 @@ class ViewController: XYInfomationBaseViewController {
 extension ViewController {
     
     func buildUI() {
-        setupNav()
+        title = "YYUIKit"
+        view.backgroundColor = .random
+        
         setupContent()
     }
     
-    func setupNav() {
-         title = "YYUIKit"
-    }
     func setupContent() {
-        view.backgroundColor = .random
-
         setContentWithData(contentData(), itemConfig: { item in
             item.titleWidthRate = 0.5
             item.type = .choose
