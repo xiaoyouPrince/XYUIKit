@@ -60,6 +60,7 @@
         pickerView.backgroundColor = [UIColor whiteColor];
         pickerView.dataSource = self;
         pickerView.delegate = self;
+        [pickerView setValue: UIColor.blackColor forKey:@"textColor"];
         _pickerView = pickerView;
     }
     return _pickerView;
