@@ -34,7 +34,7 @@ import UIKit
         if let keyWindow = UIApplication.shared.getKeyWindow(), shared == nil {
             let debugView = XYDebugView()
             shared = debugView
-            shared.delegate = nil
+            shared.delegate = delegate
             keyWindow.addSubview(debugView)
             debugView.frame = .init(x: .width - 100, y: .height - 300, width: 100, height: 100)
             debugView.corner(radius: 50)
