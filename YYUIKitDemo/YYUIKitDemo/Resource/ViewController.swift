@@ -9,13 +9,14 @@ import UIKit
 import XYInfomationSection
 import YYUIKit
 
+
+
 class ViewController: XYInfomationBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         buildUI()
         
-        
-        XYDebugView.show()
+        XYDebugView.show(self)
     }
     
     let dataModel: [String: UIViewController.Type] =
@@ -24,6 +25,12 @@ class ViewController: XYInfomationBaseViewController {
             "stm": ViewController2.self
         ]
     
+}
+
+extension ViewController: XYDebugViewProtocol {
+    func didClickDebugview() {
+        Toast.make("Xbug按钮点击, 这里来实现自己自定义的处理吧")
+    }
 }
 
 extension ViewController {
