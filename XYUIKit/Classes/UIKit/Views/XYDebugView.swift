@@ -10,8 +10,20 @@
 import UIKit
 
 @objc public protocol XYDebugViewProtocol: NSObjectProtocol {
+    
+    
     /// debugView 被点击
     @objc func didClickDebugview()
+    
+    /// debugView 将要展示, 这里可以自定义 UI, 如果你实现了这个函数, 所有的 UI 就以你设置的为准, 你自己需要对此负责
+    /// - Note: 此内部使用 Frame 布局
+    /// - Parameters:
+    ///   - debugView: 将要被展示 debugView
+    ///   - inBounds: 将要展示的画布空间, 也是 debugView 将要添加到的 superView.bounds
+    @objc optional func willShowDebugView(debugView: XYDebugView, inBounds: CGRect)
+    
+    /// debugView 被点击, 可以借此时机调整 UI
+    @objc optional func didClickDebugview(debugView: XYDebugView, inBounds: CGRect)
 }
 
 @objc public class XYDebugView: UIView {
@@ -20,6 +32,8 @@ import UIKit
     private weak var delegate: XYDebugViewProtocol? { didSet{ didSetDelegate() }}
     private var initialCenter: CGPoint = CGPoint()
     private var animator: UIViewPropertyAnimator?
+    private static let origialWH: CGFloat = 100
+    
         
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -36,8 +50,13 @@ import UIKit
             shared = debugView
             shared.delegate = delegate
             keyWindow.addSubview(debugView)
-            debugView.frame = .init(x: .width - 100, y: .height - 300, width: 100, height: 100)
-            debugView.corner(radius: 50)
+            if let delegate = delegate, delegate.responds(to: #selector(delegate.willShowDebugView(debugView:inBounds:))) {
+                // UI 用户自定义
+                delegate.willShowDebugView?(debugView: debugView, inBounds: keyWindow.bounds)
+            } else {
+                debugView.frame = .init(x: .width - origialWH, y: .height - 300, width: origialWH, height: origialWH)
+                debugView.corner(radius: origialWH / 2)
+            }
         }
     }
     
@@ -58,6 +77,7 @@ extension XYDebugView {
         if let delegate = delegate {
             addTap { sender in
                 delegate.didClickDebugview()
+                delegate.didClickDebugview?(debugView: self, inBounds: self.superview?.bounds ?? .zero)
             }
         } else {
             setAction()
@@ -170,13 +190,13 @@ private extension XYDebugView {
         Runlooper.startLoop(forKey: "mave", interval: 0.2) {
             let maveView = UIView(frame: .init(x: 0, y: 0, width: 1, height: 1))
             self.addSubview(maveView)
-            maveView.center = .init(x: 50, y: 50)
+            maveView.center = .init(x: self.bounds.width / 2, y: self.bounds.height / 2)
             maveView.isUserInteractionEnabled = false
             maveView.backgroundColor = .white
             UIView.animate(withDuration: 1) {
                 maveView.frame = self.bounds
                 maveView.alpha = 0
-                maveView.corner(radius: 50)
+                maveView.corner(radius: self.bounds.height / 2)
             } completion: { completion in
                 maveView.removeFromSuperview()
             }

@@ -31,6 +31,13 @@ extension ViewController: XYDebugViewProtocol {
     func didClickDebugview() {
         Toast.make("Xbug按钮点击, 这里来实现自己自定义的处理吧")
     }
+    
+    func willShowDebugView(debugView: XYDebugView, inBounds: CGRect) {
+        let origialWH: CGFloat = 50
+        
+        debugView.frame = .init(x: .width - origialWH, y: .height - 300, width: origialWH, height: origialWH)
+        debugView.corner(radius: origialWH / 2)
+    }
 }
 
 extension ViewController {
