@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		3AB4C2A720E6EE4930982A99 /* Pods_YYUIKitDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 018D7CEC2FA65CDD5DE7852D /* Pods_YYUIKitDemo.framework */; };
+		B4131BE02B73D86900B7FEC7 /* 2.gif in Resources */ = {isa = PBXBuildFile; fileRef = B4131BDC2B73D86900B7FEC7 /* 2.gif */; };
+		B4131BE12B73D86900B7FEC7 /* 4.gif in Resources */ = {isa = PBXBuildFile; fileRef = B4131BDD2B73D86900B7FEC7 /* 4.gif */; };
+		B4131BE22B73D86900B7FEC7 /* 1.gif in Resources */ = {isa = PBXBuildFile; fileRef = B4131BDE2B73D86900B7FEC7 /* 1.gif */; };
+		B4131BE32B73D86900B7FEC7 /* 3.gif in Resources */ = {isa = PBXBuildFile; fileRef = B4131BDF2B73D86900B7FEC7 /* 3.gif */; };
 		B45D377D2B6F71860092C5D6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45D377C2B6F71860092C5D6 /* AppDelegate.swift */; };
 		B45D37812B6F71860092C5D6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45D37802B6F71860092C5D6 /* ViewController.swift */; };
 		B45D37842B6F71860092C5D6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B45D37822B6F71860092C5D6 /* Main.storyboard */; };
@@ -41,6 +45,10 @@
 		018D7CEC2FA65CDD5DE7852D /* Pods_YYUIKitDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YYUIKitDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C5580A050A5480FBE0D9334 /* Pods-YYUIKitDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YYUIKitDemo.debug.xcconfig"; path = "Target Support Files/Pods-YYUIKitDemo/Pods-YYUIKitDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		7260AA21A27D92F5AB0A0982 /* Pods-YYUIKitDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YYUIKitDemo.release.xcconfig"; path = "Target Support Files/Pods-YYUIKitDemo/Pods-YYUIKitDemo.release.xcconfig"; sourceTree = "<group>"; };
+		B4131BDC2B73D86900B7FEC7 /* 2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = 2.gif; sourceTree = "<group>"; };
+		B4131BDD2B73D86900B7FEC7 /* 4.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = 4.gif; sourceTree = "<group>"; };
+		B4131BDE2B73D86900B7FEC7 /* 1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = 1.gif; sourceTree = "<group>"; };
+		B4131BDF2B73D86900B7FEC7 /* 3.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = 3.gif; sourceTree = "<group>"; };
 		B45D37792B6F71860092C5D6 /* YYUIKitDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YYUIKitDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B45D377C2B6F71860092C5D6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B45D37802B6F71860092C5D6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -92,6 +100,17 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		B4131BDB2B73D85D00B7FEC7 /* gif */ = {
+			isa = PBXGroup;
+			children = (
+				B4131BDE2B73D86900B7FEC7 /* 1.gif */,
+				B4131BDC2B73D86900B7FEC7 /* 2.gif */,
+				B4131BDF2B73D86900B7FEC7 /* 3.gif */,
+				B4131BDD2B73D86900B7FEC7 /* 4.gif */,
+			);
+			path = gif;
+			sourceTree = "<group>";
+		};
 		B45D37702B6F71860092C5D6 = {
 			isa = PBXGroup;
 			children = (
@@ -123,6 +142,7 @@
 		B45D37C82B6FB3840092C5D6 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				B4131BDB2B73D85D00B7FEC7 /* gif */,
 				B45D377C2B6F71860092C5D6 /* AppDelegate.swift */,
 				B45D37802B6F71860092C5D6 /* ViewController.swift */,
 				B45D37822B6F71860092C5D6 /* Main.storyboard */,
@@ -239,7 +259,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				B45D37892B6F71870092C5D6 /* LaunchScreen.storyboard in Resources */,
+				B4131BE02B73D86900B7FEC7 /* 2.gif in Resources */,
 				B45D37862B6F71870092C5D6 /* Assets.xcassets in Resources */,
+				B4131BE12B73D86900B7FEC7 /* 4.gif in Resources */,
+				B4131BE32B73D86900B7FEC7 /* 3.gif in Resources */,
+				B4131BE22B73D86900B7FEC7 /* 1.gif in Resources */,
 				B45D37842B6F71860092C5D6 /* Main.storyboard in Resources */,
 				B45D37E22B6FB3B30092C5D6 /* AnimationViewController.xib in Resources */,
 			);

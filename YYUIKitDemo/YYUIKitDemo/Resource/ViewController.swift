@@ -8,6 +8,7 @@
 import UIKit
 import XYInfomationSection
 import YYUIKit
+import YYImage
 
 
 
@@ -33,10 +34,16 @@ extension ViewController: XYDebugViewProtocol {
     }
     
     func willShowDebugView(debugView: XYDebugView, inBounds: CGRect) {
-        let origialWH: CGFloat = 50
+        let origialWH: CGFloat = 100
         
         debugView.frame = .init(x: .width - origialWH, y: .height - 300, width: origialWH, height: origialWH)
         debugView.corner(radius: origialWH / 2)
+        
+        let imageV = YYAnimatedImageView()
+        imageV.frame = debugView.bounds
+        imageV.image = YYImage(named: "4")
+        debugView.addSubview(imageV)
+        
     }
 }
 

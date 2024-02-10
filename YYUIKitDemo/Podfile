@@ -12,5 +12,6 @@ target 'YYUIKitDemo' do
   pod 'XYInfomationSection'
   pod 'XYNav', :path => '/Users/quxiaoyou/Desktop/XYNav/'
   pod 'YYUIKit', :path => '../.'
+  pod 'YYImage'
 
 end
