@@ -41,7 +41,7 @@ extension ViewController: XYDebugViewProtocol {
         
         let imageV = YYAnimatedImageView()
         imageV.frame = debugView.bounds
-        imageV.image = YYImage(named: "4")
+        imageV.image = YYImage(named: "3")
         debugView.addSubview(imageV)
         
     }

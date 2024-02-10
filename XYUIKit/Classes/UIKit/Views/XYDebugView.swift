@@ -11,7 +11,6 @@ import UIKit
 
 @objc public protocol XYDebugViewProtocol: NSObjectProtocol {
     
-    
     /// debugView 被点击
     @objc func didClickDebugview()
     
@@ -23,18 +22,41 @@ import UIKit
     @objc optional func willShowDebugView(debugView: XYDebugView, inBounds: CGRect)
     
     /// debugView 被点击, 可以借此时机调整 UI
+    /// - Parameters:
+    ///   - debugView: 当前被点击的 view
+    ///   - inBounds: 其父视图的容器 bounds. 可以在此调整 UI
     @objc optional func didClickDebugview(debugView: XYDebugView, inBounds: CGRect)
+    
+    /// 是否支持拖拽手势(pan Gesture)
+    /// - Parameters:
+    ///   - debugView: 当前 view
+    @objc optional func enablePanGesture(for debugView: XYDebugView) -> Bool
+    
+    /// 是否使用默认拖拽时候的动画效果
+    /// - Parameters:
+    ///   - debugView: 当前 view
+    @objc optional func enableDefaultPanAnimation(for debugView: XYDebugView) -> Bool
+    
+    /// 用户自己处理 pan 手势, 实现此函数将完全以你的手势处理为准,不再提供默认实现
+    /// - Parameters:
+    ///   - debugView: 当前 view
+    ///   - pan: 当前 pan 手势
+    @objc optional func handlePanGesture(for debugView: XYDebugView, pan: UIPanGestureRecognizer)
+    
 }
 
 @objc public class XYDebugView: UIView {
     static private var shared: XYDebugView!
+    static private var KVDict: [String: XYDebugView] = [:]
     private var infoLabel: UILabel = .init()
     private weak var delegate: XYDebugViewProtocol? { didSet{ didSetDelegate() }}
     private var initialCenter: CGPoint = CGPoint()
     private var animator: UIViewPropertyAnimator?
     private static let origialWH: CGFloat = 100
     
-        
+    /// 当前 场景Key
+    public private(set) var currenKey: String = "shared"
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupContent()
@@ -44,6 +66,8 @@ import UIKit
         fatalError("init(coder:) has not been implemented")
     }
     
+    /// 创建并展示全局的 DebugView, 此函数会将其放置到 App.keyWindow 上
+    /// - Parameter delegate: 指定代理, 处理事件回调, 不指定则展示默认样式
     @objc public static func show(_ delegate: XYDebugViewProtocol? = nil){
         if let keyWindow = UIApplication.shared.getKeyWindow(), shared == nil {
             let debugView = XYDebugView()
@@ -60,13 +84,42 @@ import UIKit
         }
     }
     
+    /// 创建指定场景的 View, 需要自行处理 UI 定制 / 展示逻辑 -> 需要通过实现代理函数来实现自定义
+    /// - Parameters:
+    ///   - key: 场景的key, 可以通过不同 key 区分不同场景
+    ///   - delegate: 代理, 处理事件回调, 不指定则展示默认样式
+    @objc public static func debugView(forScene key: String, with delegate: XYDebugViewProtocol) {
+        let debugView = XYDebugView()
+        debugView.delegate = delegate
+        debugView.currenKey = key
+        XYDebugView.KVDict[key] = debugView
+        delegate.willShowDebugView?(debugView: debugView, inBounds: .zero)
+    }
+    
+    /// dismiss 默认创建的全局 debugView
     @objc public static func dismiss(){
         shared.removeFromSuperview()
         shared = nil
     }
+    
+    /// dismiss 指定场景的 DebugView
+    /// - Parameter key: 指定场景的 Key
+    @objc public static func dismiss(forScene key: String){
+        if let view = XYDebugView.KVDict.removeValue(forKey: key) {
+            view.removeFromSuperview()
+        }
+    }
+    
+    /// dismiss 所有场景的 debugView, 包含全局创建的 DebugView
+    @objc public static func dismissAll() {
+        dismiss()
+        for key in XYDebugView.KVDict.keys {
+            dismiss(forScene: key)
+        }
+    }
 }
 
-extension XYDebugView {
+private extension XYDebugView {
     
     func setupContent() {
         backgroundColor = .random
@@ -145,11 +198,18 @@ private extension XYDebugView {
     }
     
     private func addPanGesture() {
+        if delegate?.enablePanGesture?(for: self) == false { return }
+        
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
         self.addGestureRecognizer(panGesture)
     }
     
     @objc private func handlePan(_ gesture: UIPanGestureRecognizer) {
+        if let delegate = delegate, delegate.responds(to: #selector(delegate.handlePanGesture(for:pan:)))  {
+            delegate.handlePanGesture?(for: self, pan: gesture)
+            return
+        }
+        
         guard let targetView = gesture.view else { return }
         
         switch gesture.state {
@@ -182,6 +242,8 @@ private extension XYDebugView {
     }
     
     func startAnimation(){
+        if delegate?.enableDefaultPanAnimation?(for: self) == false { return }
+        
         animator = UIViewPropertyAnimator(duration: 0.2, curve: .easeInOut) {
             self.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
         }
@@ -204,6 +266,8 @@ private extension XYDebugView {
     }
     
     func stopAnimation(){
+        if delegate?.enableDefaultPanAnimation?(for: self) == false { return }
+        
         animator?.stopAnimation(true)
         animator = nil
         UIView.animate(withDuration: 0.2) {
