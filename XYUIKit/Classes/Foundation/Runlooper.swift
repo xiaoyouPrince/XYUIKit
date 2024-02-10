@@ -34,11 +34,11 @@ public class Runlooper: NSObject{
     @objc static func startLoop(forKey: String, interval: TimeInterval, callback: @escaping ()->()){
         if !keys.contains(forKey) { keys.append(forKey) }
         DispatchQueue.main.async { callback() }
-        if keys.contains(forKey) {
-            DispatchQueue.global().asyncAfter(deadline: .now() + interval, execute: {
+        DispatchQueue.global().asyncAfter(deadline: .now() + interval, execute: {
+            if keys.contains(forKey) {
                 startLoop(forKey: forKey, interval: interval, callback: callback)
-            })
-        }
+            }
+        })
     }
     
     /// 停止所有 looper
