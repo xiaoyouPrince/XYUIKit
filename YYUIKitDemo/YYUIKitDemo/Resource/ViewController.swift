@@ -18,6 +18,10 @@ class ViewController: XYInfomationBaseViewController {
         buildUI()
         
         XYDebugView.show(self)
+        
+        XYDebugView.show(forScene: "首页小⚽️", with: self)
+        
+        XYDebugView.show(forScene: "VIP 小球", with: self)
     }
     
     let dataModel: [String: UIViewController.Type] =
@@ -34,15 +38,43 @@ extension ViewController: XYDebugViewProtocol {
     }
     
     func willShowDebugView(debugView: XYDebugView, inBounds: CGRect) {
-        let origialWH: CGFloat = 100
-        
-        debugView.frame = .init(x: .width - origialWH, y: .height - 300, width: origialWH, height: origialWH)
-        debugView.corner(radius: origialWH / 2)
-        
-        let imageV = YYAnimatedImageView()
-        imageV.frame = debugView.bounds
-        imageV.image = YYImage(named: "3")
-        debugView.addSubview(imageV)
+        if debugView.currenKey == "首页小⚽️"{
+            
+            view.addSubview(debugView)
+            
+            let origialWH: CGFloat = 100
+            debugView.frame = .init(x: .width - origialWH, y: .height - 300, width: origialWH, height: origialWH)
+            debugView.corner(radius: origialWH / 2)
+            
+            let imageV = YYAnimatedImageView()
+            imageV.frame = debugView.bounds
+            imageV.image = YYImage(named: "2")
+            debugView.addSubview(imageV)
+            
+        }else if debugView.currenKey == "VIP 小球"{
+            
+            view.addSubview(debugView)
+            
+            let origialWH: CGFloat = 100
+            debugView.frame = .init(x: .width - origialWH, y: .height - 300, width: origialWH, height: origialWH)
+            debugView.corner(radius: origialWH / 2)
+            
+            let imageV = YYAnimatedImageView()
+            imageV.frame = debugView.bounds
+            imageV.image = YYImage(named: "1")
+            debugView.addSubview(imageV)
+            
+        }else{
+            let origialWH: CGFloat = 100
+            
+            debugView.frame = .init(x: .width - origialWH, y: .height - 300, width: origialWH, height: origialWH)
+            debugView.corner(radius: origialWH / 2)
+            
+            let imageV = YYAnimatedImageView()
+            imageV.frame = debugView.bounds
+            imageV.image = YYImage(named: "3")
+            debugView.addSubview(imageV)
+        }
         
     }
 }
