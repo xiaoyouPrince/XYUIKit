@@ -21,7 +21,7 @@ public class Runlooper: NSObject{
     /// - Parameters:
     ///   - interval: 时间间隔(单位:S)
     ///   - callback: 你要执行的事件
-    static func startLoop(interval: TimeInterval, callback: @escaping ()->()){
+    @objc static func startLoop(interval: TimeInterval, callback: @escaping ()->()){
         startLoop(forKey: "Runlooper_Default_Looper", interval: interval, callback: callback)
     }
     
@@ -31,27 +31,25 @@ public class Runlooper: NSObject{
     ///   - forKey: 指定循环的 Key
     ///   - interval: 时间间隔(单位:S)
     ///   - callback: 你要执行的事件
-    static func startLoop(forKey: String, interval: TimeInterval, callback: @escaping ()->()){
+    @objc static func startLoop(forKey: String, interval: TimeInterval, callback: @escaping ()->()){
         if !keys.contains(forKey) { keys.append(forKey) }
         DispatchQueue.main.async { callback() }
-        DispatchQueue.global().asyncAfter(deadline: .now() + interval, execute: {
-            if keys.contains(forKey) {
+        if keys.contains(forKey) {
+            DispatchQueue.global().asyncAfter(deadline: .now() + interval, execute: {
                 startLoop(forKey: forKey, interval: interval, callback: callback)
-            }
-        })
+            })
+        }
     }
     
     /// 停止所有 looper
     /// - Note: 此方法会停止所有 looper, 谨慎使用
-    static func stopLoop(){
+    @objc static func stopLoop(){
         keys.removeAll()
     }
     
     /// 停止指定 Key 的 looper
-    static func stopLoop(forKey: String){
-        keys.removeAll { item in
-            item == forKey
-        }
+    @objc static func stopLoop(forKey: String){
+        keys.removeAll { $0 == forKey }
     }
     
 }
