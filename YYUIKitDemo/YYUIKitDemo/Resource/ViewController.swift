@@ -17,11 +17,14 @@ class ViewController: XYInfomationBaseViewController {
         super.viewDidLoad()
         buildUI()
         
-        XYDebugView.show(self)
+        DispatchQueue.once {
+            XYDebugView.show(self)
+            
+            XYDebugView.show(forScene: "首页小⚽️", with: self)
+            
+            XYDebugView.show(forScene: "VIP 小球", with: self)
+        }
         
-        XYDebugView.show(forScene: "首页小⚽️", with: self)
-        
-        XYDebugView.show(forScene: "VIP 小球", with: self)
     }
     
     let dataModel: [String: UIViewController.Type] =
