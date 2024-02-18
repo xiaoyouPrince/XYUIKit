@@ -98,7 +98,7 @@ import UIKit
     
     /// dismiss 默认创建的全局 debugView
     @objc public static func dismiss(){
-        shared.removeFromSuperview()
+        shared?.removeFromSuperview()
         shared = nil
     }
     
