@@ -222,6 +222,7 @@ extension UIImage {
         if image == nil {
             image = UIImage(named: named)
         }
-        return image
+        
+        return image?.scaleToSize(.init(width: 20, height: 20))
     }
 }

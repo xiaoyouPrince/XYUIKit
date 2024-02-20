@@ -1,18 +1,17 @@
 //
-//  FileBoxTableViewController.swift
-//  FileBoxTableViewController
+//  FileInfomationController.swift
+//  YYUIKit
 //
-//  Created by jinfeng on 2021/9/24.
+//  Created by 渠晓友 on 2024/2/21.
 //
 
 import UIKit
 import AVKit
 import QuickLook
 
-class FileBoxTableViewController: UITableViewController {
+class FileInfomationController: UITableViewController {
     
     var fileNode: FileNode?
-    
     var fileNodes: [FileNode] = []
     
     private var rootFileNode: FileNode!
@@ -28,7 +27,7 @@ class FileBoxTableViewController: UITableViewController {
         if fileNode == nil {
             fileNode = FileNode(path: FileBox.sandBoxPath())
         }
-
+        
         if let node = fileNode {
             rootFileNode = FileNode(actionNode: node.path, action: .root)
             topFileNode = FileNode(actionNode: node.path.topFilePath(), action: .top)
@@ -44,16 +43,16 @@ class FileBoxTableViewController: UITableViewController {
         
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12)
         tableView.register(TextCell.self, forCellReuseIdentifier: "text")
-        tableView.register(DisplayFileCell.self, forCellReuseIdentifier: "display")
+        tableView.register(FileInfomationCell.self, forCellReuseIdentifier: "display")
     }
-
+    
     // MARK: - Table view data source
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 2
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         if section == 0 {
@@ -61,7 +60,7 @@ class FileBoxTableViewController: UITableViewController {
         }
         return self.fileNodes.count
     }
-
+    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
@@ -73,7 +72,7 @@ class FileBoxTableViewController: UITableViewController {
             }
             return cell
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "display", for: indexPath) as! DisplayFileCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "display", for: indexPath) as! FileInfomationCell
             let fileNode = self.fileNodes[indexPath.row]
             cell.fileNode = fileNode
             return cell
@@ -96,7 +95,7 @@ class FileBoxTableViewController: UITableViewController {
                 
                 FileBox.default.add(new: fileNode)
                 
-                let vc = FileBoxTableViewController()
+                let vc = FileInfomationController()
                 vc.fileNode = fileNode
                 navigationController?.pushViewController(vc, animated: true)
             } else {
@@ -121,7 +120,7 @@ class FileBoxTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 {
-            return 40
+            return 44
         } else {
             return 60
         }
@@ -129,7 +128,8 @@ class FileBoxTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0 {
-            return 20
+            
+            return "$PWD: \(fileNode!.path!)".heightOf(font: .systemFont(ofSize: 14), size: .init(width: .width - 20, height: 1000), lineSpacing: 4) + 14 + 20
         }
         return 0
     }
@@ -143,11 +143,13 @@ class FileBoxTableViewController: UITableViewController {
                 
                 let numLabel = UILabel()
                 self.numLabel = numLabel
-                numLabel.font = UIFont.systemFont(ofSize: 10)
+                numLabel.font = UIFont.systemFont(ofSize: 14)
                 numLabel.textColor = .black
+                numLabel.numberOfLines = 0
                 header?.contentView.addSubview(numLabel)
                 numLabel.snp.makeConstraints { make in
                     make.center.equalTo(header!.contentView)
+                    make.left.top.equalToSuperview().offset(10)
                 }
             }
             var fileCount = 0
@@ -159,7 +161,7 @@ class FileBoxTableViewController: UITableViewController {
                     fileCount += 1
                 }
             }
-            numLabel?.text = "files \(fileCount) | directorys \(dirCount)"
+            numLabel?.text = "$PWD: \(fileNode!.path!)" + "\n" + "files \(fileCount) | directorys \(dirCount)"
             return header
         }
         return nil
@@ -179,16 +181,14 @@ class FileBoxTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
         let fileNode = fileNodes[indexPath.row]
         if fileNode.isDeletable() {
-           return "删除"
+            return "删除"
         }
         return "无权限删除"
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         let fileNode = fileNodes[indexPath.row]
-        guard fileNode.isDeletable() else {
-            return
-        }
+        guard fileNode.isDeletable() else { return }
         do {
             try FileManager.default.removeItem(at: URL(fileURLWithPath: fileNode.path))
             fileNodes.remove(at: indexPath.row)
@@ -197,7 +197,7 @@ class FileBoxTableViewController: UITableViewController {
     }
 }
 
-extension FileBoxTableViewController {
+extension FileInfomationController {
     @objc func onClickBack() {
         navigationController?.dismiss(animated: true, completion: nil)
     }
@@ -220,7 +220,7 @@ extension FileBoxTableViewController {
         let sure = UIAlertAction(title: "删除", style: .destructive) { _ in
             let fileManager = FileManager.default
             for fileNode in self.fileNodes {
-               try? fileManager.removeItem(at: URL(fileURLWithPath: fileNode.path))
+                try? fileManager.removeItem(at: URL(fileURLWithPath: fileNode.path))
             }
             self.fileNodes = self.fileNode?.refreshNodes() ?? []
             self.tableView.reloadData()
@@ -232,10 +232,8 @@ extension FileBoxTableViewController {
 }
 
 
-extension FileBoxTableViewController: QLPreviewControllerDataSource {
-    func numberOfPreviewItems(in controller: QLPreviewController) -> Int {
-        1
-    }
+extension FileInfomationController: QLPreviewControllerDataSource {
+    func numberOfPreviewItems(in controller: QLPreviewController) -> Int { 1 }
     
     func previewController(_ controller: QLPreviewController, previewItemAt index: Int) -> QLPreviewItem {
         NSURL(fileURLWithPath: clickFileNode!.path)

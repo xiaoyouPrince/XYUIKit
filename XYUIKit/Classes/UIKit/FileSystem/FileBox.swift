@@ -33,7 +33,7 @@ public class FileBox: NSObject {
         var node: FileNode? = rootNode
         var vcs: [UIViewController] = []
         while node != nil {
-            let vc = FileBoxTableViewController()
+            let vc = FileInfomationController()
             vc.fileNode = FileNode(path: node!.path)
             vcs.append(vc)
             node = node?.next
@@ -47,7 +47,7 @@ public class FileBox: NSObject {
     }
     
     private func createRootFileController(node: FileNode) -> UINavigationController {
-        let vc = FileBoxTableViewController()
+        let vc = FileInfomationController()
         vc.fileNode = node
         let navi = UINavigationController(rootViewController: vc)
         navi.modalPresentationStyle = .fullScreen
