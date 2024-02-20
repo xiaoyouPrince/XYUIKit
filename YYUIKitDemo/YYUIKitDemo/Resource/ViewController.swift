@@ -37,7 +37,13 @@ class ViewController: XYInfomationBaseViewController {
 
 extension ViewController: XYDebugViewProtocol {
     func didClickDebugview() {
-        Toast.make("Xbug按钮点击, 这里来实现自己自定义的处理吧")
+        // Toast.make("Xbug按钮点击, 这里来实现自己自定义的处理吧")
+    }
+    
+    func didClickDebugview(debugView: XYDebugView, inBounds: CGRect) {
+        if debugView.currenKey == "首页小⚽️"{
+            FileBox.default.openRecently(dir: FileBox.sandBoxPath())
+        }
     }
     
     func willShowDebugView(debugView: XYDebugView, inBounds: CGRect) {

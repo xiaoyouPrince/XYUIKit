@@ -11,5 +11,13 @@
 ### 使用 CocoaPods 安装
 
 ```ruby
-pod YYUIKit
+pod YYUIKit                     #全部功能, 主要基于 UIKit 平台
+pod YYUIKit/Foundation          #Foundation功能分类, 此部分平台无关, 可用于 Apple 全平台开发
 ```
+
+## 功能介绍
+### Foundation 分类
+    
+    - 
+    
+### UIKit
