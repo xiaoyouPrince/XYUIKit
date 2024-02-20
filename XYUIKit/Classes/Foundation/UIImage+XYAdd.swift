@@ -62,34 +62,6 @@ public extension UIImage {
         return returnImage
     }
     
-    
-    /// 通过颜色创建一个 UIImage
-    /// - Parameter color: 指定的颜色
-    /// - Returns: 返回目标 UIImage
-    @objc static func image(withColor color: UIColor) -> UIImage {
-        UIGraphicsBeginImageContextWithOptions(CGSize(width: 1, height: 1), false, 0)
-        let ctx = UIGraphicsGetCurrentContext()
-        ctx?.setFillColor(color.cgColor)
-        ctx?.fill(CGRect(x: 0, y: 0, width: 1, height: 1))
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        return image ?? UIImage()
-    }
-    
-    
-    /// 裁剪图片到指定 rect
-    /// - Parameter rect: 指定需要裁剪的范围
-    /// - Returns: 裁剪之后得到的 image
-    func crop(toRect rect: CGRect) -> UIImage? {
-        let scale = UIScreen().scale
-        let realRect: CGRect = .init(x: rect.minX * scale, y: rect.minY * scale, width: rect.width * scale, height: rect.height * scale)
-        
-        guard let cgImage = self.cgImage else { return nil }
-        guard let croppedCGImage = cgImage.cropping(to: realRect) else { return nil }
-        
-        let croppedImage = UIImage(cgImage: croppedCGImage)
-        return croppedImage
-    }
-    
     /// 是否是横图, width > height
     var isLandscape: Bool {
         size.width > size.height
@@ -105,6 +77,79 @@ public extension UIImage {
         size.width == size.height
     }
     
+}
+
+// MARK: - 便捷初始化
+
+public extension UIImage {
+    
+    /// 通过颜色创建一个 UIImage
+    /// - Parameter color: 指定的颜色
+    /// - Returns: 返回目标 UIImage
+    @objc static func image(withColor color: UIColor) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(CGSize(width: 1, height: 1), false, 0)
+        let ctx = UIGraphicsGetCurrentContext()
+        ctx?.setFillColor(color.cgColor)
+        ctx?.fill(CGRect(x: 0, y: 0, width: 1, height: 1))
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        return image ?? UIImage()
+    }
+    
+    /// 通过 imageURL 加载网络图片, 异步加载, 主线程回调
+    /// - Parameters:
+    ///   - imageUrl: 图片地址
+    ///   - completeion: 回调, 返回对应图片
+    static func image(withURL imageUrl: URL?, completeion: @escaping (UIImage?)->()) {
+        if let url = imageUrl {
+            DispatchQueue.global().async {
+                if let data = try? Data(contentsOf: url), let image = UIImage(data: data) {
+                    DispatchQueue.safeMain {
+                        completeion(image)
+                    }
+                }else{
+                    DispatchQueue.safeMain {
+                        completeion(nil)
+                    }
+                }
+            }
+        }else{
+            DispatchQueue.safeMain {
+                completeion(nil)
+            }
+        }
+    }
+    
+    /// 通过 URLString 加载网络图片, 异步加载, 主线程回调
+    /// - Parameters:
+    ///   - imageUrl: 图片地址
+    ///   - completeion: 回调, 返回对应图片
+    static func image(withURLStr urlStr: String, completeion: @escaping (UIImage?)->()) {
+        if let url = URL(string: urlStr) {
+            image(withURL: url, completeion: completeion)
+        }else{
+            DispatchQueue.safeMain {
+                completeion(nil)
+            }
+        }
+    }
+}
+
+// MARK: - 裁剪 & 压缩
+public extension UIImage {
+    
+    /// 裁剪图片到指定 rect,  egg: 截取一张图左上角 50x50 的部分
+    /// - Parameter rect: 指定需要裁剪的范围, rect 是以当前图片 bounds 为基准指定
+    /// - Returns: 裁剪之后得到的 image
+    func crop(toRect rect: CGRect) -> UIImage? {
+        let scale = UIScreen().scale
+        let realRect: CGRect = .init(x: rect.minX * scale, y: rect.minY * scale, width: rect.width * scale, height: rect.height * scale)
+        
+        guard let cgImage = self.cgImage else { return nil }
+        guard let croppedCGImage = cgImage.cropping(to: realRect) else { return nil }
+        
+        let croppedImage = UIImage(cgImage: croppedCGImage)
+        return croppedImage
+    }
     
     /// 将图片等比缩放到指定宽高 Square, 获取等比缩放之后图片最终 Size
     /// - Parameter maxWH: 指定最大范围的宽高
@@ -133,7 +178,7 @@ public extension UIImage {
         return imageSize
     }
     
-    /// 将图像缩放到指定大小。
+    /// 将图像缩放到指定大小尺寸
     ///
     /// - Parameter newSize: 目标大小，指定图像将缩放到的大小。
     /// - Returns: 缩放后的图像。如果缩放失败，返回 nil。
@@ -149,7 +194,39 @@ public extension UIImage {
         return scaledImage
     }
     
+    /// 将图片压缩到指定大小内存, 单位: 字节
+    /// - Parameter targetMemory: 指定内存大小，如 1024x1024 是 1MB
+    /// - Returns: 压缩后的 data
+    func compressTo(targetMemory: Int) -> Data? {
+        var compression: CGFloat = 1.0
+        var imageData = jpegData(compressionQuality: compression)
+        
+        while let data = imageData, data.count > targetMemory {
+            compression -= 0.1
+            imageData = jpegData(compressionQuality: compression)
+        }
+        
+        return imageData
+    }
+    
+    /// 将图像等压缩到指定内存大小, 并等比缩放到指定最大尺寸(尺寸单位是点, 需要自行换算像素)
+    /// - Parameters:
+    ///   - targetMemory: 目标内存大小 1024x1024 = 1MB
+    ///   - targetMaxWH: 最大尺寸, 内部以 aspectFit 的规则等比缩放图片
+    /// - Returns: 最终 data
+    func compressTo(targetMemory: Int, targetMaxWH: CGFloat) -> Data? {
+        let newSize = imageSize(with: targetMaxWH)
+        if size.width < newSize.width { // 无需压缩尺寸
+            return compressTo(targetMemory: targetMemory)
+        }else{
+            let newImage = scaleToSize(newSize)
+            return newImage?.compressTo(targetMemory: targetMemory)
+        }
+    }
 }
+
+
+// MARK: - 方向处理 & 旋转
 
 public extension UIImage {
     
