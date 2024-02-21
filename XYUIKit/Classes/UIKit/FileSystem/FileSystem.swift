@@ -1,29 +1,29 @@
 //
-//  FileBox.swift
-//  FileBox
+//  FileSystem.swift
+//  YYUIKit
 //
-//  Created by jinfeng on 2021/9/24.
+//  Created by 渠晓友 on 2024/2/22.
 //
 
 import UIKit
 
-public class FileBox: NSObject {
+public class FileSystem: NSObject {
     
-    public static  let `default` = FileBox()
+    public static  let `default` = FileSystem()
     
     internal var rootNode: FileNode?
     
-    public func open(dir path: String = FileBox.sandBoxPath()) {
+    public func open(dir path: String = FileSystem.sandBoxPath()) {
         let window = UIApplication.shared.windows.first!
         if let root = window.rootViewController {
             let rootNode = FileNode(path: path)
-            FileBox.default.rootNode = rootNode
+            FileSystem.default.rootNode = rootNode
             let navi = createRootFileController(node: rootNode)
             root.present(navi, animated: true, completion: nil)
         }
     }
     
-    public func openRecently(dir path: String = FileBox.sandBoxPath()) {
+    public func openRecently(dir path: String = FileSystem.sandBoxPath()) {
         guard let rootNode = rootNode else {
             open(dir: path)
             return
@@ -55,7 +55,7 @@ public class FileBox: NSObject {
     }
 }
 
-extension FileBox {
+extension FileSystem {
     public static func mainBundlePath() -> String {
         Bundle.main.bundlePath
     }
@@ -82,9 +82,9 @@ extension FileBox {
 }
 
 
-extension FileBox {
+extension FileSystem {
     func add(new node: FileNode) {
-        var _node = FileBox.default.rootNode
+        var _node = FileSystem.default.rootNode
         while _node?.next != nil {
             _node = _node?.next
         }
@@ -92,7 +92,7 @@ extension FileBox {
     }
     
     func removeLastNode() {
-        var _node = FileBox.default.rootNode
+        var _node = FileSystem.default.rootNode
         while _node?.next?.next != nil {
             _node = _node?.next
         }
@@ -102,7 +102,7 @@ extension FileBox {
     }
     
     func resetRootNode() {
-        FileBox.default.rootNode?.next = nil
+        FileSystem.default.rootNode?.next = nil
     }
 }
 

@@ -217,7 +217,7 @@ extension String {
 
 extension UIImage {
     static func create(named: String) -> UIImage? {
-        let anyClass = FileBox.self
+        let anyClass = FileSystem.self
         let boxBundle = Bundle.init(for: anyClass)
         let targetBundle = Bundle.init(path: boxBundle.path(forResource: "XYUIKit", ofType: "bundle") ?? "")
         var image: UIImage? = targetBundle == nil ? nil : UIImage.init(named: named, in: targetBundle!, compatibleWith: nil)

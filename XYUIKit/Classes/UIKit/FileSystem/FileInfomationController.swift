@@ -25,7 +25,7 @@ class FileInfomationController: UITableViewController {
         super.viewDidLoad()
         
         if fileNode == nil {
-            fileNode = FileNode(path: FileBox.sandBoxPath())
+            fileNode = FileNode(path: FileSystem.sandBoxPath())
         }
         
         if let node = fileNode {
@@ -83,17 +83,17 @@ class FileInfomationController: UITableViewController {
         if indexPath.section == 0 {
             if indexPath.row == 0 {
                 navigationController?.popToRootViewController(animated: true)
-                FileBox.default.resetRootNode()
+                FileSystem.default.resetRootNode()
             } else {
                 navigationController?.popViewController(animated: true)
-                FileBox.default.removeLastNode()
+                FileSystem.default.removeLastNode()
             }
         } else {
             let fileNode = self.fileNodes[indexPath.row]
             clickFileNode = fileNode
             if fileNode.isDir {
                 
-                FileBox.default.add(new: fileNode)
+                FileSystem.default.add(new: fileNode)
                 
                 let vc = FileInfomationController()
                 vc.fileNode = fileNode

@@ -42,7 +42,7 @@ extension ViewController: XYDebugViewProtocol {
     
     func didClickDebugview(debugView: XYDebugView, inBounds: CGRect) {
         if debugView.currenKey == "首页小⚽️"{
-            FileBox.default.openRecently(dir: FileBox.sandBoxPath())
+            FileSystem.default.openRecently(dir: FileSystem.sandBoxPath())
         }
     }
     
