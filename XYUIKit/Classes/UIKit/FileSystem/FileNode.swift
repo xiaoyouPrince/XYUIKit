@@ -1,8 +1,8 @@
 //
 //  FileNode.swift
-//  FileNode
+//  YYUIKit
 //
-//  Created by jinfeng on 2021/9/24.
+//  Created by 渠晓友 on 2024/2/22.
 //
 
 import UIKit
@@ -14,19 +14,12 @@ private let audioExt = ["pcm","wav", "aac", "mp3", "ogg"]
 public class FileNode: NSObject {
     
     var next: FileNode?
-    
     public private(set) var path: String!
-    
     public private(set) var name: String!
-    
     public private(set) var isDir: Bool!
-    
     public private(set) var type: FileType!
-    
     public private(set) var size: UInt64!
-    
     private var attribute: [FileAttributeKey: Any]!
-    
     public private(set) var nodes: [FileNode] = []
     
     convenience public init(path: String) {
@@ -126,6 +119,15 @@ extension FileNode {
 
 
 extension FileNode {
+    
+    func subItemsAndTotalSize() -> String {
+        if isDir {
+            return "\(nodes.count) items, " + fileSize()
+        }else{
+            return fileSize()
+        }
+    }
+    
     func fileSize() -> String {
         var size = self.size!
         if size < 1024 {

@@ -38,7 +38,9 @@ extension FileInfomationCell {
     }
     
     private func getLabel(textColor: UIColor, fontSize: CGFloat) -> UILabel {
-        UILabel(title: "", font: .systemFont(ofSize: fontSize), textColor: textColor, textAlignment: .left)
+        let label = UILabel(title: "", font: .systemFont(ofSize: fontSize), textColor: textColor, textAlignment: .left)
+        label.numberOfLines = 3
+        return label
     }
     
     private func getArrawView() -> UIImageView {
@@ -53,7 +55,7 @@ extension FileInfomationCell {
         guard let fileNode = fileNode else { return }
         label.text = fileNode.name
         icon.image = fileNode.getShowIcon()
-        subLabel.text = fileNode.fileSize()
+        subLabel.text = fileNode.subItemsAndTotalSize()
         rightArrow.isHidden = !fileNode.isDir
         fileAbleLabel.isHidden = fileNode.isDir
         var ableText = ""
@@ -85,7 +87,7 @@ extension FileInfomationCell {
         
         label.snp.makeConstraints { make in
             make.left.equalTo(icon.snp.right).offset(15)
-            make.centerY.equalTo(icon)
+            make.top.equalTo(icon)
             make.right.lessThanOrEqualTo(-50)
         }
         icon.snp.makeConstraints { make in
@@ -101,6 +103,7 @@ extension FileInfomationCell {
             make.left.equalTo(label)
             make.right.lessThanOrEqualTo(contentView).offset(-50)
             make.top.equalTo(label.snp.bottom).offset(5)
+            make.bottom.equalTo(-12)
         }
         rightArrow.snp.makeConstraints { make in
             make.centerY.equalTo(contentView)

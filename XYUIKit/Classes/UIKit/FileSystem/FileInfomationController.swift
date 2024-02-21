@@ -122,7 +122,7 @@ class FileInfomationController: UITableViewController {
         if indexPath.section == 0 {
             return 44
         } else {
-            return 60
+            return UITableView.automaticDimension
         }
     }
     
