@@ -1,21 +1,16 @@
 //
-//  TextCell.swift
-//  TextCell
+//  FileActionCell.swift
+//  YYUIKit
 //
-//  Created by jinfeng on 2021/9/24.
+//  Created by 渠晓友 on 2024/2/22.
 //
 
 import UIKit
 import SnapKit
 
-class TextCell: UITableViewCell {
+class FileActionCell: UITableViewCell {
     
-    private let label: UILabel = {
-       let l = UILabel()
-        l.textColor = .black
-        l.font = .systemFont(ofSize: 16)
-        return l
-    }()
+    private let label: UILabel = UILabel(title: nil, font: .systemFont(ofSize: 16), textColor: .black, textAlignment: .left)
     
     var fileNode: FileNode? {
         didSet {
@@ -36,16 +31,4 @@ class TextCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-
 }

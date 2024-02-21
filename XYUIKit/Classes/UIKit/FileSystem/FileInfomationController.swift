@@ -42,7 +42,7 @@ class FileInfomationController: UITableViewController {
         
         
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12)
-        tableView.register(TextCell.self, forCellReuseIdentifier: "text")
+        tableView.register(FileActionCell.self, forCellReuseIdentifier: "action")
         tableView.register(FileInfomationCell.self, forCellReuseIdentifier: "display")
     }
     
@@ -64,7 +64,7 @@ class FileInfomationController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "text", for: indexPath) as! TextCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "action", for: indexPath) as! FileActionCell
             if indexPath.row == 0 {
                 cell.fileNode = rootFileNode
             } else {
