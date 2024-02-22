@@ -43,7 +43,9 @@ extension ViewController: XYDebugViewProtocol {
     func didClickDebugview(debugView: XYDebugView, inBounds: CGRect) {
         if debugView.currenKey == "首页小⚽️"{
 //            FileSystem.default.openRecently(dir: FileSystem.sandBoxPath())
-            FileSystem.default.pushOpen(navigationVC: navigationController!)
+//            FileSystem.default.pushOpen(navigationVC: navigationController!)
+            
+            AppUtils.openFolder(withPush: navigationController!)
         }
     }
     

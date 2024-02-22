@@ -128,5 +128,23 @@ public typealias AppUtils = XYUtils
         }
     }
     
+    /// 使用文件系统打开指定文件夹, 默认使用 present 方式
+    /// - Parameter path: 文件夹路径, 默认为路径是当前 App 的沙盒目录
+    @objc public static func openFolder(_ path: String = FileSystem.sandBoxPath()) {
+        DispatchQueue.safeMain {
+            FileSystem.default.open(dir: path)
+        }
+    }
+    
+    /// 使用文件系统打开指定文件夹, 使用导航栏 push 方式
+    /// - Parameter path: 文件夹路径, , 默认为路径是当前 App 的沙盒目录
+    /// - Parameter onNavigationController: push 所在的导航栏
+    @objc public static func openFolder(_ path: String = FileSystem.sandBoxPath(), withPush onNavigationController: UINavigationController) {
+        DispatchQueue.safeMain {
+            FileSystem.default.pushOpen(navigationVC: onNavigationController, dirpath: path)
+        }
+    }
+    
+    
     
 }

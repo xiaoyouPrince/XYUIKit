@@ -35,7 +35,11 @@ class FileInfomationController: UITableViewController {
         
         self.fileNodes = fileNode?.refreshNodes() ?? []
         navigationItem.title = fileNode?.name ?? ""
-        navigationItem.leftBarButtonItem = UIBarButtonItem.init(image: UIImage.create(named: "icon_close")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(onClickBack))
+        if FileSystem.default.isPushOpened {
+            navigationItem.leftBarButtonItem = UIBarButtonItem.init(image: UIImage.create(named: "icon_back")?.xy_rotate(orientation: .leftMirrored ).withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(onClickBack))
+        }else{
+            navigationItem.leftBarButtonItem = UIBarButtonItem.init(image: UIImage.create(named: "icon_close")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(onClickBack))
+        }
         let refreshItem = UIBarButtonItem.init(image: UIImage.create(named: "icon_refresh")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(onClickRefresh))
         let deleteItem = UIBarButtonItem.init(image: UIImage.create(named: "icon_delete")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(onClickDelete))
         navigationItem.rightBarButtonItems = [refreshItem, deleteItem]
@@ -199,8 +203,11 @@ class FileInfomationController: UITableViewController {
 
 extension FileInfomationController {
     @objc func onClickBack() {
-        navigationController?.dismiss(animated: true, completion: nil)
-        navigationController?.popViewController(animated: true)
+        if FileSystem.default.isPushOpened {
+            navigationController?.popViewController(animated: true)
+        }else{
+            navigationController?.dismiss(animated: true, completion: nil)
+        }
     }
     
     @objc func onClickRefresh() {

@@ -10,8 +10,8 @@ import UIKit
 public class FileSystem: NSObject {
     
     public static  let `default` = FileSystem()
-    
     internal var rootNode: FileNode?
+    private(set) var isPushOpened = false
     
     public func open(dir path: String = FileSystem.sandBoxPath()) {
         let window = UIApplication.shared.windows.first!
@@ -20,6 +20,7 @@ public class FileSystem: NSObject {
             FileSystem.default.rootNode = rootNode
             let navi = createRootFileController(node: rootNode)
             root.present(navi, animated: true, completion: nil)
+            isPushOpened = false
         }
     }
     
@@ -29,6 +30,7 @@ public class FileSystem: NSObject {
         let vc = FileInfomationController()
         vc.fileNode = rootNode
         navigationVC.pushViewController(vc, animated: true)
+        isPushOpened = true
     }
     
     public func openRecently(dir path: String = FileSystem.sandBoxPath()) {
@@ -51,6 +53,7 @@ public class FileSystem: NSObject {
         let window = UIApplication.shared.windows.first!
         if let root = window.rootViewController {
             root.present(navi, animated: true, completion: nil)
+            isPushOpened = true
         }
     }
     
