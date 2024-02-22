@@ -89,6 +89,7 @@ import UIKit
     ///   - key: 场景的key, 可以通过不同 key 区分不同场景
     ///   - delegate: 代理, 处理事件回调, 不指定则展示默认样式
     @objc public static func show(forScene key: String, with delegate: XYDebugViewProtocol) {
+        if XYDebugView.KVDict.keys.contains(key) { return }
         let debugView = XYDebugView()
         debugView.delegate = delegate
         debugView.currenKey = key
