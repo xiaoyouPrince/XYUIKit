@@ -52,16 +52,24 @@ public extension UIApplication {
         }
     }
     
-    
-    
     /// 挂起 App
     static func suspend() { shared.suspend() }
-    /// 挂起 App
     func suspend() {
         DispatchQueue.main.async {
             if UIApplication.shared.applicationState != .background {
                 UIApplication.shared.perform(#selector(NSXPCConnection.suspend))
             }
+        }
+    }
+    
+    /// 去应用设置页面
+    static func openSettings() { shared.openSettings() }
+    func openSettings() {
+        let app = UIApplication.shared
+        if let setingUrl = URL(string: UIApplication.openSettingsURLString),
+           app.canOpenURL(setingUrl)
+        {
+            app.open(setingUrl)
         }
     }
 
