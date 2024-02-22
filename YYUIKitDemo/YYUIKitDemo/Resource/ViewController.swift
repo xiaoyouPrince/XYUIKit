@@ -9,86 +9,23 @@ import UIKit
 import XYInfomationSection
 import YYUIKit
 import YYImage
-
-
+import SwiftUI
+import XYNav
 
 class ViewController: XYInfomationBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         buildUI()
-        
-        DispatchQueue.once {
-            XYDebugView.show(self)
-            
-            XYDebugView.show(forScene: "首页小⚽️", with: self)
-            
-            XYDebugView.show(forScene: "VIP 小球", with: self)
-        }
-        
     }
     
-    let dataModel: [String: UIViewController.Type] =
+    // UIViewController.Type or SwiftUI.View
+    let dataModel: [[String: Any]] =
         [
-            "自定义 loading": TableViewController.self,
-            "stm": ViewController2.self
+            ["自定义 loading": TableViewController.self],
+            ["自定义 view": ViewController2.self],
+            ["自定义各种悬浮球": FloatBallView()],
         ]
     
-}
-
-extension ViewController: XYDebugViewProtocol {
-    func didClickDebugview() {
-        // Toast.make("Xbug按钮点击, 这里来实现自己自定义的处理吧")
-    }
-    
-    func didClickDebugview(debugView: XYDebugView, inBounds: CGRect) {
-        if debugView.currenKey == "首页小⚽️"{
-//            FileSystem.default.openRecently(dir: FileSystem.sandBoxPath())
-//            FileSystem.default.pushOpen(navigationVC: navigationController!)
-            
-            AppUtils.openFolder(withPush: navigationController!)
-        }
-    }
-    
-    func willShowDebugView(debugView: XYDebugView, inBounds: CGRect) {
-        if debugView.currenKey == "首页小⚽️"{
-            
-            view.addSubview(debugView)
-            
-            let origialWH: CGFloat = 100
-            debugView.frame = .init(x: .width - origialWH, y: .height - 300, width: origialWH, height: origialWH)
-            debugView.corner(radius: origialWH / 2)
-            
-            let imageV = YYAnimatedImageView()
-            imageV.frame = debugView.bounds
-            imageV.image = YYImage(named: "2")
-            debugView.addSubview(imageV)
-            
-        }else if debugView.currenKey == "VIP 小球"{
-            
-            view.addSubview(debugView)
-            
-            let origialWH: CGFloat = 100
-            debugView.frame = .init(x: .width - origialWH, y: .height - 300, width: origialWH, height: origialWH)
-            debugView.corner(radius: origialWH / 2)
-            
-            let imageV = YYAnimatedImageView()
-            imageV.frame = debugView.bounds
-            imageV.image = YYImage(named: "1")
-            debugView.addSubview(imageV)
-            
-        }else{
-            let origialWH: CGFloat = 100
-            
-            debugView.frame = .init(x: .width - origialWH, y: .height - 300, width: origialWH, height: origialWH)
-            debugView.corner(radius: origialWH / 2)
-            
-            let imageV = YYAnimatedImageView()
-            imageV.frame = debugView.bounds
-            imageV.image = YYImage(named: "3")
-            debugView.addSubview(imageV)
-        }
-        
-    }
 }
 
 extension ViewController {
@@ -110,10 +47,17 @@ extension ViewController {
         }, sectionDistance: 0, contentEdgeInsets: .init(top: 10, left: 10, bottom: 0, right: 10)) {[weak self] index, cell in
             guard let self = self else { return }
             
-            Toast.make("进入: \(cell.model.title)")
-            let detailVC = (cell.model.obj as! UIViewController.Type).init()
-            detailVC.title = cell.model.title
-            self.nav_push(detailVC, animated: true)
+            if let vcType = cell.model.obj as? UIViewController.Type {
+                let detailVC = vcType.init()
+                detailVC.title = cell.model.title
+                self.nav_push(detailVC, animated: true)
+                XYNavigationController.showClassNameByDefault(true)
+            } else if let view = cell.model.obj as? (any View) {
+                let detailVC = UIHostingController(rootView: AnyView(view))
+                detailVC.title = cell.model.title
+                self.nav_push(detailVC, animated: true)
+                XYNavigationController.showClassNameByDefault(false)
+            }
         }
     }
 }
@@ -124,8 +68,8 @@ extension ViewController {
         var result = [Any]()
         
         var section: [[String: Any]] = []
-        dataModel.keys.forEach { key in
-            section.append(["title": key, "obj": dataModel[key] ?? ""])
+        dataModel.forEach { dic in
+            section.append(["title": dic.keys.first ?? "", "obj": dic.values.first ?? ""])
         }
         result.append(section)
         return result
