@@ -23,6 +23,14 @@ public class FileSystem: NSObject {
         }
     }
     
+    public func pushOpen(navigationVC: UINavigationController , dirpath: String = FileSystem.sandBoxPath()) {
+        let rootNode = FileNode(path: dirpath)
+        FileSystem.default.rootNode = rootNode
+        let vc = FileInfomationController()
+        vc.fileNode = rootNode
+        navigationVC.pushViewController(vc, animated: true)
+    }
+    
     public func openRecently(dir path: String = FileSystem.sandBoxPath()) {
         guard let rootNode = rootNode else {
             open(dir: path)

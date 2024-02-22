@@ -200,6 +200,7 @@ class FileInfomationController: UITableViewController {
 extension FileInfomationController {
     @objc func onClickBack() {
         navigationController?.dismiss(animated: true, completion: nil)
+        navigationController?.popViewController(animated: true)
     }
     
     @objc func onClickRefresh() {
