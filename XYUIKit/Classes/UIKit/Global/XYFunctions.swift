@@ -59,13 +59,20 @@ public func doSth(withName name: String, maxTimes times: Int, timeInterval: Time
 ///   - file: 当前文件，无需手动入参
 ///   - funName: 当前执行的所在的函数名，无需入参
 ///   - lineNum: 当前执行所在的行数，无需入参
-public func doOnce(inObjLife obj: AnyObject, _ function: ()->(), file : String = #file , funName : String = #function , lineNum : Int = #line) {
+public func doOnce(inObjLife obj: AnyObject, _ function: @escaping ()->(), file : String = #file , funName : String = #function , lineNum : Int = #line) {
 
-    var key = file + funName + "\(lineNum)"
-    guard let hasDone = objc_getAssociatedObject(obj, &key) as? String else {
-        
-        function()
-        objc_setAssociatedObject(obj, &key, key, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        return
-    }
+    var key = file + funName + "\(lineNum)" + obj.debugDescription
+    doOnce(for: key, callback: function)
+}
+
+fileprivate var onceTokens: [String] = []
+
+/// 程序生命周期内只执行一次的代码
+/// - Parameters:
+///   - token: 指定 key, 每个 key 对应的事件只执行一次
+///   - callback: 每个 key 对应的事件
+public func doOnce(for token: String, callback: @escaping ()->()) {
+    if onceTokens.contains(token) { return }
+    onceTokens.append(token)
+    callback()
 }
