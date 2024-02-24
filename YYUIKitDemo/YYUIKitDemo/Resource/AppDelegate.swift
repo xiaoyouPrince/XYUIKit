@@ -16,6 +16,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        NotificationCenter.default.addObserver(forName: .XYNavGesturePopNotification, object: nil, queue: .main) { noti in
+            Toast.make("poped \(noti.object)")
+        }
+        
+        XYNavigationController.addPanGestureEndCallback { popedViewController in
+            Toast.make("poped \(popedViewController)")
+        }
+        
         makeKeyWindow()
         return true
     }
