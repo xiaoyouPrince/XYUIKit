@@ -18,11 +18,10 @@ struct FileSystemView: View {
     let tempPath = FileSystem.tempPath()
     
     var body: some View {
-        Text("本页面展示了 YYUIkit 中文件系统 FileSystem 的使用, 下面按钮分别展示了查看不同目录的Demo")
         
         List {
             
-            Text("1. Present 弹出效果")
+            Text("本页面展示了 YYUIkit 中文件系统 FileSystem 的使用, 下面按钮分别展示了查看不同目录的Demo")
             
             Section {
                 Button("沙盒目录 sandbox") {
@@ -48,9 +47,9 @@ struct FileSystemView: View {
                 Button("临时目录 temp") {
                     AppUtils.openFolder(tempPath)
                 }
+            } header: {
+                Text("1. Present 弹出效果")
             }
-            
-            Text("2. Push 弹出效果")
             
             Section {
                 Button("沙盒目录 sandbox") {
@@ -76,6 +75,8 @@ struct FileSystemView: View {
                 Button("临时目录 temp") {
                     AppUtils.openFolder(tempPath, withPush: UIViewController.currentVisibleVC.navigationController!)
                 }
+            } header: {
+                Text("2. Push 弹出效果")
             }
         }
     }
