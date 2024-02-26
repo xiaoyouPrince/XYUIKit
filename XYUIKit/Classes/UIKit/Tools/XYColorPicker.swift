@@ -19,11 +19,24 @@ class XYColorPicker: UIViewController {
     
     static func showColorPicker(_ callback: @escaping (UIColor)->()) {
         shared.callback = callback
-        let cp = UIColorPickerViewController()
-        cp.delegate = shared
-        currentVisibleVC.present(cp, animated: true)
+        
+        let colorPicker = UIColorPickerViewController()
+        colorPicker.delegate = shared
+        if #available(iOS 15.0, *) {
+            colorPicker.modalPresentationStyle = .formSheet
+            if let sheet = colorPicker.sheetPresentationController {
+                sheet.detents = [.medium(), .large()]
+                sheet.largestUndimmedDetentIdentifier = .medium
+                sheet.prefersScrollingExpandsWhenScrolledToEdge =
+                PresentationHelper.sharedInstance.prefersScrollingExpandsWhenScrolledToEdge
+                sheet.prefersEdgeAttachedInCompactHeight =
+                PresentationHelper.sharedInstance.prefersEdgeAttachedInCompactHeight
+                sheet.widthFollowsPreferredContentSizeWhenEdgeAttached =
+                PresentationHelper.sharedInstance.widthFollowsPreferredContentSizeWhenEdgeAttached
+            }
+        }
+        currentVisibleVC.present(colorPicker, animated: true, completion: nil)
     }
-    
 }
 
 
@@ -33,4 +46,23 @@ extension XYColorPicker: UIColorPickerViewControllerDelegate {
         let selectedColor = viewController.selectedColor
         XYColorPicker.shared.callback?(selectedColor)
     }
+    func colorPickerViewControllerDidSelectColor(_ viewController: UIColorPickerViewController) {
+        let selectedColor = viewController.selectedColor
+        XYColorPicker.shared.callback?(selectedColor)
+    }
+}
+
+
+@available(iOS 15.0, *)
+extension UISheetPresentationController.Detent.Identifier {
+    static let small = UISheetPresentationController.Detent.Identifier("small")
+}
+
+@available(iOS 15.0, *)
+class PresentationHelper {
+    static let sharedInstance = PresentationHelper()
+    var largestUndimmedDetentIdentifier: UISheetPresentationController.Detent.Identifier = .medium
+    var prefersScrollingExpandsWhenScrolledToEdge: Bool = true
+    var prefersEdgeAttachedInCompactHeight: Bool = true
+    var widthFollowsPreferredContentSizeWhenEdgeAttached: Bool = false
 }

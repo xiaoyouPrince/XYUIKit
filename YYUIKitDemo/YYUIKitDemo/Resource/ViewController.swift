@@ -25,6 +25,7 @@ class ViewController: XYInfomationBaseViewController {
             ["自定义 view": ViewController2.self],
             ["自定义各种悬浮球": FloatBallView()],
             ["iOS 文件系统": FileSystemView()],
+            ["UIApp 的便捷扩展功能": AppFunctionView()]
         ]
     
 }
