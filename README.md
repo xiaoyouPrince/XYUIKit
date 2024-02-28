@@ -15,9 +15,15 @@ pod YYUIKit                     #全部功能, 主要基于 UIKit 平台
 pod YYUIKit/Foundation          #Foundation功能分类, 此部分平台无关, 可用于 Apple 全平台开发
 ```
 
+## 近期 TODOs
+1. XYLoger: 一套 log 读写工具, 目标: 日志写入文件, 便于调试,查看日志, 无需断点调试, 尤其是避免一些启动等特殊场景下的断点调试
+2. XYImageEditor: 一个简易的图片编辑器, 裁剪,旋转,翻转,缩放... 参考微信图片裁剪
+3. XYQrCodeManager: 一个二维码/条码, 生成 / 扫描识别 / 图片二维码识别工具, 参考微信扫码
+4. ...
+
 ## 功能介绍
 
-YYUIKit 分 `Foundation 分类 / UIKit` 两部分, 具体 UI 欢迎下载 Demo 体验, 如果对你有帮助, 欢迎点赞支持 💪🎉
+YYUIKit 分 `Foundation 分类 / UIKit` 两部分, 具体 UI 欢迎下载 Demo 体验, 如果对你有帮助, 欢迎点赞🌟🌟🌟🌟支持 💪🎉
 
 ### Foundation 分类
 
