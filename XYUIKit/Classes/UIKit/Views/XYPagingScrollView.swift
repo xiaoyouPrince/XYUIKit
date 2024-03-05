@@ -14,7 +14,7 @@ import UIKit
 
 @objc @objcMembers public class XYPagingScrollView: UIView {
     public var itemSpacing: CGFloat = 10.0 { didSet{setupUI()} }
-    public var pageWidth: CGFloat = 0.85
+    public var pageWidth: CGFloat = 1.0
     public var showPageControl: Bool = true
     public var timeInterval: TimeInterval = 3.0
     public var customPages: [UIView]? { didSet{setupUI()} }
@@ -34,7 +34,7 @@ import UIKit
     }
     
     private func setupUI() {
-        if pageWidth < 0 || pageWidth > 1 { pageWidth = 0.85 }
+        if pageWidth < 0 || pageWidth > 1 { pageWidth = 1.0 }
         scrollView = getScrollView()
         
         backgroundColor = UIColor.white
@@ -84,8 +84,6 @@ class XYScrollView: UIScrollView, UIScrollViewDelegate {
         clipsToBounds = false
         scrollsToTop = false
         delegate = self
-        
-        backgroundColor = .red
     }
     
     func setupContent() {

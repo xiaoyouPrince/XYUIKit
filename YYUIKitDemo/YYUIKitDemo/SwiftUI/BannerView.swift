@@ -16,12 +16,17 @@ struct BannerView: View {
             
             Section {
                 XYPagingScrollViewSwiftUI()
-                    .frame(height: 200)
+                    .frame(width: .width - 100, height: 200)
                 
             } header: {
                 Text("1. 自定义 page content")
             }
         }
+        
+        XYPagingScrollViewSwiftUI()
+            .frame(width: .width, height: 200)
+        
+        Spacer()
     }
 }
 
