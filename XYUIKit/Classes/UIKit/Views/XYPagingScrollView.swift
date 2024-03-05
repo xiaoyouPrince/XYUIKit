@@ -21,7 +21,6 @@ import UIKit
     public var imageUrls: [URL]?
     public var imageArary: [UIImage]?
     
-    
     lazy var scrollView = getScrollView()
     lazy var enhanceScrollView = getEnhanceScrollView()
     
@@ -69,26 +68,52 @@ private extension XYPagingScrollView {
 }
 
 
-class XYScrollView: UIScrollView {
+class XYScrollView: UIScrollView, UIScrollViewDelegate {
     var itemSpacing: CGFloat = 10.0
-    var customPages: [UIView]?
+    var customPages: [UIView]? { didSet { if customPages != nil {setupContent()} }}
     var imageUrls: [URL]?
     var imageArary: [UIImage]?
     
+    private var contentView: UIView = .init()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
+        isPagingEnabled = true
+        showsHorizontalScrollIndicator = false
+        showsVerticalScrollIndicator = false
+        clipsToBounds = false
+        scrollsToTop = false
+        delegate = self
         
+        backgroundColor = .red
     }
     
     func setupContent() {
+        
+        contentView.subviews.forEach{($0.removeFromSuperview())}
+        addSubview(contentView)
+        contentView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
         for (idx, page) in customPages!.enumerated() {
-            addSubview(page)
+            contentView.addSubview(page)
             
             page.snp.makeConstraints { make in
-                make.left.equalToSuperview().multipliedBy(idx).offset(itemSpacing / 2)
+                if idx == 0 {
+                    make.left.equalToSuperview().offset(itemSpacing / 2)
+                }else{
+                    make.left.equalTo(customPages![idx-1].snp.right).offset(itemSpacing)
+                }
                 make.top.equalToSuperview()
-                make.width.equalToSuperview().offset(-itemSpacing)
-                make.height.equalToSuperview()
+                make.width.equalTo(self) .offset(-itemSpacing)
+                make.height.equalTo(self)
+            }
+            
+            if idx == customPages!.count - 1 {
+                page.snp.makeConstraints { make in
+                    make.right.equalToSuperview().offset(-(itemSpacing / 2))
+                }
             }
         }
     }

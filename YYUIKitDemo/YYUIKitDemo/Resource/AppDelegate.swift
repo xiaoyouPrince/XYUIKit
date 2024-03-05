@@ -24,9 +24,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //            Toast.make("poped \(popedViewController)")
 //        }
         
-        XYNavigationController.addPopCallback { popedViewController, isGesture  in
-            Toast.make("poped \(popedViewController)\n\n\(isGesture ? "手势" : "back事件")")
-        }
+//        XYNavigationController.addPopCallback { popedViewController, isGesture  in
+//            Toast.make("poped \(popedViewController)\n\n\(isGesture ? "手势" : "back事件")")
+//        }
         
         makeKeyWindow()
         return true

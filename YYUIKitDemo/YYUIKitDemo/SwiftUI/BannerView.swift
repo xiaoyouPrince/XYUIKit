@@ -15,7 +15,6 @@ struct BannerView: View {
             Text("本页面展示了 YYUIkit 中提供的滚动分页视图的使用, 下面按钮分别展示具体功能")
             
             Section {
-                
                 XYPagingScrollViewSwiftUI()
                     .frame(height: 200)
                 
@@ -33,7 +32,7 @@ struct BannerView: View {
 struct XYPagingScrollViewSwiftUI: View, UIViewRepresentable {
     func makeUIView(context: Context) -> YYUIKit.XYPagingScrollView {
         let page = XYPagingScrollView()
-        page.customPages = [UIImageView(named: "banner1"), UIImageView(named: "banner2")]
+        page.customPages = [UIImageView(named: "banner1"), UIImageView(named: "banner2"), UIImageView(named: "banner2")]
         return page
     }
     
