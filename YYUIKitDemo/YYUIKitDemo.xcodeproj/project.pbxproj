@@ -41,6 +41,7 @@
 		B45D37F42B6FB3E60092C5D6 /* XYCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45D37ED2B6FB3E60092C5D6 /* XYCards.swift */; };
 		B45D37F52B6FB3E60092C5D6 /* ZLNewGreetingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45D37EE2B6FB3E60092C5D6 /* ZLNewGreetingView.swift */; };
 		B45D37F62B6FB3E60092C5D6 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45D37EF2B6FB3E60092C5D6 /* GradientView.swift */; };
+		B4641A6D2B970E7900CAEE24 /* BannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4641A6C2B970E7900CAEE24 /* BannerView.swift */; };
 		B498BA422B8C421000114112 /* AppFunctionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B498BA412B8C421000114112 /* AppFunctionView.swift */; };
 /* End PBXBuildFile section */
 
@@ -83,6 +84,7 @@
 		B45D37ED2B6FB3E60092C5D6 /* XYCards.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XYCards.swift; sourceTree = "<group>"; };
 		B45D37EE2B6FB3E60092C5D6 /* ZLNewGreetingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZLNewGreetingView.swift; sourceTree = "<group>"; };
 		B45D37EF2B6FB3E60092C5D6 /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		B4641A6C2B970E7900CAEE24 /* BannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerView.swift; sourceTree = "<group>"; };
 		B498BA412B8C421000114112 /* AppFunctionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFunctionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -123,6 +125,7 @@
 				B428E0BA2B87AA16001B43AD /* FloatBallView.swift */,
 				B428E0BC2B8A01C6001B43AD /* FileSystemView.swift */,
 				B498BA412B8C421000114112 /* AppFunctionView.swift */,
+				B4641A6C2B970E7900CAEE24 /* BannerView.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -349,6 +352,7 @@
 				B45D37DC2B6FB3B30092C5D6 /* ListViewController.swift in Sources */,
 				B45D37F32B6FB3E60092C5D6 /* ZLPushNotificationTipView.swift in Sources */,
 				B45D37F52B6FB3E60092C5D6 /* ZLNewGreetingView.swift in Sources */,
+				B4641A6D2B970E7900CAEE24 /* BannerView.swift in Sources */,
 				B45D37E42B6FB3B30092C5D6 /* ZLJobCoordinationAlertController.swift in Sources */,
 				B428E0BD2B8A01C6001B43AD /* FileSystemView.swift in Sources */,
 				B45D37D92B6FB3B30092C5D6 /* IMViewController.swift in Sources */,

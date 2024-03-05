@@ -17,7 +17,22 @@ struct FileSystemView: View {
     let libraryPath = FileSystem.libraryPath()
     let tempPath = FileSystem.tempPath()
     
+    @State var header: Bool = false
+    
+    func setHeader() {
+        header.toggle()
+    }
+    
     var body: some View {
+        
+        if header {
+            Text("------")
+        }
+        
+        Button("header") {
+//            header.toggle()
+            setHeader()
+        }
         
         List {
             

@@ -16,12 +16,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        NotificationCenter.default.addObserver(forName: .XYNavGesturePopNotification, object: nil, queue: .main) { noti in
-            Toast.make("poped \(noti.object)")
-        }
+//        NotificationCenter.default.addObserver(forName: .XYNavGesturePopNotification, object: nil, queue: .main) { noti in
+//            Toast.make("poped \(noti.object)")
+//        }
+//        
+//        XYNavigationController.addPanGestureEndCallback { popedViewController in
+//            Toast.make("poped \(popedViewController)")
+//        }
         
-        XYNavigationController.addPanGestureEndCallback { popedViewController in
-            Toast.make("poped \(popedViewController)")
+        XYNavigationController.addPopCallback { popedViewController, isGesture  in
+            Toast.make("poped \(popedViewController)\n\n\(isGesture ? "手势" : "back事件")")
         }
         
         makeKeyWindow()

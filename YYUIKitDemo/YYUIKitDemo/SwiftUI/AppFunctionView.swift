@@ -27,10 +27,6 @@ struct AppFunctionView: View {
                     }
                 }
                 
-//                Button("mainBundle") { // for iPad popover View
-//                    AppUtils.openFolder(mainBundlePath)
-//                }
-                
             } header: {
                 Text("1. 颜色选择器")
             }
