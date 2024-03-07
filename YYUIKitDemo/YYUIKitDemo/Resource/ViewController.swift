@@ -12,10 +12,16 @@ import YYImage
 import SwiftUI
 import XYNav
 
+class DataModel: ObservableObject {
+    @Published var name: String = "点我试试"
+}
+
 class ViewController: XYInfomationBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         buildUI()
+        
+        
     }
     
     // UIViewController.Type or SwiftUI.View
@@ -26,7 +32,11 @@ class ViewController: XYInfomationBaseViewController {
             ["自定义各种悬浮球": FloatBallView()],
             ["iOS 文件系统": FileSystemView()],
             ["UIApp 的便捷扩展功能": AppFunctionView()],
-            ["滚动分页视图(banner)": BannerView()]
+            if #available(iOS 14.0, *) {
+                //["滚动分页视图(banner)": BannerView(dataModel: DataModel())]
+                ["滚动分页视图(banner)": BannerView().environmentObject(DataModel())]
+            }
+            
         ]
     
 }

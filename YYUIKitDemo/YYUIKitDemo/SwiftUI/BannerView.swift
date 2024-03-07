@@ -8,9 +8,19 @@
 import SwiftUI
 import YYUIKit
 
+@available(iOS 14.0, *)
 struct BannerView: View {
     
+//    @StateObject var dataModel: DataModel
+    @EnvironmentObject var dataModel: DataModel
+    
     var body: some View {
+        
+        Text(dataModel.name)
+            .onTapGesture {
+                dataModel.name = "试试就试试"
+            }
+        
         List {
             Text("本页面展示了 YYUIkit 中提供的滚动分页视图的使用, 下面按钮分别展示具体功能")
             
@@ -30,9 +40,9 @@ struct BannerView: View {
     }
 }
 
-#Preview {
-    BannerView()
-}
+//#Preview {
+//    BannerView()
+//}
 
 struct XYPagingScrollViewSwiftUI: View, UIViewRepresentable {
     func makeUIView(context: Context) -> YYUIKit.XYPagingScrollView {
