@@ -74,7 +74,7 @@ class XYScrollView: UIScrollView, UIScrollViewDelegate {
     var imageUrls: [URL]?
     var imageArary: [UIImage]?
     
-    private var contentView: UIView = .init()
+    var contentView: UIView = .init()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -92,10 +92,19 @@ class XYScrollView: UIScrollView, UIScrollViewDelegate {
         addSubview(contentView)
         contentView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
+            make.height.equalToSuperview()
         }
         
         for (idx, page) in customPages!.enumerated() {
             contentView.addSubview(page)
+            page.tag = idx
+            
+//            if idx != 0 {
+                page.addTap { sender in
+                    Toast.make("tip message - \(page.tag)")
+                }
+//            }
+            
             
             page.snp.makeConstraints { make in
                 if idx == 0 {
@@ -114,6 +123,9 @@ class XYScrollView: UIScrollView, UIScrollViewDelegate {
                 }
             }
         }
+        
+        
+        contentView.backgroundColor = .yellow
     }
     
     required init?(coder: NSCoder) {
@@ -127,6 +139,13 @@ class EnhanceScrollView: UIScrollView {
     
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         if(self.point(inside: point, with: event)) {
+            if scrollView?.point(inside: point, with: event) == true {
+                return scrollView?.hitTest(point, with: event)
+            }
+            if scrollView?.subviews.first!.point(inside: point, with: event) == true {
+                let rst = scrollView?.subviews.first!.hitTest(self.convert(point, to: scrollView?.subviews.first!), with: event)
+                return rst
+            }
             return scrollView
         }
         return nil
