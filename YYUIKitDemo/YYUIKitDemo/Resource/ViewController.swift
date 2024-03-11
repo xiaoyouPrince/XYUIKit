@@ -20,8 +20,6 @@ class ViewController: XYInfomationBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         buildUI()
-        
-        
     }
     
     // UIViewController.Type or SwiftUI.View
@@ -35,8 +33,8 @@ class ViewController: XYInfomationBaseViewController {
             if #available(iOS 14.0, *) {
                 //["滚动分页视图(banner)": BannerView(dataModel: DataModel())]
                 ["滚动分页视图(banner)": BannerView().environmentObject(DataModel())]
-            }
-            
+            },
+            ["组件动态背景": WidgetBgTest()],
         ]
     
 }
