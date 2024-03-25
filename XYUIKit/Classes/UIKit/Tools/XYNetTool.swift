@@ -109,26 +109,16 @@ private extension XYNetTool {
                 return;
             }
             
-            // Json 格式处理
+            // JSON 格式处理
             if let success = success as? AnyJsonCallback {
                 if let data = data, let resultJson = try? JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed), let dict = resultJson as? [String: Any] {
-                    if let code = dict["code"] as? Int, code == 200 {
-                        DispatchQueue.main.async {
-                            if let data = dict["data"] as? [String : Any] {
-                                success(data)
-                            }else{
-                                success([:])
-                            }
-                        }
-                    }else{
-                        DispatchQueue.main.async {
-                            failure(dict["message"] as? String ?? "服务异常,返回非 200")
-                            print(dict)
-                        }
+                    DispatchQueue.main.async {
+                        success(dict)
                     }
                 }else{
-                    // 非JSON格式返回
-                    success([:])
+                    DispatchQueue.main.async {
+                        failure(error?.localizedDescription ?? "")
+                    }
                 }
             }
             
