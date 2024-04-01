@@ -15,14 +15,10 @@ import UIKit
 @objc @objcMembers public class XYPagingScrollView: UIView {
     public var itemSpacing: CGFloat = 10.0 { didSet{setupUI()} }
     public var pageWidth: CGFloat = 1.0
-    public var showPageControl: Bool = true
-    public var timeInterval: TimeInterval = 3.0
     public var customPages: [UIView]? { didSet{setupUI()} }
-    public var imageUrls: [URL]?
-    public var imageArary: [UIImage]?
-    
-    lazy var scrollView = getScrollView()
+    public lazy var scrollView = getScrollView()
     lazy var enhanceScrollView = getEnhanceScrollView()
+    public var currentPageCallBack: ((_ idx: Int)->())?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -59,6 +55,7 @@ private extension XYPagingScrollView {
         let scrollView = XYScrollView()
         scrollView.itemSpacing = itemSpacing
         scrollView.customPages = customPages
+        scrollView.currentPageCallBack = { self.currentPageCallBack?($0) }
         return scrollView
     }
     
@@ -71,10 +68,9 @@ private extension XYPagingScrollView {
 class XYScrollView: UIScrollView, UIScrollViewDelegate {
     var itemSpacing: CGFloat = 10.0
     var customPages: [UIView]? { didSet { if customPages != nil {setupContent()} }}
-    var imageUrls: [URL]?
-    var imageArary: [UIImage]?
+    var currentPageCallBack: ((_ idx: Int)->())?
     
-    var contentView: UIView = .init()
+    private var contentView: UIView = .init()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -97,14 +93,6 @@ class XYScrollView: UIScrollView, UIScrollViewDelegate {
         
         for (idx, page) in customPages!.enumerated() {
             contentView.addSubview(page)
-            page.tag = idx
-            
-//            if idx != 0 {
-                page.addTap { sender in
-                    Toast.make("tip message - \(page.tag)")
-                }
-//            }
-            
             
             page.snp.makeConstraints { make in
                 if idx == 0 {
@@ -123,13 +111,15 @@ class XYScrollView: UIScrollView, UIScrollViewDelegate {
                 }
             }
         }
-        
-        
-        contentView.backgroundColor = .yellow
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let page = Int((scrollView.contentOffset.x / scrollView.bounds.width) + 0.5)
+        currentPageCallBack?(page)
     }
     
 }

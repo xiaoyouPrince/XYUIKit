@@ -88,6 +88,14 @@ CGFloat / Label / Control / View / ViewController / Responder / ScrollView / App
 ```
 
 ## 版本记录(重要功能版本)
+#### v0.3.3 (2024/4/2)
+
+1. 优化 XYScrollPagingView
+
+#### v0.3.2 (2024/3/25)
+
+1. NetTool 返回值格式调整, 支持更多网络请求场景
+2. 新增 XYScrollPagingView, 支持自定义一个滚动分页视图, 类似可自定义页面大小 banner
 
 #### v0.3.0 (2024/2/22)
 
