@@ -19,6 +19,7 @@ struct BannerView: View {
         Text(dataModel.name)
             .onTapGesture {
                 dataModel.name = "试试就试试"
+                print(Date.is24HourFormat)
             }
         
         Text("本页面展示了 YYUIkit 中提供的滚动分页视图的使用, 下面按钮分别展示具体功能")

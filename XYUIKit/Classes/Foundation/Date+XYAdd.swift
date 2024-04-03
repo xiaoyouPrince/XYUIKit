@@ -207,3 +207,20 @@ public extension Date {
     }
 
 }
+
+public extension Date {
+    
+    /// 获取用户设置的时间格式是否是 24 小时制
+    static var is24HourFormat: Bool {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .none // 设置日期格式为时间样式
+        dateFormatter.timeStyle = .short // 设置为短时间格式
+        
+        // 获取当前设备时间格式
+        let dateFormat = DateFormatter.dateFormat(fromTemplate: "j", options: 0, locale: Locale.current)
+        
+        // ah时 -- 为 12 小时制
+        // H 时 -- 为 24 小时制
+        return dateFormat!.contains("H")
+    }
+}
