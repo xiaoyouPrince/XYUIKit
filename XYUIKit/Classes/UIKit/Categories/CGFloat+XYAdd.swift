@@ -104,9 +104,19 @@ extension CGFloat {
         safeBottom > 0
     }
     
+    /// 灵动岛屏幕 navBar 59pt
+    public static var isDynamicIsland: Bool {
+        naviBar >= 59
+    }
+    
     /// 屏幕适配
     public static func getRealValue(value: CGFloat) -> CGFloat {
         return value / 375.0 * UIScreen.main.bounds.size.width
+    }
+    
+    /// 屏幕宽高比
+    public static var whRatio: CGFloat {
+        return .width / .height
     }
     
     /// tabBar 高度

@@ -88,9 +88,11 @@ CGFloat / Label / Control / View / ViewController / Responder / ScrollView / App
 ```
 
 ## 版本记录(重要功能版本)
-#### v0.3.3 (2024/4/2)
+#### v0.3.3 - v0.3.4 (2024/4/2 - 2024/4/2)
 
 1. 优化 XYScrollPagingView
+2. CGFloat+XYAdd 增加便利 get 变量
+3. 
 
 #### v0.3.2 (2024/3/25)
 
