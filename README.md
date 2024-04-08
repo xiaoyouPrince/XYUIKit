@@ -19,7 +19,8 @@ pod YYUIKit/Foundation          #Foundation功能分类, 此部分平台无关, 
 1. XYLoger: 一套 log 读写工具, 目标: 日志写入文件, 便于调试,查看日志, 无需断点调试, 尤其是避免一些启动等特殊场景下的断点调试
 2. XYImageEditor: 一个简易的图片编辑器, 裁剪,旋转,翻转,缩放... 参考微信图片裁剪
 3. XYQrCodeManager: 一个二维码/条码, 生成 / 扫描识别 / 图片二维码识别工具, 参考微信扫码
-4. ...
+4. gif 动图加载( UIKit / SwiftUI)
+5. ...
 
 ## 功能介绍
 
@@ -88,10 +89,11 @@ CGFloat / Label / Control / View / ViewController / Responder / ScrollView / App
 ```
 
 ## 版本记录(重要功能版本)
-#### v0.3.3 - v0.3.4 (2024/4/2 - 2024/4/3)
+#### v0.3.3 - v0.3.5 (2024/4/2 - 2024/4/8)
 
 1. 优化 XYScrollPagingView
 2. CGFloat+XYAdd / UIDevice+XYAdd / Date+XYAdd 增加便利 get 变量
+3. 
 
 #### v0.3.2 (2024/3/25)
 

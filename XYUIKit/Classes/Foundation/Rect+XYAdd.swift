@@ -15,3 +15,9 @@ public extension CGRect {
         return .init(x: origin.x, y: origin.y, width: size.height, height: size.width)
     }
 }
+
+extension CGRect: Scaleable {
+    public func scale(with ratio: CGFloat) -> Self {
+        .init(origin: origin, size: size.scale(with: ratio))
+    }
+}
