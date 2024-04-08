@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol Scaleable {
+public protocol Scaleable {
     /// 等比缩放指定
     /// - Parameter ratio: 指定比例
     func scale(with ratio: CGFloat) -> Self
