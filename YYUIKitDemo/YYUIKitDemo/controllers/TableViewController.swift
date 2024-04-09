@@ -7,6 +7,7 @@
 
 import UIKit
 import MJRefresh
+import YYUIKit
 
 class TableViewController: UITableViewController {
     
@@ -27,6 +28,10 @@ class TableViewController: UITableViewController {
 //            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                 self.tableView.mj_header?.endRefreshing()
 //            }
+            
+            Runlooper.startLoop(interval: 2) {
+                print("run loops")
+            }
         })
         self.tableView.mj_header = header
         
@@ -35,7 +40,7 @@ class TableViewController: UITableViewController {
                 self.tableView.mj_footer?.endRefreshing()
             }
             print("---footer--")
-            
+            Runlooper.stopLoop()
             self.showErrorView(title: "ddd")
         }
         footer.setTitle("平时iiii", for: .idle)
