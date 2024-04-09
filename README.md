@@ -89,11 +89,12 @@ CGFloat / Label / Control / View / ViewController / Responder / ScrollView / App
 ```
 
 ## 版本记录(重要功能版本)
-#### v0.3.3 - v0.3.5 (2024/4/2 - 2024/4/8)
+#### v0.3.3 - v0.3.6 (2024/4/2 - 2024/4/10)
 
 1. 优化 XYScrollPagingView
 2. CGFloat+XYAdd / UIDevice+XYAdd / Date+XYAdd 增加便利 get 变量
-3. 
+3. 增加 Scaleable 协议, 由 CGSize / CGRect 实现, 可指定缩放比缩放 size / rect
+4. 调整 Runlooper 全部方法为 public 
 
 #### v0.3.2 (2024/3/25)
 
