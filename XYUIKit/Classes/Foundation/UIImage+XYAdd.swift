@@ -87,10 +87,18 @@ public extension UIImage {
     /// - Parameter color: 指定的颜色
     /// - Returns: 返回目标 UIImage
     @objc static func image(withColor color: UIColor) -> UIImage {
-        UIGraphicsBeginImageContextWithOptions(CGSize(width: 1, height: 1), false, 0)
+        image(withColor: color, size: .init(width: 1, height: 1))
+    }
+    
+    /// 通过颜色创建一个 UIImage
+    /// - Parameter color: 指定的颜色
+    /// - Parameter size: 指定要生成 image 的尺寸
+    /// - Returns: 返回目标 UIImage
+    @objc static func image(withColor color: UIColor, size: CGSize) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(CGSize(width: size.width, height: size.height), false, 0)
         let ctx = UIGraphicsGetCurrentContext()
         ctx?.setFillColor(color.cgColor)
-        ctx?.fill(CGRect(x: 0, y: 0, width: 1, height: 1))
+        ctx?.fill(CGRect(x: 0, y: 0, width: size.width, height: size.height))
         let image = UIGraphicsGetImageFromCurrentImageContext()
         return image ?? UIImage()
     }
