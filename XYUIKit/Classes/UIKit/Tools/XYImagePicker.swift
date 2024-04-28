@@ -64,13 +64,10 @@ class XYImagePicker: UIViewController {
     
     @objc public static func chooseAudioFromVideo(callback: @escaping (URL)->()) {
         chooseVideo { videoUrl in
-            let asset = AVURLAsset(url: videoUrl)
-            let audioUrl = XYFileManager.rootURL!.appendingPathComponent( UUID().uuidString + ".caf")
             
-            asset.writeAudioTrack(to: audioUrl) {
+            print("videoUrl = \(videoUrl)")
+            self.exportAudioFromVideo(url: videoUrl) { audioUrl in
                 callback(audioUrl)
-            } failure: { error in
-                Toast.make(error.localizedDescription)
             }
         }
     }
@@ -83,7 +80,7 @@ extension XYImagePicker: UIImagePickerControllerDelegate & UINavigationControlle
         
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             XYImagePicker.shared.imageCallback?(image)
-        }else 
+        }else
         if let movieUrl = info[UIImagePickerController.InfoKey.mediaURL] as? URL {
             XYImagePicker.shared.movieCallback?(movieUrl)
         }else{
@@ -96,55 +93,39 @@ extension XYImagePicker: UIImagePickerControllerDelegate & UINavigationControlle
     }
 }
 
-
-fileprivate extension AVAsset {
-    
-    func writeAudioTrack(to url: URL,
-                         success: @escaping () -> (),
-                         failure: @escaping (Error) -> ()) {
-        do {
-            let asset = try audioAsset()
-            asset.write(to: url, success: success, failure: failure)
-        } catch {
-            failure(error)
-        }
-    }
-    
-    private func write(to url: URL, success: @escaping () -> (), failure: @escaping (Error) -> ()) {
-        try? FileManager().removeItem(at: url)
+private extension XYImagePicker {
+    static func exportAudioFromVideo(url: URL, complete:((URL)->())?) {
+        let asset = AVAsset(url: url)
         
-        // Create an export session that will output an audio track (CAF file)
-        if let exportSession = AVAssetExportSession(asset: self, presetName: AVAssetExportPresetPassthrough) {
-            
-            exportSession.outputFileType = .caf
-            exportSession.outputURL = url
-            
-            exportSession.exportAsynchronously {
-                switch exportSession.status {
-                case .completed:
-                    success()
-                default:
-                    let error = NSError(domain: "提取音频失败", code: 0, userInfo: nil)
-                    failure(error)
-                    break
+        guard let exportSession = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetAppleM4A) else {
+            print("Failed to create export session")
+            return
+        }
+        
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let outputURL = documentsDirectory.appendingPathComponent("\(UUID().uuidString).caf")
+        
+        exportSession.outputURL = outputURL
+        exportSession.outputFileType = .m4a
+        
+        exportSession.exportAsynchronously {
+            switch exportSession.status {
+            case .completed:
+                print("Audio extraction complete. Output URL: \(outputURL)")
+                // Do something with the extracted audio file
+                complete?(outputURL)
+            case .failed:
+                if let error = exportSession.error {
+                    print("Audio extraction failed: \(error.localizedDescription)")
+                } else {
+                    print("Audio extraction failed")
                 }
+            case .cancelled:
+                print("Audio extraction cancelled")
+            default:
+                print("Unknown status")
             }
-        }else{
-            let error = NSError(domain: "提取音频失败", code: 0, userInfo: nil)
-            failure(error)
         }
-    }
-    
-    private func audioAsset() throws -> AVAsset {
-        let composition = AVMutableComposition()
-        let audioTracks = tracks(withMediaType: .audio)
-        
-        for track in audioTracks {
-            let compositionTrack = composition.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid)
-            try compositionTrack?.insertTimeRange(track.timeRange, of: track, at: track.timeRange.start)
-            compositionTrack?.preferredTransform = track.preferredTransform
-        }
-        return composition
     }
 }
 
