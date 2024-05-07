@@ -44,6 +44,8 @@ public class XYAlertSheetController: UIViewController {
     
     /// 是否支持直接点击背景空白区取消操作，defalut is true
     public var isBackClickCancelEnable = true
+    /// alertSheet 弹出之后的背景色, 默认60%透明度的黑色
+    public var backgroundColor = UIColor.black.withAlphaComponent(0.6)
     public var dismissCallback: (()->())?
 
     @objc public class func showCustom(on
@@ -366,7 +368,7 @@ extension XYAlertSheetController {
         }
         
         UIView.animate(withDuration: 0.25) {
-            self.view.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+            self.view.backgroundColor = self.backgroundColor
             self.view.layoutIfNeeded()
         }
     }
