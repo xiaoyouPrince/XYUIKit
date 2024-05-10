@@ -16,6 +16,7 @@ import UIKit
     public var itemSpacing: CGFloat = 10.0 { didSet{setupUI()} }
     public var pageWidth: CGFloat = 1.0
     public var customPages: [UIView]? { didSet{setupUI()} }
+    public var initinalIndex: Int = 0
     public lazy var scrollView = getScrollView()
     lazy var enhanceScrollView = getEnhanceScrollView()
     public var currentPageCallBack: ((_ idx: Int)->())?
@@ -54,6 +55,7 @@ private extension XYPagingScrollView {
     func getScrollView() -> UIScrollView {
         let scrollView = XYScrollView()
         scrollView.itemSpacing = itemSpacing
+        scrollView.initinalIndex = initinalIndex
         scrollView.customPages = customPages
         scrollView.currentPageCallBack = { self.currentPageCallBack?($0) }
         return scrollView
@@ -68,6 +70,7 @@ private extension XYPagingScrollView {
 class XYScrollView: UIScrollView, UIScrollViewDelegate {
     var itemSpacing: CGFloat = 10.0
     var customPages: [UIView]? { didSet { if customPages != nil {setupContent()} }}
+    var initinalIndex: Int = 0
     var currentPageCallBack: ((_ idx: Int)->())?
     
     private var contentView: UIView = .init()
@@ -110,6 +113,12 @@ class XYScrollView: UIScrollView, UIScrollViewDelegate {
                     make.right.equalToSuperview().offset(-(itemSpacing / 2))
                 }
             }
+        }
+        
+        DispatchQueue.main.async {
+            var contentOffSet_ = self.contentOffset
+            contentOffSet_.x = CGFloat(self.initinalIndex) * self.bounds.width
+            self.contentOffset = contentOffSet_
         }
     }
     
