@@ -139,7 +139,8 @@ class EnhanceScrollView: UIScrollView {
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         if(self.point(inside: point, with: event)) {
             if scrollView?.point(inside: point, with: event) == true {
-                return scrollView?.hitTest(point, with: event)
+                let rst = scrollView?.subviews.first!.hitTest(self.convert(point, to: scrollView?.subviews.first!), with: event)
+                return rst
             }
             if scrollView?.subviews.first!.point(inside: point, with: event) == true {
                 let rst = scrollView?.subviews.first!.hitTest(self.convert(point, to: scrollView?.subviews.first!), with: event)
