@@ -11,7 +11,8 @@ import YYUIKit
 @available(iOS 14.0, *)
 struct BannerView: View {
     
-//    @StateObject var dataModel: DataModel
+    // 这个属性要求 iOS 14
+    // @StateObject var dataModel: DataModel
     @EnvironmentObject var dataModel: DataModel
     
     var body: some View {

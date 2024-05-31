@@ -35,6 +35,7 @@ class ViewController: XYInfomationBaseViewController {
                 ["滚动分页视图(banner)": BannerView().environmentObject(DataModel())]
             },
             ["组件动态背景": WidgetBgTest()],
+            ["Alert && AlertSheetController": Alert_AlertSheetVC()]
         ]
     
 }
