@@ -84,17 +84,25 @@ CGFloat / Label / Control / View / ViewController / Responder / ScrollView / App
 4. XYIndexBar: UITableView.indexView 的自定义实现
 5. XYPickerView: 一个 PickerView 的快捷实现, 可高度自定义
 6. XYStackView / XYBoxView: 对 UIStackView 便捷封装, 对 UIView 快速拓展边框区域的实现
+7. XYPagingScrollView: 可用于自定义分页大小的 scrollView， 可用于各种自定义 banner，分页选择器如约车软件选择车型的分页视图
 
 持续增加中...
 ```
 
 ## 版本记录(重要功能版本)
-#### v0.3.3 - v0.3.6 (2024/4/2 - 2024/4/10)
+#### v0.4.1 (2024/6/4 - ？)
+
+1. XYAlertSheetController 多项功能优化， 支持手势取消
+
+#### v0.3.3 - v0.4.0 (2024/4/2 - 2024/5/15)
 
 1. 优化 XYScrollPagingView
 2. CGFloat+XYAdd / UIDevice+XYAdd / Date+XYAdd 增加便利 get 变量
 3. 增加 Scaleable 协议, 由 CGSize / CGRect 实现, 可指定缩放比缩放 size / rect
-4. 调整 Runlooper 全部方法为 public 
+4. 调整 Runlooper 全部方法为 public
+5. 从视频中音频提取功能优化，修复手机录屏视频音频的提取
+6. XYAlertSheetController 多项功能优化
+7. XYPagingScrollView 新增默认选中 index 属性，优化内部图层逻辑，修复可能事件传递出错的bug
 
 #### v0.3.2 (2024/3/25)
 
