@@ -15,8 +15,8 @@ public class XYTagsView: UIView {
     public var contentSize: CGSize { .init(width: width, height: height)}
     public private(set) var tagTtiles: [String] = []
     public var tagClickCallback: ((String) -> ())?
-    private let maxWidth: CGFloat
-    private var customViews: [UIView] = []
+    public let maxWidth: CGFloat
+    public private(set) var customViews: [UIView] = []
     
     public init(customView views: [UIView], maxWitdh: CGFloat) {
         self.maxWidth = maxWitdh
@@ -41,6 +41,12 @@ public class XYTagsView: UIView {
     
     required public init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    public func updateCustomViews(_ customViews: [UIView]) {
+        self.customViews = customViews
+        subviews.forEach { $0.removeFromSuperview() }
+        layoutSubCustomViews()
     }
 }
 
