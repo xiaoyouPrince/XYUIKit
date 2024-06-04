@@ -42,6 +42,27 @@ public struct XYFileManager {
         return true
     }
     
+    /// 删除指定文件/文件夹
+    /// - Parameter pathOrFileName: 文件或者文件夹名称
+    /// - Returns: 成功/失败
+    @discardableResult
+    public static func removeFile(with pathOrFileName: String) -> Bool {
+        guard let url = rootURL?.appendingPathComponent(pathOrFileName) else { return false }
+        
+        if FileManager.default.fileExists(atPath: url.path) == false { // 文件不存在,直接返回成功
+            return true
+        } else {
+            do {
+                try FileManager.default.removeItem(at: url)
+            } catch {
+                return false // 删除失败
+            }
+        }
+        
+        // 删除完成
+        return true
+    }
+    
     /// 读取文件中保存的模型
     /// - Parameter pathOrFileName: 传入文件路径或者文件名 egg: tools/a.tool 或者 a.tool
     /// - Returns: 返回指定的文件模型数组
