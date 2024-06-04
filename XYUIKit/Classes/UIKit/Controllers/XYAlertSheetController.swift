@@ -9,6 +9,7 @@
 //  1. 支持内部 HeaderView 自定义,需指定 headerView.frame.size.height 或高度约束
 //  2. 支持内部 Action 自定义
 //  3. 使用可以专注于内容与业务，方便快捷
+//  4. 自定义试图默认支持手势滑动关闭
 
 /**
 结构
@@ -36,6 +37,8 @@ public class XYAlertSheetController: UIViewController {
     private var bottomSafeAreaView = UIView()
     private var customHeader: UIView?
     private var customView: UIView?
+    private var initialPosition: CGPoint?
+    private var maxY: CGFloat = 0
     
     private var titleString: String? = nil
     private var subTitleString: String? = nil
@@ -55,6 +58,9 @@ public class XYAlertSheetController: UIViewController {
     /// 是否将自定义的 sheet 视图放置在 saveArea 上边，defalut is true
     /// 如果设置为 false 则在有底部安全区的设备上, 自定视图的底边布局与屏幕对齐, 默认在安全区之上
     public var isContentAboveSafeArea = true
+    /// 是否支持手势滑动关闭自定义弹框, default is true
+    /// 如果设置为 false 则自定义弹框不支持手势滑动关闭
+    public var allowGestureDismiss = true
 
     @objc public class func showCustom(on
                                         vc: UIViewController,
@@ -198,6 +204,7 @@ extension XYAlertSheetController {
                 make.bottom.equalToSuperview().offset(-34)
             }
             
+            addPangesture()
             setBottomSafeAreaBackgroundColor(customV.backgroundColor ?? .white)
             self.view.setNeedsLayout()
             self.view.layoutIfNeeded()
@@ -417,6 +424,80 @@ extension XYAlertSheetController {
         public convenience init(title: String) {
             self.init()
             self.title = title
+        }
+    }
+}
+
+// 手势动画
+extension XYAlertSheetController {
+    
+    private func addPangesture() {
+        if customView?.isUserInteractionEnabled == true {
+            let pan = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
+            customView?.addGestureRecognizer(pan)
+            if #available(iOS 11.0, *) {
+                customView?.corner(radius: contentView.layer.cornerRadius, markedCorner: 3)
+            } else {
+                customView?.bezierPath(cornerRadius: contentView.layer.cornerRadius, byRoundingCorners: [.topLeft, .topRight])
+            }
+            contentView.backgroundColor = .clear
+        }
+    }
+    
+    @objc private func handlePan(_ gesture: UIPanGestureRecognizer) {
+        switch gesture.state {
+        case .began:
+            // 手势开始，记录初始位置
+            initialPosition = gesture.location(in: view)
+            maxY = gesture.view?.bounds.height ?? 0
+            print("Pan gesture began at position: \(String(describing: initialPosition))")
+        case .changed:
+            // 手势改变，计算与初始位置的纵向移动距离
+            let currentPosition = gesture.location(in: view)
+            
+            if let initialPosition = initialPosition {
+                let verticalDistance = currentPosition.y - initialPosition.y
+                print("Vertical distance from initial position: \(verticalDistance)")
+            }
+            
+            // 更新视图的位置
+            let translation = gesture.translation(in: view)
+            if let gestureView = gesture.view {
+                print("translation is \(translation)")
+                gestureView.center = CGPoint(x: gestureView.center.x, y: gestureView.center.y + translation.y)
+                if gestureView.center.y < maxY/2 {
+                    gestureView.center.y = maxY/2
+                }
+                
+                let ratio = gestureView.frame.origin.y / maxY
+                print("frame = \(ratio)")
+                var alpha: CGFloat = 0
+                self.backgroundColor.getRed(nil, green: nil, blue: nil, alpha: &alpha)
+                self.view.backgroundColor = self.backgroundColor.withAlphaComponent(alpha * (1 - ratio))
+            }
+            gesture.setTranslation(.zero, in: view)
+        case .ended, .cancelled:
+            // 手势结束，计算当前时刻的位置信息
+            let currentPosition = gesture.location(in: view)
+            print("Pan gesture ended at position: \(currentPosition)")
+            
+            if let gestureView = gesture.view {   
+                if gestureView.center.y < maxY {
+                    UIView.animate(withDuration: 0.25) {
+                        gestureView.center = .init(x: CGFloat.width / 2, y: self.maxY / 2)
+                        self.view.backgroundColor = self.backgroundColor
+                    }
+                }
+                else {
+                    UIView.animate(withDuration: 0.25) {
+                        gestureView.center = .init(x: CGFloat.width / 2, y: self.maxY * 1.5)
+                    } completion: { complete in
+                        self.end(index: CancelCode)
+                    }
+                }
+            }
+        default:
+            break
         }
     }
 }
