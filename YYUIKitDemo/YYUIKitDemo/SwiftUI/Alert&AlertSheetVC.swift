@@ -82,7 +82,15 @@ struct Alert_AlertSheetVC: View {
                         make.height.equalTo(400)
                     }
                     
-                    XYAlertSheetController.showCustom(on: UIViewController.currentVisibleVC, customContentView: view).isContentAboveSafeArea = false
+                    let sheet = XYAlertSheetController.showCustom(on: UIViewController.currentVisibleVC, customContentView: view)
+                    sheet.isContentAboveSafeArea = false
+                    sheet.dismissCallback = {
+                        Toast.make("dimiss")
+                    }
+                    
+                    sheet.gestureDismissCallback = { distance, ratio in
+                        Toast.make("distance: \(distance) \nratio: \(ratio)")
+                    }
                 }
             }
         }

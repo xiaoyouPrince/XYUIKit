@@ -61,6 +61,9 @@ public class XYAlertSheetController: UIViewController {
     /// 是否支持手势滑动关闭自定义弹框, default is true
     /// 如果设置为 false 则自定义弹框不支持手势滑动关闭
     public var allowGestureDismiss = true
+    /// 手势滑动时刻回调
+    /// 调用时参数为滑动距离, 以及当前可滑动最大距离的百分比
+    public var gestureDismissCallback: ((_ distance: CGFloat, _ ratio: CGFloat)->())?
 
     @objc public class func showCustom(on
                                         vc: UIViewController,
@@ -204,7 +207,9 @@ extension XYAlertSheetController {
                 make.bottom.equalToSuperview().offset(-34)
             }
             
-            addPangesture()
+            if allowGestureDismiss {
+                addPangesture()
+            }
             setBottomSafeAreaBackgroundColor(customV.backgroundColor ?? .white)
             self.view.setNeedsLayout()
             self.view.layoutIfNeeded()
@@ -450,36 +455,38 @@ extension XYAlertSheetController {
             // 手势开始，记录初始位置
             initialPosition = gesture.location(in: view)
             maxY = gesture.view?.bounds.height ?? 0
-            print("Pan gesture began at position: \(String(describing: initialPosition))")
+            // print("Pan gesture began at position: \(String(describing: initialPosition))")
+            gestureDismissCallback?(0, 0)
         case .changed:
             // 手势改变，计算与初始位置的纵向移动距离
             let currentPosition = gesture.location(in: view)
             
             if let initialPosition = initialPosition {
                 let verticalDistance = currentPosition.y - initialPosition.y
-                print("Vertical distance from initial position: \(verticalDistance)")
+                //print("Vertical distance from initial position: \(verticalDistance)")
             }
             
             // 更新视图的位置
             let translation = gesture.translation(in: view)
             if let gestureView = gesture.view {
-                print("translation is \(translation)")
+                //print("translation is \(translation)")
                 gestureView.center = CGPoint(x: gestureView.center.x, y: gestureView.center.y + translation.y)
                 if gestureView.center.y < maxY/2 {
                     gestureView.center.y = maxY/2
                 }
                 
                 let ratio = gestureView.frame.origin.y / maxY
-                print("frame = \(ratio)")
+                //print("frame = \(ratio)")
                 var alpha: CGFloat = 0
                 self.backgroundColor.getRed(nil, green: nil, blue: nil, alpha: &alpha)
                 self.view.backgroundColor = self.backgroundColor.withAlphaComponent(alpha * (1 - ratio))
+                gestureDismissCallback?(gestureView.frame.origin.y, ratio)
             }
             gesture.setTranslation(.zero, in: view)
         case .ended, .cancelled:
             // 手势结束，计算当前时刻的位置信息
             let currentPosition = gesture.location(in: view)
-            print("Pan gesture ended at position: \(currentPosition)")
+            //print("Pan gesture ended at position: \(currentPosition)")
             
             if let gestureView = gesture.view {   
                 if gestureView.center.y < maxY {
