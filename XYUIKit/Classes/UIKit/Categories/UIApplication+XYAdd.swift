@@ -11,6 +11,9 @@ public extension UIApplication {
     
     /// 获取 keyWindow
     @available(iOS 13.0, *)
+    static var keyWindow_: UIWindow? { shared.keyWindow_ }
+    
+    @available(iOS 13.0, *)
     var keyWindow_: UIWindow? {
         let connectedScenes = UIApplication.shared.connectedScenes
             .filter{$0.activationState == .foregroundActive}
@@ -22,11 +25,13 @@ public extension UIApplication {
     }
     
     /// 获取当前 App 的截图
+    static var snapShot: UIImage? { shared.snapShot }
     var snapShot: UIImage? {
         UIApplication.shared.getKeyWindow()?.snapshotImage
     }
     
     /// 获取当前App的命名空间
+    static var nameSpase: String { shared.nameSpase }
     var nameSpase: String {
         let man = UIApplication.shared.delegate!.description
         let start = man.index(after: man.startIndex)
@@ -35,12 +40,9 @@ public extension UIApplication {
         return String(nameSpace)
     }
     
-}
-
-public extension UIApplication {
-    
     /// 获取 keyWindow
     /// - Returns: keyWindow
+    static func getKeyWindow() -> UIWindow? { shared.getKeyWindow() }
     func getKeyWindow() -> UIWindow? {
         if #available(iOS 15.0, *) {
             let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
@@ -71,6 +73,18 @@ public extension UIApplication {
         {
             app.open(setingUrl)
         }
+    }
+    
+    /// App build 版本号
+    static var appBuildVersion: Int { shared.appBuildVersion }
+    var appBuildVersion: Int {
+        Bundle.main.infoDictionary?["CFBundleVersion"] as? Int ?? 1
+    }
+    
+    /// App 版本号（App Store 展示的发布版本号如 1.2.0）
+    static var appVersion: String { shared.appVersion }
+    var appVersion: String {
+        Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
     }
 
 }
