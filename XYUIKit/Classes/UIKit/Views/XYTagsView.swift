@@ -56,6 +56,7 @@ extension XYTagsView {
         var lastTag: UIView?
         var row: CGFloat = 0 // 行
         let margin: CGFloat = XYTagsView.config.tagMargin
+        let marginV: CGFloat = XYTagsView.config.tagMarginV
         for view in customViews {
             let tag = view
             addSubview(tag)
@@ -67,7 +68,7 @@ extension XYTagsView {
                     tagX = 0
                 }
                 
-                tag.frame = CGRect(x: tagX, y: row * (tag.bounds.height + margin), width: tag.bounds.width, height: tag.bounds.height)
+                tag.frame = CGRect(x: tagX, y: row * (tag.bounds.height + marginV), width: tag.bounds.width, height: tag.bounds.height)
             }else{
                 tag.frame = tag.bounds
             }
@@ -86,6 +87,7 @@ extension XYTagsView {
         var lastTag: Tag?
         var row: CGFloat = 0 // 行
         let margin: CGFloat = XYTagsView.config.tagMargin
+        let marginV: CGFloat = XYTagsView.config.tagMarginV
         for title in tagTtiles {
             let tag = Tag(name: title)
             addSubview(tag)
@@ -97,7 +99,7 @@ extension XYTagsView {
                     tagX = 0
                 }
                 
-                tag.frame = CGRect(x: tagX, y: row * (tag.bounds.height + margin), width: tag.bounds.width, height: tag.bounds.height)
+                tag.frame = CGRect(x: tagX, y: row * (tag.bounds.height + marginV), width: tag.bounds.width, height: tag.bounds.height)
             }else{
                 tag.frame = tag.bounds
             }
@@ -122,6 +124,7 @@ extension XYTagsView {
         public var tagFont = UIFont.systemFont(ofSize: 17)
         public var tagEdgeInsets = UIEdgeInsets(top: 4, left: 8, bottom: 4, right: 8)
         public var tagMargin: CGFloat = 6
+        public var tagMarginV: CGFloat = 6
         public var tagCornerRadius: CGFloat = 5
     }
     
