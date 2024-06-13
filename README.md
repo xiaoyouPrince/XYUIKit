@@ -90,9 +90,15 @@ CGFloat / Label / Control / View / ViewController / Responder / ScrollView / App
 ```
 
 ## 版本记录(重要功能版本)
-#### v0.4.1 (2024/6/4 - ？)
+#### v0.4.1 - v0.4.3 (2024/6/4 - ？)
 
 1. XYAlertSheetController 多项功能优化， 支持手势取消
+2. 新增 Console 工具类,支持打印日志
+3. XYTagsView.config 新增 tagMarginV 属性, 控制多行 tags 行间距
+4. CGFloat.isDynamicIsland 属性 bugfix
+5. UIApplication+XYAdd 方法更新
+6. XYTagsView 暴露当前实例最大宽度, 提供 ‘updateCustomViews’ 函数更新内容
+7. XYFileManager 新增删除 file 方法, 完善文件的 CURD 操作
 
 #### v0.3.3 - v0.4.0 (2024/4/2 - 2024/5/15)
 
