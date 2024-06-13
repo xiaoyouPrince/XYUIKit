@@ -104,9 +104,9 @@ extension CGFloat {
         safeBottom > 0
     }
     
-    /// 灵动岛屏幕 navBar 59pt
+    /// 灵动岛屏幕  safeTop 59pt
     public static var isDynamicIsland: Bool {
-        naviBar >= 59
+        safeTop >= 59
     }
     
     /// 屏幕适配
