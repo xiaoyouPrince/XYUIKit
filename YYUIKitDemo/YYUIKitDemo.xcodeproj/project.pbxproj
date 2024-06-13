@@ -42,6 +42,7 @@
 		B45D37F52B6FB3E60092C5D6 /* ZLNewGreetingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45D37EE2B6FB3E60092C5D6 /* ZLNewGreetingView.swift */; };
 		B45D37F62B6FB3E60092C5D6 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45D37EF2B6FB3E60092C5D6 /* GradientView.swift */; };
 		B4641A6D2B970E7900CAEE24 /* BannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4641A6C2B970E7900CAEE24 /* BannerView.swift */; };
+		B46AAE712C1B4B2A00315199 /* KeyboardMonitor&InPutBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46AAE702C1B4B2A00315199 /* KeyboardMonitor&InPutBar.swift */; };
 		B498BA422B8C421000114112 /* AppFunctionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B498BA412B8C421000114112 /* AppFunctionView.swift */; };
 		B49F8BA72B9B732400280DDA /* WidgetBgTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49F8BA62B9B732400280DDA /* WidgetBgTest.swift */; };
 		B4BB16262C099FD500B0B5A2 /* Alert&AlertSheetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BB16252C099FD500B0B5A2 /* Alert&AlertSheetVC.swift */; };
@@ -105,6 +106,7 @@
 		B45D37EE2B6FB3E60092C5D6 /* ZLNewGreetingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZLNewGreetingView.swift; sourceTree = "<group>"; };
 		B45D37EF2B6FB3E60092C5D6 /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		B4641A6C2B970E7900CAEE24 /* BannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerView.swift; sourceTree = "<group>"; };
+		B46AAE702C1B4B2A00315199 /* KeyboardMonitor&InPutBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KeyboardMonitor&InPutBar.swift"; sourceTree = "<group>"; };
 		B498BA412B8C421000114112 /* AppFunctionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFunctionView.swift; sourceTree = "<group>"; };
 		B49F8BA62B9B732400280DDA /* WidgetBgTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetBgTest.swift; sourceTree = "<group>"; };
 		B4BB16252C099FD500B0B5A2 /* Alert&AlertSheetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Alert&AlertSheetVC.swift"; sourceTree = "<group>"; };
@@ -168,6 +170,7 @@
 				B4641A6C2B970E7900CAEE24 /* BannerView.swift */,
 				B49F8BA62B9B732400280DDA /* WidgetBgTest.swift */,
 				B4BB16252C099FD500B0B5A2 /* Alert&AlertSheetVC.swift */,
+				B46AAE702C1B4B2A00315199 /* KeyboardMonitor&InPutBar.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -435,6 +438,7 @@
 				B45D37E02B6FB3B30092C5D6 /* Demo_Combine.swift in Sources */,
 				B45D37F12B6FB3E60092C5D6 /* TipView.swift in Sources */,
 				B45D37812B6F71860092C5D6 /* ViewController.swift in Sources */,
+				B46AAE712C1B4B2A00315199 /* KeyboardMonitor&InPutBar.swift in Sources */,
 				B45D37DC2B6FB3B30092C5D6 /* ListViewController.swift in Sources */,
 				B45D37F32B6FB3E60092C5D6 /* ZLPushNotificationTipView.swift in Sources */,
 				B45D37F52B6FB3E60092C5D6 /* ZLNewGreetingView.swift in Sources */,

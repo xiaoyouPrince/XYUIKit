@@ -32,16 +32,15 @@
 import UIKit
 
 public class KeyboardMonitor {
-    
-    typealias KeyboardMonitorCallBack = ((_ startFrame: CGRect, _ endFrame: CGRect, _ duration: Double) -> Void)
+    public typealias KeyboardMonitorCallBack = ((_ startFrame: CGRect, _ endFrame: CGRect, _ duration: Double) -> Void)
     
     // 键盘状态回调
-    var keyboardWillShow: KeyboardMonitorCallBack?
-    var keyboardDidShow: KeyboardMonitorCallBack?
-    var keyboardWillHide: KeyboardMonitorCallBack?
-    var keyboardDidHide: KeyboardMonitorCallBack?
+    public var keyboardWillShow: KeyboardMonitorCallBack?
+    public var keyboardDidShow: KeyboardMonitorCallBack?
+    public var keyboardWillHide: KeyboardMonitorCallBack?
+    public var keyboardDidHide: KeyboardMonitorCallBack?
     
-    init() {
+    public init() {
         // 监听键盘通知
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShowNotification(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShowNotification(_:)), name: UIResponder.keyboardDidShowNotification, object: nil)
@@ -53,7 +52,9 @@ public class KeyboardMonitor {
         // 移除通知监听
         NotificationCenter.default.removeObserver(self)
     }
-    
+}
+
+extension KeyboardMonitor {
     // 键盘即将显示
     @objc private func keyboardWillShowNotification(_ notification: Notification) {
         if let userInfo = notification.userInfo,
