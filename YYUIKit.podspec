@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
   s.swift_version = '5.0'
 
   # s.source_files = 'XYUIKit/Classes/**/*'
-  # s.resources      = "XYUIKit/Resources/*.{bundle}"
+   s.resources      = "XYUIKit/Assets/**/*"
   # s.dependency 'SnapKit'
   
   s.subspec 'Foundation' do |sub|

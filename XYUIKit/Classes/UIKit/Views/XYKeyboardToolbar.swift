@@ -24,19 +24,15 @@ import UIKit
         
         // 设置键盘状态回调
         keyboardMonitor?.keyboardWillShow = { startFrame, endFrame, duration in
-            print("Keyboard will show from frame: \(startFrame) to frame: \(endFrame) with duration: \(duration)")
+            //print("Keyboard will show from frame: \(startFrame) to frame: \(endFrame) with duration: \(duration)")
             
             UIView.animate(withDuration: duration) {
                 self.accessoryView.transform = CGAffineTransform(translationX: 0, y: -endFrame.height - barHeight)
             }
         }
         
-        keyboardMonitor?.keyboardDidShow = { startFrame, endFrame, duration in
-            print("Keyboard did show from frame: \(startFrame) to frame: \(endFrame) with duration: \(duration)")
-        }
-        
         keyboardMonitor?.keyboardWillHide = { startFrame, endFrame, duration in
-            print("Keyboard will hide from frame: \(startFrame) to frame: \(endFrame) with duration: \(duration)")
+            //print("Keyboard will hide from frame: \(startFrame) to frame: \(endFrame) with duration: \(duration)")
             
             UIView.animate(withDuration: duration) {
                 self.accessoryView.transform = .identity
@@ -80,7 +76,9 @@ class XYKeyboardToolbar: UIView {
             topLine.heightAnchor.constraint(equalToConstant: .line)
         ])
         
-        button.setTitle(YYUIKitLocalizable("Done"), for: .normal)
+        button.setTitle(LocalizedStringHelper.localizedString(forKey: "Done"), for: .normal)
+//        button.setTitle(YYUIKitLocalizable("Done"), for: .normal)
+        
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
         button.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([

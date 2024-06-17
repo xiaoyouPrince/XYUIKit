@@ -207,9 +207,14 @@ extension XYAlertSheetController {
                 make.bottom.equalToSuperview().offset(-34)
             }
             
-            if allowGestureDismiss {
-                addPangesture()
+            DispatchQueue.global().asyncAfter(deadline: .now() + 0.5) {
+                if self.allowGestureDismiss {
+                    DispatchQueue.safeMain {
+                        self.addPangesture()
+                    }
+                }
             }
+            
             setBottomSafeAreaBackgroundColor(customV.backgroundColor ?? .white)
             self.view.setNeedsLayout()
             self.view.layoutIfNeeded()

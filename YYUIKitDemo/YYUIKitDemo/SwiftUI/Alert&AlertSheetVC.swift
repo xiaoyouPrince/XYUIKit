@@ -74,7 +74,7 @@ struct Alert_AlertSheetVC: View {
                     }
                 }
                 
-                Button("AlertAheet - 默认样式") {
+                Button("AlertAheet - 自定义样式(手势下滑)") {
                     
                     let view = UIView()
                     view.backgroundColor = .random
@@ -84,6 +84,26 @@ struct Alert_AlertSheetVC: View {
                     
                     let sheet = XYAlertSheetController.showCustom(on: UIViewController.currentVisibleVC, customContentView: view)
                     sheet.isContentAboveSafeArea = false
+                    sheet.dismissCallback = {
+                        Toast.make("dimiss")
+                    }
+                    
+                    sheet.gestureDismissCallback = { distance, ratio in
+                        Toast.make("distance: \(distance) \nratio: \(ratio)")
+                    }
+                }
+                
+                Button("AlertAheet - 自定义样式(关闭手势)") {
+                    
+                    let view = UIView()
+                    view.backgroundColor = .random
+                    view.snp.makeConstraints { make in
+                        make.height.equalTo(400)
+                    }
+                    
+                    let sheet = XYAlertSheetController.showCustom(on: UIViewController.currentVisibleVC, customContentView: view)
+                    sheet.isContentAboveSafeArea = false
+                    sheet.allowGestureDismiss = false
                     sheet.dismissCallback = {
                         Toast.make("dimiss")
                     }

@@ -85,19 +85,17 @@ func YYUIKitLocalizable(_ string: String) -> String {
     let boxBundle = Bundle.init(for: anyClass)
     let targetBundle = Bundle.init(path: boxBundle.path(forResource: "XYUIKit", ofType: "bundle") ?? "")
     
-//    extension UIImage {
-//        static func create(named: String) -> UIImage? {
-//            let anyClass = FileSystem.self
-//            let boxBundle = Bundle.init(for: anyClass)
-//            let targetBundle = Bundle.init(path: boxBundle.path(forResource: "XYUIKit", ofType: "bundle") ?? "")
-//            var image: UIImage? = targetBundle == nil ? nil : UIImage.init(named: named, in: targetBundle!, compatibleWith: nil)
-//            if image == nil {
-//                image = UIImage(named: named)
-//            }
-//            
-//            return image?.scaleToSize(.init(width: 20, height: 20))
-//        }
-//    }
-    return NSLocalizedString(string, tableName: "Localizable", bundle: targetBundle ?? .main, comment: "")
+    return NSLocalizedString(string, tableName: nil, bundle: targetBundle ?? .main, value: "", comment: "")
 }
 
+
+public class LocalizedStringHelper {
+    public static func localizedString(forKey key: String) -> String {
+        let bundle = Bundle(for: LocalizedStringHelper.self)
+        if let resourcePath = bundle.path(forResource: "XYUIKit", ofType: "bundle"),
+           let resourceBundle = Bundle(path: resourcePath) {
+            return NSLocalizedString(key, tableName: nil, bundle: resourceBundle, value: "", comment: "")
+        }
+        return key
+    }
+}
