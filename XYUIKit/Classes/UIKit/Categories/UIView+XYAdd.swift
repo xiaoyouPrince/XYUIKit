@@ -183,6 +183,15 @@ public extension UIView {
         
         return nil
     }
+    
+    /// 是否在屏幕上可见
+    var isOnScreen: Bool {
+        if let window = self.window {
+            let rect = self.convert(bounds, to: window)
+            return rect.intersects(window.bounds)
+        }
+        return false
+    }
 }
 
 // MARK: - 给 UIView 添加一个 tap 事件 & longpress 事件

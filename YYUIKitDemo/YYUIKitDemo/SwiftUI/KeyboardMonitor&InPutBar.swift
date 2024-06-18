@@ -11,7 +11,7 @@ import YYUIKit
 struct KeyboardMonitor_InPutBar: View {
     
 //    @State var text: String = ""
-    var keyboardMonitor: KeyboardMonitor! = .init()
+//    var keyboardMonitor: KeyboardMonitor! = .init()
 //    var toolBar: EmptyView = .init()
     
     @ObservedObject private var keyboardResponder = KeyboardResponder()
@@ -25,7 +25,11 @@ struct KeyboardMonitor_InPutBar: View {
                 .padding()
                 .onTapGesture {
                     
+                    kbInputView.show()
+                    _ = kbInputView.becomeFirstResponder()
+                    
                 }
+        }.onAppear {
         }
     }
     
