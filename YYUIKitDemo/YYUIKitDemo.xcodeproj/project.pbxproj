@@ -65,6 +65,7 @@
 		B4D591E32B9B77B30073E64A /* fluid-2-4.gif in Resources */ = {isa = PBXBuildFile; fileRef = B4D591D12B9B77B30073E64A /* fluid-2-4.gif */; };
 		B4D591E42B9B77B30073E64A /* fluid-2-5.gif in Resources */ = {isa = PBXBuildFile; fileRef = B4D591D22B9B77B30073E64A /* fluid-2-5.gif */; };
 		B4DA90732C203F98000A6667 /* InputBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DA90722C203F98000A6667 /* InputBarViewController.swift */; };
+		B4DA90752C218DE9000A6667 /* KBTopInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DA90742C218DE9000A6667 /* KBTopInputView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -130,6 +131,7 @@
 		B4D591D12B9B77B30073E64A /* fluid-2-4.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "fluid-2-4.gif"; sourceTree = "<group>"; };
 		B4D591D22B9B77B30073E64A /* fluid-2-5.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "fluid-2-5.gif"; sourceTree = "<group>"; };
 		B4DA90722C203F98000A6667 /* InputBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputBarViewController.swift; sourceTree = "<group>"; };
+		B4DA90742C218DE9000A6667 /* KBTopInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KBTopInputView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -254,6 +256,7 @@
 				B45D37ED2B6FB3E60092C5D6 /* XYCards.swift */,
 				B45D37EE2B6FB3E60092C5D6 /* ZLNewGreetingView.swift */,
 				B45D37EF2B6FB3E60092C5D6 /* GradientView.swift */,
+				B4DA90742C218DE9000A6667 /* KBTopInputView.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -456,6 +459,7 @@
 				B45D377D2B6F71860092C5D6 /* AppDelegate.swift in Sources */,
 				B49F8BA72B9B732400280DDA /* WidgetBgTest.swift in Sources */,
 				B4BB16262C099FD500B0B5A2 /* Alert&AlertSheetVC.swift in Sources */,
+				B4DA90752C218DE9000A6667 /* KBTopInputView.swift in Sources */,
 				B45D37E12B6FB3B30092C5D6 /* ShowAlertVC.swift in Sources */,
 				B45D37DF2B6FB3B30092C5D6 /* TableViewController.swift in Sources */,
 				B45D37F42B6FB3E60092C5D6 /* XYCards.swift in Sources */,
