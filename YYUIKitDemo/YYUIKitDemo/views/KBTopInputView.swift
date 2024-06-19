@@ -97,7 +97,7 @@ class KBTopInputView: UIView {
         }
     }
     
-    func addMonitor() {
+    private func addMonitor() {
         textChangeMonitor.onTextChanged = {[weak self] view, text in
             if let tf = view as? UITextField, self?.textfield == tf {
                 self?.textChangeCallback?(tf.text ?? "")
@@ -123,6 +123,11 @@ class KBTopInputView: UIView {
     
     func dismiss() {
         self.removeFromSuperview()
+    }
+    
+    func updateText(_ text: String) {
+        self.textfield.text = text
+        textChangeMonitor.onTextChanged?(self.textfield, text)
     }
     
     override func becomeFirstResponder() -> Bool {

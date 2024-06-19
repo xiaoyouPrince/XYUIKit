@@ -33,12 +33,17 @@ struct KeyboardMonitor_InPutBar: View {
                     
                     kbInputView.show()
                     _ = kbInputView.becomeFirstResponder()
+                    kbInputView.updateText(text)
                     kbInputView.textChangeCallback = { text in
                         self.text = text
                     }
                     
                 }
         }.onAppear {
+            
+            Runlooper.startLoop(forKey: "asb", interval: 0.99, loopCount: 10) { currentCount in
+                text = "\(currentCount)"
+            }
         }
     }
     
