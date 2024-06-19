@@ -9,6 +9,8 @@ import UIKit
 import YYUIKit
 
 class InputBarViewController: UIViewController {
+    
+    var kbInputView: KBTopInputView = KBTopInputView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,10 +19,10 @@ class InputBarViewController: UIViewController {
         
         
         
-        let textfield = UITextField()
+        let textfield = UIView()
         view.addSubview(textfield)
         textfield.backgroundColor = .red
-        textfield.borderStyle = .roundedRect
+//        textfield.borderStyle = .roundedRect
         
         textfield.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -30,10 +32,17 @@ class InputBarViewController: UIViewController {
             textfield.topAnchor.constraint(equalTo: view.topAnchor, constant: .height * 0.7)
         ])
         
-        KeyboardToolbarConfig.shared.showToolBar = true
+//        KeyboardToolbarConfig.shared.showToolBar = true
+        
+        view.addTap {[weak self] sender in
+            self?.kbInputView.show()
+            _ = self?.kbInputView.becomeFirstResponder()
+        }
     }
     
     
     
-    
+    deinit {
+        Console.log("deinit")
+    }
 }

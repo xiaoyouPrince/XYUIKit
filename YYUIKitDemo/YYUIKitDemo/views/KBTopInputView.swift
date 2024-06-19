@@ -82,11 +82,18 @@ class KBTopInputView: UIView {
         clearBtn.setTitle("清空", for: .normal)
         clearBtn.addTap {[weak self] sender in
             self?.textfield.text = ""
+            if let tf = self?.textfield {
+                self?.textChangeMonitor.onTextChanged?(tf, "")
+            }
         }
         
         okBtn.setTitle("确定", for: .normal)
         okBtn.addTap {[weak self] sender in
             _ = self?.resignFirstResponder()
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.50) {
+                self?.dismiss()
+            }
         }
     }
     
@@ -124,5 +131,9 @@ class KBTopInputView: UIView {
     
     override func resignFirstResponder() -> Bool {
         self.textfield.resignFirstResponder()
+    }
+    
+    deinit {
+        Console.log("deinit")
     }
 }

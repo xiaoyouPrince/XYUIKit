@@ -21,12 +21,21 @@ struct KeyboardMonitor_InPutBar: View {
     
     var body: some View {
         VStack {
+            VStack {
+                Text("input text")
+                Text(text)
+            }.background(Color.green)
+                .frame(width: .width)
+            
             Text("click me")
                 .padding()
                 .onTapGesture {
                     
                     kbInputView.show()
                     _ = kbInputView.becomeFirstResponder()
+                    kbInputView.textChangeCallback = { text in
+                        self.text = text
+                    }
                     
                 }
         }.onAppear {
