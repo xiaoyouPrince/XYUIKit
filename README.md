@@ -107,6 +107,7 @@ CGFloat / Label / Control / View / ViewController / Responder / ScrollView / App
 10. Runlooper 工具函数完善, 新增指定 loopcount 的函数
 11. 增加 XYTextChangeMonitor 工具类, 用来监听 UITextfield / UITextView 的开始编辑, 编辑中, 结束编辑状态
 12. 增加 XYKeyboardToolbar 工具类, 用于监听键盘弹出时候在键盘上增加一个工具条, 当前版本提供收起键盘功能, 仅需设置全局配置类即可 `KeyboardToolbarConfig.shared.showToolBar = true`
+13. 增加 NetworkMonitor 和 NetworkReachability 网络状态监听工具类, 可以实时监听网络的连接状态以及连接类型.
 
 #### v0.3.3 - v0.4.0 (2024/4/2 - 2024/5/15)
 
