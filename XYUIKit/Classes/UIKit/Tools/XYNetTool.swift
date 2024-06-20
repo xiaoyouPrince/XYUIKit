@@ -9,7 +9,7 @@
  一个简单的 网络工具，用于开发过程中的网络请求/网络连接状态判断
  */
 
-import UIKit
+import Foundation
 public typealias NetTool = XYNetTool
 public struct XYNetTool {
     private init () {}

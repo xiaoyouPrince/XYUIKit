@@ -19,7 +19,25 @@ struct KeyboardMonitor_InPutBar: View {
     
     var kbInputView: KBTopInputView = KBTopInputView()
     
+    @State private var isConnected: Bool = NetworkMonitor.shared.isConnected
+    @State private var connectionType = NetworkMonitor.shared.connectionType
+    
     var body: some View {
+        VStack {
+            Text(isConnected ? "Connected" : "Not Connected")
+                .padding()
+            Text("connectionType: \(connectionType.debugDescription)")
+                .padding()
+            Button("Check Connection") {
+                NetworkMonitor.shared.netStatusUpdateCallback = {
+                    isConnected = $0
+                    connectionType = $1
+                }
+            }
+        }
+    }
+    
+    var body4: some View {
         VStack {
             VStack {
                 Text("input text")
