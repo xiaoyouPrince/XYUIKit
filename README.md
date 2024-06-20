@@ -32,6 +32,7 @@ YYUIKit 分 `Foundation 分类 / UIKit` 两部分, 具体 UI 欢迎下载 Demo �
 
 ```
 常用 Foundation 分类/工具如下
+
 1. String / NSAttributeString
 2. Date
 3. DispatchQueue
@@ -40,6 +41,8 @@ YYUIKit 分 `Foundation 分类 / UIKit` 两部分, 具体 UI 欢迎下载 Demo �
 6. Runlooper
 7. UIImage
 8. 键盘监听工具 KeyboardMonitor 和键盘上方工具栏 XYKeyboardToolbar, 支持收起键盘
+9. XYNetTool, 一套简单的网络请求工具/ Post/Get/DataTask/ 前期开发阶段网络调试利器
+10. NetworkMonitor 和 NetworkReachability 网络状态监听工具类
 
 ```
     
@@ -68,10 +71,9 @@ CGFloat / Label / Control / View / ViewController / Responder / ScrollView / App
 (6) 系统工具
 1. XYAlert 系统 UIAlertController 的封装, 方便使用
 2. XYAlertManager, 弹框管理器, 比如 App 启动后需要按指定顺序弹框各种提示/功能
-3. XYNetTool, 一套简单的网络请求工具/ Post/Get/DataTask/ 前期开发阶段网络调试利器
-4. XYDebugTool, 提供一些调试常用小工具/函数
-5. XYFileManager, 分装一套便捷的文件读写工具, 支持 Model 快速读写 / 持久化 / 文档查看
-6. XYUtils - 各种系统工具, 提供别名 AppUtils, 所有功能类方法调用即可
+3. XYDebugTool, 提供一些调试常用小工具/函数
+4. XYFileManager, 分装一套便捷的文件读写工具, 支持 Model 快速读写 / 持久化 / 文档查看
+5. XYUtils - 各种系统工具, 提供别名 AppUtils, 所有功能类方法调用即可
 	1. XYDatePicker 日期选择器 (yyyy-MM-dd)
 	2. XYColorPicker 颜色选择器
 	3. XYImagePicker 图片/音频(从视频截取)/视频选取工具
@@ -91,7 +93,7 @@ CGFloat / Label / Control / View / ViewController / Responder / ScrollView / App
 ```
 
 ## 版本记录(重要功能版本)
-#### v0.4.1 - v0.4.4 (2024/6/4 - 2024/6/17)
+#### v0.4.1 - v0.4.4 (2024/6/4 - 2024/6/20)
 
 1. XYAlertSheetController 多项功能优化， 支持手势取消
 2. 新增 Console 工具类,支持打印日志
@@ -102,6 +104,9 @@ CGFloat / Label / Control / View / ViewController / Responder / ScrollView / App
 7. XYFileManager 新增删除 file 方法, 完善文件的 CURD 操作
 8. 新增键盘监听工具 KeyboardMonitor, 监听键盘弹起/关闭状态
 9. 新增键盘上方工具栏, 当前支持关闭键盘 XYKeyboardToolbar
+10. Runlooper 工具函数完善, 新增指定 loopcount 的函数
+11. 增加 XYTextChangeMonitor 工具类, 用来监听 UITextfield / UITextView 的开始编辑, 编辑中, 结束编辑状态
+12. 增加 XYKeyboardToolbar 工具类, 用于监听键盘弹出时候在键盘上增加一个工具条, 当前版本提供收起键盘功能, 仅需设置全局配置类即可 `KeyboardToolbarConfig.shared.showToolBar = true`
 
 #### v0.3.3 - v0.4.0 (2024/4/2 - 2024/5/15)
 
