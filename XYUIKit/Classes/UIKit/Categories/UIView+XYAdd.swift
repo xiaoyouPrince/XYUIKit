@@ -192,6 +192,15 @@ public extension UIView {
         }
         return false
     }
+    
+    /// while this view is not install on window, returns .zero
+    var frameOnScreen: CGRect {
+        if let window = self.window {
+            let rect = self.convert(bounds, to: window)
+            return rect
+        }
+        return .zero
+    }
 }
 
 // MARK: - 给 UIView 添加一个 tap 事件 & longpress 事件
