@@ -76,7 +76,7 @@ class InputBarViewController: UIViewController {
             _ = self?.kbInputView.becomeFirstResponder()
             self?.kbInputView.setShowAnchorView(textfield, callabck: {[weak self] transY in
                 print(transY)
-                self?.view.transform = CGAffineTransform(translationX: 0, y: -transY)
+                self?.view.transform = CGAffineTransform(translationX: 0, y: transY)
             })
             self?.kbInputView.textEndEditingCallback = {
                 self?.view.transform = .identity

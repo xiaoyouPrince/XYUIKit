@@ -8,7 +8,7 @@
 import SwiftUI
 import YYUIKit
 
-@available(iOS 14.0, *)
+//@available(iOS 14.0, *)
 struct BannerView: View {
     
     // 这个属性要求 iOS 14

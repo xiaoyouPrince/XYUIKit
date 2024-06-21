@@ -30,10 +30,10 @@ class ViewController: XYInfomationBaseViewController {
             ["自定义各种悬浮球": FloatBallView()],
             ["iOS 文件系统": FileSystemView()],
             ["UIApp 的便捷扩展功能": AppFunctionView()],
-            if #available(iOS 14.0, *) {
+//            if #available(iOS 14.0, *) {
                 //["滚动分页视图(banner)": BannerView(dataModel: DataModel())]
-                ["滚动分页视图(banner)": BannerView().environmentObject(DataModel())]
-            },
+                ["滚动分页视图(banner)": BannerView().environmentObject(DataModel())],
+//            },
             ["组件动态背景": WidgetBgTest()],
             ["Alert && AlertSheetController": Alert_AlertSheetVC()],
             ["键盘监听 - 一个小输入框 SwiftUI": KeyboardMonitor_InPutBar()],
