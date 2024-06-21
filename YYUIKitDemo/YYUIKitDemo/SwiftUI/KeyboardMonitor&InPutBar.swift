@@ -24,6 +24,18 @@ struct KeyboardMonitor_InPutBar: View {
     
     var body: some View {
         VStack {
+            
+            Text(text)
+            Text("点我输入内容")
+                .onTapGesture {
+                    kbInputView.show()
+                    _ = kbInputView.becomeFirstResponder()
+                    kbInputView.textChangeCallback = {
+                        text = $0
+                    }
+                }
+            
+            
             Text(isConnected ? "Connected" : "Not Connected")
                 .padding()
             Text("connectionType: \(connectionType.debugDescription)")

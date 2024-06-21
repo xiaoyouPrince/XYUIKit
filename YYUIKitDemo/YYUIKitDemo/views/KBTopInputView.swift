@@ -32,6 +32,7 @@ class KBTopInputView: UIView {
     private let keyboardMonitor: KeyboardMonitor! = .init()
     private var type: Int { KBTopInputView.type }// 自身类型 0 tf /  1 tv
     private var anchorView: UIView?
+    private var showAnchorCallback: ((CGFloat)-> Void)?
     
     var textChangeCallback: ((_ text: String) -> ())?
     var textEndEditingCallback: (() -> ())?
@@ -119,7 +120,7 @@ class KBTopInputView: UIView {
         inputBg.backgroundColor = .xy_getColor(hex: 0xf8f9fc)
         inputBg.corner(radius: 8)
         
-        clearBtn.setTitle(WDLocalizable("清空"), for: .normal)
+        clearBtn.setTitle("清空", for: .normal)
         clearBtn.addTap {[weak self] sender in
             if type == 0 {
                 self?.textfield.text = ""
@@ -134,7 +135,7 @@ class KBTopInputView: UIView {
             }
         }
         
-        okBtn.setTitle(WDLocalizable("确定"), for: .normal)
+        okBtn.setTitle(("确定"), for: .normal)
         okBtn.addTap {[weak self] sender in
             self?.doneBtnClick()
         }
@@ -170,7 +171,16 @@ class KBTopInputView: UIView {
         keyboardMonitor?.keyboardWillShow = {[weak self] startFrame, endFrame, duration in
             self?.transform = CGAffineTransform(translationX: 0, y: -endFrame.height - KBTopInputView.heiget)
             if let anchorView = self?.anchorView {
-                anchorView.frameOnScreen
+                print( anchorView.frameOnScreen )
+                let anchorViewMaxY_before = anchorView.frameOnScreen.maxY
+                
+                let keyboardTotalH = endFrame.height + KBTopInputView.heiget + 16 // default distance is 16
+                let anchorViewMaxY_after = CGFloat.height - keyboardTotalH
+                
+                if anchorViewMaxY_after < anchorViewMaxY_before {
+                    let tranxY = anchorViewMaxY_after - anchorViewMaxY_before
+                    self?.showAnchorCallback?(abs(tranxY))
+                }
             }
         }
         
@@ -221,8 +231,9 @@ class KBTopInputView: UIView {
         }
     }
     
-    func setShowAnchorView(_ anchorView: UIView) {
+    func setShowAnchorView(_ anchorView: UIView, callabck: @escaping (CGFloat)->Void) {
         self.anchorView = anchorView
+        self.showAnchorCallback = callabck
     }
     
     override func becomeFirstResponder() -> Bool {

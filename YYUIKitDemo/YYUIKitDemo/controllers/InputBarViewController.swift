@@ -55,6 +55,34 @@ class InputBarViewController: UIViewController {
         networkReachability.startMonitoring()
         setupUI()
         view.backgroundColor = .white
+        
+        let textfield = UIView()
+        view.addSubview(textfield)
+        textfield.backgroundColor = .red
+//        textfield.borderStyle = .roundedRect
+
+        textfield.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            textfield.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            textfield.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
+            textfield.heightAnchor.constraint(equalToConstant: 34),
+            textfield.topAnchor.constraint(equalTo: view.topAnchor, constant: .height * 0.7)
+        ])
+
+//        KeyboardToolbarConfig.shared.showToolBar = true
+
+        view.addTap {[weak self] sender in
+            self?.kbInputView.show()
+            _ = self?.kbInputView.becomeFirstResponder()
+            self?.kbInputView.setShowAnchorView(textfield, callabck: {[weak self] transY in
+                print(transY)
+                self?.view.transform = CGAffineTransform(translationX: 0, y: -transY)
+            })
+            self?.kbInputView.textEndEditingCallback = {
+                self?.view.transform = .identity
+            }
+        }
+
     }
     
     override func viewWillDisappear(_ animated: Bool) {
