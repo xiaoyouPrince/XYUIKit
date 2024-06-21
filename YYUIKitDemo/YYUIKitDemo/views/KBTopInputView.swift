@@ -166,6 +166,8 @@ class KBTopInputView: UIView {
             if let tf = view as? UITextView, self?.textView == tf {
                 self?.textEndEditingCallback?()
             }
+            
+            self?.showAnchorCallback?((0))
         }
         
         keyboardMonitor?.keyboardWillShow = {[weak self] startFrame, endFrame, duration in
@@ -179,7 +181,7 @@ class KBTopInputView: UIView {
                 
                 if anchorViewMaxY_after < anchorViewMaxY_before {
                     let tranxY = anchorViewMaxY_after - anchorViewMaxY_before
-                    self?.showAnchorCallback?(abs(tranxY))
+                    self?.showAnchorCallback?((tranxY))
                 }
             }
         }
@@ -231,7 +233,7 @@ class KBTopInputView: UIView {
         }
     }
     
-    func setShowAnchorView(_ anchorView: UIView, callabck: @escaping (CGFloat)->Void) {
+    func setShowAnchorView(_ anchorView: UIView, callabck: @escaping (_ transY: CGFloat)->Void) {
         self.anchorView = anchorView
         self.showAnchorCallback = callabck
     }
