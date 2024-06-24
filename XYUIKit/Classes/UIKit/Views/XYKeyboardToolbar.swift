@@ -4,6 +4,14 @@
 //
 //  Created by 渠晓友 on 2024/6/14.
 //
+/* KeyboardToolbarConfig - 键盘管理配置工具 -
+ * *********************************************
+ * *************** USAGE ***********************
+ 
+ // 在适当的时机设置键盘工具可用即可
+ KeyboardToolbarConfig.shared.showToolBar = true
+ 
+ */
 
 import UIKit
 
@@ -11,11 +19,13 @@ import UIKit
     public static let shared: KeyboardToolbarConfig = .init()
     /// 是否展示键盘工具条
     public var showToolBar: Bool = false
+    /// 键盘工具条展示时，距离textField / textView 的距离， 默认 10
+    public var toolbarDistanceFromTextField: CGFloat = 10
     
     private var keyboardMonitor: KeyboardMonitor!
     private var accessoryView: XYKeyboardToolbar!
     private var textChangeMonitor: XYTextChangeMonitor!
-    private weak var currentTF: UITextField?
+    private weak var currentTF: UIView?//UITextField ? UITextView
     
     private override init() {
         let barHeight: CGFloat = 44
@@ -27,75 +37,41 @@ import UIKit
         
         // 设置键盘状态回调
         keyboardMonitor?.keyboardWillShow = {[weak self] startFrame, endFrame, duration in
+            if endFrame == startFrame { return }
+            
             UIView.animate(withDuration: duration) { [weak self] in
-                self?.accessoryView.transform = CGAffineTransform(translationX: 0, y: -endFrame.height - barHeight)
-            } completion: { [weak self] complete in
-                DispatchQueue.main.asyncAfter(deadline: .now()) {
+                // 直接计算自身的真实需要移动的 height
+                if let contenterView = self?.getTargetTextFiled(), let window = contenterView.window {
+                    let windowFrame = contenterView.convert(contenterView.bounds, to: window)
                     
-                    // 有 scroollView
-                    
-                    // 没有 scroollView - 直接计算自身的真实需要移动的 height
-                    
-                    if let contenterView = self?.getTargetTextFiled(), let window = UIApplication.getKeyWindow() {
-                        let windowFrame = contenterView.convert(contenterView.bounds, to: window)
-                        
-                        let tfEndY = CGFloat.height - (endFrame.height + 44 + windowFrame.height + 10)
-                        if tfEndY < windowFrame.minY  {
-                            let transY = windowFrame.minY - tfEndY
-                            UIView.animate(withDuration: duration) {
-                                contenterView.transform = CGAffineTransform(translationX: 0, y: -transY)
-                            }
+                    let tfEndY = CGFloat.height - (endFrame.height + 44 + windowFrame.height + (self?.toolbarDistanceFromTextField ?? 10))
+                    if tfEndY < windowFrame.minY  {
+                        let transY = windowFrame.minY - tfEndY
+                        UIView.animate(withDuration: duration) {
+                            window.transform = CGAffineTransform(translationX: 0, y: -transY)
                         }
+                        
+                        self?.accessoryView.transform = CGAffineTransform(translationX: 0, y: -endFrame.height - barHeight + transY)
+                    } else {
+                        self?.accessoryView.transform = CGAffineTransform(translationX: 0, y: -endFrame.height - barHeight)
                     }
                 }
-                //print(self?.currentTF)
-                
-                Toast.make(self?.isSwiftUI.stringValue ?? false.stringValue)
             }
         }
         
         keyboardMonitor?.keyboardWillHide = {[weak self] startFrame, endFrame, duration in
-            //print("Keyboard will hide from frame: \(startFrame) to frame: \(endFrame) with duration: \(duration)")
-            
             UIView.animate(withDuration: duration) { [weak self] in
                 self?.accessoryView.transform = .identity
-            } completion: {[weak self] complete in
-                DispatchQueue.main.asyncAfter(deadline: .now() + duration) {
-                    self?.getTargetTextFiled()?.transform = .identity
-                }
+                self?.getTargetTextFiled()?.window?.transform = .identity
             }
         }
         
         textChangeMonitor.onBeginEditing = {[weak self] view in
-            if let textField = view as? UITextField {
-                print("开始编辑 UITextField - \(textField)")
-                self?.currentTF = textField
-            } else if let _ = view as? UITextView {
-                print("开始编辑 UITextView")
-            }
-        }
-        
-        textChangeMonitor.onTextChanged = { view, text in
-            if let textField = view as? UITextField {
-                print("UITextField  - \(textField) \n文本变更: \(text)")
-            } else if let _ = view as? UITextView {
-                print("UITextView 文本变更: \(text)")
-            }
-        }
-        
-        textChangeMonitor.onEndEditing = { view in
-            if let textField = view as? UITextField {
-                print("结束编辑 UITextField - \(textField)")
-            } else if let _ = view as? UITextView {
-                print("结束编辑 UITextView")
-            }
+            self?.currentTF = view
         }
     }
     
 }
-
-import SwiftUI
-
 
 private extension KeyboardToolbarConfig {
     
@@ -114,7 +90,7 @@ private extension KeyboardToolbarConfig {
     }
 }
 
-class XYKeyboardToolbar: UIView {
+private class XYKeyboardToolbar: UIView {
     
     private let topLine = UIView.line
     private let button = UIButton(type: .system)

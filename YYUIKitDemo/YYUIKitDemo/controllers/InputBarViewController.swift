@@ -56,7 +56,7 @@ class InputBarViewController: UIViewController {
         setupUI()
         view.backgroundColor = .white
         
-        let textfield = UIView()
+        let textfield = UITextField() //UIView()
         view.addSubview(textfield)
         textfield.backgroundColor = .red
 //        textfield.borderStyle = .roundedRect
@@ -68,20 +68,33 @@ class InputBarViewController: UIViewController {
             textfield.heightAnchor.constraint(equalToConstant: 34),
             textfield.topAnchor.constraint(equalTo: view.topAnchor, constant: .height * 0.7)
         ])
+        
+        let textfield2 = UITextField() //UIView()
+        view.addSubview(textfield2)
+        textfield2.backgroundColor = .red
+        textfield2.borderStyle = .roundedRect
 
-//        KeyboardToolbarConfig.shared.showToolBar = true
+        textfield2.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            textfield2.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            textfield2.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
+            textfield2.heightAnchor.constraint(equalToConstant: 34),
+            textfield2.topAnchor.constraint(equalTo: view.topAnchor, constant: .height * 0.5)
+        ])
 
-        view.addTap {[weak self] sender in
-            self?.kbInputView.show()
-            _ = self?.kbInputView.becomeFirstResponder()
-            self?.kbInputView.setShowAnchorView(textfield, callabck: {[weak self] transY in
-                print(transY)
-                self?.view.transform = CGAffineTransform(translationX: 0, y: transY)
-            })
-            self?.kbInputView.textEndEditingCallback = {
-                self?.view.transform = .identity
-            }
-        }
+        KeyboardToolbarConfig.shared.showToolBar = true
+
+//        view.addTap {[weak self] sender in
+//            self?.kbInputView.show()
+//            _ = self?.kbInputView.becomeFirstResponder()
+//            self?.kbInputView.setShowAnchorView(textfield, callabck: {[weak self] transY in
+//                print(transY)
+//                self?.view.transform = CGAffineTransform(translationX: 0, y: transY)
+//            })
+//            self?.kbInputView.textEndEditingCallback = {
+//                self?.view.transform = .identity
+//            }
+//        }
 
     }
     
