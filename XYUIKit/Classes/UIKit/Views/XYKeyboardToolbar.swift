@@ -21,6 +21,8 @@ import UIKit
     public var showToolBar: Bool = false
     /// 键盘工具条展示时，距离textField / textView 的距离， 默认 10
     public var toolbarDistanceFromTextField: CGFloat = 10
+    /// 当前处于第一响应者的 textField 或者 textView
+    public var currentInoutView: UIView? { currentTF }
     
     private var keyboardMonitor: KeyboardMonitor!
     private var accessoryView: XYKeyboardToolbar!
@@ -38,6 +40,7 @@ import UIKit
         // 设置键盘状态回调
         keyboardMonitor?.keyboardWillShow = {[weak self] startFrame, endFrame, duration in
             if endFrame == startFrame { return }
+            if self?.showToolBar == false { return }
             
             UIView.animate(withDuration: duration) { [weak self] in
                 // 直接计算自身的真实需要移动的 height
@@ -60,6 +63,8 @@ import UIKit
         }
         
         keyboardMonitor?.keyboardWillHide = {[weak self] startFrame, endFrame, duration in
+            if self?.showToolBar == false { return }
+            
             UIView.animate(withDuration: duration) { [weak self] in
                 self?.accessoryView.transform = .identity
                 self?.getTargetTextFiled()?.window?.transform = .identity

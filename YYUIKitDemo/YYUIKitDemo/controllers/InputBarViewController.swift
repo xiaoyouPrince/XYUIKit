@@ -65,11 +65,19 @@ class InputBarViewController: XYInfomationBaseViewController {
         section.append([
             "title": "点我查看 SwiftUI.Demo",
             "type": XYInfoCellType.choose.rawValue,
+            "obj": KeyboardMonitor_InPutBar()
+        ])
+        
+        var section1 = [[String: Any]]()
+        section1.append([
+            "title": "这是一个键盘上方输入框.Demo",
+            "type": XYInfoCellType.choose.rawValue,
+            "obj": InputBarViewController2.self
         ])
         
         var section2 = [[String: Any]]()
         section2.append([
-            "title": "\n\n\n下面是 UIKit 下的 Demo \n 我们尽量让输入框比较低\n这样键盘弹出的时候就更能挡住了\n\n",
+            "title": "下面是 UIKit 下的 Demo \n 我们尽量让输入框比较低\n这样键盘弹出的时候就更能挡住了",
             "type": XYInfoCellType.tip.rawValue,
             "backgroundColor": UIColor.clear
         ])
@@ -86,7 +94,7 @@ class InputBarViewController: XYInfomationBaseViewController {
             "type": XYInfoCellType.textView.rawValue,
         ])
     
-        return [section, section2]
+        return [section, section1, section2]
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -98,56 +106,18 @@ class InputBarViewController: XYInfomationBaseViewController {
 class InputBarViewController2: UIViewController {
     
     var kbInputView: KBTopInputView = KBTopInputView()
-    
-    private var networkReachability = NetworkReachability.shared
 
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//
-//        view.backgroundColor = .white
-//        
-//        networkReachability.startMonitoring()
-//        
-//        
-//        
-//        let textfield = UIView()
-//        view.addSubview(textfield)
-//        textfield.backgroundColor = .red
-////        textfield.borderStyle = .roundedRect
-//        
-//        textfield.translatesAutoresizingMaskIntoConstraints = false
-//        NSLayoutConstraint.activate([
-//            textfield.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-//            textfield.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
-//            textfield.heightAnchor.constraint(equalToConstant: 34),
-//            textfield.topAnchor.constraint(equalTo: view.topAnchor, constant: .height * 0.7)
-//        ])
-//        
-////        KeyboardToolbarConfig.shared.showToolBar = true
-//        
-//        view.addTap {[weak self] sender in
-//            self?.kbInputView.show()
-//            _ = self?.kbInputView.becomeFirstResponder()
-//        }
-//    }
-    
-    
-    
-    deinit {
-        Console.log("deinit")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        networkReachability.startMonitoring()
-        setupUI()
         view.backgroundColor = .white
         
-        let textfield = UITextField() //UIView()
+        KeyboardToolbarConfig.shared.showToolBar = false
+        
+        let textfield = UIView()
         view.addSubview(textfield)
         textfield.backgroundColor = .red
 //        textfield.borderStyle = .roundedRect
-
+        
         textfield.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             textfield.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
@@ -156,58 +126,13 @@ class InputBarViewController2: UIViewController {
             textfield.topAnchor.constraint(equalTo: view.topAnchor, constant: .height * 0.7)
         ])
         
-        let textfield2 = UITextField() //UIView()
-        view.addSubview(textfield2)
-        textfield2.backgroundColor = .red
-        textfield2.borderStyle = .roundedRect
-
-        textfield2.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            textfield2.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            textfield2.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
-            textfield2.heightAnchor.constraint(equalToConstant: 34),
-            textfield2.topAnchor.constraint(equalTo: view.topAnchor, constant: .height * 0.5)
-        ])
-
-        KeyboardToolbarConfig.shared.showToolBar = true
-
-//        view.addTap {[weak self] sender in
-//            self?.kbInputView.show()
-//            _ = self?.kbInputView.becomeFirstResponder()
-//            self?.kbInputView.setShowAnchorView(textfield, callabck: {[weak self] transY in
-//                print(transY)
-//                self?.view.transform = CGAffineTransform(translationX: 0, y: transY)
-//            })
-//            self?.kbInputView.textEndEditingCallback = {
-//                self?.view.transform = .identity
-//            }
-//        }
-
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        networkReachability.stopMonitoring()
-    }
-    
-    private func setupUI() {
-        let statusLabel = UILabel()
-        statusLabel.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(statusLabel)
-        
-        NSLayoutConstraint.activate([
-            statusLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            statusLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-        ])
-        
-        updateStatusLabel(statusLabel)
-        
-        NotificationCenter.default.addObserver(forName: .reachabilityChanged, object: nil, queue: .main) { [weak self] _ in
-            self?.updateStatusLabel(statusLabel)
+        view.addTap {[weak self] sender in
+            self?.kbInputView.show()
+            _ = self?.kbInputView.becomeFirstResponder()
         }
     }
     
-    private func updateStatusLabel(_ label: UILabel) {
-        label.text = networkReachability.isConnected ? "Connected (\(networkReachability.connectionType))" : "Not Connected"
+    deinit {
+        Console.log("deinit")
     }
 }
