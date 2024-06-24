@@ -48,7 +48,7 @@ import UIKit
                         }
                     }
                 }
-                print(self?.currentTF)
+                //print(self?.currentTF)
                 
                 Toast.make(self?.isSwiftUI.stringValue ?? false.stringValue)
             }

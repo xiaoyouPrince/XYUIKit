@@ -187,7 +187,7 @@ class HeaderView: UIView {
                     make.right.equalToSuperview()
                 }else{
                     
-                    var margin = UIScreen.main.bounds.width == 375 ? 6 : 7;
+                    let margin = UIScreen.main.bounds.width == 375 ? 6 : 7;
                     
                     if isSecond {
                         make.centerX.equalToSuperview().offset(-margin)

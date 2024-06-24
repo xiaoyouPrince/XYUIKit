@@ -20,7 +20,7 @@ class CustomDatePicker: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
         let dayArr = self.monthDayTitles
         
         let currentRow = pickerView.selectedRow(inComponent: 0)
-        var currentDayTitle = dayArr[currentRow]
+        let currentDayTitle = dayArr[currentRow]
         
         theTimeArr = dataDict[currentDayTitle] as! [String]
         
@@ -102,7 +102,7 @@ class CustomDatePicker: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
             self.date = resultDate
         }
         // 保存自己时间
-        print("创建的date = \(self.date)")
+        print("创建的date = \(String(describing: self.date))")
     }
     
     private func isTheSameDay(d1: Date, d2: Date) -> Bool {

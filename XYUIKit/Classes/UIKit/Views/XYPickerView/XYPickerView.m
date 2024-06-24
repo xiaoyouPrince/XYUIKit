@@ -327,10 +327,10 @@
 }
 
 
-- (void)dealloc
-{
-    NSLog(@"%@--%s",self,_cmd);
-}
+//- (void)dealloc
+//{
+//    NSLog(@"%@--%s",self,_cmd);
+//}
 
 
 @end

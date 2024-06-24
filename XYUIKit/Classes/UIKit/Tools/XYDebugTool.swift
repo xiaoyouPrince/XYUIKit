@@ -59,7 +59,7 @@ extension DebugTool {
     @objc public static func rmTestZipPath(_ forPath: String? = XYFileManager.documentPath) {
         let fm = FileManager.default
         guard let basePath = forPath else { return }
-        var contentsDir: [String]? = fm.subpaths(atPath: basePath)
+        let contentsDir: [String]? = fm.subpaths(atPath: basePath)
         
         print("before rmTestZipPath")
         XYFileManager.showFileAndPath(basePath)

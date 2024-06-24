@@ -209,9 +209,9 @@ public extension UIView {
     
     typealias viewTapCallBack = (_ sender: UIView)->()
     fileprivate struct AssociatedKeys {
-        static var viewTapCallbackKey: String = "viewTapKey"
-        static var viewLongPressGestureKey: String = "viewLongPressGestureKey"
-        static var viewLongPressCallbackKey: String = "viewLongPressKey"
+        static var viewTapCallbackKey: Void?// String = "viewTapKey"
+        static var viewLongPressGestureKey: Void?//String = "viewLongPressGestureKey"
+        static var viewLongPressCallbackKey: Void?//String = "viewLongPressKey"
     }
     
     // MARK: - view tap 回调
