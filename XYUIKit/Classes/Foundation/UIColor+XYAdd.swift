@@ -40,6 +40,10 @@ public extension XYColor {
         return .xy_getColor(red: 221, green: 221, blue: 221)
     }
     
+    static var background: XYColor {
+        return .xy_getColor(hex: 0xf0f0f0)
+    }
+    
     // MARK:-便利构造方法
     convenience init(r: CGFloat, g: CGFloat, b: CGFloat){
         // MARK:-必须通过self调用显式的构造方法

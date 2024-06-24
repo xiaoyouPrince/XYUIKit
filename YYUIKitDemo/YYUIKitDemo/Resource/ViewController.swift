@@ -36,8 +36,9 @@ class ViewController: XYInfomationBaseViewController {
 //            },
             ["组件动态背景": WidgetBgTest()],
             ["Alert && AlertSheetController": Alert_AlertSheetVC()],
-            ["键盘监听 - 一个小输入框 SwiftUI": KeyboardMonitor_InPutBar()],
-            ["键盘监听 - 一个小输入框 UIKit": InputBarViewController.self],
+            //["键盘监听 - 一个小输入框 SwiftUI": KeyboardMonitor_InPutBar()],
+            ["键盘管理": InputBarViewController.self],
+            ["网络工具": NetWorkTool()],
         ]
     
 }

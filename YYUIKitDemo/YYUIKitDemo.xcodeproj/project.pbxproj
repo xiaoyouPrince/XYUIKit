@@ -66,6 +66,7 @@
 		B4D591E42B9B77B30073E64A /* fluid-2-5.gif in Resources */ = {isa = PBXBuildFile; fileRef = B4D591D22B9B77B30073E64A /* fluid-2-5.gif */; };
 		B4DA90732C203F98000A6667 /* InputBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DA90722C203F98000A6667 /* InputBarViewController.swift */; };
 		B4DA90752C218DE9000A6667 /* KBTopInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DA90742C218DE9000A6667 /* KBTopInputView.swift */; };
+		BEAC7A722C296D1100614900 /* NetWorkTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAC7A712C296D1100614900 /* NetWorkTool.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -132,6 +133,7 @@
 		B4D591D22B9B77B30073E64A /* fluid-2-5.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "fluid-2-5.gif"; sourceTree = "<group>"; };
 		B4DA90722C203F98000A6667 /* InputBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputBarViewController.swift; sourceTree = "<group>"; };
 		B4DA90742C218DE9000A6667 /* KBTopInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KBTopInputView.swift; sourceTree = "<group>"; };
+		BEAC7A712C296D1100614900 /* NetWorkTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetWorkTool.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -175,6 +177,7 @@
 				B49F8BA62B9B732400280DDA /* WidgetBgTest.swift */,
 				B4BB16252C099FD500B0B5A2 /* Alert&AlertSheetVC.swift */,
 				B46AAE702C1B4B2A00315199 /* KeyboardMonitor&InPutBar.swift */,
+				BEAC7A712C296D1100614900 /* NetWorkTool.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -454,6 +457,7 @@
 				B4DA90732C203F98000A6667 /* InputBarViewController.swift in Sources */,
 				B45D37D92B6FB3B30092C5D6 /* IMViewController.swift in Sources */,
 				B45D37DE2B6FB3B30092C5D6 /* File.swift in Sources */,
+				BEAC7A722C296D1100614900 /* NetWorkTool.swift in Sources */,
 				B45D37F22B6FB3E60092C5D6 /* RefreshHeader.swift in Sources */,
 				B428E0BB2B87AA16001B43AD /* FloatBallView.swift in Sources */,
 				B45D377D2B6F71860092C5D6 /* AppDelegate.swift in Sources */,
