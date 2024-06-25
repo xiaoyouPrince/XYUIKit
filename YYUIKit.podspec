@@ -18,8 +18,10 @@ Pod::Spec.new do |s|
   s.swift_version = '5.0'
 
   # s.source_files = 'XYUIKit/Classes/**/*'
-   s.resources      = "XYUIKit/Assets/**/*"
-  # s.dependency 'SnapKit'
+  # s.resources      = "XYUIKit/Localize/*.lproj"
+  s.resource_bundles = {
+      'XYUIKit' => ['XYUIKit/Assets/**/*']
+    }
   
   s.subspec 'Foundation' do |sub|
     sub.source_files   = "XYUIKit/Classes/Foundation/**/*"
@@ -27,9 +29,7 @@ Pod::Spec.new do |s|
     
   s.subspec 'UIKit' do |sub|
     sub.source_files   = 'XYUIKit/Classes/UIKit/**/*'
-    sub.resource_bundles = {
-      'XYUIKit' => ['XYUIKit/Assets/**/*']
-    }
+    
     sub.dependency 'YYUIKit/Foundation'
     sub.dependency 'SnapKit'
   end

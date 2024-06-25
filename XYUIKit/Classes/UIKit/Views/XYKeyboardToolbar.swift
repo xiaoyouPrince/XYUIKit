@@ -63,7 +63,7 @@ import UIKit
         }
         
         keyboardMonitor?.keyboardWillHide = {[weak self] startFrame, endFrame, duration in
-            if self?.showToolBar == false { return }
+            if self?.showToolBar == false && self?.accessoryView.isOnScreen == false { return }
             
             UIView.animate(withDuration: duration) { [weak self] in
                 self?.accessoryView.transform = .identity
@@ -129,9 +129,7 @@ private class XYKeyboardToolbar: UIView {
             topLine.heightAnchor.constraint(equalToConstant: .line)
         ])
         
-        button.setTitle(LocalizedStringHelper.localizedString(forKey: "Done"), for: .normal)
-//        button.setTitle(YYUIKitLocalizable("Done"), for: .normal)
-        
+        button.setTitle(YYUIKitLocalizable("done"), for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
         button.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([

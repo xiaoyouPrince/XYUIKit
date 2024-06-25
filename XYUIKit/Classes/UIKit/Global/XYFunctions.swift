@@ -61,7 +61,7 @@ public func doSth(withName name: String, maxTimes times: Int, timeInterval: Time
 ///   - lineNum: 当前执行所在的行数，无需入参
 public func doOnce(inObjLife obj: AnyObject, _ function: @escaping ()->(), file : String = #file , funName : String = #function , lineNum : Int = #line) {
 
-    var key = file + funName + "\(lineNum)" + obj.debugDescription
+    let key = file + funName + "\(lineNum)" + obj.debugDescription
     doOnce(for: key, callback: function)
 }
 
@@ -79,23 +79,9 @@ public func doOnce(for token: String, callback: @escaping ()->()) {
 
 
 
+/// 语言本地化
+/// - Parameter string: 要被本地化的语言
+/// - Returns: 本地化之后的语言
 func YYUIKitLocalizable(_ string: String) -> String {
-    
-    let anyClass = FileSystem.self
-    let boxBundle = Bundle.init(for: anyClass)
-    let targetBundle = Bundle.init(path: boxBundle.path(forResource: "XYUIKit", ofType: "bundle") ?? "")
-    
-    return NSLocalizedString(string, tableName: nil, bundle: targetBundle ?? .main, value: "", comment: "")
-}
-
-
-public class LocalizedStringHelper {
-    public static func localizedString(forKey key: String) -> String {
-        let bundle = Bundle(for: LocalizedStringHelper.self)
-        if let resourcePath = bundle.path(forResource: "XYUIKit", ofType: "bundle"),
-           let resourceBundle = Bundle(path: resourcePath) {
-            return NSLocalizedString(key, tableName: nil, bundle: resourceBundle, value: "", comment: "")
-        }
-        return key
-    }
+    string.yy_locale ?? string
 }
