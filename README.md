@@ -93,7 +93,7 @@ CGFloat / Label / Control / View / ViewController / Responder / ScrollView / App
 ```
 
 ## 版本记录(重要功能版本)
-#### v0.4.1 - v0.4.4 (2024/6/4 - 2024/6/20)
+#### v0.4.1 - v0.4.7 (2024/6/4 - 2024/6/25)
 
 1. XYAlertSheetController 多项功能优化， 支持手势取消
 2. 新增 Console 工具类,支持打印日志
