@@ -69,13 +69,15 @@ public struct XYNetTool {
     ///   - paramters: 请求参数
     ///   - headers: 请求头
     ///   - saveToUrl: 文件指定要存储的 fileURL
+    ///   - timeoutInterval: 业务网络超时时间，默认为nil: 10s 连接超时时间，若指定超时时间则按指定值设置连接超时时间和整体完成超时时间，如在指定时间内没有完成整个请求（连接+数据传输）则按超时处理，执行 failure 回调
     ///   - completion: 完成回调, 参数为当前文件存储地址(成功的情况下为saveToUrl), 或者失败后的 error 信息
     public static func download(url: URL,
                                 paramters: [String: Any],
                                 headers: [String: String]?,
                                 saveToUrl: URL,
+                                timeoutInterval: TimeInterval? = nil,
                                 completion: @escaping DownloadDataCallback) {
-        request(url: url, method: .GET, paramters: paramters, headers: headers, saveToUrl: saveToUrl, completion: completion)
+        request(url: url, method: .GET, paramters: paramters, headers: headers, saveToUrl: saveToUrl, timeoutInterval: timeoutInterval, completion: completion)
     }
     
 }
@@ -98,35 +100,30 @@ private extension XYNetTool {
                         headers: [String: String]?,
                         success: Any,
                         failure: @escaping (String)->()){
-        
-        let (request, session) = getRequestAndSession(url: url, method: method, paramters: paramters, headers: headers)
-        
-        session.dataTask(with: request) { data, response, error in
-            if error != nil { // 网络异常
-                DispatchQueue.main.async {
-                    failure(error!.localizedDescription)
-                }
-                return;
-            }
+        DispatchQueue.global().async {
+            let (request, session) = getRequestAndSession(url: url, method: method, paramters: paramters, headers: headers)
             
-            // JSON 格式处理
-            if let success = success as? AnyJsonCallback {
-                if let data = data, let resultJson = try? JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed), let dict = resultJson as? [String: Any] {
-                    DispatchQueue.main.async {
+            session.dataTask(with: request) { data, response, error in
+                if error != nil { // error: 网络异常, timeout
+                    failure(error!.localizedDescription)
+                    return;
+                }
+                
+                // JSON 格式处理
+                if let success = success as? AnyJsonCallback {
+                    if let data = data, let resultJson = try? JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed), let dict = resultJson as? [String: Any] {
                         success(dict)
-                    }
-                }else{
-                    DispatchQueue.main.async {
+                    }else{
                         failure(error?.localizedDescription ?? "")
                     }
                 }
-            }
-            
-            // 下载数据类型
-            if let success = success as? DataCallback {
-                success(data ?? .init())
-            }
-        }.resume()
+                
+                // 下载数据类型
+                if let success = success as? DataCallback {
+                    success(data ?? .init())
+                }
+            }.resume()
+        }
     }
     
     static func request(url: URL,
@@ -134,23 +131,42 @@ private extension XYNetTool {
                         paramters: [String: Any],
                         headers: [String: String]?,
                         saveToUrl: URL,
+                        timeoutInterval: TimeInterval? = nil,
                         completion: @escaping DownloadDataCallback) {
         
-        let (request, session) = getRequestAndSession(url: url, method: method, paramters: paramters, headers: headers)
+        var hasTimeOut: Bool = false
+        var hasRequestComplete: Bool = false
+        if let timeoutInterval = timeoutInterval {
+            let timeoutInterval: TimeInterval = timeoutInterval
+            DispatchQueue.main.asyncAfter(deadline: .now() + timeoutInterval) {
+                if !hasRequestComplete {
+                    hasTimeOut = true
+                    completion(nil, NSError(domain: "YYUIKit.NetTool", code: -1001, userInfo: [NSLocalizedFailureReasonErrorKey: "timeout"]))
+                }
+            }
+        }
         
-        session.downloadTask(with: request) { tmpFileUrl, urlResponse, error in
-            if let tmpFileUrl = tmpFileUrl {
-                do {
-                    try FileManager.default.moveItem(at: tmpFileUrl, to: saveToUrl)
-                    completion(saveToUrl, nil)
-                }catch{
-                    print("NetTool download task did fail to move file with error: \(error.localizedDescription)")
+        
+        DispatchQueue.global().async {
+            let (request, session) = getRequestAndSession(url: url, method: method, paramters: paramters, headers: headers)
+            
+            session.downloadTask(with: request) { tmpFileUrl, urlResponse, error in
+                if hasTimeOut { return }
+                
+                hasRequestComplete = true
+                if let tmpFileUrl = tmpFileUrl {
+                    do {
+                        try FileManager.default.moveItem(at: tmpFileUrl, to: saveToUrl)
+                        completion(saveToUrl, nil)
+                    }catch{
+                        print("NetTool download task did fail to move file with error: \(error.localizedDescription)")
+                        completion(nil, error)
+                    }
+                } else {
                     completion(nil, error)
                 }
-            } else {
-                completion(nil, error)
-            }
-        }.resume()
+            }.resume()
+        }
     }
     
     
