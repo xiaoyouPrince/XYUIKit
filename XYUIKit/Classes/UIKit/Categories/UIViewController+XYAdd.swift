@@ -9,6 +9,7 @@ import Foundation
 
 
 /// 获取当前可见的控制器
+/// - Note: 需要注意的, 此方法适用于当前有 keyWindow 的场景, 如果没有找到 keyWindow 会导致 app crash, 在一些特殊场景慎用,可以先提前获取 currenVC 并暂存, 在需要的场景使用, 比如画中画场景系统会修改App.keywindow
 /// - Returns: UIViewController
 public func currentVisibleController() -> UIViewController {
     
@@ -47,6 +48,7 @@ public func currentVisibleController() -> UIViewController {
 public extension UIViewController {
     
     /// 获取当前可见的控制器
+    /// - Note: 需要注意的, 此方法适用于当前有 keyWindow 的场景, 如果没有找到 keyWindow 会导致 app crash, 在一些特殊场景慎用,可以先提前获取 currenVC 并暂存, 在需要的场景使用, 比如画中画场景系统会修改App.keywindow
     static var currentVisibleVC: UIViewController {
         currentVisibleController()
     }
