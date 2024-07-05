@@ -49,6 +49,10 @@ import UIKit
             make.width.equalToSuperview().multipliedBy(pageWidth)
         }
     }
+    
+    deinit {
+        Console.log("被销毁")
+    }
 }
 
 private extension XYPagingScrollView {
@@ -57,7 +61,7 @@ private extension XYPagingScrollView {
         scrollView.itemSpacing = itemSpacing
         scrollView.initinalIndex = initinalIndex
         scrollView.customPages = customPages
-        scrollView.currentPageCallBack = { self.currentPageCallBack?($0) }
+        scrollView.currentPageCallBack = {[weak self] in self?.currentPageCallBack?($0) }
         return scrollView
     }
     
