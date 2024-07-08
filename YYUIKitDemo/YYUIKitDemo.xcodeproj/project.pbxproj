@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B37E815C383DB4B832A44E03 /* Pods_YYUIKitDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4617AE3B4024AEF880EAB8BB /* Pods_YYUIKitDemo.framework */; };
 		B4131BE02B73D86900B7FEC7 /* 2.gif in Resources */ = {isa = PBXBuildFile; fileRef = B4131BDC2B73D86900B7FEC7 /* 2.gif */; };
 		B4131BE12B73D86900B7FEC7 /* 4.gif in Resources */ = {isa = PBXBuildFile; fileRef = B4131BDD2B73D86900B7FEC7 /* 4.gif */; };
 		B4131BE22B73D86900B7FEC7 /* 1.gif in Resources */ = {isa = PBXBuildFile; fileRef = B4131BDE2B73D86900B7FEC7 /* 1.gif */; };
@@ -67,12 +66,13 @@
 		B4DA90732C203F98000A6667 /* InputBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DA90722C203F98000A6667 /* InputBarViewController.swift */; };
 		B4DA90752C218DE9000A6667 /* KBTopInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DA90742C218DE9000A6667 /* KBTopInputView.swift */; };
 		BEAC7A722C296D1100614900 /* NetWorkTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAC7A712C296D1100614900 /* NetWorkTool.swift */; };
+		EFE519783D431EA56130C990 /* Pods_YYUIKitDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0223DF8E2B647DBF8BEA023A /* Pods_YYUIKitDemo.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4617AE3B4024AEF880EAB8BB /* Pods_YYUIKitDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YYUIKitDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4841AA71B403A2F1CF6419F1 /* Pods-YYUIKitDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YYUIKitDemo.debug.xcconfig"; path = "Target Support Files/Pods-YYUIKitDemo/Pods-YYUIKitDemo.debug.xcconfig"; sourceTree = "<group>"; };
-		7159C7E7FF88B901CC42E0FA /* Pods-YYUIKitDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YYUIKitDemo.release.xcconfig"; path = "Target Support Files/Pods-YYUIKitDemo/Pods-YYUIKitDemo.release.xcconfig"; sourceTree = "<group>"; };
+		0223DF8E2B647DBF8BEA023A /* Pods_YYUIKitDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YYUIKitDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0CBD2A8FFF78284B2AB5D565 /* Pods-YYUIKitDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YYUIKitDemo.release.xcconfig"; path = "Target Support Files/Pods-YYUIKitDemo/Pods-YYUIKitDemo.release.xcconfig"; sourceTree = "<group>"; };
+		1BEB4B2D27AE57ACD1D59B53 /* Pods-YYUIKitDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YYUIKitDemo.debug.xcconfig"; path = "Target Support Files/Pods-YYUIKitDemo/Pods-YYUIKitDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		B4131BDC2B73D86900B7FEC7 /* 2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = 2.gif; sourceTree = "<group>"; };
 		B4131BDD2B73D86900B7FEC7 /* 4.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = 4.gif; sourceTree = "<group>"; };
 		B4131BDE2B73D86900B7FEC7 /* 1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = 1.gif; sourceTree = "<group>"; };
@@ -141,21 +141,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B37E815C383DB4B832A44E03 /* Pods_YYUIKitDemo.framework in Frameworks */,
+				EFE519783D431EA56130C990 /* Pods_YYUIKitDemo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		173DA690BEE4AAECBD773A68 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				4617AE3B4024AEF880EAB8BB /* Pods_YYUIKitDemo.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		B4131BDB2B73D85D00B7FEC7 /* 小球 */ = {
 			isa = PBXGroup;
 			children = (
@@ -188,7 +180,7 @@
 				B45D377B2B6F71860092C5D6 /* YYUIKitDemo */,
 				B45D377A2B6F71860092C5D6 /* Products */,
 				B5404D56202CA71D9EF135FC /* Pods */,
-				173DA690BEE4AAECBD773A68 /* Frameworks */,
+				CB17885F8A083E8753B00278 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -292,10 +284,18 @@
 		B5404D56202CA71D9EF135FC /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				4841AA71B403A2F1CF6419F1 /* Pods-YYUIKitDemo.debug.xcconfig */,
-				7159C7E7FF88B901CC42E0FA /* Pods-YYUIKitDemo.release.xcconfig */,
+				1BEB4B2D27AE57ACD1D59B53 /* Pods-YYUIKitDemo.debug.xcconfig */,
+				0CBD2A8FFF78284B2AB5D565 /* Pods-YYUIKitDemo.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		CB17885F8A083E8753B00278 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0223DF8E2B647DBF8BEA023A /* Pods_YYUIKitDemo.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -305,11 +305,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B45D378D2B6F71870092C5D6 /* Build configuration list for PBXNativeTarget "YYUIKitDemo" */;
 			buildPhases = (
-				90BC584E7C2EF2330CF5F452 /* [CP] Check Pods Manifest.lock */,
+				ABE87ED652B2A5C64C8AFFA4 /* [CP] Check Pods Manifest.lock */,
 				B45D37752B6F71860092C5D6 /* Sources */,
 				B45D37762B6F71860092C5D6 /* Frameworks */,
 				B45D37772B6F71860092C5D6 /* Resources */,
-				76271E955B248C88D013DFE7 /* [CP] Embed Pods Frameworks */,
+				33FFDE31D66334479804A882 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -390,7 +390,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		76271E955B248C88D013DFE7 /* [CP] Embed Pods Frameworks */ = {
+		33FFDE31D66334479804A882 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -407,7 +407,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-YYUIKitDemo/Pods-YYUIKitDemo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		90BC584E7C2EF2330CF5F452 /* [CP] Check Pods Manifest.lock */ = {
+		ABE87ED652B2A5C64C8AFFA4 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -615,7 +615,7 @@
 		};
 		B45D378E2B6F71870092C5D6 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4841AA71B403A2F1CF6419F1 /* Pods-YYUIKitDemo.debug.xcconfig */;
+			baseConfigurationReference = 1BEB4B2D27AE57ACD1D59B53 /* Pods-YYUIKitDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -646,7 +646,7 @@
 		};
 		B45D378F2B6F71870092C5D6 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7159C7E7FF88B901CC42E0FA /* Pods-YYUIKitDemo.release.xcconfig */;
+			baseConfigurationReference = 0CBD2A8FFF78284B2AB5D565 /* Pods-YYUIKitDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

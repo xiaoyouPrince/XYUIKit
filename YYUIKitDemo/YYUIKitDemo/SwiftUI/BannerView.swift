@@ -29,7 +29,7 @@ struct BannerView: View {
             Spacer()
         }
         
-        XYPagingScrollViewSwiftUI()
+        XYPagingScrollViewSwiftUI(scale: 1.0)
             .frame(width: .width - 100, height: 200)
         
         HStack {
@@ -37,14 +37,14 @@ struct BannerView: View {
             Spacer()
         }
         
-        XYPagingScrollViewSwiftUI()
+        XYPagingScrollViewSwiftUI(scale: 0.5)
             .frame(width: .width, height: 200)
         
         HStack {
             Text("3. 一个 200x80的 banner")
             Spacer()
         }
-        XYPagingScrollViewSwiftUI()
+        XYPagingScrollViewSwiftUI(scale: 0.2)
             .frame(width: 200, height: 80)
         
         Spacer()
@@ -56,8 +56,10 @@ struct BannerView: View {
 //}
 
 struct XYPagingScrollViewSwiftUI: View, UIViewRepresentable {
+    var scale: CGFloat
     func makeUIView(context: Context) -> YYUIKit.XYPagingScrollView {
         let page = XYPagingScrollView()
+        page.scaleRatioForUncurrentPage = scale
         page.customPages = [UIImageView(named: "banner1"), UIImageView(named: "banner2"), UIImageView(named: "banner2")]
         page.currentPageCallBack = { idx in
             Toast.make("current \(idx)")

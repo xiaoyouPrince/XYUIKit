@@ -13,10 +13,16 @@
 import UIKit
 
 @objc @objcMembers public class XYPagingScrollView: UIView {
+    /// 设置 item 之间间距
     public var itemSpacing: CGFloat = 10.0 { didSet{setupUI()} }
+    /// 设置 page 相对整个 view 宽度的百分比， 范围为 0 - 1
     public var pageWidth: CGFloat = 1.0
+    /// 数据源， 即要展示的具体页面 view 数组
     public var customPages: [UIView]? { didSet{setupUI()} }
+    /// 设置初始状态默认选中第几个， 默认第 0 个
     public var initinalIndex: Int = 0
+    /// 设置非当前页面时候 item 的缩放百分比，范围为 0 - 1， 默认为 1.0，表示不缩放
+    public var scaleRatioForUncurrentPage: CGFloat = 1.0
     public lazy var scrollView = getScrollView()
     lazy var enhanceScrollView = getEnhanceScrollView()
     public var currentPageCallBack: ((_ idx: Int)->())?
@@ -61,6 +67,7 @@ private extension XYPagingScrollView {
         scrollView.itemSpacing = itemSpacing
         scrollView.initinalIndex = initinalIndex
         scrollView.customPages = customPages
+        scrollView.scaleRatioForUncurrentPage = scaleRatioForUncurrentPage
         scrollView.currentPageCallBack = {[weak self] in self?.currentPageCallBack?($0) }
         return scrollView
     }
@@ -76,6 +83,7 @@ class XYScrollView: UIScrollView, UIScrollViewDelegate {
     var customPages: [UIView]? { didSet { if customPages != nil {setupContent()} }}
     var initinalIndex: Int = 0
     var currentPageCallBack: ((_ idx: Int)->())?
+    var scaleRatioForUncurrentPage: CGFloat = 1.0
     
     private var contentView: UIView = .init()
     
@@ -123,6 +131,7 @@ class XYScrollView: UIScrollView, UIScrollViewDelegate {
             var contentOffSet_ = self.contentOffset
             contentOffSet_.x = CGFloat(self.initinalIndex) * self.bounds.width
             self.contentOffset = contentOffSet_
+            self.delegate?.scrollViewDidScroll?(self)
         }
     }
     
@@ -133,6 +142,18 @@ class XYScrollView: UIScrollView, UIScrollViewDelegate {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let page = Int((scrollView.contentOffset.x / scrollView.bounds.width) + 0.5)
         currentPageCallBack?(page)
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let page = (scrollView.contentOffset.x / scrollView.bounds.width)
+        /* 仅需要计算， 中心页&两边共三个即可， 其他的按照最小缩放比直接设置*/
+        
+        if let views = customPages {
+            for (idx, view) in views.enumerated() {
+                let scale = 1 - abs(CGFloat(idx) - page) * (1 - scaleRatioForUncurrentPage)/*0.1*/
+                view.transform = CGAffineTransform(scaleX: scale, y: scale)
+            }
+        }
     }
     
 }
