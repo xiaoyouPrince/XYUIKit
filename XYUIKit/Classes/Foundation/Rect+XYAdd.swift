@@ -14,10 +14,11 @@ public extension CGRect {
     func swapRectWH() -> CGRect {
         return .init(x: origin.x, y: origin.y, width: size.height, height: size.width)
     }
-}
-
-extension CGRect: Scaleable {
-    public func scale(with ratio: CGFloat) -> Self {
+    
+    /// 等比缩放, 原点不变, 尺寸等比缩放
+    /// - Parameter ratio: 缩放比例
+    /// - Returns: 缩放后的 rect
+    func scale(with ratio: CGFloat) -> Self {
         .init(origin: origin, size: size.scale(with: ratio))
     }
 }
