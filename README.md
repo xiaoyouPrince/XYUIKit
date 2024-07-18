@@ -93,7 +93,7 @@ CGFloat / Label / Control / View / ViewController / Responder / ScrollView / App
 ```
 
 ## 版本记录(重要功能版本)
-#### v0.4.1 - v0.4.7 (2024/6/4 - 2024/6/25)
+#### v0.4.1 - v0.5.0 (2024/6/4 - 2024/7/8)
 
 1. XYAlertSheetController 多项功能优化， 支持手势取消
 2. 新增 Console 工具类,支持打印日志
@@ -108,6 +108,8 @@ CGFloat / Label / Control / View / ViewController / Responder / ScrollView / App
 11. 增加 XYTextChangeMonitor 工具类, 用来监听 UITextfield / UITextView 的开始编辑, 编辑中, 结束编辑状态
 12. 增加 XYKeyboardToolbar 工具类, 用于监听键盘弹出时候在键盘上增加一个工具条, 当前版本提供收起键盘功能, 仅需设置全局配置类即可 `KeyboardToolbarConfig.shared.showToolBar = true`
 13. 增加 NetworkMonitor 和 NetworkReachability 网络状态监听工具类, 可以实时监听网络的连接状态以及连接类型.
+14. 网络工具优化, 网络请求异步处理, 并增加网络请求的业务超时时间, 即发起请求到收到完整回调时间, 用户指定超时时间之外的回调均视为超时, [系统的超时时间指连接超时时间, 指定时间内能连到服务器则不算超时]
+15. XYPagingScrollView 支持内部内容随滑动缩放, 内存优化
 
 #### v0.3.3 - v0.4.0 (2024/4/2 - 2024/5/15)
 
