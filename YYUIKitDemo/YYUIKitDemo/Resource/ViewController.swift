@@ -39,7 +39,8 @@ class ViewController: XYInfomationBaseViewController {
             //["键盘监听 - 一个小输入框 SwiftUI": KeyboardMonitor_InPutBar()],
             ["键盘管理": InputBarViewController.self],
             ["网络工具": NetWorkTool()],
-        ]
+            ["权限申请": AuthDemo()]
+        ].reversed()
     
 }
 

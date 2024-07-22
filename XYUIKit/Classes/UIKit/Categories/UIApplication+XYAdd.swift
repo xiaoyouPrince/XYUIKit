@@ -86,6 +86,19 @@ public extension UIApplication {
     var appVersion: String {
         Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
     }
+    
+    /// App 名称（dispalyName >> name >> 'App'）
+    static var appName: String { shared.appName }
+    var appName: String {
+        let displayName = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String
+        let bundleName = Bundle.main.infoDictionary?["CFBundleName"] as? String
+        return displayName ?? bundleName ?? "App"
+    }
 
+    /// App 名称（dispalyName >> name >> 'App'）
+    static var bundleID: String { shared.bundleID }
+    var bundleID: String {
+        return Bundle.main.infoDictionary?["CFBundleIdentifier"] as! String
+    }
 }
 

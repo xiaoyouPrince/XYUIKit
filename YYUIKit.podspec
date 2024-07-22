@@ -34,4 +34,10 @@ Pod::Spec.new do |s|
     sub.dependency 'SnapKit'
   end
   
+  s.subspec 'Auth' do |sub|
+    sub.source_files   = 'XYUIKit/Classes/Authority/**/*'
+    
+    sub.dependency 'YYUIKit/UIKit'
+  end
+  
 end
