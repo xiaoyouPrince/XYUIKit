@@ -8,6 +8,7 @@
 import SwiftUI
 import YYUIKit
 
+
 struct AuthDemo: View {
     
     @State
@@ -18,6 +19,9 @@ struct AuthDemo: View {
     
     @State
     private var notificationStatus = false // notification status 需要异步获取
+    
+    @State
+    private var activityStatus = AuthorityManager.shared.activityAuthStatus() == .authorized
     
     
     var body: some View {
@@ -62,6 +66,24 @@ struct AuthDemo: View {
             }.frame(width: .width, height: 44)
         }
         Text("通知权限 - \(notificationStatus.stringValue)")
+        
+        if #available(iOS 16.1, *) {
+            Button {
+                AuthorityManager.shared.request(auth: .activity, scene: "B") { completion in
+                    print(completion)
+                    self.activityStatus = completion
+                }
+                
+            } label: {
+                VStack {
+                    ZStack {
+                        Color(UIColor.random)
+                        Text("实时活动开启状态(iOS 16.1+)")
+                    }.frame(width: .width, height: 44)
+                }
+            }
+            Text("实时活动权限 - \(activityStatus.stringValue)")
+        }
 
         Spacer()
             .onAppear {
@@ -76,3 +98,57 @@ struct AuthDemo: View {
 #Preview {
     AuthDemo()
 }
+
+
+//import ActivityKit
+//
+//struct ActivityHelper {
+//    
+//    struct MyActivityAttributes: ActivityAttributes {
+//        struct ContentState: Codable, Hashable {
+//            var value: Int
+//        }
+//        
+//        var name: String
+//    }
+//    
+//    func startLiveActivity() {
+//        if #available(iOS 16.1, *) {
+//            let attributes = MyActivityAttributes(name: "Example Activity")
+//            let initialContentState = MyActivityAttributes.ContentState(value: 0)
+//            do {
+//                let activity = try Activity<MyActivityAttributes>.request(attributes: attributes, contentState: initialContentState, pushType: nil)
+//                print("Live activity started: \(activity.id)")
+//            } catch {
+//                print("Failed to start live activity: \(error)")
+//            }
+//        } else {
+//            print("ActivityKit is not available on this iOS version.")
+//        }
+//    }
+//    
+//    func updateLiveActivity() {
+//        if #available(iOS 16.1, *) {
+//            let contentState = MyActivityAttributes.ContentState(value: 1)
+//            Task {
+//                for activity in Activity<MyActivityAttributes>.activities {
+//                    await activity.update(using: contentState)
+//                    print("Live activity updated: \(activity.id)")
+//                }
+//            }
+//        }
+//    }
+//    
+//    func endLiveActivity() {
+//        if #available(iOS 16.1, *) {
+//            Task {
+//                for activity in Activity<MyActivityAttributes>.activities {
+//                    await activity.end(dismissalPolicy: .immediate)
+//                    print("Live activity ended: \(activity.id)")
+//                }
+//            }
+//        }
+//    }
+//}
+
+

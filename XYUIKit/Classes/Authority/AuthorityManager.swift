@@ -118,11 +118,12 @@ extension AuthorityManager {
         switch auth {
         case .location:
             self.location()
-            break
         case .bluetooth:
             self.bluetooth()
         case .notification:
             self.notification()
+        case .activity:
+            self.activity()
         default:
             break
         }
