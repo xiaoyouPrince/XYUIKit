@@ -26,6 +26,14 @@
  
  */
 
+/*
+ AuthorityManager 提供单例模式并推荐使用单例
+ 
+ @note
+ 需要注意的是: 单例不是万能的, 同页面的多进程(原生/h5/flutter/weex)分布式请求单例, 则仅能以最后一次为准
+ 此类场景使用单独对象请求.
+ */
+
 import Foundation
 import CoreLocation
 import CoreBluetooth
@@ -46,12 +54,15 @@ public typealias AuthorityManager = XYAuthorityManager
     ///去设置回调
     var settingHandler: CompletionHandler?
     
-    var locationManager: CLLocationManager = {
-        CLLocationManager()
+    lazy var locationManager: CLLocationManager = {
+        let mgr = CLLocationManager()
+        mgr.delegate = self
+        return mgr
     }()
-    
-    var centralManager: CBCentralManager = {
-        CBCentralManager()
+    lazy var centralManager: CBCentralManager = {
+        let mgr = CBCentralManager()
+        mgr.delegate = self
+        return mgr
     }()
     
     public override init() {
@@ -202,7 +213,10 @@ extension AuthorityManager {
     
     ///去设置的弹窗
     func showSettingAlert() {
-        if !shouldShowSettingAlert { return }
+        if !shouldShowSettingAlert {
+            authCompletion(false)
+            return
+        }
         
         showSettingAlert(title: "提示",
                          message: "前往系统设置 - \(UIApplication.shared.appName)",
@@ -228,7 +242,6 @@ extension AuthorityManager {
             
         } cancelHandler: { [weak self] in
             self?.settingCompletion(false)
-            
         }
     }
 }

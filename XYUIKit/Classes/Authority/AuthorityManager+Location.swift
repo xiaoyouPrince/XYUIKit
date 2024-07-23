@@ -13,7 +13,6 @@ extension AuthorityManager {
     func location() {
         switch self.locationAuthorizationStatus {
         case .notDetermined:
-            self.locationManager.delegate = self
             self.locationManager.requestWhenInUseAuthorization()
             break
         case .restricted, .denied:
