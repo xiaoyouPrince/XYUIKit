@@ -9,7 +9,7 @@
  功能:
   1. 请求用户授权      -- 直接请求某项权限
   2. 获取当前授权状态   -- 已经授权/已经拒绝/未决定
-  3. 获取当前值        -- 如地理位置/运动健康
+  3. 获取当前值        -- 部分可用: 如地理位置/运动健康
  */
 
 /*
@@ -22,6 +22,12 @@
  NSBluetoothAlwaysUsageDescription      iOS 13+
  NSBluetoothPeripheralUsageDescription  iOS 12-
  
+ 通知:
+ none
+ 
+ 
+ 
+ 健康:
  
  
  */
@@ -70,14 +76,17 @@ public typealias AuthorityManager = XYAuthorityManager
     }
     
     /// 是否展示去设置弹框 - 若当前权限是被拒绝, 再次请求, 弹出去设置开启的 alert
-    public var shouldShowSettingAlert: Bool = true
+    @objc public var shouldShowSettingAlert: Bool = true
     
+    /// 获取指定权限当前授权状态, 通知不支持同步函数, 使用 notificationAuthStatus 函数
     @objc public func getStatus(for auth: Auth) -> AuthStatus {
         switch auth {
         case .location:
             return self.locationAuthStatus()
         case .bluetooth:
             return self.bluetoothAuthStatus()
+        case .notification:
+            fatalError("not suppprt notification, use 'notificationAuthStatus' function")
         default:
             break
         }
@@ -85,6 +94,8 @@ public typealias AuthorityManager = XYAuthorityManager
         // unknown
         return .notDetermined
     }
+    
+    
     
     @objc public func request(auth: Auth,
                               scene: String,
@@ -110,6 +121,8 @@ extension AuthorityManager {
             break
         case .bluetooth:
             self.bluetooth()
+        case .notification:
+            self.notification()
         default:
             break
         }
@@ -190,25 +203,27 @@ extension AuthorityManager {
                                        confirmHandler: ActionHandler? = nil,
                                        cancelHandler: ActionHandler? = nil) {
         
-        let alertController: UIAlertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        
-        let confirmAction: UIAlertAction = UIAlertAction(title: confirmTitle, style: .default) { action in
-            DispatchQueue.main.async {
-                confirmHandler?()
+        DispatchQueue.main.async {
+            let alertController: UIAlertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            
+            let confirmAction: UIAlertAction = UIAlertAction(title: confirmTitle, style: .default) { action in
+                DispatchQueue.main.async {
+                    confirmHandler?()
+                }
             }
-        }
-        
-        let cancelAction: UIAlertAction = UIAlertAction(title: cancelTitle, style: .cancel) { action in
-            DispatchQueue.main.async {
-                cancelHandler?()
+            
+            let cancelAction: UIAlertAction = UIAlertAction(title: cancelTitle, style: .cancel) { action in
+                DispatchQueue.main.async {
+                    cancelHandler?()
+                }
             }
+            
+            alertController.addAction(cancelAction)
+            alertController.addAction(confirmAction)
+            let keyWindow = UIApplication.shared.delegate?.window ?? UIApplication.shared.windows.first(where: \.isKeyWindow)
+            let rootController = keyWindow?.rootViewController?.topMostViewController
+            rootController?.present(alertController, animated: true)
         }
-        
-        alertController.addAction(cancelAction)
-        alertController.addAction(confirmAction)
-        let keyWindow = UIApplication.shared.delegate?.window ?? UIApplication.shared.windows.first(where: \.isKeyWindow)
-        let rootController = keyWindow?.rootViewController?.topMostViewController
-        rootController?.present(alertController, animated: true)
     }
     
     ///去设置的弹窗

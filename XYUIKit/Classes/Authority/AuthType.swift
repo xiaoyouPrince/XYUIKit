@@ -37,14 +37,14 @@ import Foundation
         case Auth.location.rawValue:
             self = .location
         case Auth.bluetooth.rawValue:
-            self = .location
+            self = .bluetooth
         case Auth.health.rawValue:
-            self = .location
+            self = .health
         case Auth.notification.rawValue:
-            self = .location
+            self = .notification
         case Auth.activity.rawValue:
-            self = .location
-            
+            self = .activity
+
         default:
             self = .unknown
         }
