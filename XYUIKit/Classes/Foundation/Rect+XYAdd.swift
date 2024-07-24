@@ -22,3 +22,12 @@ public extension CGRect {
         .init(origin: origin, size: size.scale(with: ratio))
     }
 }
+
+public extension CGSize {
+    /// 尺寸宽高按比例缩放
+    /// - Parameter ratio: 缩放比例
+    /// - Returns: 缩放后的size
+    func scale(with ratio: CGFloat) -> Self {
+        .init(width: width * ratio, height: height * ratio)
+    }
+}
