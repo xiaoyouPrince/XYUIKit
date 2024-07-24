@@ -52,6 +52,8 @@ extension AuthorityManager {
             
         let step = HKQuantityType.quantityType(forIdentifier: .stepCount)!
         let allTypes = Set([step])
+        
+        hasRequestStepCountAuthority = true
         healthStore.requestAuthorization(toShare: nil, read: allTypes ) { (success, error) in
             completion(success, error)
         }
@@ -59,6 +61,18 @@ extension AuthorityManager {
 }
 
 @objc public extension AuthorityManager {
+    
+    /// 是否曾请求过步数授权
+    /// - 请求过， 再次查看步数授权则可以直接使用 healthStepCountReadAuthStatus 函数，来判断是否有授权和获取步数
+    /// - 没有请求过，如果首次只想看是否有步数权限，不想弹请求坦框， 可以直接 getSteps 函数拿步数， 拿不到则未授权
+    @objc private(set) var hasRequestStepCountAuthority: Bool {
+        get {
+            UserDefaults.standard.value(forKey: "isFirstTimeRequestStepCountAuthority") != nil
+        }
+        set {
+            UserDefaults.standard.set(true, forKey: "isFirstTimeRequestStepCountAuthority")
+        }
+    }
     
     /// 查询健康步数写入授权, 由于苹果的隐私保护, 无法拿到读权限
     /// - Note: 建议直接使用获取步数方法 - getSteps, 通过是否可以拿到步数来确认是否有读取权限
@@ -83,19 +97,20 @@ extension AuthorityManager {
     }
     
     /// 获取是否有健康步数的读取权限
+    /// - Note 此方法内部会先申请，并通过获取用户的步数来判断是否步数权限， 若不想请求授权，直接使用 getSteps 函数
     /// - Parameter complete: 完成回调
-    @objc func healthStepCountReadAuthStatus(complete: @escaping (AuthStatus) -> ()) {
+    @objc func healthStepCountReadAuthStatus(complete: @escaping (AuthStatus, Double) -> ()) {
         requestStepCountAuth { [weak self] (success, error) in
             if success {
                 self?.getSteps(completion: {count, error in
                     if error != nil {
-                        complete(.denied)
+                        complete(.denied, 0)
                     } else {
-                        complete(.authorized)
+                        complete(.authorized, count)
                     }
                 })
             } else {
-                complete(.denied)
+                complete(.denied, 0)
             }
         }
     }
