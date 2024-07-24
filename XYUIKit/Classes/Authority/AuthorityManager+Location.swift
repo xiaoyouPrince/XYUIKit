@@ -49,13 +49,14 @@ extension AuthorityManager: CLLocationManagerDelegate {
     
     public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let first = locations.first {
-            
+            self.locationUpdateHandler?(first)
         }
     }
     
     public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         // 请求位置失败, 返回北京天安门
-        
+        let bj_tam = CLLocation.init(latitude: 39.54, longitude: 116.23)
+        self.locationUpdateHandler?(bj_tam)
     }
 }
 
@@ -104,8 +105,30 @@ extension AuthorityManager: CLLocationManagerDelegate {
 
 
 @objc public extension AuthorityManager {
-    @objc func getCurrentLocation() {
+    
+    /// 获取当前 GPS 定位
+    /// - Parameter complete: 定位完成回调， 如果定位失败返回 北京位置信息
+    @objc func getCurrentLocation(complete: @escaping (CLLocation) -> Void) {
+        self.auth = .location
+        
+        let status = locationAuthStatus()
+        switch status {
+        case .authorized:
+            requestCurrentLocation(complete: complete)
+        case .denied:
+            showSettingAlert()
+        case .notDetermined:
+            request(auth: .location, scene: "") {[weak self] completion in
+                self?.getCurrentLocation(complete: complete)
+            }
+        }
+    }
+    
+    private func requestCurrentLocation(complete: @escaping (CLLocation) -> Void) {
+        self.locationUpdateHandler = complete
         locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+        locationManager.distanceFilter = 100
         locationManager.requestLocation()
     }
 }

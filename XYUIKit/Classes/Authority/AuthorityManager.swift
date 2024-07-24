@@ -60,6 +60,7 @@ public typealias AuthorityManager = XYAuthorityManager
     var authHandler: CompletionHandler?
     var settingHandler: CompletionHandler?
     
+    var locationUpdateHandler: ((CLLocation) -> Void)?
     lazy var locationManager: CLLocationManager = {
         let mgr = CLLocationManager()
         mgr.delegate = self
@@ -84,7 +85,12 @@ public typealias AuthorityManager = XYAuthorityManager
     }
     
     /// 是否展示去设置弹框 - 若当前权限是被拒绝, 再次请求, 弹出去设置开启的 alert
-    @objc public var shouldShowSettingAlert: Bool = true
+    var shouldShowSettingAlert: Bool { showCustomSettingAlertHandler == nil }
+    private var showCustomSettingAlertHandler: ((Auth) -> Void)?
+    @objc public func setShowCustomSettingAlert(_ handler: @escaping (Auth) -> Void) {
+        self.showCustomSettingAlertHandler = handler
+    }
+    
     
     /// 获取指定权限当前授权状态, 通知不支持同步函数, 使用 notificationAuthStatus 函数
     @objc public func getStatus(for auth: Auth) -> AuthStatus {
@@ -238,6 +244,7 @@ extension AuthorityManager {
     ///去设置的弹窗
     func showSettingAlert() {
         if !shouldShowSettingAlert {
+            showCustomSettingAlertHandler?(auth)
             authCompletion(false)
             return
         }
