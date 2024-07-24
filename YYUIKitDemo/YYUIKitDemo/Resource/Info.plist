@@ -2,6 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSHealthShareUsageDescription</key>
+	<string>读取健康数据, 你知道我具体是干什么用吗.哈哈哈</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>adsfsdfasf收到发发更新您的健康数据</string>
 	<key>NSBluetoothAlwaysUsageDescription</key>
 	<string>13之上需要使用蓝牙的描述</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>

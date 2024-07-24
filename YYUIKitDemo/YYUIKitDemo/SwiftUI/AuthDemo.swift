@@ -21,7 +21,10 @@ struct AuthDemo: View {
     private var notificationStatus = false // notification status 需要异步获取
     
     @State
-    private var activityStatus = AuthorityManager.shared.activityAuthStatus() == .authorized
+    private var activityStatus = false // AuthorityManager.shared.activityAuthStatus() == .authorized
+    
+    @State
+    private var healthStatus = false // AuthorityManager.shared.healthAuthStatus() == .authorized
     
     
     var body: some View {
@@ -84,6 +87,22 @@ struct AuthDemo: View {
             }
             Text("实时活动权限 - \(activityStatus.stringValue)")
         }
+        
+        Button {
+            AuthorityManager.shared.request(auth: .health, scene: "B") { completion in
+                print(completion)
+                self.healthStatus = completion
+            }
+            
+        } label: {
+            VStack {
+                ZStack {
+                    Color(UIColor.random)
+                    Text("请求健康权限")
+                }.frame(width: .width, height: 44)
+            }
+        }
+        Text("健康权限 - \(healthStatus.stringValue)")
 
         Spacer()
             .onAppear {
@@ -91,6 +110,11 @@ struct AuthDemo: View {
                 AuthorityManager.shared.notificationAuthStatus({ status in
                     notificationStatus = status == .authorized
                 })
+                
+                // health
+                AuthorityManager.shared.healthStepCountReadAuthStatus { status in
+                    self.healthStatus = status == .authorized
+                }
             }
     }
 }

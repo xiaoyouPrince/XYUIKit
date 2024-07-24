@@ -25,9 +25,10 @@
  通知:
  none
  
- 
- 
  健康:
+ NSHealthShareUsageDescription
+ NSHealthUpdateUsageDescription
+ 
  
  
  */
@@ -43,6 +44,7 @@
 import Foundation
 import CoreLocation
 import CoreBluetooth
+import HealthKit
 import UIKit
 
 public typealias AuthorityManager = XYAuthorityManager
@@ -70,6 +72,14 @@ public typealias AuthorityManager = XYAuthorityManager
         mgr.delegate = self
         return mgr
     }()
+    lazy var healthStore: HKHealthStore! = {
+        if HKHealthStore.isHealthDataAvailable() {
+            let mgr = HKHealthStore()
+            return mgr
+        } else {
+            return nil
+        }
+    }()
     
     public override init() {
         super.init()
@@ -87,6 +97,8 @@ public typealias AuthorityManager = XYAuthorityManager
             return self.bluetoothAuthStatus()
         case .notification:
             fatalError("not suppprt notification, use 'notificationAuthStatus' function")
+        case .activity:
+            return self.activityAuthStatus()
         default:
             break
         }
@@ -124,6 +136,8 @@ extension AuthorityManager {
             self.notification()
         case .activity:
             self.activity()
+        case .health:
+            self.health()
         default:
             break
         }

@@ -78,6 +78,7 @@
 		B4131BDD2B73D86900B7FEC7 /* 4.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = 4.gif; sourceTree = "<group>"; };
 		B4131BDE2B73D86900B7FEC7 /* 1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = 1.gif; sourceTree = "<group>"; };
 		B4131BDF2B73D86900B7FEC7 /* 3.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = 3.gif; sourceTree = "<group>"; };
+		B42100482C4FAFC400577D78 /* YYUIKitDemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = YYUIKitDemo.entitlements; sourceTree = "<group>"; };
 		B428E0BA2B87AA16001B43AD /* FloatBallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatBallView.swift; sourceTree = "<group>"; };
 		B428E0BC2B8A01C6001B43AD /* FileSystemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystemView.swift; sourceTree = "<group>"; };
 		B45D37792B6F71860092C5D6 /* YYUIKitDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YYUIKitDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -198,6 +199,7 @@
 		B45D377B2B6F71860092C5D6 /* YYUIKitDemo */ = {
 			isa = PBXGroup;
 			children = (
+				B42100482C4FAFC400577D78 /* YYUIKitDemo.entitlements */,
 				B428E0B92B87A82B001B43AD /* SwiftUI */,
 				B45D37E82B6FB3E60092C5D6 /* views */,
 				B45D37C92B6FB3B30092C5D6 /* controllers */,
@@ -623,6 +625,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = YYUIKitDemo/YYUIKitDemo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = J9CJUEB6H8;
@@ -654,6 +657,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = YYUIKitDemo/YYUIKitDemo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = J9CJUEB6H8;
