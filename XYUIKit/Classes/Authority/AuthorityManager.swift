@@ -245,7 +245,7 @@ extension AuthorityManager {
     func showSettingAlert() {
         if !shouldShowSettingAlert {
             showCustomSettingAlertHandler?(auth)
-            authCompletion(false)
+            //authCompletion(false)
             return
         }
         

@@ -20,6 +20,8 @@ extension AuthorityManager {
                 break // 蓝牙由系统弹申请框
             case .restricted, .denied:
                 self.showSettingAlert()
+                // 蓝牙状态由代理同步，所以每次需要回调状态
+                self.authCompletion(false)
                 break
             case .allowedAlways:
                 self.authCompletion(true)
