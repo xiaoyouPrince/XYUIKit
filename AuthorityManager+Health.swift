@@ -22,15 +22,17 @@ import HealthKit
 
 /// 健康数据
 extension AuthorityManager {
-    func health() {
+    func healthStepCount() {
         if HKHealthStore.isHealthDataAvailable() {
             requestStepCountAuth { [weak self] (success, error) in
                 if success {
                     self?.getSteps(completion: {[weak self] count, error in
-                        if error != nil {
-                            self?.authCompletion(false)
-                        } else {
+                        if error == nil {
                             self?.authCompletion(true)
+                        } else {
+                            self?.authCompletion(false)
+                            
+                            self?.showSettingAlert()
                         }
                     })
                 } else {
@@ -101,7 +103,10 @@ extension AuthorityManager {
     /// 获取步数
     /// - Parameter completion: 拿到的步数信息
     @objc func getSteps(completion: @escaping (Double, Error?) -> Void) {
-        guard let stepCountType = HKObjectType.quantityType(forIdentifier: .stepCount) else { return }
+        guard HKHealthStore.isHealthDataAvailable(), let stepCountType = HKObjectType.quantityType(forIdentifier: .stepCount) else {
+            completion(0, NSError())
+            return
+        }
         
         let now = Date()
         let startOfDay = Calendar.current.startOfDay(for: now)

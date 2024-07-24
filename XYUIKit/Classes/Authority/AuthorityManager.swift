@@ -22,14 +22,12 @@
  NSBluetoothAlwaysUsageDescription      iOS 13+
  NSBluetoothPeripheralUsageDescription  iOS 12-
  
- 通知:
+ 通知 & liveActivity:
  none
  
  健康:
  NSHealthShareUsageDescription
  NSHealthUpdateUsageDescription
- 
- 
  
  */
 
@@ -57,9 +55,9 @@ public typealias AuthorityManager = XYAuthorityManager
     
     public typealias CompletionHandler = ((_ completion: Bool) -> Void)
     public typealias ActionHandler = (() -> Void)
-    ///授权回调
+    
+    var auth: Auth!
     var authHandler: CompletionHandler?
-    ///去设置回调
     var settingHandler: CompletionHandler?
     
     lazy var locationManager: CLLocationManager = {
@@ -99,6 +97,8 @@ public typealias AuthorityManager = XYAuthorityManager
             fatalError("not suppprt notification, use 'notificationAuthStatus' function")
         case .activity:
             return self.activityAuthStatus()
+        case .healthStepCount:
+            fatalError("not suppprt notification, use 'healthStepCountReadAuthStatus' function")
         default:
             break
         }
@@ -113,6 +113,7 @@ public typealias AuthorityManager = XYAuthorityManager
                               scene: String,
                               authHandler: @escaping CompletionHandler,
                               settingHandler: CompletionHandler? = nil) {
+        self.auth = auth
         self.authHandler = authHandler
         self.settingHandler = settingHandler
         
@@ -136,8 +137,8 @@ extension AuthorityManager {
             self.notification()
         case .activity:
             self.activity()
-        case .health:
-            self.health()
+        case .healthStepCount:
+            self.healthStepCount()
         default:
             break
         }
@@ -158,15 +159,6 @@ extension AuthorityManager {
 
 // MARK: 授权页面接口
 extension AuthorityManager {
-
-    public func sceneIsAlreadyAgree(scene: String) -> Bool {
-        return UserDefaults.standard.bool(forKey: scene) == true
-    }
-    
-    public func switchScene(status: Bool, scene: String) {
-        UserDefaults.standard.set(status, forKey: scene)
-        UserDefaults.standard.synchronize()
-    }
     
     public func isHaveAuth(auth: Auth) -> Bool {
         switch auth {
@@ -214,7 +206,7 @@ extension AuthorityManager {
     public func presentAlertController(title: String,
                                        message: String,
                                        confirmTitle: String,
-                                       cancelTitle: String,
+                                       cancelTitle: String?,
                                        confirmHandler: ActionHandler? = nil,
                                        cancelHandler: ActionHandler? = nil) {
         
@@ -226,15 +218,17 @@ extension AuthorityManager {
                     confirmHandler?()
                 }
             }
+            alertController.addAction(confirmAction)
             
-            let cancelAction: UIAlertAction = UIAlertAction(title: cancelTitle, style: .cancel) { action in
-                DispatchQueue.main.async {
-                    cancelHandler?()
+            if let cancelTitle = cancelTitle {
+                let cancelAction: UIAlertAction = UIAlertAction(title: cancelTitle, style: .cancel) { action in
+                    DispatchQueue.main.async {
+                        cancelHandler?()
+                    }
                 }
+                alertController.addAction(cancelAction)
             }
             
-            alertController.addAction(cancelAction)
-            alertController.addAction(confirmAction)
             let keyWindow = UIApplication.shared.delegate?.window ?? UIApplication.shared.windows.first(where: \.isKeyWindow)
             let rootController = keyWindow?.rootViewController?.topMostViewController
             rootController?.present(alertController, animated: true)
@@ -248,21 +242,23 @@ extension AuthorityManager {
             return
         }
         
-        showSettingAlert(title: "提示",
-                         message: "前往系统设置 - \(UIApplication.shared.appName)",
-                         confirmTitle: "open",
-                         cancelTitle: "cancel")
+        showSettingAlert(title: auth.alertTitle,
+                         message: auth.alertMessage,
+                         confirmTitle: auth.alertConfirmTitle,
+                         cancelTitle: auth.alertCancelTitle)
     }
     
     ///去设置的弹窗
     func showSettingAlert(title: String,
                           message: String,
                           confirmTitle: String,
-                          cancelTitle: String,
+                          cancelTitle: String?,
                           confirmHandler: ActionHandler? = nil,
                           cancelHandler: ActionHandler? = nil) {
         
         self.presentAlertController(title: title, message: message, confirmTitle: confirmTitle, cancelTitle: cancelTitle) { [weak self] in
+            if self?.auth == .healthStepCount { return } // unable to open private health settings
+            
             self?.settingCompletion(true)
             guard let settingUrl = URL(string: UIApplication.openSettingsURLString) else {return}
             

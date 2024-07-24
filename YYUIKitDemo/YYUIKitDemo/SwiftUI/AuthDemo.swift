@@ -25,6 +25,8 @@ struct AuthDemo: View {
     
     @State
     private var healthStatus = false // AuthorityManager.shared.healthAuthStatus() == .authorized
+    @State
+    private var healthStepCount: Double = 0
     
     
     var body: some View {
@@ -89,20 +91,28 @@ struct AuthDemo: View {
         }
         
         Button {
-            AuthorityManager.shared.request(auth: .health, scene: "B") { completion in
+            AuthorityManager.shared.request(auth: .healthStepCount, scene: "B") { completion in
                 print(completion)
                 self.healthStatus = completion
+                AuthorityManager.shared.getSteps { count, error in
+                    if error == nil {
+                        self.healthStepCount = count
+                    } else {
+                        Toast.make("获取步数出错")
+                    }
+                }
             }
             
         } label: {
             VStack {
                 ZStack {
                     Color(UIColor.random)
-                    Text("请求健康权限")
+                    Text("请求健康步数权限")
                 }.frame(width: .width, height: 44)
             }
         }
-        Text("健康权限 - \(healthStatus.stringValue)")
+        Text("健康步数权限 - \(healthStatus.stringValue)")
+        Text("当前步数 - \(healthStepCount)")
 
         Spacer()
             .onAppear {
@@ -114,6 +124,13 @@ struct AuthDemo: View {
                 // health
                 AuthorityManager.shared.healthStepCountReadAuthStatus { status in
                     self.healthStatus = status == .authorized
+                    AuthorityManager.shared.getSteps { count, error in
+                        if error == nil {
+                            self.healthStepCount = count
+                        } else {
+                            Toast.make("获取步数出错")
+                        }
+                    }
                 }
             }
     }
