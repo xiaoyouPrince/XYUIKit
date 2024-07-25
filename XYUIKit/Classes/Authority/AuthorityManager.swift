@@ -61,11 +61,8 @@ public typealias AuthorityManager = XYAuthorityManager
     var settingHandler: CompletionHandler?
     
     var locationUpdateHandler: ((CLLocation) -> Void)?
-    lazy var locationManager: CLLocationManager = {
-        let mgr = CLLocationManager()
-        mgr.delegate = self
-        return mgr
-    }()
+    let locationManager: CLLocationManager!
+    
     lazy var centralManager: CBCentralManager = {
         let mgr = CBCentralManager()
         mgr.delegate = self
@@ -81,7 +78,9 @@ public typealias AuthorityManager = XYAuthorityManager
     }()
     
     public override init() {
+        locationManager = .init()
         super.init()
+        locationManager.delegate = self
     }
     
     /// 是否展示去设置弹框 - 若当前权限是被拒绝, 再次请求, 弹出去设置开启的 alert
