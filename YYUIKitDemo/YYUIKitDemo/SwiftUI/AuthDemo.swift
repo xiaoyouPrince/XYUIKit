@@ -122,7 +122,7 @@ struct AuthDemo: View {
                 })
                 
                 // health
-                AuthorityManager.shared.healthStepCountReadAuthStatus { status in
+                AuthorityManager.shared.healthStepCountReadAuthStatus { status, count in
                     self.healthStatus = status == .authorized
                     AuthorityManager.shared.getSteps { count, error in
                         if error == nil {
