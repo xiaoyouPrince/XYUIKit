@@ -130,5 +130,9 @@ extension AuthorityManager: CLLocationManagerDelegate {
         locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
         locationManager.distanceFilter = 100
         locationManager.requestLocation()
+        
+        if let location = locationManager.location {
+            complete(location)
+        }
     }
 }
