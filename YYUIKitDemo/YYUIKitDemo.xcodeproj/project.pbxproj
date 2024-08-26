@@ -66,6 +66,7 @@
 		B4DA90732C203F98000A6667 /* InputBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DA90722C203F98000A6667 /* InputBarViewController.swift */; };
 		B4DA90752C218DE9000A6667 /* KBTopInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DA90742C218DE9000A6667 /* KBTopInputView.swift */; };
 		B4DA90882C4E11C9000A6667 /* AuthDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DA90872C4E11C9000A6667 /* AuthDemo.swift */; };
+		BE4436272C5A4BB400C989A1 /* Modelable in Frameworks */ = {isa = PBXBuildFile; productRef = BE4436262C5A4BB400C989A1 /* Modelable */; };
 		BEAC7A722C296D1100614900 /* NetWorkTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAC7A712C296D1100614900 /* NetWorkTool.swift */; };
 		EFE519783D431EA56130C990 /* Pods_YYUIKitDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0223DF8E2B647DBF8BEA023A /* Pods_YYUIKitDemo.framework */; };
 /* End PBXBuildFile section */
@@ -144,6 +145,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE4436272C5A4BB400C989A1 /* Modelable in Frameworks */,
 				EFE519783D431EA56130C990 /* Pods_YYUIKitDemo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -321,6 +323,9 @@
 			dependencies = (
 			);
 			name = YYUIKitDemo;
+			packageProductDependencies = (
+				BE4436262C5A4BB400C989A1 /* Modelable */,
+			);
 			productName = YYUIKitDemo;
 			productReference = B45D37792B6F71860092C5D6 /* YYUIKitDemo.app */;
 			productType = "com.apple.product-type.application";
@@ -349,6 +354,9 @@
 				Base,
 			);
 			mainGroup = B45D37702B6F71860092C5D6;
+			packageReferences = (
+				BE4436252C5A4BB400C989A1 /* XCRemoteSwiftPackageReference "Modelable" */,
+			);
 			productRefGroup = B45D377A2B6F71860092C5D6 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -674,7 +682,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D DEBUG";
+				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS";
 				PRODUCT_BUNDLE_IDENTIFIER = com.xiaoyou.yyuikit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -705,6 +713,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		BE4436252C5A4BB400C989A1 /* XCRemoteSwiftPackageReference "Modelable" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/xiaoyouPrince/Modelable.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		BE4436262C5A4BB400C989A1 /* Modelable */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BE4436252C5A4BB400C989A1 /* XCRemoteSwiftPackageReference "Modelable" */;
+			productName = Modelable;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = B45D37712B6F71860092C5D6 /* Project object */;
 }

@@ -129,10 +129,15 @@ extension AuthorityManager: CLLocationManagerDelegate {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
         locationManager.distanceFilter = 100
-        locationManager.requestLocation()
         
         if let location = locationManager.location {
-            complete(location)
+            if Date().timeIntervalSince1970 - location.timestamp.timeIntervalSince1970 > 300 {
+                locationManager.requestLocation()
+            } else {
+                complete(location)
+            }
+        } else {
+            locationManager.requestLocation()
         }
     }
 }

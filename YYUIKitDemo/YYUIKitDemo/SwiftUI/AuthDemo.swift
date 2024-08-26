@@ -7,7 +7,7 @@
 
 import SwiftUI
 import YYUIKit
-
+import Modelable
 
 struct AuthDemo: View {
     
@@ -98,7 +98,7 @@ struct AuthDemo: View {
                     if error == nil {
                         self.healthStepCount = count
                     } else {
-                        Toast.make("获取步数出错")
+                        Toast.make("获取步数出错 - 无权限")
                     }
                 }
             }
@@ -128,12 +128,33 @@ struct AuthDemo: View {
                         if error == nil {
                             self.healthStepCount = count
                         } else {
-                            Toast.make("获取步数出错")
+                            Toast.make("获取步数出错 - 无权限")
                         }
                     }
                 }
+                
+                
+                #if DEBUG
+                let ab = ["name": "DEBUG", "age": 19]
+                if let model = Info.mapping(jsonObject: ab) {
+                    print(model)
+                }
+                
+                #else
+                let ab = ["name": "RELEASE", "age": 19]
+                if let model = Info.mapping(jsonObject: ab) {
+                    print(model)
+                }
+                #endif
+                
             }
     }
+}
+
+
+struct Info: Model {
+    var name: String?
+    var age: Int?
 }
 
 #Preview {
