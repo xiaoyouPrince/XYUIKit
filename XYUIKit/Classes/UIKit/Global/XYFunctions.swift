@@ -77,6 +77,23 @@ public func doOnce(for token: String, callback: @escaping ()->()) {
     callback()
 }
 
+/// 程序版本内执行一次的代码
+/// - Parameters:
+///   - callback: app版本内尚未执行过，回调。 如果已经执行过，跳过。 例如：每个版本都会有版本更新说明，仅需在新版本更新首次弹出
+public func doOnceForAppVersion(callback: @escaping ()->()) {
+    var shouldDo = false
+    
+    if UserDefaults.standard.object(forKey: #function) == nil { shouldDo = true }
+    if let savedVersion = UserDefaults.standard.object(forKey: #function) as? String, savedVersion != UIApplication.appVersion {
+        shouldDo = true
+    }
+    
+    if shouldDo {
+        callback()
+        UserDefaults.standard.set(UIApplication.appVersion, forKey: #function)
+    }
+}
+
 
 
 /// 语言本地化
