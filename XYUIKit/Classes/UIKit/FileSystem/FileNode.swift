@@ -123,9 +123,24 @@ extension FileNode {
     func subItemsAndTotalSize() -> String {
         if isDir {
             return "\(nodes.count) items, " + fileSize()
-        }else{
-            return fileSize()
+        } else {
+            return fileSize() + imagePixelSize()
         }
+    }
+    
+    func imagePixelSize() -> String {
+        if type == .image {
+            if let path = path,
+               let data = FileManager.default.contents(atPath: path),
+               let image = UIImage(data: data) {
+                let sizeInPoints = image.size
+                let scale = image.scale
+                let widthInPixels: Int = Int(sizeInPoints.width * scale)
+                let heightInPixels: Int = Int(sizeInPoints.height * scale)
+                return ", \(widthInPixels)x\(heightInPixels)"
+            }
+        }
+        return ""
     }
     
     func fileSize() -> String {
