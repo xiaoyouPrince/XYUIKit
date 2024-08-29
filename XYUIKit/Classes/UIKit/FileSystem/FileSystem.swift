@@ -29,6 +29,9 @@ public class FileSystem: NSObject {
         FileSystem.default.rootNode = rootNode
         let vc = FileInfomationController()
         vc.fileNode = rootNode
+        if #available(iOS 13.0, *) {
+            vc.overrideUserInterfaceStyle = XYUtils.overrideUserInterfaceStyle
+        }
         navigationVC.pushViewController(vc, animated: true)
         isPushOpened = true
     }
@@ -45,6 +48,9 @@ public class FileSystem: NSObject {
         while node != nil {
             let vc = FileInfomationController()
             vc.fileNode = FileNode(path: node!.path)
+            if #available(iOS 13.0, *) {
+                vc.overrideUserInterfaceStyle = XYUtils.overrideUserInterfaceStyle
+            }
             vcs.append(vc)
             node = node?.next
         }
@@ -62,6 +68,9 @@ public class FileSystem: NSObject {
         vc.fileNode = node
         let navi = UINavigationController(rootViewController: vc)
         navi.modalPresentationStyle = .fullScreen
+        if #available(iOS 13.0, *) {
+            navi.overrideUserInterfaceStyle = XYUtils.overrideUserInterfaceStyle
+        }
         return navi
     }
 }

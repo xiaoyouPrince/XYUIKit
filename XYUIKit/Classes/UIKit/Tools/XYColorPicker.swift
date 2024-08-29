@@ -21,6 +21,7 @@ class XYColorPicker: UIViewController {
         shared.callback = callback
         
         let colorPicker = UIColorPickerViewController()
+        colorPicker.overrideUserInterfaceStyle = XYUtils.overrideUserInterfaceStyle
         colorPicker.delegate = shared
         if #available(iOS 15.0, *) {
             colorPicker.modalPresentationStyle = .formSheet

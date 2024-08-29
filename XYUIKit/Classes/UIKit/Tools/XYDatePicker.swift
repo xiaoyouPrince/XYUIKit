@@ -24,6 +24,9 @@ struct XYDatePicker {
         let doneBtn = UILabel(title: "完成", font: .systemFont(ofSize: 17), textColor: .xy_getColor(red: 60, green: 120, blue: 251), textAlignment: .center).boxView(top: 20, left: 20, bottom: 20)
         
         let picker = UIDatePicker(frame: CGRect.init(x: 0, y: .height - 230, width: .width, height: 230))
+        if #available(iOS 13.0, *) {
+            picker.overrideUserInterfaceStyle = XYUtils.overrideUserInterfaceStyle
+        }
         if #available(iOS 13.4, *) {
             picker.preferredDatePickerStyle = .wheels
         }

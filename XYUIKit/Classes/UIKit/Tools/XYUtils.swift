@@ -12,6 +12,10 @@ public typealias AppUtils = XYUtils
 @objc public class XYUtils: NSObject {
     private override init() {}
     
+    /// 指定 XYUtils 下所有功能的的 userInterfaceStyle
+    @available(iOS 12.0, *)
+    @objc public static var overrideUserInterfaceStyle = UIUserInterfaceStyle.unspecified
+    
     /// 选择时间/ 中文年月日格式
     /// - Parameters:
     ///   - title: 指定一个标题

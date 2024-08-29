@@ -23,7 +23,9 @@ class XYImagePicker: UIViewController {
         let ps = UIImagePickerController()
         ps.sourceType = .photoLibrary
         ps.delegate = shared
-        
+        if #available(iOS 13.0, *) {
+            ps.overrideUserInterfaceStyle = XYUtils.overrideUserInterfaceStyle
+        }
         shared.imageCallback = callback
         shared.ps = ps
         currentVisibleVC.present(ps, animated: true)
@@ -34,6 +36,9 @@ class XYImagePicker: UIViewController {
         ps.sourceType = .camera
         ps.delegate = shared
         ps.cameraDevice = .rear
+        if #available(iOS 13.0, *) {
+            ps.overrideUserInterfaceStyle = XYUtils.overrideUserInterfaceStyle
+        }
         shared.imageCallback = callback
         shared.ps = ps
         currentVisibleVC.present(ps, animated: true)
@@ -46,6 +51,9 @@ class XYImagePicker: UIViewController {
         ps.mediaTypes = ["public.movie"]
         ps.videoQuality = .typeHigh
         ps.cameraDevice = .rear
+        if #available(iOS 13.0, *) {
+            ps.overrideUserInterfaceStyle = XYUtils.overrideUserInterfaceStyle
+        }
         shared.movieCallback = callback
         shared.ps = ps
         currentVisibleVC.present(ps, animated: true)
@@ -57,6 +65,9 @@ class XYImagePicker: UIViewController {
         ps.delegate = shared
         ps.mediaTypes = ["public.movie"]
         ps.allowsEditing = true
+        if #available(iOS 13.0, *) {
+            ps.overrideUserInterfaceStyle = XYUtils.overrideUserInterfaceStyle
+        }
         shared.movieCallback = callback
         shared.ps = ps
         currentVisibleVC.present(ps, animated: true)
