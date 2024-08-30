@@ -14,10 +14,10 @@ public extension String {
         return self.count
     }
     
-    static func getAttributeString(with orginStr: String, font: UIFont = UIFont.systemFont(ofSize: 14), textColor: UIColor = .black, lineSpace: Int = 4) -> NSAttributedString? {
+    static func getAttributeString(with orginStr: String, font: UIFont = UIFont.systemFont(ofSize: 14), textColor: UIColor = .black, lineSpace: CGFloat = 4) -> NSAttributedString? {
         
         let paraph = NSMutableParagraphStyle()
-        paraph.lineSpacing = 4
+        paraph.lineSpacing = lineSpace
         let tipAttriStr: NSMutableAttributedString = NSMutableAttributedString(string: orginStr, attributes: [
             .font : font,
             .foregroundColor : textColor,
@@ -26,7 +26,7 @@ public extension String {
         return tipAttriStr
     }
     
-    func getAttributeString(with font: UIFont = UIFont.systemFont(ofSize: 14), textColor: UIColor = .black, lineSpace: Int = 4) -> NSAttributedString? {
+    func getAttributeString(with font: UIFont = UIFont.systemFont(ofSize: 14), textColor: UIColor = .black, lineSpace: CGFloat = 4) -> NSAttributedString? {
         String.getAttributeString(with: self, font: font, textColor: textColor, lineSpace: lineSpace)
     }
     
