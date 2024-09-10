@@ -107,9 +107,42 @@ struct Alert_AlertSheetVC: View {
                     sheet.dismissCallback = {
                         Toast.make("dimiss")
                     }
+                }
+                
+                Button("AlertAheet - 多个 alertSheet") {
                     
-                    sheet.gestureDismissCallback = { distance, ratio in
-                        Toast.make("distance: \(distance) \nratio: \(ratio)")
+                    let view = UIView()
+                    view.backgroundColor = .random
+                    view.snp.makeConstraints { make in
+                        make.height.equalTo(400)
+                    }
+                    
+                    let sheet = XYAlertSheetController.showCustom(on: UIViewController.currentVisibleVC, customContentView: view)
+                    sheet.isContentAboveSafeArea = false
+                    sheet.dismissCallback = {
+                        Toast.make("dimiss - 下层")
+                    }
+                    
+                    let view2 = UIView()
+                    view2.backgroundColor = .random
+                    let txt = UILabel(title: "点我关闭上层 alertSheet", font: .boldSystemFont(ofSize: 20), textColor: .red, textAlignment: .center)
+                    view2.addSubview(txt)
+                    txt.snp.makeConstraints { make in
+                        make.edges.equalToSuperview()
+                    }
+                    view2.snp.makeConstraints { make in
+                        make.height.equalTo(230)
+                    }
+                    
+                    
+                    let sheet2 = XYAlertSheetController.showCustom(on: UIViewController.currentVisibleVC, customContentView: view2)
+                    sheet2.isContentAboveSafeArea = false
+                    sheet2.dismissCallback = {
+                        Toast.make("dimiss - 上层")
+                    }
+                    
+                    view2.addTap {[weak sheet2] sender in
+                        sheet2?.dissmiss()
                     }
                 }
             }

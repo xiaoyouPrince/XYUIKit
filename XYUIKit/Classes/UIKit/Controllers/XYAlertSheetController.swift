@@ -64,7 +64,14 @@ public class XYAlertSheetController: UIViewController {
     /// 手势滑动时刻回调
     /// 调用时参数为滑动距离, 以及当前可滑动最大距离的百分比
     public var gestureDismissCallback: ((_ distance: CGFloat, _ ratio: CGFloat)->())?
-
+    
+    /// 弹出带有 title / subTitle 的 alertSheet。 actions 可以完整自定义样式， 如果使用默认样式，使用另一个同名方法
+    /// - Parameters:
+    ///   - vc: 指定要在哪个控制器弹出
+    ///   - title: 大标题
+    ///   - subTitle: 二级标题
+    ///   - actions: 自定义操作项
+    ///   - callBack: 点击操作回调
     @objc public class func showCustom(on
                                         vc: UIViewController,
                                        title: String?,
@@ -85,6 +92,11 @@ public class XYAlertSheetController: UIViewController {
     }
     
     /// 展示自定义的 headerView， 外部需指定其 frame.size.height
+    /// - Parameters:
+    ///   - vc: 指定要在哪个控制器弹出
+    ///   - customHeader: 自定义的 headerView
+    ///   - actions: 自定义操作项
+    ///   - callBack: 点击操作回调
     @objc public class func showCustom(on
                                         vc: UIViewController,
                                        customHeader:UIView,
@@ -118,6 +130,13 @@ public class XYAlertSheetController: UIViewController {
         return alertSheet
     }
     
+    /// 弹出带有 title / subTitle 的 alertSheet。 actions 使用默认式， 如果使用完整自定义样式，使用另一个同名方法
+    /// - Parameters:
+    ///   - vc: 指定要在哪个控制器弹出
+    ///   - title: 大标题
+    ///   - subTitle: 二级标题
+    ///   - actions: 自定义操作项
+    ///   - callBack: 点击操作回调
     @objc public class func showDefault(on vc: UIViewController,
                                         title: String?,
                                         subTitle: String?,
@@ -133,8 +152,16 @@ public class XYAlertSheetController: UIViewController {
         showCustom(on: vc, title: title, subTitle: subTitle, actions: actionModels, callBack: callBack)
     }
     
+    /// dismiss all alert sheet
+    /// 如果当前页面有多个 alertSheet， 可以使用同名实例方法
     @objc public class func dissmiss() {
         NotificationCenter.default.post(name: NSNotification.Name("XYAlertSheetController.dissmiss"), object: nil)
+    }
+    
+    /// 将自己 dismiss
+    /// 如果dismiss 当前所有 alertSheet， 可以使用同名类方法
+    @objc public func dissmiss() {
+        self.end(index: CancelCode)
     }
     
     open override var modalPresentationStyle: UIModalPresentationStyle{
@@ -151,7 +178,7 @@ public class XYAlertSheetController: UIViewController {
         buildUI()
         
         NotificationCenter.default.addObserver(forName: NSNotification.Name("XYAlertSheetController.dissmiss"), object: nil, queue: .main) {[weak self] noti in
-            self?.end(index: CancelCode)
+            self?.dissmiss()
         }
     }
     
