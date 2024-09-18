@@ -190,16 +190,41 @@ public extension UIImage {
     ///
     /// - Parameter newSize: 目标大小，指定图像将缩放到的大小。
     /// - Returns: 缩放后的图像。如果缩放失败，返回 nil。
-    @available(iOS 10.0, *)
     func scaleToSize(_ newSize: CGSize) -> UIImage? {
-        let renderer = UIGraphicsImageRenderer(size: newSize)
-        // 使用渲染器创建新的图像
-        let scaledImage = renderer.image { (context) in
-            // 在目标大小的矩形中绘制原始图像
-            self.draw(in: CGRect(origin: .zero, size: newSize))
-        }
+        guard let data = hasAlphaChannel ? pngData() : jpegData(compressionQuality: 1.0),
+              let oldImage = UIImage(data: data) else { return nil }
         
-        return scaledImage
+        if #available(iOS 10, *) {
+            let renderer = UIGraphicsImageRenderer(size: newSize)
+            let scaledImage = renderer.image { (context) in
+                oldImage.draw(in: CGRect(origin: .zero, size: newSize))
+            }
+            return scaledImage
+        } else {
+            UIGraphicsBeginImageContextWithOptions(newSize, !hasAlphaChannel, 0)
+            let ctx = UIGraphicsGetCurrentContext()
+            oldImage.draw(in: CGRect(origin: .zero, size: newSize))
+            let image = UIGraphicsGetImageFromCurrentImageContext()
+            return image
+        }
+    }
+    
+    
+    /// 图片是否包含 alpha 通道
+    var hasAlphaChannel: Bool {
+        guard let cgImage = cgImage else { return false }
+        switch cgImage.alphaInfo {
+        case .none:
+            return false
+        case .premultipliedLast, .premultipliedFirst, .last, .first:
+            return true
+        case .noneSkipLast, .noneSkipFirst:
+            return false
+        case .alphaOnly:
+            return true
+        @unknown default:
+            return false
+        }
     }
     
     /// 将图片压缩到指定大小内存, 单位: 字节
@@ -300,8 +325,8 @@ public extension UIImage {
             break;
         }
         
-        let cgimg = ctx.makeImage()
-        let img = UIImage(cgImage: cgImage)
+        guard let cgimg = ctx.makeImage() else { return self }
+        let img = UIImage(cgImage: cgimg)
         return img
     }
     
@@ -312,7 +337,7 @@ public extension UIImage {
         
         guard let cgImage = cgImage else { return self }
         var bounds = CGRect(x: 0, y: 0, width: cgImage.width, height: cgImage.height)
-        var rect = bounds
+        let rect = bounds
         var transform = CGAffineTransform.identity
         
         switch imageOrientation {
