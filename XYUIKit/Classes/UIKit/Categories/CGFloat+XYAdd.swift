@@ -19,7 +19,7 @@ extension CGFloat {
     public static var statusBar: CGFloat {
         if Thread.isMainThread {
             if #available(iOS 11.0, *) {
-                let window = UIApplication.shared.delegate?.window ?? UIApplication.shared.keyWindow
+                let window = UIApplication.shared.delegate?.window ?? UIApplication.shared.getKeyWindow()
                 return window?.safeAreaInsets.top ?? 44
             } else {
                 return UIApplication.shared.statusBarFrame.height
@@ -29,7 +29,7 @@ extension CGFloat {
             var result: CGFloat = 44
             DispatchQueue.main.async {
                 if #available(iOS 11.0, *) {
-                    let window = UIApplication.shared.delegate?.window ?? UIApplication.shared.keyWindow
+                    let window = UIApplication.shared.delegate?.window ?? UIApplication.shared.getKeyWindow()
                     result = window?.safeAreaInsets.top ?? 44
                 } else {
                     result = UIApplication.shared.statusBarFrame.height
@@ -51,7 +51,7 @@ extension CGFloat {
     public static var safeBottom: CGFloat {
         if Thread.isMainThread {
             if #available(iOS 11.0, *) {
-                let window = UIApplication.shared.delegate?.window ?? UIApplication.shared.keyWindow
+                let window = UIApplication.shared.delegate?.window ?? UIApplication.shared.getKeyWindow()
                 return window?.safeAreaInsets.bottom ?? 0
             } else {
                 return 0
@@ -61,7 +61,7 @@ extension CGFloat {
             var result: CGFloat = 0
             DispatchQueue.main.async {
                 if #available(iOS 11.0, *) {
-                    let window = UIApplication.shared.delegate?.window ?? UIApplication.shared.keyWindow
+                    let window = UIApplication.shared.delegate?.window ?? UIApplication.shared.getKeyWindow()
                     result = window?.safeAreaInsets.bottom ?? 0
                 } else {
                     result = 0
@@ -77,7 +77,7 @@ extension CGFloat {
     public static var safeTop: CGFloat {
         if Thread.isMainThread {
             if #available(iOS 11.0, *) {
-                let window = UIApplication.shared.delegate?.window ?? UIApplication.shared.keyWindow
+                let window = UIApplication.shared.delegate?.window ?? UIApplication.shared.getKeyWindow()
                 return window?.safeAreaInsets.top ?? 0
             } else {
                 return 0
@@ -87,7 +87,7 @@ extension CGFloat {
             var result: CGFloat = 0
             DispatchQueue.main.async {
                 if #available(iOS 11.0, *) {
-                    let window = UIApplication.shared.delegate?.window ?? UIApplication.shared.keyWindow
+                    let window = UIApplication.shared.delegate?.window ?? UIApplication.shared.getKeyWindow()
                     result = window?.safeAreaInsets.top ?? 0
                 } else {
                     result = 0

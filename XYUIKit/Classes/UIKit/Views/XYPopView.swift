@@ -73,7 +73,7 @@ class XYPopView: UIView {
     }
     
     private func show() {
-        UIApplication.shared.keyWindow?.addSubview(XYPopView.shared)
+        UIApplication.shared.getKeyWindow()?.addSubview(XYPopView.shared)
         XYPopView.shared.snp.makeConstraints { (make) in
             make.top.equalTo(100)
             make.left.equalTo(30)

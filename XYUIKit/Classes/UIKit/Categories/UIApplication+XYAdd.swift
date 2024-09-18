@@ -31,8 +31,8 @@ public extension UIApplication {
     }
     
     /// 获取当前App的命名空间
-    static var nameSpase: String { shared.nameSpase }
-    var nameSpase: String {
+    static var nameSpace: String { shared.nameSpace }
+    var nameSpace: String {
         let man = UIApplication.shared.delegate!.description
         let start = man.index(after: man.startIndex)
         let end = man.firstIndex(of: ".")!
@@ -44,10 +44,8 @@ public extension UIApplication {
     /// - Returns: keyWindow
     static func getKeyWindow() -> UIWindow? { shared.getKeyWindow() }
     func getKeyWindow() -> UIWindow? {
-        if #available(iOS 15.0, *) {
-            let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
-            let window = windowScene?.windows.first
-            return window
+        if #available(iOS 13.0, *) {
+            return keyWindow_
         }else {
             let window = UIApplication.shared.windows.first { $0.isKeyWindow }
             return window

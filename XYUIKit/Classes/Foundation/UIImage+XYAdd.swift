@@ -202,7 +202,6 @@ public extension UIImage {
             return scaledImage
         } else {
             UIGraphicsBeginImageContextWithOptions(newSize, !hasAlphaChannel, 0)
-            let ctx = UIGraphicsGetCurrentContext()
             oldImage.draw(in: CGRect(origin: .zero, size: newSize))
             let image = UIGraphicsGetImageFromCurrentImageContext()
             return image

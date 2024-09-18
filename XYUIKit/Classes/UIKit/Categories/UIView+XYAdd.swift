@@ -321,7 +321,19 @@ public extension UIView {
     
     /// 返回视图快照
     @objc var snapshotImage: UIImage? {
-        UIGraphicsBeginImageContextWithOptions(bounds.size, isOpaque, 0)
+        getSnapshotImage(withAlpha: false)
+    }
+    
+    /// 返回视图快照, 支持alpha, 即支持 backgroundColor 的 alpha
+    @objc var snapshotImageWithAlpha: UIImage? {
+        getSnapshotImage(withAlpha: true)
+    }
+    
+    /// 返回视图快照
+    /// - Parameter alpha: 是否支持alpha
+    /// - Returns: 视图快照
+    @objc func getSnapshotImage(withAlpha alpha: Bool) -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(bounds.size, !alpha, 0)
         defer { UIGraphicsEndImageContext() }
         guard let context = UIGraphicsGetCurrentContext() else { return nil }
         layer.render(in: context)

@@ -490,14 +490,6 @@ extension XYAlertSheetController {
             // print("Pan gesture began at position: \(String(describing: initialPosition))")
             gestureDismissCallback?(0, 0)
         case .changed:
-            // 手势改变，计算与初始位置的纵向移动距离
-            let currentPosition = gesture.location(in: view)
-            
-            if let initialPosition = initialPosition {
-                let verticalDistance = currentPosition.y - initialPosition.y
-                //print("Vertical distance from initial position: \(verticalDistance)")
-            }
-            
             // 更新视图的位置
             let translation = gesture.translation(in: view)
             if let gestureView = gesture.view {
@@ -516,10 +508,6 @@ extension XYAlertSheetController {
             }
             gesture.setTranslation(.zero, in: view)
         case .ended, .cancelled:
-            // 手势结束，计算当前时刻的位置信息
-            let currentPosition = gesture.location(in: view)
-            //print("Pan gesture ended at position: \(currentPosition)")
-            
             if let gestureView = gesture.view {   
                 if gestureView.center.y < maxY {
                     UIView.animate(withDuration: 0.25) {

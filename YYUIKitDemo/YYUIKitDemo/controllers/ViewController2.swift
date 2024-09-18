@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreLocation
+import YYUIKit
 
 @discardableResult
 func myFunc(_ closure: @autoclosure @escaping () -> String) -> String {

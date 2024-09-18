@@ -11,7 +11,7 @@ import UIKit
 
 func navHeight() -> CGFloat {
     if #available(iOS 13.0, *) {
-        return UIApplication.shared.keyWindow?.windowScene?.statusBarManager?.statusBarFrame.height ?? UIApplication.shared.statusBarFrame.height
+        return UIApplication.shared.keyWindow_?.windowScene?.statusBarManager?.statusBarFrame.height ?? UIApplication.shared.statusBarFrame.height
     } else {
         return UIApplication.shared.statusBarFrame.height
     }
