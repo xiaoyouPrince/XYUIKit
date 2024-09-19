@@ -120,6 +120,11 @@ private extension XYImagePicker {
         exportSession.outputFileType = .m4a
         
         exportSession.exportAsynchronously {
+            callback()
+        }
+        
+        /// iOS 18 (Swift 6)之后闭包被默认设置为@Sendable，系统会对内部捕获变量校验是否遵守 Sendable 协议，当前写法是为避开系统检查的警告
+        func callback() {
             switch exportSession.status {
             case .completed:
                 print("Audio extraction complete. Output URL: \(outputURL)")
