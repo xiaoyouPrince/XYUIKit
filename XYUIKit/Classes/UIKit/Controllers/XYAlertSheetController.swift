@@ -231,7 +231,7 @@ extension XYAlertSheetController {
             contentView.addSubview(customV) // 需要contentView 自动布局且有高度约束
             customV.snp.makeConstraints { make in
                 make.left.top.right.equalToSuperview()
-                make.bottom.equalToSuperview().offset(-34)
+                make.bottom.equalToSuperview().offset(-CGFloat.safeBottom)
             }
             
             DispatchQueue.global().asyncAfter(deadline: .now() + 0.5) {
@@ -310,7 +310,7 @@ extension XYAlertSheetController {
                 make.height.equalTo(action.defaultHeight)
                 
                 if action == actions.last {
-                    make.bottom.equalToSuperview().offset(-34)
+                    make.bottom.equalToSuperview().offset(-CGFloat.safeBottom)
                 }
             }
             lastView = label
@@ -418,7 +418,7 @@ extension XYAlertSheetController {
                 make.bottom.equalToSuperview()
             }else
             {
-                make.bottom.equalToSuperview().offset(34)
+                make.bottom.equalToSuperview().offset(CGFloat.safeBottom)
             }
         }
         
