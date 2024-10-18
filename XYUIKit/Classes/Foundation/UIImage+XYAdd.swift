@@ -8,6 +8,7 @@
 
 import Foundation
 import Accelerate
+import UniformTypeIdentifiers
 
 public extension UIImage {
     
@@ -403,5 +404,47 @@ public extension UIImage {
     /// - Returns: 沿X轴翻转的图片
     func xy_horizontalMirror() -> UIImage {
         xy_rotate(orientation: .downMirrored)
+    }
+}
+
+
+public extension UIImage {
+    
+    /// 通过 image 数组创建 gif 图
+    /// - Parameters:
+    ///   - images: 原始images数组
+    ///   - outputUrl: 最终输出的 gif URL， 请自己设置好后缀名，egg: file://animation.gif
+    @available(iOS 14.0, *)
+    static func createGIF(with images: [UIImage], outputUrl: URL) throws {
+        if images.count > 1 {
+            let gifProperties = [
+                kCGImagePropertyGIFDictionary: [
+                    kCGImagePropertyGIFLoopCount: 0, // 设置循环次数，0表示无限循环
+                    kCGImagePropertyGIFDelayTime: 0.1 // 设置帧间隔时间
+                ]
+            ]
+
+            let frames = images
+            let gifURL = outputUrl
+
+            guard let destination = CGImageDestinationCreateWithURL(gifURL as CFURL, UTType.gif.identifier as CFString/*kUTTypeGIF*/, frames.count, nil) else {
+                // 创建CGImageDestination失败的处理逻辑
+                throw NSError(domain: "yyuikit.uiimage.createGIF", code: -1)
+            }
+
+            for frame in frames {
+                CGImageDestinationAddImage(destination, frame.cgImage!, gifProperties as CFDictionary)
+            }
+
+            CGImageDestinationSetProperties(destination, gifProperties as CFDictionary)
+
+            if !CGImageDestinationFinalize(destination) {
+                // 保存gif图像数据失败的处理逻辑
+                throw NSError(domain: "yyuikit.uiimage.createGIF", code: -1)
+            }
+            
+            let imageData = try! Data(contentsOf: gifURL)
+            try? imageData.write(to: gifURL)
+        }
     }
 }
