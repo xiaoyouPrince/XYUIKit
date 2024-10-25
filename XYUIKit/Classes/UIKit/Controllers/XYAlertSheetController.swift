@@ -471,6 +471,9 @@ extension XYAlertSheetController {
     private func addPangesture() {
         if customView?.isUserInteractionEnabled == true {
             let pan = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
+            for g in getAllGestures(from: customView!) {
+                pan.require(toFail: g)
+            }
             customView?.addGestureRecognizer(pan)
             if #available(iOS 11.0, *) {
                 customView?.corner(radius: contentView.layer.cornerRadius, markedCorner: 3)
@@ -479,6 +482,20 @@ extension XYAlertSheetController {
             }
             contentView.backgroundColor = .clear
         }
+    }
+
+    private func getAllGestures(from view: UIView) -> [UIGestureRecognizer] {
+        var gestures = [UIGestureRecognizer]()
+        
+        if let viewGestures = view.gestureRecognizers {
+            gestures.append(contentsOf: viewGestures)
+        }
+        
+        for subview in view.subviews {
+            gestures.append(contentsOf: getAllGestures(from: subview))
+        }
+        
+        return gestures
     }
     
     @objc private func handlePan(_ gesture: UIPanGestureRecognizer) {
@@ -508,7 +525,7 @@ extension XYAlertSheetController {
             }
             gesture.setTranslation(.zero, in: view)
         case .ended, .cancelled:
-            if let gestureView = gesture.view {   
+            if let gestureView = gesture.view {
                 if gestureView.center.y < maxY {
                     UIView.animate(withDuration: 0.25) {
                         gestureView.center = .init(x: CGFloat.width / 2, y: self.maxY / 2)
