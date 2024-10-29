@@ -98,11 +98,11 @@ public typealias AppUtils = XYUtils
     
     /// 选择音频, 从视频中提取
     /// - Parameter callback: 选择音频回调, 返回 audioURL
-    @objc public static func chooseAudioFromVideo(callback: @escaping (_ audioURL: URL)->()) {
+    @objc public static func chooseAudioFromVideo(callback: @escaping (_ audioURL: URL?, _ error: Error?)->()) {
         DispatchQueue.safeMain {
-            XYImagePicker.chooseAudioFromVideo { audioURL in
+            XYImagePicker.chooseAudioFromVideo { audioURL, error in
                 DispatchQueue.safeMain {
-                    callback(audioURL)
+                    callback(audioURL, error)
                 }
             }
         }

@@ -73,12 +73,12 @@ class XYImagePicker: UIViewController {
         currentVisibleVC.present(ps, animated: true)
     }
     
-    @objc public static func chooseAudioFromVideo(callback: @escaping (URL)->()) {
+    @objc public static func chooseAudioFromVideo(callback: @escaping (URL?, Error?)->()) {
         chooseVideo { videoUrl in
             
             print("videoUrl = \(videoUrl)")
-            self.exportAudioFromVideo(url: videoUrl) { audioUrl in
-                callback(audioUrl)
+            self.exportAudioFromVideo(url: videoUrl) { audioUrl, error in
+                callback(audioUrl, error)
             }
         }
     }
@@ -105,7 +105,7 @@ extension XYImagePicker: UIImagePickerControllerDelegate & UINavigationControlle
 }
 
 private extension XYImagePicker {
-    static func exportAudioFromVideo(url: URL, complete:((URL)->())?) {
+    static func exportAudioFromVideo(url: URL, complete:((URL?, Error?)->())?) {
         let asset = AVAsset(url: url)
         
         guard let exportSession = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetAppleM4A) else {
@@ -129,17 +129,21 @@ private extension XYImagePicker {
             case .completed:
                 print("Audio extraction complete. Output URL: \(outputURL)")
                 // Do something with the extracted audio file
-                complete?(outputURL)
+                complete?(outputURL, nil)
             case .failed:
                 if let error = exportSession.error {
                     print("Audio extraction failed: \(error.localizedDescription)")
+                    complete?(nil, error)
                 } else {
                     print("Audio extraction failed")
+                    complete?(nil, NSError())
                 }
             case .cancelled:
                 print("Audio extraction cancelled")
+                complete?(nil, NSError())
             default:
                 print("Unknown status")
+                complete?(nil, NSError())
             }
         }
     }
