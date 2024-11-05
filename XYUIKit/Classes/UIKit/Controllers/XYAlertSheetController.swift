@@ -10,6 +10,7 @@
 //  2. 支持内部 Action 自定义
 //  3. 使用可以专注于内容与业务，方便快捷
 //  4. 自定义试图默认支持手势滑动关闭
+//  5. 支持背景透明透明时,设置透明背景区域的用户交互事件穿透
 
 /**
 结构
@@ -32,13 +33,14 @@ fileprivate let CancelCode = -1
 
 public class XYAlertSheetController: UIViewController {
     
-    private var coverBtn = UIButton()
+    private var coverBtn = TransparentButton()
     private var contentView = UIView()
     private var bottomSafeAreaView = UIView()
     private var customHeader: UIView?
     private var customView: UIView?
     private var initialPosition: CGPoint?
     private var maxY: CGFloat = 0
+    private var fromVC: UIViewController?
     
     private var titleString: String? = nil
     private var subTitleString: String? = nil
@@ -64,6 +66,10 @@ public class XYAlertSheetController: UIViewController {
     /// 手势滑动时刻回调
     /// 调用时参数为滑动距离, 以及当前可滑动最大距离的百分比
     public var gestureDismissCallback: ((_ distance: CGFloat, _ ratio: CGFloat)->())?
+    /// 是否支持当 backgroundColor == claer 时候，透明区域的用户交互事件穿透到下层, default is true
+    /// 如果设置为 false 则自定义弹框即使背景透明仍拦截用户交互
+    public var allowTransparentUserActionWhenBackgroundColorIsClear = true
+    
     
     /// 弹出带有 title / subTitle 的 alertSheet。 actions 可以完整自定义样式， 如果使用默认样式，使用另一个同名方法
     /// - Parameters:
@@ -84,6 +90,7 @@ public class XYAlertSheetController: UIViewController {
         actions_.append(model)
         
         let alertSheet = XYAlertSheetController()
+        alertSheet.fromVC = vc
         alertSheet.titleString = title
         alertSheet.subTitleString = subTitle
         alertSheet.block = callBack
@@ -108,6 +115,7 @@ public class XYAlertSheetController: UIViewController {
         actions_.append(model)
         
         let alertSheet = XYAlertSheetController()
+        alertSheet.fromVC = vc
         alertSheet.customHeader = customHeader
         alertSheet.block = callBack
         alertSheet.actions = actions_
@@ -124,6 +132,7 @@ public class XYAlertSheetController: UIViewController {
                                        customContentView:UIView) -> XYAlertSheetController {
         
         let alertSheet = XYAlertSheetController()
+        alertSheet.fromVC = vc
         alertSheet.customView = customContentView
         vc.present(alertSheet, animated: false, completion: nil)
         
@@ -547,3 +556,20 @@ extension XYAlertSheetController {
 }
 
 
+// MARK: - 透明背景可穿透用户事件
+extension XYAlertSheetController {
+    class TransparentButton: UIButton {
+        override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+            if let vc = viewController as? XYAlertSheetController,
+               vc.allowTransparentUserActionWhenBackgroundColorIsClear,
+               vc.backgroundColor == .clear,
+               let customViewFrameOnScreen = vc.customView?.frameOnScreen
+            {
+                if point.y < customViewFrameOnScreen.minY { // 这里取巧，都是纵向排列，point 是 cover 坐标系上(同view/vc/window)的点
+                    return vc.fromVC?.view
+                }
+            }
+            return super.hitTest(point, with: event)
+        }
+    }
+}
