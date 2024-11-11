@@ -566,7 +566,7 @@ extension XYAlertSheetController {
                let customViewFrameOnScreen = vc.customView?.frameOnScreen
             {
                 if point.y < customViewFrameOnScreen.minY { // 这里取巧，都是纵向排列，point 是 cover 坐标系上(同view/vc/window)的点
-                    return vc.fromVC?.view
+                    return vc.fromVC?.view.hitTest(point, with: event)
                 }
             }
             return super.hitTest(point, with: event)
