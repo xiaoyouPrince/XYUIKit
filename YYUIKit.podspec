@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'YYUIKit'
-  s.version          = '0.6.2'
+  s.version          = '0.6.3'
   s.summary          = 'YYUIKit 是我在开发中总结的一套 UI 类库'
 
   s.description      = <<-DESC

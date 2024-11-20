@@ -101,6 +101,7 @@ public extension UIImage {
         ctx?.setFillColor(color.cgColor)
         ctx?.fill(CGRect(x: 0, y: 0, width: size.width, height: size.height))
         let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
         return image ?? UIImage()
     }
     
@@ -205,6 +206,7 @@ public extension UIImage {
             UIGraphicsBeginImageContextWithOptions(newSize, !hasAlphaChannel, 0)
             oldImage.draw(in: CGRect(origin: .zero, size: newSize))
             let image = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
             return image
         }
     }
