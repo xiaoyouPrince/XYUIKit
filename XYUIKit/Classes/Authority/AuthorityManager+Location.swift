@@ -36,6 +36,19 @@ extension AuthorityManager: CLLocationManagerDelegate {
         }
     }
     
+    // iOS 14 之前走这个回调
+    public func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if locationAuthorizationStatus == .notDetermined {
+            return
+        }
+        if locationAuthorizationStatus == .authorizedWhenInUse || locationAuthorizationStatus == .authorizedAlways {
+            self.authCompletion(true)
+        } else {
+            self.authCompletion(false)
+        }
+    }
+    
+    @available(iOS 14.0, *)
     public func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         if locationAuthorizationStatus == .notDetermined {
             return

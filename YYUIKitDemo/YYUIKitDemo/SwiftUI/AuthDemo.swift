@@ -90,40 +90,12 @@ struct AuthDemo: View {
             Text("实时活动权限 - \(activityStatus.stringValue)")
         }
         
-        Button {
-            AuthorityManager.shared.request(auth: .healthStepCount, scene: "B") { completion in
-                print(completion)
-                self.healthStatus = completion
-                AuthorityManager.shared.getSteps { count, error in
-                    if error == nil {
-                        self.healthStepCount = count
-                    } else {
-                        Toast.make("获取步数出错 - 无权限")
-                    }
-                }
-            }
+        if #available(iOS 17.1, *) {
             
-        } label: {
-            VStack {
-                ZStack {
-                    Color(UIColor.random)
-                    Text("请求健康步数权限")
-                }.frame(width: .width, height: 44)
-            }
-        }
-        Text("健康步数权限 - \(healthStatus.stringValue)")
-        Text("当前步数 - \(healthStepCount)")
-
-        Spacer()
-            .onAppear {
-                // update notification status
-                AuthorityManager.shared.notificationAuthStatus({ status in
-                    notificationStatus = status == .authorized
-                })
-                
-                // health
-                AuthorityManager.shared.healthStepCountReadAuthStatus { status, count in
-                    self.healthStatus = status == .authorized
+            Button {
+                AuthorityManager.shared.request(auth: .healthStepCount, scene: "B") { completion in
+                    print(completion)
+                    self.healthStatus = completion
                     AuthorityManager.shared.getSteps { count, error in
                         if error == nil {
                             self.healthStepCount = count
@@ -133,21 +105,52 @@ struct AuthDemo: View {
                     }
                 }
                 
-                
-                #if DEBUG
-                let ab = ["name": "DEBUG", "age": 19]
-                if let model = Info.mapping(jsonObject: ab) {
-                    print(model)
+            } label: {
+                VStack {
+                    ZStack {
+                        Color(UIColor.random)
+                        Text("请求健康步数权限")
+                    }.frame(width: .width, height: 44)
                 }
-                
-                #else
-                let ab = ["name": "RELEASE", "age": 19]
-                if let model = Info.mapping(jsonObject: ab) {
-                    print(model)
-                }
-                #endif
-                
             }
+            Text("健康步数权限 - \(healthStatus.stringValue)")
+            Text("当前步数 - \(healthStepCount)")
+            
+            Spacer()
+                .onAppear {
+                    // update notification status
+                    AuthorityManager.shared.notificationAuthStatus({ status in
+                        notificationStatus = status == .authorized
+                    })
+                    
+                    // health
+                    AuthorityManager.shared.healthStepCountReadAuthStatus { status, count in
+                        self.healthStatus = status == .authorized
+                        AuthorityManager.shared.getSteps { count, error in
+                            if error == nil {
+                                self.healthStepCount = count
+                            } else {
+                                Toast.make("获取步数出错 - 无权限")
+                            }
+                        }
+                    }
+                    
+                    
+#if DEBUG
+                    let ab = ["name": "DEBUG", "age": 19]
+                    if let model = Info.mapping(jsonObject: ab) {
+                        print(model)
+                    }
+                    
+#else
+                    let ab = ["name": "RELEASE", "age": 19]
+                    if let model = Info.mapping(jsonObject: ab) {
+                        print(model)
+                    }
+#endif
+                    
+                }
+        }
     }
 }
 

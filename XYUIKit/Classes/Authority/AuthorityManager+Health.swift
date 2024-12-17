@@ -118,6 +118,15 @@ extension AuthorityManager {
     /// 获取步数
     /// - Parameter completion: 拿到的步数信息
     @objc func getSteps(completion: @escaping (Double, Error?) -> Void) {
+        if UIDevice.current.userInterfaceIdiom == .pad { // ipadOS 17 之后支持健康框架
+            if #available(iOS 17.0, *) {
+                // 17 以上继续执行
+            } else {
+                completion(0, NSError())
+                return
+            }
+        }
+        
         guard HKHealthStore.isHealthDataAvailable(), let stepCountType = HKObjectType.quantityType(forIdentifier: .stepCount) else {
             completion(0, NSError())
             return

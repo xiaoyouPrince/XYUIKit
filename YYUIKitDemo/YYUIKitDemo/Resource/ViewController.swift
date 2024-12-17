@@ -23,6 +23,7 @@ class ViewController: XYInfomationBaseViewController {
     }
     
     // UIViewController.Type or SwiftUI.View
+    @MainActor
     let dataModel: [[String: Any]] =
         [
             ["自定义 loading": TableViewController.self],
@@ -38,7 +39,7 @@ class ViewController: XYInfomationBaseViewController {
             ["Alert && AlertSheetController": Alert_AlertSheetVC()],
             //["键盘监听 - 一个小输入框 SwiftUI": KeyboardMonitor_InPutBar()],
             ["键盘管理": InputBarViewController.self],
-            ["网络工具": NetWorkTool()],
+//            ["网络工具": NetWorkTool()],
             ["权限申请": AuthDemo()]
         ].reversed()
     
