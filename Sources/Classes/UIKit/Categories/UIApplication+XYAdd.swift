@@ -15,13 +15,37 @@ public extension UIApplication {
     
     @available(iOS 13.0, *)
     var keyWindow_: UIWindow? {
-        let connectedScenes = UIApplication.shared.connectedScenes
-            .filter{$0.activationState == .foregroundActive}
-            .compactMap { $0 as? UIWindowScene }
-        let window = connectedScenes.first?
-            .windows
-            .first{ $0.isKeyWindow }
-        return window
+        if !Thread.isMainThread {
+            let semaphore = DispatchSemaphore(value: 0)
+            var keyWindow: UIWindow? = nil
+            DispatchQueue.main.async {
+                let connectedScenes = UIApplication.shared.connectedScenes
+                    .filter{$0.activationState == .foregroundActive}
+                    .compactMap { $0 as? UIWindowScene }
+                let window = connectedScenes.first?
+                    .windows
+                    .first{ $0.isKeyWindow }
+                keyWindow = window
+                if keyWindow == nil {
+                    keyWindow = UIApplication.shared.windows.first{ $0.isKeyWindow }
+                }
+                semaphore.signal()
+            }
+            semaphore.wait()
+            return keyWindow
+        } else {
+            let connectedScenes = UIApplication.shared.connectedScenes
+                .filter{$0.activationState == .foregroundActive}
+                .compactMap { $0 as? UIWindowScene }
+            var window = connectedScenes.first?
+                .windows
+                .first{ $0.isKeyWindow }
+            
+            if window == nil {
+                window = UIApplication.shared.windows.first{ $0.isKeyWindow }
+            }
+            return window
+        }
     }
     
     /// 获取当前 App 的截图
