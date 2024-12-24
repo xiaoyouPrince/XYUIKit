@@ -232,27 +232,12 @@ extension String {
 
 extension UIImage {
     static func create(named: String) -> UIImage? {
-        let anyClass = FileSystem.self
-        let boxBundle = Bundle.init(for: anyClass)
-        let targetBundle = Bundle.init(path: boxBundle.path(forResource: "XYUIKit", ofType: "bundle") ?? "")
-        var image: UIImage? = targetBundle == nil ? nil : UIImage.init(named: named, in: targetBundle!, compatibleWith: nil)
+        var image: UIImage? = ResourceLoader.image(with: named)
         if image == nil {
             image = UIImage(named: named)
-        }
-        if image == nil {// 兼容 SPM 读取图片
-            image = ResourceLoader.image(named: named)
         }
         
         return image?.scaleToSize(.init(width: 20, height: 20))
     }
 }
 
-import UIKit
-
-public class ResourceLoader {
-    // 获取图片资源
-    public static func image(named name: String) -> UIImage? {
-        let bundle = Bundle.module
-        return UIImage(named: name, in: bundle, compatibleWith: nil)
-    }
-}

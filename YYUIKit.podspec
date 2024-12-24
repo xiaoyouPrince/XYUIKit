@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'YYUIKit'
-  s.version          = '0.6.3'
+  s.version          = '0.6.4'
   s.summary          = 'YYUIKit 是我在开发中总结的一套 UI 类库'
 
   s.description      = <<-DESC
@@ -21,13 +21,14 @@ Pod::Spec.new do |s|
   # s.resources      = "XYUIKit/Localize/*.lproj"
   
   s.subspec 'Foundation' do |sub|
-    sub.source_files   = "XYUIKit/Classes/Foundation/**/*"
+    sub.source_files   = "Sources/Classes/Foundation/**/*"
   end
     
   s.subspec 'UIKit' do |sub|
-    sub.source_files   = 'XYUIKit/Classes/UIKit/**/*'
+    sub.source_files   = 'Sources/Classes/UIKit/**/*'
     sub.resource_bundles = {
-      'XYUIKit' => ['XYUIKit/Assets/**/*']
+      'XYUIKit' => ['Sources/Assets/**/*'],
+      'XYUIKit_Privacy' => ['Sources/PrivacyInfo.xcprivacy']
     }
     
     sub.dependency 'YYUIKit/Foundation'
@@ -35,7 +36,7 @@ Pod::Spec.new do |s|
   end
   
   s.subspec 'Auth' do |sub|
-    sub.source_files   = 'XYUIKit/Classes/Authority/**/*'
+    sub.source_files   = 'Sources/Classes/Authority/**/*'
     
     sub.dependency 'YYUIKit/UIKit'
   end
