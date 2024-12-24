@@ -13,8 +13,7 @@ let package = Package(
             targets: ["YYUIKit"]),
     ],
     dependencies: [
-//        .package(url: "https://github.com/SnapKit/SnapKit.git", .upToNextMajor(from: "5.0.1"))
-        .package(path: "/Users/quxiaoyou/Desktop/AD/SnapKit")
+        .package(url: "https://github.com/SnapKit/SnapKit.git", .upToNextMajor(from: "5.0.1"))
     ],
     targets: [
         .target(
