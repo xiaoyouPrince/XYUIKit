@@ -68,6 +68,95 @@ struct Alert_AlertSheetVC: View {
             }
             
             Section {
+                Button("Alert - 自定义 alert 样式") {
+                    
+                    let alert = UILabel()
+                    alert.backgroundColor = .color(hex: 0xFF0000, dark: 0x00FF00)
+                    alert.snp.makeConstraints { make in
+                        make.width.equalTo(CGFloat.width - 120)
+                        make.height.equalTo(CGFloat.width - 200)
+                    }
+                    
+                    alert.numberOfLines = 0
+                    alert.text = """
+                    自定义 alertView， 并正确赋值宽高约束。
+                    其他效果均为默认效果
+                    """
+                    
+                    alert.isUserInteractionEnabled = true
+                    alert.addTap { sender in
+                        Toast.make("alert 自身的点击事件，这里执行了关闭")
+                        XYAlert.dismiss()
+                    }
+                    
+                    XYAlert.showCustom(alert)
+                }
+                
+                Button("Alert - 自定义 alert 样式, 自定义各种属性") {
+                    
+                    let alert = UILabel()
+                    alert.backgroundColor = .color(hex: 0xFF0000, dark: 0x00FF00)
+                    alert.snp.makeConstraints { make in
+                        make.width.equalTo(300)
+                        make.height.equalTo(190)
+                    }
+                    
+                    alert.numberOfLines = 0
+                    alert.text = """
+                    自定义 alertView， 并正确赋值宽高约束。
+                    自定义弹出动画时长，背景色，允许背景点击关闭
+                    默认弹出动画效果
+                    """
+                    
+                    alert.isUserInteractionEnabled = true
+                    alert.addTap { sender in
+                        Toast.make("alert 内容点击")
+                    }
+                    
+                    XYAlert.showCustom(alert, with: XYAlertConfig.init(animationInterval: 1, bgColor: .yellow.withAlphaComponent(0.5), dismissOnTapBackground: true))
+                }
+                
+                Button("Alert - 自定义 alert 样式, 禁止背景点击关闭") {
+                    
+                    let alert = UILabel()
+                    alert.backgroundColor = .color(hex: 0xFF0000, dark: 0x00FF00)
+                    alert.snp.makeConstraints { make in
+                        make.width.equalTo(300)
+                        make.height.equalTo(190)
+                    }
+                    
+                    alert.numberOfLines = 0
+                    alert.text = """
+                    自定义 alertView， 并正确赋值宽高约束。
+                    自定义弹出效果，背景色，禁止背景点击关闭
+                    自定义弹出/关闭效果
+                    """
+                    
+                    alert.isUserInteractionEnabled = true
+                    alert.addTap { sender in
+                        Toast.make("alert 内容点击 - 并关闭alert")
+                        XYAlert.dismiss()
+                    }
+                    
+                    XYAlert.showCustom(alert, with: XYAlertConfig.init(dismissOnTapBackground: false, startTransaction: { bgView in
+                        let alertView = alert
+                        if let superView = alert.superview {
+                            alertView.alpha = 0.5
+                            alertView.transform = .init(scaleX: 0.85, y: 0.85)
+                            alertView.corner(radius: 15)
+                            superView.backgroundColor = .clear
+                            UIView.animate(withDuration: 0.5) {
+                                superView.superview?.backgroundColor = .yellow.withAlphaComponent(0.5)
+                                alertView.alpha = 1.0
+                                alertView.transform = .identity
+                            }
+                        }
+                    }))
+                }
+                
+            }
+            
+            Section {
                 Button("AlertAheet - 默认样式") {
                     XYAlertSheetController.showDefault(on: UIViewController.currentVisibleVC, title: AlertTitle, subTitle: "subTitle: 可选", actions: ["同意","拒绝","放弃"]) { index in
                         Toast.make("第 \(index) 个按钮点击")
