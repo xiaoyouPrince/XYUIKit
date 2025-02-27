@@ -132,3 +132,67 @@ public extension XYColor {
         return String(format: "#%02X%02X%02X", redInt, greenInt, blueInt)
     }
 }
+
+public extension XYColor {
+    
+    /// 快速创建一个 Hex 颜色
+    /// - Parameter hex: hex 数值
+    /// - Returns: XYColor
+    @objc static func color(hex: Int) -> XYColor {
+        return .xy_getColor(hex: hex)
+    }
+    
+    /// 快速创建一个基于RGB整数值的颜色
+    /// - Parameters:
+    ///   - red: 红
+    ///   - green: 绿
+    ///   - blue: 蓝
+    /// - Returns: XYColor
+    @objc static func color(red: Int, green: Int, blue: Int) -> XYColor {
+        return .xy_getColor(red: red, green: green, blue: blue)
+    }
+    
+    /// 快速创建一个颜色, 区分亮暗两种模式
+    /// - Parameter hex: hex 数值
+    /// - Parameter hex_: 暗模式下的 hex 数值
+    /// - Returns: XYColor
+    @available(iOS 12.0, *)
+    @objc static func color(light: XYColor, dark: XYColor) -> XYColor {
+        if UIScreen.main.traitCollection.userInterfaceStyle == .dark {
+            return dark
+        } else {
+            return light
+        }
+    }
+    
+    /// 快速创建一个 Hex 颜色, 区分亮暗两种模式
+    /// - Parameter hex: hex 数值
+    /// - Parameter hex_: 暗模式下的 hex 数值
+    /// - Returns: XYColor
+    @available(iOS 12.0, *)
+    @objc static func color(hex: Int, dark hex_: Int) -> XYColor {
+        if UIScreen.main.traitCollection.userInterfaceStyle == .dark {
+            return .color(hex: hex_)
+        } else {
+            return .color(hex: hex)
+        }
+    }
+    
+    /// 快速创建一个基于RGB整数值的颜色, 区分亮暗两种模式
+    /// - Parameters:
+    ///   - red: 红
+    ///   - green: 绿
+    ///   - blue: 蓝
+    ///   - red_: 暗模式下的 红 数值
+    ///   - green_: 暗模式下的 绿 数值
+    ///   - blue_: 暗模式下的 蓝 数值
+    /// - Returns: XYColor
+    @available(iOS 12.0, *)
+    @objc static func color(red: Int, green: Int, blue: Int, darkR red_: Int, darkG green_: Int, darkB blue_: Int) -> XYColor {
+        if UIScreen.main.traitCollection.userInterfaceStyle == .dark {
+            return .color(red: red_, green: green_, blue: blue_)
+        } else {
+            return .color(red: red, green: green, blue: blue)
+        }
+    }
+}
