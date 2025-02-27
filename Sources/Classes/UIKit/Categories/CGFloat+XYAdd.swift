@@ -10,10 +10,10 @@ import UIKit
 extension CGFloat {
     
     /// 屏幕宽
-    public static let width = UIScreen.main.bounds.width
+    public static var width: CGFloat { UIScreen.main.bounds.width }
     
     /// 屏幕高
-    public static let height = UIScreen.main.bounds.height
+    public static var height: CGFloat { UIScreen.main.bounds.height }
     
     /// 状态栏高度
     public static var statusBar: CGFloat {
