@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 
 public typealias Alert = XYAlert
+// MARK: - 展示一个系统 alert
 public struct XYAlert {
     
     /// 弹出一个 tip 类型的 alert
@@ -58,5 +59,119 @@ public struct XYAlert {
         }
         
         UIViewController.currentVisibleVC.present(alert, animated: true)
+    }
+}
+
+
+// MARK: - 展示一个自定义 alert
+
+public struct XYAlertConfig {
+    /// show 动画执行时长
+    var animationInterval: TimeInterval = 0.125
+    /// alert 展示后，其容器页面背景颜色
+    var bgColor: UIColor = .black.withAlphaComponent(0.3)
+    /// 是否允许背景区域的点击关闭事件
+    var dismissOnTapBackground = true
+    /// show 执行动画的的事务，自定义展示事务，需要在此回调用执行展示动画相关操作, 参数是页面背景视图
+    var startTransaction: ((_ bgView: UIView) -> Void)?
+    
+    public init(animationInterval: TimeInterval = 0.125, bgColor: UIColor = .black.withAlphaComponent(0.3), dismissOnTapBackground: Bool = true, startTransaction: ( (_ bgView: UIView) -> Void)? = nil) {
+        self.animationInterval = animationInterval
+        self.bgColor = bgColor
+        self.dismissOnTapBackground = dismissOnTapBackground
+        self.startTransaction = startTransaction
+    }
+    
+    public init() { }
+}
+
+public extension XYAlert {
+    
+    fileprivate class XYAlertController: UIViewController {
+        let alertView: UIControl
+        let config: XYAlertConfig
+        
+        init(alert: UIView, config: XYAlertConfig) {
+            if let alertV = alert as? UIControl {
+                alertView = alertV
+            } else {
+                let alertV = UIControl()
+                alertV.addSubview(alert)
+                alert.snp.makeConstraints { make in
+                    make.edges.equalToSuperview()
+                }
+                alertView = alertV
+            }
+            self.config = config
+            super.init(nibName: nil, bundle: nil)
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
+        override func viewDidLoad() {
+            super.viewDidLoad()
+            
+            view.addSubview(alertView)
+            alertView.snp.makeConstraints { make in
+                make.center.equalToSuperview()
+            }
+        }
+        
+        override func viewWillAppear(_ animated: Bool) {
+            super.viewWillAppear(animated)
+            view.backgroundColor = .clear
+            start()
+        }
+        
+        private func start() {
+            if let startTransaction = config.startTransaction {
+                startTransaction(view)
+            } else {
+                alertView.alpha = 0.5
+                alertView.transform = .init(scaleX: 0.85, y: 0.85)
+                alertView.corner(radius: 15)
+                UIView.animate(withDuration: config.animationInterval) {
+                    self.view.backgroundColor = self.config.bgColor
+                    self.alertView.alpha = 1.0
+                    self.alertView.transform = .identity
+                }
+            }
+        }
+        
+        private func end() {
+            
+        }
+        
+        override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+            if config.dismissOnTapBackground {
+                dismiss(animated: false)
+            }
+        }
+        
+        deinit {
+            print("XYAlertController - deinit")
+        }
+    }
+    
+    /// 弹出一个自定义的 alert 视图
+    /// - Parameter alert: 自定义 alert view, 需要自行设置宽高约束
+    /// - Note: 默认效果效果会将自定义 alert 布局
+    static func showCustom(_ alertView: UIView) {
+        showCustom(alertView, with: .init())
+    }
+    
+    /// 弹出一个自定义的 alert 视图
+    /// - Parameter alert: 自定义 alert view, 需要自行设置宽高约束
+    /// - Note: 默认效果效果会将自定义 alert 布局
+    static func showCustom(_ alertView: UIView, with config: XYAlertConfig) {
+        let alertVC = XYAlertController(alert: alertView, config: config)
+        alertVC.modalPresentationStyle = .custom
+        UIViewController.currentVisibleVC.present(alertVC, animated: false)
+    }
+    
+    static func dismiss() {
+        UIViewController.currentVisibleVC.dismiss(animated: false)
     }
 }
