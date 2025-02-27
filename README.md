@@ -8,11 +8,28 @@
 > 本项目从最初就想叫 XYUIKit, 无奈名称早已被占用
 > 想来想去, 最终决定使用 YYUIKit 命名
 
+### Requirements
+iOS 12.0+ 
+Xcode 10.0+
+Swift 5.0+
+
+在 0.6.4 及以下版本，支持 iOS 10.0， 对应的依赖 SnapKit 需要指定版本 SnapKit (5.6.0)
+
 ### 使用 CocoaPods 安装
 
 ```ruby
 pod YYUIKit                     #全部功能, 主要基于 UIKit 平台
 pod YYUIKit/Foundation          #Foundation功能分类, 此部分平台无关, 可用于 Apple 全平台开发
+```
+
+### 使用 Swift Package Manager 安装
+
+自 v0.6.5 版本开始支持 SPM
+
+```swift
+dependencies: [
+    .package(url: "https://github.com/xiaoyouPrince/XYUIKit.git", .upToNextMajor(from: "0.6.5"))
+]
 ```
 
 ## 近期 TODOs
