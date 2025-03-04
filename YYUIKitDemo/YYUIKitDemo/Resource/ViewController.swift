@@ -39,7 +39,8 @@ class ViewController: XYInfomationBaseViewController {
             ["Alert && AlertSheetController": Alert_AlertSheetVC()],
             //["键盘监听 - 一个小输入框 SwiftUI": KeyboardMonitor_InPutBar()],
             ["键盘管理": InputBarViewController.self],
-//            ["网络工具": NetWorkTool()],
+            ["网络状态监听工具": NetWorkTool()],
+            ["网络请求/下载/上传工具": NetworkTool2()],
             ["权限申请": AuthDemo()]
         ].reversed()
     

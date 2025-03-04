@@ -2,6 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+    <key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSAllowsArbitraryLoads</key>
+        <true/>
+    </dict>
+    
 	<key>NSHealthShareUsageDescription</key>
 	<string>读取健康数据, 你知道我具体是干什么用吗.哈哈哈</string>
 	<key>NSHealthUpdateUsageDescription</key>
@@ -14,5 +20,7 @@
 	<string>使用你的定位权限</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>访问相册</string>
+    
+    
 </dict>
 </plist>

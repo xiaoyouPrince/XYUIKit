@@ -66,6 +66,7 @@
 		B4DA90732C203F98000A6667 /* InputBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DA90722C203F98000A6667 /* InputBarViewController.swift */; };
 		B4DA90752C218DE9000A6667 /* KBTopInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DA90742C218DE9000A6667 /* KBTopInputView.swift */; };
 		B4DA90882C4E11C9000A6667 /* AuthDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DA90872C4E11C9000A6667 /* AuthDemo.swift */; };
+		B4F2205E2D772E250014A771 /* NetworkTool2.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F2205D2D772E250014A771 /* NetworkTool2.swift */; };
 		BE4436272C5A4BB400C989A1 /* Modelable in Frameworks */ = {isa = PBXBuildFile; productRef = BE4436262C5A4BB400C989A1 /* Modelable */; };
 		BEAC7A722C296D1100614900 /* NetWorkTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAC7A712C296D1100614900 /* NetWorkTool.swift */; };
 		EFE519783D431EA56130C990 /* Pods_YYUIKitDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0223DF8E2B647DBF8BEA023A /* Pods_YYUIKitDemo.framework */; };
@@ -137,6 +138,7 @@
 		B4DA90722C203F98000A6667 /* InputBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputBarViewController.swift; sourceTree = "<group>"; };
 		B4DA90742C218DE9000A6667 /* KBTopInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KBTopInputView.swift; sourceTree = "<group>"; };
 		B4DA90872C4E11C9000A6667 /* AuthDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDemo.swift; sourceTree = "<group>"; };
+		B4F2205D2D772E250014A771 /* NetworkTool2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTool2.swift; sourceTree = "<group>"; };
 		BEAC7A712C296D1100614900 /* NetWorkTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetWorkTool.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -175,6 +177,7 @@
 				B4BB16252C099FD500B0B5A2 /* Alert&AlertSheetVC.swift */,
 				B46AAE702C1B4B2A00315199 /* KeyboardMonitor&InPutBar.swift */,
 				BEAC7A712C296D1100614900 /* NetWorkTool.swift */,
+				B4F2205D2D772E250014A771 /* NetworkTool2.swift */,
 				B4DA90872C4E11C9000A6667 /* AuthDemo.swift */,
 			);
 			path = SwiftUI;
@@ -475,6 +478,7 @@
 				B45D37F22B6FB3E60092C5D6 /* RefreshHeader.swift in Sources */,
 				B428E0BB2B87AA16001B43AD /* FloatBallView.swift in Sources */,
 				B45D377D2B6F71860092C5D6 /* AppDelegate.swift in Sources */,
+				B4F2205E2D772E250014A771 /* NetworkTool2.swift in Sources */,
 				B49F8BA72B9B732400280DDA /* WidgetBgTest.swift in Sources */,
 				B4BB16262C099FD500B0B5A2 /* Alert&AlertSheetVC.swift in Sources */,
 				B4DA90752C218DE9000A6667 /* KBTopInputView.swift in Sources */,
@@ -644,7 +648,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 12;
+				IPHONEOS_DEPLOYMENT_TARGET = 13;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -676,7 +680,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 12;
+				IPHONEOS_DEPLOYMENT_TARGET = 13;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
