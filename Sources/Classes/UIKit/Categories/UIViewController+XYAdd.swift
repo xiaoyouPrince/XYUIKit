@@ -63,6 +63,10 @@ fileprivate func findTopViewController(from keyWindow: UIWindow?) -> UIViewContr
             topController = topController.presentedViewController!
         }
     }
+    
+    while topController.presentedViewController != nil {
+        topController = topController.presentedViewController!
+    }
     return topController
 }
 
