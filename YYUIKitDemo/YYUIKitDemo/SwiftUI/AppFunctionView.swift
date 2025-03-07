@@ -20,6 +20,16 @@ struct AppFunctionView: View {
             Text("本页面展示了 YYUIkit 中提供的便捷 App 功能的使用, 下面按钮分别展示具体功能")
             
             Section {
+                Button("选择联系人 - iOS 9+") {
+                    let vc = UIHostingController(rootView: ContentView())
+                    UIViewController.currentVisibleVC.nav_push(vc, animated: true)
+                }
+                
+            } header: {
+                Text("1. 颜色选择器")
+            }
+            
+            Section {
                 Button("颜色选择器 - iOS 14+") {
                     if #available(iOS 14.0, *) {
                         AppUtils.chooseColor { color in

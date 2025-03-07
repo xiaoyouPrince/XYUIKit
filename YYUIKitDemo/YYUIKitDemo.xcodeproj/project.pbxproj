@@ -69,6 +69,7 @@
 		B4F2205E2D772E250014A771 /* NetworkTool2.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F2205D2D772E250014A771 /* NetworkTool2.swift */; };
 		BE4436272C5A4BB400C989A1 /* Modelable in Frameworks */ = {isa = PBXBuildFile; productRef = BE4436262C5A4BB400C989A1 /* Modelable */; };
 		BEAC7A722C296D1100614900 /* NetWorkTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAC7A712C296D1100614900 /* NetWorkTool.swift */; };
+		BEC651732D7AE3B800F9FABF /* ContactsPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC651722D7AE3B800F9FABF /* ContactsPicker.swift */; };
 		EFE519783D431EA56130C990 /* Pods_YYUIKitDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0223DF8E2B647DBF8BEA023A /* Pods_YYUIKitDemo.framework */; };
 /* End PBXBuildFile section */
 
@@ -140,6 +141,7 @@
 		B4DA90872C4E11C9000A6667 /* AuthDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDemo.swift; sourceTree = "<group>"; };
 		B4F2205D2D772E250014A771 /* NetworkTool2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTool2.swift; sourceTree = "<group>"; };
 		BEAC7A712C296D1100614900 /* NetWorkTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetWorkTool.swift; sourceTree = "<group>"; };
+		BEC651722D7AE3B800F9FABF /* ContactsPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsPicker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -179,6 +181,7 @@
 				BEAC7A712C296D1100614900 /* NetWorkTool.swift */,
 				B4F2205D2D772E250014A771 /* NetworkTool2.swift */,
 				B4DA90872C4E11C9000A6667 /* AuthDemo.swift */,
+				BEC651722D7AE3B800F9FABF /* ContactsPicker.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -472,6 +475,7 @@
 				B428E0BD2B8A01C6001B43AD /* FileSystemView.swift in Sources */,
 				B4DA90732C203F98000A6667 /* InputBarViewController.swift in Sources */,
 				B45D37D92B6FB3B30092C5D6 /* IMViewController.swift in Sources */,
+				BEC651732D7AE3B800F9FABF /* ContactsPicker.swift in Sources */,
 				B45D37DE2B6FB3B30092C5D6 /* File.swift in Sources */,
 				BEAC7A722C296D1100614900 /* NetWorkTool.swift in Sources */,
 				B4DA90882C4E11C9000A6667 /* AuthDemo.swift in Sources */,
