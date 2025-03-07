@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import Photos
 
 public typealias Utils = XYUtils
 public typealias AppUtils = XYUtils
@@ -151,5 +152,33 @@ public typealias AppUtils = XYUtils
     }
     
     
+    /// 保存图片到图库 - 本方法基于 Photos 框架保存，图片数据不压缩
+    /// - Parameters:
+    ///   - imageData: 图片的二进制数据
+    ///   - completion: 成功失败回调
+    @objc public static func saveImageToPhotosAlbum(imageData: Data, completion: @escaping (_ success: Bool, _ errMsg: String?)->()) {
+        PhotoLibraryManager.shared.saveImageToLibrary(imageData: imageData) { result in
+            switch result {
+            case .success:
+                completion(true, nil)
+            case .failure(let error):
+                completion(false, error?.localizedDescription)
+            }
+        }
+    }
     
+    /// 保存图片到图库 - 本方法基于 UIImageWriteToSavedPhotosAlbum 方法保存，图片数据会被系统优化，通常会压缩
+    /// - Parameters:
+    ///   - image: 图片的 UIImage
+    ///   - completion: 成功失败回调
+    @objc public static func saveImageToPhotosAlbum(image: UIImage, completion: @escaping (_ success: Bool, _ errMsg: String?)->()) {
+        PhotoLibraryManager.shared.saveImageToLibrary(image: image) { result in
+            switch result {
+            case .success:
+                completion(true, nil)
+            case .failure(let error):
+                completion(false, error?.localizedDescription)
+            }
+        }
+    }
 }

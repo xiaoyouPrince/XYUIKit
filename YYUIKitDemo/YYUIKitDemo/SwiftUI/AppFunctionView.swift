@@ -10,6 +10,9 @@ import YYUIKit
 
 struct AppFunctionView: View {
     
+    @State var image: UIImage?
+    @State var imageDataBytes: String?
+    
     var body: some View {
         
         List {
@@ -29,6 +32,54 @@ struct AppFunctionView: View {
                 
             } header: {
                 Text("1. 颜色选择器")
+            }
+            
+            Section {
+                let beiziImageUrl = "https://stage-cdn.fun-widget.haoqimiao.net/resource/wallpaper/20241209/original_1865968700152430592.jpeg"
+                
+                Button("无损保存图片到相册 - iOS 8+") {
+                    DispatchQueue.global().async {
+                        if let data = try? Data(contentsOf: URL(string: beiziImageUrl)!), let image = UIImage(data: data) {
+                            self.image = image
+                            self.imageDataBytes = "\(data.count) Bytes"
+                            AppUtils.saveImageToPhotosAlbum(imageData: data) { success, errMsg in
+                                if success {
+                                    Toast.make("保存成功")
+                                } else {
+                                    Toast.make( errMsg ?? "保存失败")
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                Button("保存图片到相册(系统会自动优化图片，大小可能会变) - iOS 2+") {
+                    DispatchQueue.global().async {
+                        if let data = try? Data(contentsOf: URL(string: beiziImageUrl)!), let image = UIImage(data: data) {
+                            self.image = image
+                            self.imageDataBytes = "\(data.count) Bytes"
+                            AppUtils.saveImageToPhotosAlbum(image: image) { success, errMsg in
+                                if success {
+                                    Toast.make("保存成功")
+                                } else {
+                                    Toast.make( errMsg ?? "保存失败")
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                if let image, let imageDataBytes {
+                    Image(uiImage: image)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: .width - 40, height: 250)
+                    
+                    Text("图片大小：\(imageDataBytes)")
+                }
+                
+            } header: {
+                Text("2. 图片保存到相册")
             }
             
         }
