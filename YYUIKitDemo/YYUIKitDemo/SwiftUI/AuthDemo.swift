@@ -45,6 +45,21 @@ struct AuthDemo: View {
             }.frame(width: .width, height: 44)
         }
         Text("定位权限 - \(locStatus.stringValue)")
+            .onAppear {
+                AuthorityManager.shared.setShowCustomSettingAlert { auth in
+                    switch auth {
+                    case .location:
+                        XYAlert.showAlert(title: "Tips", message: "去设置页面开启定位权限", btnTitles: "Cancel", "Settings") { index in
+                            XYAlert.dismiss()
+                            if index == 1 {
+                                UIApplication.openSettings()
+                            }
+                        }
+                    default:
+                        break
+                    }
+                }
+            }
         
         Button {
             AuthorityManager.shared.request(auth: .bluetooth, scene: "B") { completion in

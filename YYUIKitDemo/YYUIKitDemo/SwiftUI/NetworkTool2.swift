@@ -8,6 +8,8 @@
 import SwiftUI
 import YYUIKit
 
+import Modelable
+
 struct NetworkTool2: View {
     @State var rlt = ""
     
@@ -39,27 +41,87 @@ struct NetworkTool2: View {
 //                    }
 //                }
                 
-                performRequest(url: "http://8.212.182.12:8767/muscular//cephalopods/removed", method: .post, parameters: ["sequels": "00631234567890"]) { rlt in
-                    switch rlt {
-                    case .success(let json):
-                        print("获取短信验证码成功：\(json)")
-                        self.rlt = json.debugDescription
-                    case .failure(let error):
-                        print("获取短信验证码失败：\(error.localizedDescription)")
-                        self.rlt = error.localizedDescription
-                    }
+//                performRequest(url: "http://8.212.182.12:8767/muscular//cephalopods/removed", method: .post, parameters: ["sequels": "00631234567890"]) { rlt in
+//                    switch rlt {
+//                    case .success(let json):
+//                        print("获取短信验证码成功：\(json)")
+//                        self.rlt = json.debugDescription
+//                    case .failure(let error):
+//                        print("获取短信验证码失败：\(error.localizedDescription)")
+//                        self.rlt = error.localizedDescription
+//                    }
+//                }
+                
+                netTest(responType: MyModel.self) { model in
+                    print("type of model is \(model)")
+                    print("type of model is \(type(of: model))")
+                    print("type of model is \(type(of: model) as Any)")
+                    
                 }
             }
         
     }
+    
+    
+    // 这都是 callback 的写法
+    func netTest<T: Model>(responType: T.Type, success: @escaping (T) -> Void) {
+        performRequest(url: "http://8.212.182.12:8767/muscular//cephalopods/removed", method: .post, parameters: ["sequels": "00631234567890"]) { rlt in
+            switch rlt {
+            case .success(let json):
+                if let model = responType.self.mapping(jsonObject: json) {
+                    success(model)
+                } else {
+                    print("请求成功，但是数据解析失败")
+                }
+            case .failure(let error):
+                print("获取短信验证码失败：\(error.localizedDescription)")
+                self.rlt = error.localizedDescription
+            }
+        }
+    }
+    
+    
+}
+
+class MyModel: Model {
+    var posted: String?
+    var synonyms: String?
+    
 }
 
 #Preview {
     NetworkTool2()
 }
 
+/// -------------asycn / await--------------
+//func  import ToastUtils
+// import Network
+// import ZLNetworking
 
-///-------------------------------------
+//Toast.makeActivity()
+//let target = ZLIMApi<[String : Any]>.getStaffPhraseList
+//Network.request(target) { [weak self] result in
+//    Toast.hideActivity()
+//    guard let self = self else {return}
+//    switch result {
+//    case .success(let response):
+//        guard let data = ZLNetworkingTool.handleResponseData(dict: response) as? [String: Any] else {
+//            return
+//        }
+//        
+//        // get data & to do ...
+//        break
+//    case .failure(let error):
+//        let errorInfo = ZLNetworkingTool.failureHandle(error)
+//        Toast.make(errorInfo?.message ?? "网络异常")
+//    }
+//}(<#parameters#>) -> <#return type#> {
+//
+//}
+
+
+
+/// ------------------ callback-------------------
 import Foundation
 
 enum HTTPMethod: String {
