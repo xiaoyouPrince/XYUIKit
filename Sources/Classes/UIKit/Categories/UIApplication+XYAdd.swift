@@ -97,6 +97,16 @@ public extension UIApplication {
         }
     }
     
+    /// 强制结束编辑状态，如果有键盘则收起键盘
+    static func endEditing() { shared.endEditing() }
+    func endEditing() {
+        getKeyWindow()?.endEditing(true)
+    }
+    
+    /// 收起键盘
+    static func hideKeyboard() { shared.hideKeyboard() }
+    func hideKeyboard() { endEditing() }
+    
     /// App build 版本号
     static var appBuildVersion: Int { shared.appBuildVersion }
     var appBuildVersion: Int {

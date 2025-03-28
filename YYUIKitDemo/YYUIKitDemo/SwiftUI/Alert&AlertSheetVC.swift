@@ -234,6 +234,32 @@ struct Alert_AlertSheetVC: View {
                         sheet2?.dissmiss()
                     }
                 }
+                
+                Button("AlertAheet - 自定义") {
+                    let view = UIView()
+                    view.backgroundColor = .clear
+                    
+                    let contentV = UILabel()
+                    contentV.text = "这是一个自定义样式，可以满足比较个性的设计"
+                    contentV.textAlignment = .center
+                    contentV.numberOfLines = 0
+                    view.addSubview(contentV)
+                    contentV.backgroundColor = .white
+                    contentV.corner(radius: 20)
+                    contentV.snp.makeConstraints { make in
+                        make.center.equalToSuperview()
+                        make.top.equalTo(20)
+                        make.left.equalTo(30)
+                        make.height.equalTo(150)
+                    }
+                    
+                    let sheet = XYAlertSheetController.showCustom(on: UIViewController.currentVisibleVC, customContentView: view)
+                    //sheet.isContentAboveSafeArea = false
+                    sheet.backgroundColor = .black.withAlphaComponent(0.25)
+                    sheet.dismissCallback = {
+                        Toast.make("dimiss - 下层")
+                    }
+                }
             }
         }
     }

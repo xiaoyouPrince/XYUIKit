@@ -251,6 +251,7 @@ extension XYAlertSheetController {
                 }
             }
             
+            contentView.backgroundColor = customV.backgroundColor ?? .white
             setBottomSafeAreaBackgroundColor(customV.backgroundColor ?? .white)
             self.view.setNeedsLayout()
             self.view.layoutIfNeeded()
