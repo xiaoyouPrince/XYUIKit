@@ -8,12 +8,12 @@ let package = Package(
         .iOS(.v12)
     ],
     products: [
-        .library(
-            name: "YYUIKit",
-            targets: ["YYUIKit"]),
+        .library(name: "YYUIKit", targets: ["YYUIKit"]),
+        .library(name: "YYUIKit-Dynamic", type: .dynamic, targets: ["YYUIKit"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/SnapKit/SnapKit.git", .upToNextMajor(from: "5.0.1"))
+//        .package(url: "https://github.com/SnapKit/SnapKit.git", .upToNextMajor(from: "5.0.1"))
+        .package(name: "SnapKit", path: "/Users/will/Desktop/SnapKit")
     ],
     targets: [
         .target(
@@ -25,7 +25,7 @@ let package = Package(
             resources: [
                 .copy("PrivacyInfo.xcprivacy"),
                 .process("Assets/Assets.xcassets")
-                       ]
+            ]
         ),
         .testTarget(
             name: "YYUIKitTests",

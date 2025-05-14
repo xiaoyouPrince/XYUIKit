@@ -41,7 +41,8 @@ class ViewController: XYInfomationBaseViewController {
             ["键盘管理": InputBarViewController.self],
             ["网络状态监听工具": NetWorkTool()],
             ["网络请求/下载/上传工具": NetworkTool2()],
-            ["权限申请": AuthDemo()]
+            ["权限申请": AuthDemo()],
+            ["模糊效果": BlurDemo()]
         ].reversed()
     
 }
