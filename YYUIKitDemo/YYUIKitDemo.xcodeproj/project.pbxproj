@@ -71,6 +71,7 @@
 		BE4436272C5A4BB400C989A1 /* Modelable in Frameworks */ = {isa = PBXBuildFile; productRef = BE4436262C5A4BB400C989A1 /* Modelable */; };
 		BEAC7A722C296D1100614900 /* NetWorkTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAC7A712C296D1100614900 /* NetWorkTool.swift */; };
 		BEC651732D7AE3B800F9FABF /* ContactsPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC651722D7AE3B800F9FABF /* ContactsPicker.swift */; };
+		BEEC9CFA2DF6AACF00DA9B4B /* TimePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEC9CF92DF6AACF00DA9B4B /* TimePickerView.swift */; };
 		EFE519783D431EA56130C990 /* Pods_YYUIKitDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0223DF8E2B647DBF8BEA023A /* Pods_YYUIKitDemo.framework */; };
 /* End PBXBuildFile section */
 
@@ -144,6 +145,7 @@
 		BE07F67E2D9BF5880084BB5B /* BlurDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurDemo.swift; sourceTree = "<group>"; };
 		BEAC7A712C296D1100614900 /* NetWorkTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetWorkTool.swift; sourceTree = "<group>"; };
 		BEC651722D7AE3B800F9FABF /* ContactsPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsPicker.swift; sourceTree = "<group>"; };
+		BEEC9CF92DF6AACF00DA9B4B /* TimePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePickerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -268,6 +270,7 @@
 				B45D37EE2B6FB3E60092C5D6 /* ZLNewGreetingView.swift */,
 				B45D37EF2B6FB3E60092C5D6 /* GradientView.swift */,
 				B4DA90742C218DE9000A6667 /* KBTopInputView.swift */,
+				BEEC9CF92DF6AACF00DA9B4B /* TimePickerView.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -461,6 +464,7 @@
 				B45D37DB2B6FB3B30092C5D6 /* ViewController2.swift in Sources */,
 				B45D37F62B6FB3E60092C5D6 /* GradientView.swift in Sources */,
 				B45D37F02B6FB3E60092C5D6 /* XYCustomTimePickerViewController.swift in Sources */,
+				BEEC9CFA2DF6AACF00DA9B4B /* TimePickerView.swift in Sources */,
 				B45D37E72B6FB3B30092C5D6 /* TimeViewController.swift in Sources */,
 				B45D37E62B6FB3B30092C5D6 /* NestedXYInfoViewController.swift in Sources */,
 				B45D37E52B6FB3B30092C5D6 /* CustomViewController.swift in Sources */,

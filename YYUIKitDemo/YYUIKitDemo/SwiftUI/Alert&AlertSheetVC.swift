@@ -260,6 +260,28 @@ struct Alert_AlertSheetVC: View {
                         Toast.make("dimiss - 下层")
                     }
                 }
+                
+                
+                Button("AlertAheet - 一个自定义时间选择器") {
+                    let timePicker = TimePickerView()
+                    //timePicker.frame = CGRect(x: 0, y: 0, width: .width, height: 260) // 设置合适的高度
+                    timePicker.snp.makeConstraints { make in
+                        make.height.equalTo(300)
+                    }
+                    timePicker.setSelectedTime(hour: 14, minute: 10) // 设置为14:30
+                    timePicker.onTimeSelected = { selectedTime in
+                        print("选择的时间是: \(selectedTime)") // 格式为 "HH:mm"
+                        Toast.make("选择的时间是: \(selectedTime)")
+                        XYAlertSheetController.dissmiss()
+                    }
+                    
+                    let sheet = XYAlertSheetController.showCustom(on: UIViewController.currentVisibleVC, customContentView: timePicker)
+                    //sheet.isContentAboveSafeArea = false
+                    sheet.backgroundColor = .black.withAlphaComponent(0.25)
+//                    sheet.dismissCallback = {
+//                        Toast.make("dimiss - 下层")
+//                    }
+                }
             }
         }
     }
