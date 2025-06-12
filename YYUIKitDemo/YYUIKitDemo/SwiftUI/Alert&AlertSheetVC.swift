@@ -272,7 +272,17 @@ struct Alert_AlertSheetVC: View {
                     timePicker.onTimeSelected = { selectedTime in
                         print("选择的时间是: \(selectedTime)") // 格式为 "HH:mm"
                         Toast.make("选择的时间是: \(selectedTime)")
-                        XYAlertSheetController.dissmiss()
+//                        XYAlertSheetController.dissmiss()
+                        
+                        // 创建自定义的 view
+                        if let rootVC = UIViewController.currentVisibleVC {
+                            let vc = UIHostingController(rootView: SearchBackgroundView(parentVC: rootVC))
+                            rootVC.addChild(vc)
+                            rootVC.view.addSubview(vc.view)
+                            vc.view.snp.makeConstraints { make in
+                                make.edges.equalToSuperview().inset(1)
+                            }
+                        }
                     }
                     
                     let sheet = XYAlertSheetController.showCustom(on: UIViewController.currentVisibleVC, customContentView: timePicker)
@@ -290,3 +300,164 @@ struct Alert_AlertSheetVC: View {
 #Preview {
     Alert_AlertSheetVC()
 }
+
+
+
+
+// 背景图的搜索功能 - since v2.36
+struct SearchBackgroundView: View {
+    /// 所处的容器控制器
+    let parentVC: UIViewController
+    @State var searchText: String = ""
+    
+    @State var searchResult: String = ""
+    
+    
+    var body: some View {
+//        Text("我是搜索页面")
+//            .onTapGesture {
+//                
+//                Toast.make("点击关闭")
+//                parentVC.children.last?.view.removeFromSuperview()
+//                parentVC.children.last?.removeFromParent()
+//            }
+        
+        VStack {
+            SearchBar(text: $searchText) { keyWord in
+                Toast.make("用户点击搜索 \(keyWord)")
+                // 搜索
+                let count = arc4random() % 30
+                searchResult = "\(count)"
+                
+            } onCancel: {
+                Toast.make("点击关闭")
+                parentVC.children.last?.view.removeFromSuperview()
+                parentVC.children.last?.removeFromParent()
+            }
+            
+            
+            CustomGridView(columnCount: 3, itemsCount: searchResult.intValue) { index in
+                Text("index \(index)")
+            }
+        }
+        
+    }
+}
+
+import SwiftUI
+
+@available(iOS 15.0, *)
+struct SearchBar: View {
+    @Binding var text: String
+    @FocusState private var isFocused: Bool
+    let onSearch: (_ keyWord: String) -> Void
+    let onCancel: () -> Void
+    
+    var body: some View {
+        HStack {
+            HStack(spacing: 6) {
+                Image(systemName: "magnifyingglass")
+                    .foregroundColor(.gray)
+                
+                TextField("搜索", text: $text)
+                    .font(.system(size: 14))
+                    .focused($isFocused)
+                    .foregroundColor(.primary)
+                    .autocapitalization(.none)
+                    .disableAutocorrection(true)
+                    .submitLabel(.search)
+                    .onSubmit {
+                        onSearch(text)
+                    }
+
+                if !text.isEmpty {
+                    Button(action: {
+                        text = ""
+                    }) {
+                        Image(systemName: "xmark.circle.fill")
+                            .foregroundColor(.gray)
+                    }
+                }
+            }
+            .padding(10)
+            .background(Color(UIColor.xy_getColor(hex: 0xF7F9FA)))
+            .cornerRadius(10)
+            
+            Button("取消搜索") {
+                text = ""
+                isFocused = false
+                hideKeyboard()
+                onCancel()
+            }
+            .font(.system(size: 14))
+            .foregroundColor(Color(UIColor.xy_getColor(hex: 0x333333)))
+            .transition(.move(edge: .trailing))
+            .animation(.default, value: isFocused)
+        }
+        .padding(.horizontal)
+    }
+}
+
+#Preview {
+    StatefulPreviewWrapper("") {
+        SearchBar(text: $0) { keyWord in
+            Toast.make("用户点击搜索 \(keyWord)")
+        } onCancel: {
+            Toast.make("点击关闭")
+        }
+    }
+}
+
+// 这个辅助函数用于隐藏键盘
+extension View {
+    func hideKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+}
+
+// 用于预览时支持 @Binding 的工具
+struct StatefulPreviewWrapper<Value: Equatable>: View {
+    @State var value: Value
+    var content: (Binding<Value>) -> AnyView
+
+    init(_ initialValue: Value, @ViewBuilder content: @escaping (Binding<Value>) -> some View) {
+        self._value = State(initialValue: initialValue)
+        self.content = { binding in AnyView(content(binding)) }
+    }
+
+    var body: some View {
+        content($value)
+    }
+}
+
+// -----------
+
+import SwiftUI
+
+struct CustomGridView<Content: View>: View {
+    let columnCount: Int
+    let itemsCount: Int
+    let content: (_ index: Int) -> Content
+    
+    var columns: [GridItem] {
+        Array(repeating: GridItem(.flexible(), spacing: 10), count: columnCount)
+    }
+    
+    var body: some View {
+        ScrollView {
+            LazyVGrid(columns: columns, spacing: 10) {
+                ForEach(0..<itemsCount, id: \.self) { index in
+                    content(index)
+                }
+            }
+            .padding()
+        }
+    }
+}
+
+#Preview {
+    CustomGridView(columnCount: 3, itemsCount: 30) { index in
+        Text("index \(index)")
+    }
+}
+
