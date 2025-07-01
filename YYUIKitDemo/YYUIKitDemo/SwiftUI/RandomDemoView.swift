@@ -21,6 +21,8 @@ struct RandomDemoView: View {
                 .onTapGesture {
                     NewUserPriviligeAlertView.showNewUserPriviligeAlert {
                         Toast.make("用户同意")
+                    } onDismiss: {
+                        Toast.make("用户取消")
                     }
                 }
         }
@@ -36,9 +38,10 @@ struct RandomDemoView: View {
 
 extension NewUserPriviligeAlertView {
     /// 展示新用户特权弹框
-    static func showNewUserPriviligeAlert(onConfirm: @escaping ()->()) {
+    static func showNewUserPriviligeAlert(onConfirm: @escaping ()->(), onDismiss:@escaping () -> ()) {
         let hostVC = UIHostingController(rootView: NewUserPriviligeAlertView(onCancel: {
             XYAlert.dismiss()
+            onDismiss()
         }, onConfirm: {
             XYAlert.dismiss()
             onConfirm()
@@ -60,12 +63,17 @@ extension NewUserPriviligeAlertView {
             if UIDevice.current.userInterfaceIdiom == .pad {
                 bgImage = UIImageView(image: UIImage.newUserPriviligeBgPad)
             }
-            bgView.backgroundColor = .black.withAlphaComponent(0.3)
+            bgView.backgroundColor = .black.withAlphaComponent(0.7)
             bgView.insertSubview(bgImage, at: 0)
             bgImage.snp.makeConstraints { make in
                 make.edges.equalToSuperview()
             }
         }))
+        
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            hostVC.view.transform = hostVC.view.transform.scaledBy(x: 0.85, y: 0.85)
+        }
+        
     }
 }
 
@@ -97,6 +105,8 @@ struct NewUserPriviligeAlertView: View {
                     }
                     
                     Image(uiImage: .newUserPriviligeClose)
+                        .resizable()
+                        .frame(width: UIImage.newUserPriviligeClose.size.width * 1.2, height: UIImage.newUserPriviligeClose.size.height * 1.2, alignment: .center)
                         .onTapGesture {
                             onCancel()
                         }
@@ -111,7 +121,7 @@ struct NewUserPriviligeAlertView: View {
                                 .foregroundStyle(Color(UIColor.xy_getColor(hex: 0xe0945a)))
                             
                             Text("免广告特权")
-                                .font(.system(size: 36, weight: .black))
+                                .font(.system(size: 36, weight: .medium))
                                 .kerning(3)
                                 .foregroundStyle(Color(UIColor.xy_getColor(hex: 0x4A290A)))
                             
@@ -124,7 +134,7 @@ struct NewUserPriviligeAlertView: View {
                                         Image(uiImage: .newUserPriviligeAlertVideoStartPad)
                                         
                                         Text("立即领取")
-                                            .font(.system(size: 27, weight: .black))
+                                            .font(.system(size: 27, weight: .medium))
                                             .foregroundStyle(Color.white)
                                     }
                                 }
@@ -163,7 +173,7 @@ struct NewUserPriviligeAlertView: View {
                                 .foregroundStyle(Color(UIColor.xy_getColor(hex: 0xe0945a)))
                             
                             Text("免广告特权")
-                                .font(.system(size: 24, weight: .black))
+                                .font(.system(size: 24, weight: .medium))
                                 .kerning(2)
                                 .foregroundStyle(Color(UIColor.xy_getColor(hex: 0x4A290A)))
                             
@@ -176,7 +186,7 @@ struct NewUserPriviligeAlertView: View {
                                         Image(uiImage: .newUserPriviligeAlertVideoStart)
                                         
                                         Text("立即领取")
-                                            .font(.system(size: 18, weight: .black))
+                                            .font(.system(size: 18, weight: .medium))
                                             .foregroundStyle(Color.white)
                                     }
                                 }
