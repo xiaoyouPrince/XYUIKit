@@ -163,12 +163,21 @@ public extension XYAlert {
     }
     
     /// 弹出一个自定义的 alert 视图
+    /// - Parameter alertView: 自定义 alert view, 需要自行设置宽高约束
+    /// - Parameter fromVC: 指定在哪个VC上弹框
+    /// - Parameter config: 指定配置
+    /// - Note: 默认效果效果会将自定义 alert 布局
+    static func showCustom(_ alertView: UIView, fromVC: UIViewController, with config: XYAlertConfig) {
+        let alertVC = XYAlertController(alert: alertView, config: config)
+        alertVC.modalPresentationStyle = .custom
+        fromVC.present(alertVC, animated: false)
+    }
+    
+    /// 弹出一个自定义的 alert 视图
     /// - Parameter alert: 自定义 alert view, 需要自行设置宽高约束
     /// - Note: 默认效果效果会将自定义 alert 布局
     static func showCustom(_ alertView: UIView, with config: XYAlertConfig) {
-        let alertVC = XYAlertController(alert: alertView, config: config)
-        alertVC.modalPresentationStyle = .custom
-        UIViewController.currentVisibleVC.present(alertVC, animated: false)
+        showCustom(alertView, fromVC: .currentVisibleVC, with: config)
     }
     
     static func dismiss() {
