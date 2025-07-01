@@ -42,7 +42,8 @@ class ViewController: XYInfomationBaseViewController {
             ["网络状态监听工具": NetWorkTool()],
             ["网络请求/下载/上传工具": NetworkTool2()],
             ["权限申请": AuthDemo()],
-            ["模糊效果": BlurDemo()]
+            ["模糊效果": BlurDemo()],
+            ["随机快速写原型": RandomDemoView()]
         ].reversed()
     
 }

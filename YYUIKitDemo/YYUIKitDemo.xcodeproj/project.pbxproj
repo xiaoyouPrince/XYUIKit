@@ -69,6 +69,7 @@
 		B4F2205E2D772E250014A771 /* NetworkTool2.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F2205D2D772E250014A771 /* NetworkTool2.swift */; };
 		BE07F67F2D9BF5880084BB5B /* BlurDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE07F67E2D9BF5880084BB5B /* BlurDemo.swift */; };
 		BE4436272C5A4BB400C989A1 /* Modelable in Frameworks */ = {isa = PBXBuildFile; productRef = BE4436262C5A4BB400C989A1 /* Modelable */; };
+		BE9569B02E0C0463008962C8 /* RandomDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9569AF2E0C0463008962C8 /* RandomDemoView.swift */; };
 		BEAC7A722C296D1100614900 /* NetWorkTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAC7A712C296D1100614900 /* NetWorkTool.swift */; };
 		BEC651732D7AE3B800F9FABF /* ContactsPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC651722D7AE3B800F9FABF /* ContactsPicker.swift */; };
 		BEEC9CFA2DF6AACF00DA9B4B /* TimePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEC9CF92DF6AACF00DA9B4B /* TimePickerView.swift */; };
@@ -143,6 +144,7 @@
 		B4DA90872C4E11C9000A6667 /* AuthDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDemo.swift; sourceTree = "<group>"; };
 		B4F2205D2D772E250014A771 /* NetworkTool2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTool2.swift; sourceTree = "<group>"; };
 		BE07F67E2D9BF5880084BB5B /* BlurDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurDemo.swift; sourceTree = "<group>"; };
+		BE9569AF2E0C0463008962C8 /* RandomDemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomDemoView.swift; sourceTree = "<group>"; };
 		BEAC7A712C296D1100614900 /* NetWorkTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetWorkTool.swift; sourceTree = "<group>"; };
 		BEC651722D7AE3B800F9FABF /* ContactsPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsPicker.swift; sourceTree = "<group>"; };
 		BEEC9CF92DF6AACF00DA9B4B /* TimePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePickerView.swift; sourceTree = "<group>"; };
@@ -187,6 +189,7 @@
 				B4DA90872C4E11C9000A6667 /* AuthDemo.swift */,
 				BEC651722D7AE3B800F9FABF /* ContactsPicker.swift */,
 				BE07F67E2D9BF5880084BB5B /* BlurDemo.swift */,
+				BE9569AF2E0C0463008962C8 /* RandomDemoView.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -423,9 +426,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-YYUIKitDemo/Pods-YYUIKitDemo-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-YYUIKitDemo/Pods-YYUIKitDemo-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -499,6 +506,7 @@
 				B498BA422B8C421000114112 /* AppFunctionView.swift in Sources */,
 				B45D37DA2B6FB3B30092C5D6 /* AnimationViewController.swift in Sources */,
 				BE07F67F2D9BF5880084BB5B /* BlurDemo.swift in Sources */,
+				BE9569B02E0C0463008962C8 /* RandomDemoView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
