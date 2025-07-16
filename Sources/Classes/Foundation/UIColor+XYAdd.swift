@@ -113,21 +113,23 @@ public extension XYColor {
     }
     
     func getRGBA() -> (red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat) {
-        var red: CGFloat = 0
-        var green: CGFloat = 0
-        var blue: CGFloat = 0
-        var alpha: CGFloat = 0
+        guard let components = self.cgColor.components else {
+            return (0, 0, 0, 1)
+        }
         
-        self.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
-        return (red, green, blue, alpha)
+        if self.cgColor.numberOfComponents == 2 {
+            return (components[0], components[0], components[0], components[1])
+        } else {
+            return (components[0], components[1], components[2], components[3])
+        }
     }
     
     /// 返回颜色的16进制汉字表示,  #FFFFFF
     @objc func toHexString() -> String {
         let rgb = getRGBA()
-        let redInt = Int(rgb.red * 255)
-        let greenInt = Int(rgb.green * 255)
-        let blueInt = Int(rgb.blue * 255)
+        let redInt = Int(rgb.red * 255 + 0.5)
+        let greenInt = Int(rgb.green * 255 + 0.5)
+        let blueInt = Int(rgb.blue * 255 + 0.5)
         
         return String(format: "#%02X%02X%02X", redInt, greenInt, blueInt)
     }
