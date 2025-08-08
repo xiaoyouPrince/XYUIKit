@@ -11,30 +11,21 @@ import UIKit
 public extension UIDevice {
     
     /// 是否是横屏
+    /// - 注意此属性仅判断当前设备朝向是横屏, 如果平放状态可能会不准
     var isLandscape: Bool {
-        var isLandscape =  false
         let orientation = UIDevice.current.orientation
-        if orientation == .landscapeLeft || orientation == .landscapeRight || orientation == .portrait || orientation == .portraitUpsideDown {
-            if orientation == .landscapeLeft || orientation == .landscapeRight {
-                isLandscape = true
-            } else {
-                isLandscape = false
-            }
-        }
-        return isLandscape
+        return orientation == .landscapeLeft || orientation == .landscapeRight
     }
     
     /// 是否是竖屏
+    /// - 注意此属性仅判断当前设备朝向是竖屏, 如果平放状态可能会不准 
     var isPortrait: Bool {
-        var isPortrait =  false
         let orientation = UIDevice.current.orientation
-        if orientation == .landscapeLeft || orientation == .landscapeRight || orientation == .portrait || orientation == .portraitUpsideDown {
-            if orientation == .portrait || orientation == .portraitUpsideDown {
-                isPortrait = true
-            } else {
-                isPortrait = false
-            }
-        }
-        return isPortrait
+        return orientation == .portrait || orientation == .portraitUpsideDown
+    }
+    
+    /// 是否是有效的方向（非平放状态）
+    var isValidInterfaceOrientation: Bool {
+        return isLandscape || isPortrait
     }
 }

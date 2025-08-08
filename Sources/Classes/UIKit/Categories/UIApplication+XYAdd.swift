@@ -127,7 +127,7 @@ public extension UIApplication {
         return displayName ?? bundleName ?? "App"
     }
 
-    /// App 名称（dispalyName >> name >> 'App'）
+    /// App bundleID
     static var bundleID: String { shared.bundleID }
     var bundleID: String {
         return Bundle.main.infoDictionary?["CFBundleIdentifier"] as! String
