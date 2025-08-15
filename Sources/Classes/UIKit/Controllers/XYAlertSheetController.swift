@@ -51,7 +51,9 @@ public class XYAlertSheetController: UIViewController {
     public var isBackClickCancelEnable = true
     /// alertSheet 弹出之后的背景色, 默认60%透明度的黑色
     public var backgroundColor = UIColor.black.withAlphaComponent(0.6)
-    /// dismiss 时候执行的回调
+    /// 将要 dismiss 时候执行的回调
+    public var willDismissCallback: (()->())?
+    /// dismiss 完成时候执行的回调
     public var dismissCallback: (()->())?
     /// 背景区域点击回调
     /// 若 isBackClickCancelEnable == false 不会自动关闭, 此时执行 customBackgroundClickCallback
@@ -442,6 +444,10 @@ extension XYAlertSheetController {
         contentView.snp.remakeConstraints { (make) in
             make.left.right.equalToSuperview()
             make.top.equalTo(view.snp.bottom)
+        }
+        
+        if let willDismissCallback = self.willDismissCallback {
+            willDismissCallback()
         }
         
         UIView.animate(withDuration: 0.15) {
