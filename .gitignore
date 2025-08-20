@@ -2,6 +2,7 @@ Pods
 Pods/
 Podfile.lock
 build/
+.build/
 DerivedData/
 xcshareddata
 *.tar.gz

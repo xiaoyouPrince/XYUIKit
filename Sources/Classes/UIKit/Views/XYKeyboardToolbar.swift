@@ -11,12 +11,16 @@
  // 在适当的时机设置键盘工具可用即可
  KeyboardToolbarConfig.shared.showToolBar = true
  
+ - TODO:
+    拓展 Toolbar, 支持业务层自定义 UI
+ 
  */
 
 import UIKit
 
-@objc @objcMembers public class KeyboardToolbarConfig: NSObject {
-    public static let shared: KeyboardToolbarConfig = .init()
+public typealias KeyboardToolbarConfig = XYKeyboardToolbarConfig
+@objc @objcMembers public class XYKeyboardToolbarConfig: NSObject {
+    public static let shared: XYKeyboardToolbarConfig = .init()
     /// 是否展示键盘工具条
     public var showToolBar: Bool = false
     /// 键盘工具条展示时，距离textField / textView 的距离， 默认 10
@@ -78,7 +82,7 @@ import UIKit
     
 }
 
-private extension KeyboardToolbarConfig {
+private extension XYKeyboardToolbarConfig {
     
     var isSwiftUI: Bool {
         currentTF?.responderChainToString.contains("UIHostingController") ?? false

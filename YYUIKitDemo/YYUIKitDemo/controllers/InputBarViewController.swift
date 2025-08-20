@@ -20,6 +20,11 @@ class InputBarViewController: XYInfomationBaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         KeyboardToolbarConfig.shared.showToolBar = true
+        XYKeyboardAutoDismisser.shared.startMonitoring()
+    }
+    
+    deinit {
+        XYKeyboardAutoDismisser.shared.stopMonitoring()
     }
     
     func buildUI() {
