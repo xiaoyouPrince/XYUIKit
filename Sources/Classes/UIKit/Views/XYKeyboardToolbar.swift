@@ -34,6 +34,8 @@ public typealias KeyboardToolbarConfig = XYKeyboardToolbarConfig
     private weak var currentTF: UIView?//UITextField ? UITextView
     
     private override init() {
+        if UIDevice.current.userInterfaceIdiom == .pad { return } // pad 不支持, pad 自带关闭键盘能力
+        
         let barHeight: CGFloat = 44
         keyboardMonitor = .init()
         accessoryView = .init(frame: .init(x: 0, y: .height, width: .width, height: barHeight))
