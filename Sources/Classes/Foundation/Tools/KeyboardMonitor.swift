@@ -39,6 +39,7 @@ public class KeyboardMonitor {
     public var keyboardDidShow: KeyboardMonitorCallBack?
     public var keyboardWillHide: KeyboardMonitorCallBack?
     public var keyboardDidHide: KeyboardMonitorCallBack?
+    public var keyboardWillChangeFrame: KeyboardMonitorCallBack?
     
     public init() {
         // 监听键盘通知
@@ -46,6 +47,7 @@ public class KeyboardMonitor {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShowNotification(_:)), name: UIResponder.keyboardDidShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHideNotification(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHideNotification(_:)), name: UIResponder.keyboardDidHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChangeFrameNotification(_:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
     }
     
     deinit {
@@ -92,6 +94,16 @@ extension KeyboardMonitor {
            let endFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect,
            let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double {
             keyboardDidHide?(startFrame, endFrame, duration)
+        }
+    }
+    
+    // 键盘已经隐藏
+    @objc private func keyboardWillChangeFrameNotification(_ notification: Notification) {
+        if let userInfo = notification.userInfo,
+           let startFrame = userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as? CGRect,
+           let endFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect,
+           let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double {
+            keyboardWillChangeFrame?(startFrame, endFrame, duration)
         }
     }
 }

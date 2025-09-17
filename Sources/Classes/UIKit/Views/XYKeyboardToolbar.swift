@@ -32,8 +32,7 @@ public typealias KeyboardToolbarConfig = XYKeyboardToolbarConfig
     private var accessoryView: XYKeyboardToolbar!
     private var textChangeMonitor: XYTextChangeMonitor!
     private weak var currentTF: UIView?//UITextField ? UITextView
-    private var debouncer : XYTapDebouncer?
-    
+ 
     private override init() {
         if UIDevice.current.userInterfaceIdiom == .pad {
             // pad 不支持, pad 自带关闭键盘能力
@@ -49,47 +48,50 @@ public typealias KeyboardToolbarConfig = XYKeyboardToolbarConfig
         super.init()
         
         // 设置键盘状态回调
-        keyboardMonitor?.keyboardWillShow = {[weak self] startFrame, endFrame, duration in
-            if endFrame == startFrame { return }
-            if self?.showToolBar == false { return }
-            if self?.debouncer == nil {
-                self?.debouncer = .init(interval: duration)
-            }
+        keyboardMonitor?.keyboardWillChangeFrame = {[weak self] startFrame, endFrame, duration in
+            /*
+            print("\n\n\n willChange------------------")
+            print("startFrame = \(startFrame)")
+            print("endFrame = \(endFrame)")
+            print("duration = \(duration)")
+            print("CGFloat.naviBar = \(CGFloat.naviBar)")
+             */
             
-            self?.debouncer?.executeIfAllowed { [weak self] in
-                UIView.animate(withDuration: duration) { [weak self] in
-                    // 直接计算自身的真实需要移动的 height
-                    if let contenterView = self?.getTargetTextFiled(), let window = contenterView.window {
-                        let windowFrame = contenterView.convert(contenterView.bounds, to: window)
-                        
-                        let tfEndY = CGFloat.height - (endFrame.height + 44 + windowFrame.height + (self?.toolbarDistanceFromTextField ?? 10))
-                        if tfEndY < windowFrame.minY  {
-                            let transY = windowFrame.minY - tfEndY
-                            UIView.animate(withDuration: duration) {
-                                window.transform = CGAffineTransform(translationX: 0, y: -transY)
-                            }
-                            
-                            self?.accessoryView.transform = CGAffineTransform(translationX: 0, y: -endFrame.height - barHeight + transY)
-                        } else {
-                            self?.accessoryView.transform = CGAffineTransform(translationX: 0, y: -endFrame.height - barHeight)
+            if endFrame.minY < (CGFloat.naviBar + barHeight) { return } // 高度已经高于导航栏+bar的高度, 不用展示,也没有意义了
+            
+            if self?.showToolBar == false { return }
+            UIView.animate(withDuration: duration) { [weak self] in
+                // 直接计算自身的真实需要移动的 height
+                if let contenterView = self?.getTargetTextFiled(), let window = contenterView.window {
+                    let windowFrame = contenterView.convert(contenterView.bounds, to: window)
+
+                    //print("windowFrame = \(windowFrame)")
+                    let tfEndY = CGFloat.height - (endFrame.height + 44 + windowFrame.height + (self?.toolbarDistanceFromTextField ?? 10))
+
+                    //print("(self?.toolbarDistanceFromTextField ?? 10) = \((self?.toolbarDistanceFromTextField ?? 10))")
+                    //print("tfEndY = \(tfEndY)")
+                    if tfEndY < windowFrame.minY  {
+                        let transY = windowFrame.minY - tfEndY
+
+                        //print("transY = \(transY)")
+                        UIView.animate(withDuration: duration) {
+                            window.transform = CGAffineTransform(translationX: 0, y: -transY)
                         }
+
+                        self?.accessoryView.transform = CGAffineTransform(translationX: 0, y: -endFrame.height - barHeight + transY)
+                    } else {
+                        UIView.animate(withDuration: duration) {
+                            window.transform = .identity
+                        }
+                        self?.accessoryView.transform = CGAffineTransform(translationX: 0, y: -endFrame.height - barHeight)
                     }
                 }
             }
         }
         
-        keyboardMonitor?.keyboardWillHide = {[weak self] startFrame, endFrame, duration in
-            if self?.showToolBar == false && self?.accessoryView.isOnScreen == false { return }
-            if self?.debouncer == nil {
-                self?.debouncer = .init(interval: duration)
-            }
-            
-            self?.debouncer?.executeIfAllowed { [weak self] in
-                UIView.animate(withDuration: duration) { [weak self] in
-                    self?.accessoryView.transform = .identity
-                    self?.getTargetTextFiled()?.window?.transform = .identity
-                }
-            }
+        keyboardMonitor.keyboardDidHide = {[weak self] startFrame, endFrame, duration in
+            self?.accessoryView.transform = .identity
+            self?.getTargetTextFiled()?.window?.transform = .identity
         }
         
         textChangeMonitor.onBeginEditing = {[weak self] view in
