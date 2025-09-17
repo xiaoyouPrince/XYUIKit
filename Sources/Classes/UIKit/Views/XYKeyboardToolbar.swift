@@ -32,9 +32,14 @@ public typealias KeyboardToolbarConfig = XYKeyboardToolbarConfig
     private var accessoryView: XYKeyboardToolbar!
     private var textChangeMonitor: XYTextChangeMonitor!
     private weak var currentTF: UIView?//UITextField ? UITextView
+    private var debouncer : XYTapDebouncer?
     
     private override init() {
-        if UIDevice.current.userInterfaceIdiom == .pad { return } // pad 不支持, pad 自带关闭键盘能力
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            // pad 不支持, pad 自带关闭键盘能力
+            super.init()
+            return
+        }
         
         let barHeight: CGFloat = 44
         keyboardMonitor = .init()
@@ -47,22 +52,27 @@ public typealias KeyboardToolbarConfig = XYKeyboardToolbarConfig
         keyboardMonitor?.keyboardWillShow = {[weak self] startFrame, endFrame, duration in
             if endFrame == startFrame { return }
             if self?.showToolBar == false { return }
+            if self?.debouncer == nil {
+                self?.debouncer = .init(interval: duration)
+            }
             
-            UIView.animate(withDuration: duration) { [weak self] in
-                // 直接计算自身的真实需要移动的 height
-                if let contenterView = self?.getTargetTextFiled(), let window = contenterView.window {
-                    let windowFrame = contenterView.convert(contenterView.bounds, to: window)
-                    
-                    let tfEndY = CGFloat.height - (endFrame.height + 44 + windowFrame.height + (self?.toolbarDistanceFromTextField ?? 10))
-                    if tfEndY < windowFrame.minY  {
-                        let transY = windowFrame.minY - tfEndY
-                        UIView.animate(withDuration: duration) {
-                            window.transform = CGAffineTransform(translationX: 0, y: -transY)
-                        }
+            self?.debouncer?.executeIfAllowed { [weak self] in
+                UIView.animate(withDuration: duration) { [weak self] in
+                    // 直接计算自身的真实需要移动的 height
+                    if let contenterView = self?.getTargetTextFiled(), let window = contenterView.window {
+                        let windowFrame = contenterView.convert(contenterView.bounds, to: window)
                         
-                        self?.accessoryView.transform = CGAffineTransform(translationX: 0, y: -endFrame.height - barHeight + transY)
-                    } else {
-                        self?.accessoryView.transform = CGAffineTransform(translationX: 0, y: -endFrame.height - barHeight)
+                        let tfEndY = CGFloat.height - (endFrame.height + 44 + windowFrame.height + (self?.toolbarDistanceFromTextField ?? 10))
+                        if tfEndY < windowFrame.minY  {
+                            let transY = windowFrame.minY - tfEndY
+                            UIView.animate(withDuration: duration) {
+                                window.transform = CGAffineTransform(translationX: 0, y: -transY)
+                            }
+                            
+                            self?.accessoryView.transform = CGAffineTransform(translationX: 0, y: -endFrame.height - barHeight + transY)
+                        } else {
+                            self?.accessoryView.transform = CGAffineTransform(translationX: 0, y: -endFrame.height - barHeight)
+                        }
                     }
                 }
             }
@@ -70,10 +80,15 @@ public typealias KeyboardToolbarConfig = XYKeyboardToolbarConfig
         
         keyboardMonitor?.keyboardWillHide = {[weak self] startFrame, endFrame, duration in
             if self?.showToolBar == false && self?.accessoryView.isOnScreen == false { return }
+            if self?.debouncer == nil {
+                self?.debouncer = .init(interval: duration)
+            }
             
-            UIView.animate(withDuration: duration) { [weak self] in
-                self?.accessoryView.transform = .identity
-                self?.getTargetTextFiled()?.window?.transform = .identity
+            self?.debouncer?.executeIfAllowed { [weak self] in
+                UIView.animate(withDuration: duration) { [weak self] in
+                    self?.accessoryView.transform = .identity
+                    self?.getTargetTextFiled()?.window?.transform = .identity
+                }
             }
         }
         
