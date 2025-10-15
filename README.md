@@ -19,7 +19,6 @@ Swift 5.0+
 
 ```ruby
 pod YYUIKit                     #全部功能, 主要基于 UIKit 平台
-pod YYUIKit/Foundation          #Foundation功能分类, 此部分平台无关, 可用于 Apple 全平台开发
 ```
 
 ### 使用 Swift Package Manager 安装
@@ -44,8 +43,6 @@ dependencies: [
 YYUIKit 分 `Foundation 分类 / UIKit` 两部分, 具体 UI 欢迎下载 Demo 体验, 如果对你有帮助, 欢迎点赞🌟🌟🌟🌟支持 💪🎉
 
 ### Foundation 分类
-
-此部分平台无关, 可用于 Apple 全平台开发, 可单独导入
 
 ```
 常用 Foundation 分类/工具如下
@@ -109,7 +106,43 @@ CGFloat / Label / Control / View / ViewController / Responder / ScrollView / App
 持续增加中...
 ```
 
-## 版本记录(重要功能版本)
+## 版本记录(重要功能版本) 
+
+#### Versions
+- 0.5.3 → 0.5.9（2024.07 ~ 2024.10）：功能扩展与性能优化  
+- 0.6.0 → 0.7.0（2024.10 ~ 2025.09）：新增组件功能、兼容性提升、Bug 修复
+```
+  ### Added
+- 键盘功能条与 toolbar，优化显示体验  
+- 点击防抖工具:  XYTapDebouncer
+- 键盘自动关闭工具（监听 runloop.tracking）  
+- UIDevice 分类扩展  
+- UserDefaults 属性包装器，方便存储属性  
+- 新增频率控制器  XYRateLimiter
+- XYAlert 新增自定义动画弹框、置顶弹框方法  
+- XYAlertSheetController 新增「将要关闭」回调、透明区域事件穿透  
+- XYAlert Demo 示例  
+- 图片写入相册功能（支持有损/无损）  
+- 图片生成 GIF 功能  
+- 文件系统展示图片时支持显示像素数  
+- 视频截取音频时增加异常提示  
+
+### Changed
+- 项目最低版本升级到 iOS 12  
+- 位置授权兼容 iOS 14 以下，健康授权适配 iPadOS 17  
+- CGFloat 中屏幕宽高由静态变量改为动态获取，适配横竖屏  
+- AlertSheetController 交互穿透优化，更精准识别自定义手势  
+- AlertSheetController 手势退出动画优化，下滑手势优先级降低，避免冲突  
+- 颜色新增暗黑模式支持  
+- 优化 `UIColor.toHexString()`，处理多色域、灰度色，提升精度  
+- 懒加载优化，避免多线程重复执行  
+- 地理位置请求优化，5 分钟内不重复请求  
+- 代码优化，适配 Swift 6 并发特性  
+- 多处 UI 微调与 Demo 更新  
+- 优化内部资源获取方式  
+- 移除 XYIndexBar，支持 SPM 
+```
+
 #### v0.4.1 - v0.5.0 (2024/6/4 - 2024/7/8)
 
 1. XYAlertSheetController 多项功能优化， 支持手势取消
