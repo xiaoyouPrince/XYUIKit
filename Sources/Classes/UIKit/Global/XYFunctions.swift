@@ -62,7 +62,7 @@ public func doSth(withName name: String, maxTimes times: Int, timeInterval: Time
 ///   - lineNum: 当前执行所在的行数，无需入参
 public func doOnce(inObjLife obj: AnyObject, _ function: @escaping ()->(), file : String = #file , funName : String = #function , lineNum : Int = #line) {
 
-    let key = file + funName + "\(lineNum)" + obj.debugDescription
+    let key = file + funName + "\(lineNum)" + "\(Unmanaged.passUnretained(obj).toOpaque())"
     doOnce(for: key, callback: function)
 }
 
@@ -81,6 +81,7 @@ public func doOnce(for token: String, callback: @escaping ()->()) {
 /// 程序版本内执行一次的代码
 /// - Parameters:
 ///   - callback: app版本内尚未执行过，回调。 如果已经执行过，跳过。 例如：每个版本都会有版本更新说明，仅需在新版本更新首次弹出
+/// - note: 更精细管理使用 ‘func doOnceForAppVersion(forKey key: String, callback: @escaping ()->())’
 public func doOnceForAppVersion(callback: @escaping ()->()) {
     var shouldDo = false
     
@@ -92,6 +93,23 @@ public func doOnceForAppVersion(callback: @escaping ()->()) {
     if shouldDo {
         callback()
         UserDefaults.standard.set(UIApplication.appVersion, forKey: #function)
+    }
+}
+
+/// 程序版本内针对特定 Key 执行一次的代码
+/// - Parameters:
+///   - callback: app版本内尚未执行过，回调。 如果已经执行过，跳过。 例如：每个版本都会有版本更新说明，仅需在新版本更新首次弹出
+public func doOnceForAppVersion(forKey key: String, callback: @escaping ()->()) {
+    var shouldDo = false
+    
+    if UserDefaults.standard.object(forKey: key) == nil { shouldDo = true }
+    if let savedVersion = UserDefaults.standard.object(forKey: key) as? String, savedVersion != UIApplication.appVersion {
+        shouldDo = true
+    }
+    
+    if shouldDo {
+        callback()
+        UserDefaults.standard.set(UIApplication.appVersion, forKey: key)
     }
 }
 
