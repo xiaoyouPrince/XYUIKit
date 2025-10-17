@@ -31,7 +31,7 @@ public class XYRateLimiter {
     ///   - minIntervalInSeconds: 该事件两次执行之间的最小间隔时间（单位：秒）(Y)。
     ///   - action: 如果满足执行条件，则要执行的闭包。
     /// - Returns: 如果操作被执行则返回 `true`，否则返回 `false`。
-    func attemptExecution(
+    public func attemptExecution(
         forEvent eventName: String,
         maxExecutionsPerDay x: Int,
         minIntervalInSeconds y: TimeInterval,
@@ -85,7 +85,7 @@ public class XYRateLimiter {
     }
 
     /// 用于测试目的，重置所有存储的与特定事件相关的频率限制数据
-    func resetRateLimitData(forEvent eventName: String) {
+    public func resetRateLimitData(forEvent eventName: String) {
         let lastExecutionTimestampKey = "\(lastExecutionTimestampKeyPrefix)\(eventName)_lastExecutionTimestamp"
         let executionCountKey = "\(executionCountKeyPrefix)\(eventName)_executionCount"
         let lastExecutionDayKey = "\(lastExecutionDayKeyPrefix)\(eventName)_lastExecutionDay"
@@ -99,7 +99,7 @@ public class XYRateLimiter {
     }
 
     /// 用于测试目的，重置所有存储的频率限制数据
-    func resetAllRateLimitData() {
+    public func resetAllRateLimitData() {
         let defaults = UserDefaults.standard
         let keysToRemove = defaults.dictionaryRepresentation().keys.filter {
             $0.hasPrefix(lastExecutionTimestampKeyPrefix) ||
