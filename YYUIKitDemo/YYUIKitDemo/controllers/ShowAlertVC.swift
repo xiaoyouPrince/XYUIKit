@@ -28,6 +28,8 @@ class ShowAlertVC: UIViewController {
     
     var label = UILabel()
     
+    var alertQueue: [String]?
+    
     
 
     override func viewDidLoad() {
@@ -35,38 +37,76 @@ class ShowAlertVC: UIViewController {
         view.backgroundColor = .groupTableViewBackground
         
         
-        let card = XYCards(frame: .zero)
-        card.frame = CGRect(x: 50, y: 200, width: UIScreen.main.bounds.width - 100, height: 160)
-        view.addSubview(card)
+//        let card = XYCards(frame: .zero)
+//        card.frame = CGRect(x: 50, y: 200, width: UIScreen.main.bounds.width - 100, height: 160)
+//        view.addSubview(card)
+//        
+//        return;
         
-        return;
         
-        
-        
-        label.font = UIFont.systemFont(ofSize: 55)
+        label.text = "弹框队列: \(alertTitles().joined(separator: ",")),\n 点击重新开始弹框"
+        label.font = UIFont.systemFont(ofSize: 25)
         view.addSubview(label)
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        label.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        label.addTap {[weak self] sender in
+            self?.xy_startShowAlert()
+        }
+        
+        
+        let btn = UIButton(type: .system)
+        btn.setTitle("点击重设弹框队列", for: .normal)
+        view.addSubview(btn)
+        btn.snp.makeConstraints { make in
+            make.left.right.equalToSuperview()
+            make.top.equalTo(200)
+        }
+        btn.addTap { [weak self] sender in
+            self?.buildAlertQueue()
+            self?.label.text = "弹框队列: \(self!.alertTitles().joined(separator: ",")),\n 点击重新开始弹框"
+            self?.xy_startShowAlert()
+        }
+        
+        
         
 //        showSheet()
         xy_startShowAlert()
 //        XYPopView.showPopTip(.top, .zero, "dsdsdds")
         
-        let bView = UIView(frame: CGRect(x: 50, y: 200, width: 245, height: 170))
-        bView.backgroundColor = .white
-        bView.layer.cornerRadius = 10
-//        bView.clipsToBounds = true
-        bView.layer.shadowColor = UIColor.gray.cgColor
-        bView.layer.shadowOffset = CGSize(width: 0, height: 1)
-        bView.layer.shadowOpacity = 0.5
-        bView.layer.shadowRadius = 10
-        view.addSubview(bView)
+//        let bView = UIView(frame: CGRect(x: 50, y: 200, width: 245, height: 170))
+//        bView.backgroundColor = .white
+//        bView.layer.cornerRadius = 10
+////        bView.clipsToBounds = true
+//        bView.layer.shadowColor = UIColor.gray.cgColor
+//        bView.layer.shadowOffset = CGSize(width: 0, height: 1)
+//        bView.layer.shadowOpacity = 0.5
+//        bView.layer.shadowRadius = 10
+//        view.addSubview(bView)
+    }
+}
+
+extension ShowAlertVC {
+    func buildAlertQueue() {
+        alertQueue = randomStringArray()
+    }
+    func randomStringArray(count: Int = 5, length: Int = 8) -> [String] {
+        let characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        return (0..<count).map { _ in
+            String((0..<length).map { _ in characters.randomElement()! })
+        }
     }
 }
 
 // 实现show Alert 方法
 extension ShowAlertVC {
     
+    
+    
     override func alertTitles() -> [String] {
-        return ["你","好","世","界","！"]
+        return alertQueue ?? ["你","好","世","界","！"]
     }
     
     override func showAlert(item: XYAlertItem) {
@@ -85,6 +125,18 @@ extension ShowAlertVC {
     }
     
     func showAlertFunc(item: XYAlertItem) {
+        
+        XYAlert.showAlert(title: item.title, message: "点击同意展示下一个,取消则终止", btnTitles: "同意", "取消") { index in
+            if index == 0 {
+                item.showNext()
+            } else {
+                Toast.make("点击取消,终止弹框")
+                return
+            }
+        }
+        
+        
+        
         // 展示弹框
 //        let jobVC = ZLJobCoordinationAlertController()
 //        jobVC.cancelBlock = {
@@ -96,12 +148,12 @@ extension ShowAlertVC {
 //        self.present(jobVC, animated: false, completion: nil)
         
         
-        let jobVC = XYCustomTimePickerViewController()
-        jobVC.cancelBlock = { (date) in
-            item.showNext()
-        }
-        jobVC.title = item.title
-        self.present(jobVC, animated: false, completion: nil)
+//        let jobVC = XYCustomTimePickerViewController()
+//        jobVC.cancelBlock = { (date) in
+//            item.showNext()
+//        }
+//        jobVC.title = item.title
+//        self.present(jobVC, animated: false, completion: nil)
         
     }
 }
