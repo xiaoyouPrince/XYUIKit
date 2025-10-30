@@ -16,9 +16,13 @@ import YYUIKit
 struct RandomDemoView: View {
     var body: some View {
         ZStack {
-            Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-                .onTapGesture {
-                    
+            Text("这是一个方便开发过程中快速写原型代码的一个 SwiftUI 的页面, 请直接使用 打开 RandomDemoView.swift 页面,使用系统预览来看这里的内容")
+                .onAppear {
+                    NewUserPriviligeAlertView.showNewUserPriviligeAlert {
+                        Toast.make("用户点击同意")
+                    } onDismiss: {
+                        Toast.make("用户点击关闭")
+                    }
                 }
         }
     }
