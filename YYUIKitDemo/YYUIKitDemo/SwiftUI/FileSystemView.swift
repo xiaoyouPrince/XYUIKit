@@ -26,11 +26,16 @@ struct FileSystemView: View {
     var body: some View {
         
         if header {
-            Text("------")
+            let fileName = "\(Date().string(withFormatter: "yyyy-MM-dd"))-example"
+            Text("文件名: \(fileName)")
+                .onAppear {
+                    if let path = writeTextToDocuments(fileName: fileName, content: "Hello, Documents! I am the file created by you today!") {
+                        print("文件路径: \(path)")
+                    }
+                }
         }
         
-        Button("header") {
-//            header.toggle()
+        Button("点我快速,在 Document 文件夹下创建一个文件") {
             setHeader()
         }
         
@@ -99,4 +104,33 @@ struct FileSystemView: View {
 
 #Preview {
     FileSystemView()
+}
+
+import Foundation
+
+/// 写入文本文件到 Documents 目录
+/// - Parameters:
+///   - fileName: 文件名（可不含扩展名）
+///   - content: 要写入的字符串内容
+/// - Returns: 完整文件路径（若失败返回 nil）
+@discardableResult
+func writeTextToDocuments(fileName: String, content: String) -> String? {
+    // 获取 Documents 目录路径
+    guard let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
+        return nil
+    }
+    
+    // 确保文件名带 .txt 后缀
+    let finalName = fileName.hasSuffix(".txt") ? fileName : fileName + ".txt"
+    let fileURL = documentsURL.appendingPathComponent(finalName)
+    
+    do {
+        // 写入 UTF-8 文本
+        try content.write(to: fileURL, atomically: true, encoding: .utf8)
+        print("✅ 写入成功：\(fileURL.path)")
+        return fileURL.path
+    } catch {
+        print("❌ 写入失败：\(error)")
+        return nil
+    }
 }

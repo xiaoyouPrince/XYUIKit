@@ -112,14 +112,30 @@ class FileInfomationController: UITableViewController {
                     navigationController?.pushViewController(vc, animated: true)
                     return
                 default:
-                    let vc = QLPreviewController()
-                    vc.dataSource = self
-                    navigationController?.pushViewController(vc, animated: true)
-                    return
+                    if isTextEditable(fileNode.path) {
+                        let editor = TextEditViewController(filePath: fileNode.path, fileName: fileNode.name)
+                        navigationController?.pushViewController(editor, animated: true)
+                        return
+                    } else {
+                        let vc = QLPreviewController()
+                        vc.dataSource = self
+                        navigationController?.pushViewController(vc, animated: true)
+                        return
+                    }
                 }
                 
             }
         }
+    }
+    
+    private func isTextEditable(_ path: String) -> Bool {
+        let allowed: Set<String> = [
+            "txt","md","markdown","json","xml","plist","swift","m","mm","h",
+            "strings","log","csv","html","htm","css","js","ts","sh","yaml","yml",
+            "conf","ini","env"
+        ]
+        let ext = (path as NSString).pathExtension.lowercased()
+        return allowed.contains(ext)
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -245,5 +261,168 @@ extension FileInfomationController: QLPreviewControllerDataSource {
     
     func previewController(_ controller: QLPreviewController, previewItemAt index: Int) -> QLPreviewItem {
         NSURL(fileURLWithPath: clickFileNode!.path)
+    }
+}
+
+// MARK: - Lightweight text editor for text-like files
+final class TextEditViewController: UIViewController {
+
+    // MARK: - Inputs
+    private var filePath: String
+    private let fileName: String
+
+    // MARK: - UI
+    private let textView = UITextView()
+
+    // MARK: - State
+    private enum Mode { case viewing, editing }
+    private var mode: Mode = .viewing { didSet { applyMode() } }
+    private var originalText: String = ""   // 进入编辑前的文本，用于取消恢复
+
+    // MARK: - Init
+    init(filePath: String, fileName: String) {
+        self.filePath = filePath
+        self.fileName = fileName
+        super.init(nibName: nil, bundle: nil)
+    }
+    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+
+    // MARK: - Lifecycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        if #available(iOS 13.0, *) {
+            view.backgroundColor = .systemBackground
+        } else {
+            // Fallback on earlier versions
+            view.backgroundColor = .groupTableViewBackground
+        }
+        navigationItem.title = fileName
+
+        // 初始右上角：编辑
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "编辑",
+                                                            style: .plain,
+                                                            target: self,
+                                                            action: #selector(editTapped))
+
+        // 文本视图
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        if #available(iOS 13.0, *) {
+            textView.font = UIFont.monospacedSystemFont(ofSize: 14, weight: .regular)
+        } else {
+            // Fallback on earlier versions
+            textView.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        }
+        textView.alwaysBounceVertical = true
+        textView.keyboardDismissMode = .interactive
+        textView.isEditable = false // 默认只读
+        view.addSubview(textView)
+        NSLayoutConstraint.activate([
+            textView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            textView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            textView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            textView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+
+        loadContent()
+        // 初次应用模式（只读）
+        applyMode()
+    }
+
+    // MARK: - Loading
+    private func loadContent() {
+        // UTF-8 优先，失败再自动识别
+        if let utf8 = try? String(contentsOfFile: filePath, encoding: .utf8) {
+            textView.text = utf8
+        } else {
+            var detected: String.Encoding = .utf8
+            if let sys = try? String(contentsOfFile: filePath, usedEncoding: &detected) {
+                textView.text = sys
+            } else {
+                textView.text = ""
+            }
+        }
+    }
+
+    // MARK: - Mode Handling
+    private func applyMode() {
+        switch mode {
+        case .viewing:
+            textView.isEditable = false
+            textView.resignFirstResponder()
+
+            // 右上角：编辑；左上角：无
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "编辑",
+                                                                style: .plain,
+                                                                target: self,
+                                                                action: #selector(editTapped))
+            navigationItem.leftBarButtonItem = nil
+
+        case .editing:
+            // 记录原始文本，便于取消恢复
+            originalText = textView.text
+
+            textView.isEditable = true
+            textView.becomeFirstResponder()
+
+            // 右上角：保存；左上角：取消
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "保存",
+                                                                style: .done,
+                                                                target: self,
+                                                                action: #selector(saveTapped))
+            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "取消",
+                                                               style: .plain,
+                                                               target: self,
+                                                               action: #selector(cancelTapped))
+        }
+    }
+
+    // MARK: - Actions
+    @objc private func editTapped() {
+        // 如果文件不可写，这里也可以先提示/迁移到可写目录（你之前那段迁移逻辑可放到这里）
+        mode = .editing
+    }
+
+    @objc private func saveTapped() {
+        let text = textView.text ?? ""
+        do {
+            try text.write(toFile: filePath, atomically: true, encoding: .utf8)
+            // 保存成功后回到只读模式
+            mode = .viewing
+            toast("已保存")
+        } catch {
+            alert(title: "保存失败", message: error.localizedDescription)
+        }
+    }
+
+    @objc private func cancelTapped() {
+        // 有改动才确认
+        if textView.text != originalText {
+            let ac = UIAlertController(title: "放弃更改？",
+                                       message: "当前内容尚未保存。",
+                                       preferredStyle: .actionSheet)
+            ac.addAction(UIAlertAction(title: "放弃修改", style: .destructive, handler: { _ in
+                self.textView.text = self.originalText
+                self.mode = .viewing
+            }))
+            ac.addAction(UIAlertAction(title: "继续编辑", style: .cancel))
+            present(ac, animated: true)
+        } else {
+            mode = .viewing
+        }
+    }
+
+    // MARK: - Helpers
+    private func alert(title: String, message: String) {
+        let a = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        a.addAction(UIAlertAction(title: "确定", style: .default))
+        present(a, animated: true)
+    }
+
+    private func toast(_ message: String) {
+        let a = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        present(a, animated: true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.9) {
+            a.dismiss(animated: true)
+        }
     }
 }
