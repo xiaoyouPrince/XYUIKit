@@ -27,6 +27,10 @@
      keyboardMonitor?.keyboardDidHide = { startFrame, endFrame, duration in
          print("Keyboard did hide from frame: \(startFrame) to frame: \(endFrame) with duration: \(duration)")
      }
+ 
+     keyboardMonitor?.keyboardWillChangeFrame = { startFrame, endFrame, duration in
+         print("Keyboard did hide from frame: \(startFrame) to frame: \(endFrame) with duration: \(duration)")
+     }
  */
 
 import UIKit

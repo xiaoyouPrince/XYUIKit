@@ -182,6 +182,50 @@ struct Alert_AlertSheetVC: View {
                     }
                 }
                 
+                Button("同上(pad 监听横竖屏适配高度)") {
+                    
+                    let view = UIView()
+                    view.backgroundColor = .random
+                    view.snp.makeConstraints { make in
+                        make.height.equalTo(400)
+                    }
+                    if UIDevice.current.userInterfaceIdiom == .pad {
+                        if UIDevice.current.isLandscape {
+                            view.snp.updateConstraints { make in
+                                make.height.equalTo(200)
+                            }
+                        }else {
+                            view.snp.updateConstraints { make in
+                                make.height.equalTo(400)
+                            }
+                        }
+                    }
+                    
+                    let sheet = XYAlertSheetController.showCustom(on: UIViewController.currentVisibleVC, customContentView: view)
+                    sheet.isContentAboveSafeArea = false
+                    sheet.dismissCallback = {
+                        Toast.make("dimiss")
+                    }
+                    
+                    sheet.gestureDismissCallback = { distance, ratio in
+                        Toast.make("distance: \(distance) \nratio: \(ratio)")
+                    }
+                    
+                    NotificationCenter.default.addObserver(forName: UIDevice.orientationDidChangeNotification, object: nil, queue: .main) { noti in
+                        if UIDevice.current.userInterfaceIdiom == .pad {
+                            if UIDevice.current.isLandscape {
+                                view.snp.updateConstraints { make in
+                                    make.height.equalTo(200)
+                                }
+                            }else {
+                                view.snp.updateConstraints { make in
+                                    make.height.equalTo(400)
+                                }
+                            }
+                        }
+                    }
+                }
+                
                 Button("AlertAheet - 自定义样式(关闭手势)") {
                     
                     let view = UIView()
@@ -272,7 +316,7 @@ struct Alert_AlertSheetVC: View {
                     timePicker.onTimeSelected = { selectedTime in
                         print("选择的时间是: \(selectedTime)") // 格式为 "HH:mm"
                         Toast.make("选择的时间是: \(selectedTime)")
-//                        XYAlertSheetController.dissmiss()
+                        //                        XYAlertSheetController.dissmiss()
                         
                         // 创建自定义的 view
                         if let rootVC = UIViewController.currentVisibleVC {
@@ -288,11 +332,12 @@ struct Alert_AlertSheetVC: View {
                     let sheet = XYAlertSheetController.showCustom(on: UIViewController.currentVisibleVC, customContentView: timePicker)
                     //sheet.isContentAboveSafeArea = false
                     sheet.backgroundColor = .black.withAlphaComponent(0.25)
-//                    sheet.dismissCallback = {
-//                        Toast.make("dimiss - 下层")
-//                    }
+                    //                    sheet.dismissCallback = {
+                    //                        Toast.make("dimiss - 下层")
+                    //                    }
                 }
             }
+            
         }
     }
 }
