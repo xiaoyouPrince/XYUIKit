@@ -105,11 +105,19 @@ public extension Toast {
 public extension Toast {
     
     /// 活动指示器（触摸事件关闭）
-    static func makeActivity(in view: UIView? = nil) {
+    /// - 为方便测试, Activity 将要展示的时候会发送一个名为 ToastWillShowActivity 的通知, 如有需要可自行监听主线程全局通知
+    /// - Parameters:
+    ///   - view: 指定放到哪个视图, 默认放 window 上
+    ///   - function: 指定当前调用函数, 默认当前代码所在函数
+    ///   - line: 指定当前调用所在行数, 默认当前代码所在行数
+    static func makeActivity(in view: UIView? = nil, function: String = #function, line: Int = #line) {
         DispatchQueue.safeMain {
             guard let inView = (view ?? shared.window) else {
                 return
             }
+            
+            NotificationCenter.default.post(name: .ToastWillShowActivity, object: nil, userInfo: ["function": function, "line": line, "date": Date().timeIntervalSince1970.description ])
+            
             inView.makeToastActivity(.center)
             
             inView.isUserInteractionEnabled = false
@@ -137,4 +145,8 @@ public extension Toast {
         make("Debug: \(message)", image: named, duration: duration, in: view)
         #endif
     }
+}
+
+public extension Notification.Name {
+    static let ToastWillShowActivity: Notification.Name = .init(rawValue: "ToastWillShowActivity")
 }

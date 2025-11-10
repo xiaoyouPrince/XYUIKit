@@ -19,7 +19,20 @@ class DataModel: ObservableObject {
 class ViewController: XYInfomationBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(showToast(noti:)), name: .ToastWillShowActivity, object: nil)
+        
         buildUI()
+    }
+    
+    @objc func showToast(noti: Notification) {
+        
+        let info = "ToasWillShow -- \(noti.userInfo?.description ?? "none userInfo")"
+        print(info)
+        
+//        LocalLogger.log(info, tag: .init(tag: "ToasWillShow"))
     }
     
     // UIViewController.Type or SwiftUI.View
