@@ -113,10 +113,29 @@ class FileInfomationController: UITableViewController {
                     return
                 default:
                     if isTextEditable(fileNode.path) {
-                        let editor = TextEditViewController(filePath: fileNode.path, fileName: fileNode.name)
-                        navigationController?.pushViewController(editor, animated: true)
+                        // 给用户一个选择：仅查看 (使用 QLPreviewController) 或 进入可编辑页
+                        let ac = UIAlertController(title: "打开方式", message: "请选择查看或编辑方式", preferredStyle: .actionSheet)
+                        ac.addAction(UIAlertAction(title: "只查看", style: .default, handler: { _ in
+                            // 使用系统预览控制器做只读查看
+                            let preview = QLPreviewController()
+                            // clickFileNode 已在外层设置为当前 fileNode
+                            preview.dataSource = self
+                            self.navigationController?.pushViewController(preview, animated: true)
+                        }))
+                        ac.addAction(UIAlertAction(title: "查看并可编辑", style: .default, handler: { _ in
+                            let editor = TextEditViewController(filePath: fileNode.path, fileName: fileNode.name)
+                            self.navigationController?.pushViewController(editor, animated: true)
+                        }))
+                        ac.addAction(UIAlertAction(title: "取消", style: .cancel))
+                        // iPad 安全展示
+                        if let pop = ac.popoverPresentationController, let cell = tableView.cellForRow(at: indexPath) {
+                            pop.sourceView = cell
+                            pop.sourceRect = cell.bounds
+                        }
+                        present(ac, animated: true)
                         return
-                    } else {
+                    }
+                    else {
                         let vc = QLPreviewController()
                         vc.dataSource = self
                         navigationController?.pushViewController(vc, animated: true)
