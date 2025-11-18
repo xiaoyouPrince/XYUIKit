@@ -51,11 +51,13 @@ extension AuthorityManager {
             return
         }
             
-        let step = HKQuantityType.quantityType(forIdentifier: .stepCount)!
-        let allTypes = Set([step])
+        let readTypes: Set<HKObjectType> = [
+                    HKObjectType.quantityType(forIdentifier: .stepCount),
+                    HKObjectType.quantityType(forIdentifier: .distanceWalkingRunning)
+                ].compactMap { $0 }.reduce(into: Set<HKObjectType>()) { $0.insert($1) }
         
         hasRequestStepCountAuthority = true
-        healthStore.requestAuthorization(toShare: nil, read: allTypes ) { (success, error) in
+        healthStore.requestAuthorization(toShare: nil, read: readTypes ) { (success, error) in
             completion(success, error)
         }
     }
