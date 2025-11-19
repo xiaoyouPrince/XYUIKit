@@ -57,7 +57,7 @@ public class XYAlertSheetController: UIViewController {
     public var dismissCallback: (()->())?
     /// 背景区域点击回调
     /// 若 isBackClickCancelEnable == false 不会自动关闭, 此时执行 customBackgroundClickCallback
-    /// 若 isBackClickCancelEnable == true 则走正常关闭流程, 此时执行 dismissCallback
+    /// 若 isBackClickCancelEnable == true 则走正常关闭流程, 此时执行 customBackgroundClickCallback, willDismissCallback, dismissCallback
     public var customBackgroundClickCallback: (()->())?
     /// 是否将自定义的 sheet 视图放置在 saveArea 上边，defalut is true
     /// 如果设置为 false 则在有底部安全区的设备上, 自定视图的底边布局与屏幕对齐, 默认在安全区之上
@@ -402,9 +402,9 @@ extension XYAlertSheetController {
     }
     
     @objc func coverBtnClick(sender: UIButton){
+        customBackgroundClickCallback?()
         
         if isBackClickCancelEnable == false {
-            customBackgroundClickCallback?()
             return
         }
         
