@@ -73,10 +73,10 @@ CGFloat / Label / Control / View / ViewController / Responder / ScrollView / App
 2. XYSpeedMatchController, 便捷的快速匹配控制器, 类似探探快速匹配心动女孩页面
 
 (3) 文件系统 FileSystem
-1. FileSystem 核心就是提供一套 iOS 下的文件夹查看/预览系统
+1. FileSystem 核心就是提供一套 iOS 下的文件夹查看/预览/文件编辑回写(真机调试利器)
 
 (4) Global
-1. 各种公共函数, 如 doOnce / doOnce(forKey:) / doSth(forKey: forCount)
+1. 各种公共函数, 如 doOnce / doOnce(forKey:) / doSth(forKey: forCount) ...
 2. 一些公共常量, 如 状态栏高度 / 导航栏高度 / 底部安全区高度 ...
 
 (5) Toast
