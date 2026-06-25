@@ -12,8 +12,7 @@ let package = Package(
         .library(name: "YYUIKit-Dynamic", type: .dynamic, targets: ["YYUIKit"]),
     ],
     dependencies: [
-//        .package(url: "https://github.com/SnapKit/SnapKit.git", .upToNextMajor(from: "5.0.1"))
-        .package(name: "SnapKit", path: "/Users/will/Desktop/SnapKit")
+        .package(url: "https://github.com/SnapKit/SnapKit.git", .upToNextMajor(from: "5.0.1"))
     ],
     targets: [
         .target(
