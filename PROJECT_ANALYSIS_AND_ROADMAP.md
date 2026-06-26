@@ -10,6 +10,8 @@ YYUIKit 是一个面向 iOS 的 Swift UI/工具组件库，仓库名为 `XYUIKit
 
 当前项目同时支持 CocoaPods 和 Swift Package Manager，Demo 工程位于 `YYUIKitDemo`。
 
+后续功能开发以仓库内置 `YYUIKitDemo` 作为主要集成验证工程。该 Demo 通过 CocoaPods 以本地路径接入 YYUIKit，可以覆盖更接近真实 App 的集成链路；SPM 则继续作为包发布形态的独立验证入口。
+
 项目规模概览：
 
 - 库源码约 77 个 Swift 文件，约 1.09 万行。
@@ -68,8 +70,10 @@ YYUIKit 是一个面向 iOS 的 Swift UI/工具组件库，仓库名为 `XYUIKit
 - 已完成：修复 `Package.swift` 中 SnapKit 的本机路径依赖，改为远程依赖。
 - 已完成：生成 `Package.resolved`，当前 SnapKit 锁定为 `5.7.1`。
 - 已完成：新增 `scripts/verify_spm_ios.sh`，用于 generic iOS 目标验证 Swift Package 构建。
+- 已完成：新增 `scripts/verify_demo_ios.sh`，用于仓库内置 Demo 的 CocoaPods 集成构建验证。
 - 已完成：新增 `scripts/spm_github_doctor.sh`，用于排查 GitHub/SPM 拉包网络和代理问题。
-- 待处理：跑通 CocoaPods lint 或至少完成 CocoaPods Demo 编译验证。
+- 已完成：跑通仓库内置 CocoaPods Demo 编译验证。
+- 待处理：跑通 CocoaPods lint。
 - 待处理：增加基础 CI：SPM iOS build、podspec lint、Demo build。
 
 ### P1：稳定性治理
@@ -101,8 +105,9 @@ YYUIKit 是一个面向 iOS 的 Swift UI/工具组件库，仓库名为 `XYUIKit
 
 - 已完成：修复 SnapKit SPM 依赖。
 - 已完成：增加 iOS 平台 SPM 验证脚本 `scripts/verify_spm_ios.sh`。
+- 已完成：恢复并验证仓库内置 Demo，后续功能开发以该 Demo 为主要集成验证入口。
 - 已完成：增加 GitHub/SPM 网络诊断脚本 `scripts/spm_github_doctor.sh`。
-- 待处理：验证 CocoaPods 集成。
+- 已完成：验证 CocoaPods 集成。
 - 待处理：增加基础 CI。
 
 ### 第二阶段：补基础测试
@@ -146,8 +151,8 @@ YYUIKit 是一个面向 iOS 的 Swift UI/工具组件库，仓库名为 `XYUIKit
 
 ## 建议近期先做的 5 件事
 
-1. 验证 CocoaPods 集成和 Demo 编译。
-2. 增加基础 CI，至少覆盖 SPM iOS build 和 podspec lint。
+1. 增加基础 CI，覆盖 SPM iOS build、Demo build 和 podspec lint。
+2. 跑通 CocoaPods lint。
 3. 给 `XYFileManager`、`XYRateLimiter`、基础 String/Date 扩展补测试。
 4. 清理最危险的 `fatalError` 和 window 强制解包。
 5. 复核 `PrivacyInfo.xcprivacy`。

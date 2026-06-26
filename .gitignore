@@ -1,6 +1,7 @@
 Pods
 Pods/
 Podfile.lock
+!YYUIKitDemo/Podfile.lock
 build/
 .build/
 DerivedData/
@@ -11,4 +12,3 @@ xcuserdata/
 *.xcuserstate
 *.DS_Store
 UserInterface.xcuserstate
-

@@ -74,6 +74,26 @@ scripts/spm_github_doctor.sh
 scripts/spm_github_doctor.sh --fix-git-proxy
 ```
 
+### Demo 集成验证
+
+后续功能开发优先使用仓库内置 Demo 验证真实 App 集成。Demo 通过 CocoaPods 以本地路径接入 YYUIKit：
+
+```ruby
+pod 'YYUIKit', :path => '../.'
+```
+
+使用下面脚本验证 Demo 编译：
+
+```bash
+scripts/verify_demo_ios.sh
+```
+
+如果是首次 clone、`Pods` 目录不存在，脚本会自动执行 `pod install`。也可以手动强制重新安装依赖：
+
+```bash
+scripts/verify_demo_ios.sh --pod-install
+```
+
 ## 近期 TODOs
 1. XYLoger: 一套 log 读写工具, 目标: 日志写入文件, 便于调试,查看日志, 无需断点调试, 尤其是避免一些启动等特殊场景下的断点调试
 2. XYImageEditor: 一个简易的图片编辑器, 裁剪,旋转,翻转,缩放... 参考微信图片裁剪
