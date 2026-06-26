@@ -79,8 +79,8 @@ extension XYKeyboardAutoDismisser {
             tapDebouncer.executeIfAllowed { [weak self] in
                 //print("handleRunLoopActivity 实际被执行的 ---- date\(Date().timeIntervalSince1970)")
                 // 检测是否有 ScrollView 正在滚动
-                if let scrollingView = self?.findScrollingView() {
-                    //print("Scrolling detected in: \(scrollingView)")
+                if self?.findScrollingView() != nil {
+                    //print("Scrolling detected")
                     self?.dismissKeyboard()
                 }
             }

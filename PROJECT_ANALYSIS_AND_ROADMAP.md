@@ -59,7 +59,24 @@ YYUIKit 是一个面向 iOS 的 Swift UI/工具组件库，仓库名为 `XYUIKit
 
 项目实际使用了 `UserDefaults`、`FileManager`、Photos、HealthKit、Location、Bluetooth、网络等能力，但 `PrivacyInfo.xcprivacy` 当前声明较空。需要按 Apple 要求重新核对 Required Reason API 和隐私数据声明。
 
-### 6. Demo 与库兼容范围不一致
+### 6. Auth 子模块存在审核风险
+
+`Auth` 子模块当前包含定位、通知、蓝牙、健康等权限申请相关代码。后续需要重点评估是否从默认完整包中移除，或者改成更细粒度的按需导入模块。原因是 App Store 审核对权限相关能力比较敏感：如果 App 未实际使用某项权限，但依赖包中存在对应权限申请代码、权限说明或相关能力入口，可能导致审核被拒。
+
+短期策略：避免业务方默认接入完整 `YYUIKit` 时被动带入全部权限能力。
+
+中期策略：将 `Auth` 拆为独立 subspec / SPM target，甚至按权限继续拆分为 Location、Notification、Bluetooth、Health 等更细模块。
+
+### 7. CocoaPods 长期发布风险
+
+CocoaPods 计划在 2026 年 12 月进入永久只读状态。后续不能继续把公开 CocoaPods 作为唯一发布渠道，需要提前规划：
+
+- 保留现有 podspec，满足存量项目。
+- 评估私有化 Pod 源，服务内部或个人项目。
+- 将 Swift Package Manager 作为长期主发布方式。
+- 持续补齐 SPM target 拆分、资源加载、Demo 验证和文档。
+
+### 8. Demo 与库兼容范围不一致
 
 库声明支持 iOS 12，但 Demo target 为 iOS 15，无法覆盖 iOS 12-14 的兼容性验证。
 
@@ -74,8 +91,8 @@ YYUIKit 是一个面向 iOS 的 Swift UI/工具组件库，仓库名为 `XYUIKit
 - 已完成：新增 `scripts/spm_github_doctor.sh`，用于排查 GitHub/SPM 拉包网络和代理问题。
 - 已完成：跑通仓库内置 CocoaPods Demo 编译验证。
 - 已完成：新增 GitHub Actions 基础 CI，覆盖 SPM iOS build 和 Demo build。
-- 待处理：跑通 CocoaPods lint。
-- 待处理：将 podspec lint 纳入 CI。
+- 已完成：跑通 CocoaPods lint。
+- 已完成：将 podspec lint 纳入 CI。
 
 ### P1：稳定性治理
 
@@ -87,7 +104,8 @@ YYUIKit 是一个面向 iOS 的 Swift UI/工具组件库，仓库名为 `XYUIKit
 ### P2：模块边界整理
 
 - 保持 Foundation 工具尽量不依赖 UIKit。
-- 考虑将 `Auth` 拆成权限核心和 UI 弹窗部分。
+- 优先处理 `Auth` 默认引入风险：考虑移除默认完整包中的 Auth，或拆成按需导入的独立权限模块。
+- 将 `Auth` 拆成权限核心和 UI 弹窗部分，必要时继续拆分为 Location、Notification、Bluetooth、Health 等子模块。
 - 继续细化 CocoaPods subspec / SPM target，降低使用方引入成本。
 - 统一资源加载路径，保证 CocoaPods 和 SPM 行为一致。
 
@@ -97,6 +115,7 @@ YYUIKit 是一个面向 iOS 的 Swift UI/工具组件库，仓库名为 `XYUIKit
 - 整理 README：安装、模块说明、快速开始、组件索引、版本兼容、迁移说明。
 - 统一命名风格，修正拼写问题，例如 `creatFile`、`paramters`。
 - 区分 Swift-only API 和 ObjC 兼容 API，避免过度使用 `@objc` 影响 Swift 表达力。
+- 补充 CocoaPods 只读后的发布策略：私有 Pod 源或 SPM 主导迁移。
 
 ## 后续路径
 
@@ -110,7 +129,7 @@ YYUIKit 是一个面向 iOS 的 Swift UI/工具组件库，仓库名为 `XYUIKit
 - 已完成：增加 GitHub/SPM 网络诊断脚本 `scripts/spm_github_doctor.sh`。
 - 已完成：验证 CocoaPods 集成。
 - 已完成：增加基础 CI。
-- 待处理：增加 podspec lint CI。
+- 已完成：增加 podspec lint CI。
 
 ### 第二阶段：补基础测试
 
@@ -138,11 +157,21 @@ YYUIKit 是一个面向 iOS 的 Swift UI/工具组件库，仓库名为 `XYUIKit
 目标：发布形态更稳定、更符合平台要求。
 
 - 复核并完善 `PrivacyInfo.xcprivacy`。
-- 梳理 CocoaPods subspec。
-- 梳理 SPM target。
+- 重点处理 `Auth` 审核风险：从默认完整包中移除，或改为按需导入。
+- 梳理 CocoaPods subspec，保证存量 Pod 用户可以按模块接入。
+- 梳理 SPM target，将 SPM 作为长期主发布方式。
 - 降低 Auth、FileSystem、Debug 工具对完整 UIKit 模块的耦合。
 
-### 第五阶段：文档和 Demo 标准化
+### 第五阶段：发布渠道迁移
+
+目标：应对 CocoaPods 进入只读状态后的长期维护。
+
+- 保留现有 CocoaPods 兼容能力，避免影响存量项目。
+- 评估是否维护私有 Pod 源，用于内部项目或个人项目继续通过 Pod 接入。
+- 将新增能力优先适配 SPM，并保证 `scripts/verify_spm_ios.sh` 持续通过。
+- 在 README 中明确推荐 SPM 作为长期接入方式。
+
+### 第六阶段：文档和 Demo 标准化
 
 目标：让项目更适合长期维护和对外使用。
 
@@ -153,11 +182,11 @@ YYUIKit 是一个面向 iOS 的 Swift UI/工具组件库，仓库名为 `XYUIKit
 
 ## 建议近期先做的 5 件事
 
-1. 跑通 CocoaPods lint，并纳入 CI。
-2. 给 `XYFileManager`、`XYRateLimiter`、基础 String/Date 扩展补测试。
-3. 清理最危险的 `fatalError` 和 window 强制解包。
-4. 复核 `PrivacyInfo.xcprivacy`。
-5. 继续整理 Demo 组件目录和最小示例。
+1. 给 `XYFileManager`、`XYRateLimiter`、基础 String/Date 扩展补测试。
+2. 清理最危险的 `fatalError` 和 window 强制解包。
+3. 复核 `PrivacyInfo.xcprivacy`，并同步评估 `Auth` 是否从默认完整包中移除。
+4. 规划 CocoaPods 只读后的发布策略：私有 Pod 源或 SPM 主导迁移。
+5. 继续整理 Demo 组件目录和最小示例，并逐步把单元测试纳入 CI。
 
 ## 总结
 

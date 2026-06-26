@@ -100,6 +100,7 @@ scripts/verify_demo_ios.sh --pod-install
 
 - SPM iOS build：`scripts/verify_spm_ios.sh`
 - Demo iOS build：`scripts/verify_demo_ios.sh --pod-install`
+- CocoaPods lint：`scripts/verify_pod_lint.sh`
 
 ## 近期 TODOs
 1. XYLoger: 一套 log 读写工具, 目标: 日志写入文件, 便于调试,查看日志, 无需断点调试, 尤其是避免一些启动等特殊场景下的断点调试
