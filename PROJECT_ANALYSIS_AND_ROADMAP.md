@@ -45,7 +45,7 @@ YYUIKit 是一个面向 iOS 的 Swift UI/工具组件库，仓库名为 `XYUIKit
 
 ### 2. 自动化测试不足
 
-`Tests/YYUIKitTests` 已开始补充断言型测试，目前覆盖部分 Foundation 扩展、String / Date 转换、颜色转换、`XYRateLimiter` 和 `XYFileManager`。CI 已增加 iOS Simulator XCTest 执行。后续仍需要继续覆盖网络工具、权限状态等核心能力。
+`Tests/YYUIKitTests` 已开始补充断言型测试，目前覆盖部分 Foundation 扩展、String / Date 转换、颜色转换、UIImage 扩展、`XYRateLimiter` 和 `XYFileManager`。CI 已增加 iOS Simulator XCTest 执行。后续仍需要继续覆盖网络工具、权限状态等核心能力。
 
 ### 3. 稳定性风险偏高
 
@@ -140,7 +140,7 @@ CocoaPods 计划在 2026 年 12 月进入永久只读状态。后续不能继续
 - 已完成：部分 Collection、CGRect / CGSize、String / Date、UIColor 扩展。
 - 已完成：`XYRateLimiter` 基础频率限制行为。
 - 已完成：`XYFileManager` 基础文件创建、删除、读写和路径校验。
-- 待处理：UIImage 等 Foundation 扩展。
+- 已完成：UIImage 扩展的颜色图片、比例计算、裁剪、缩放压缩、旋转和 GIF 生成测试。
 - `XYNetTool` 的参数构造、错误回调、下载逻辑。
 - 权限状态转换逻辑。
 
@@ -183,7 +183,7 @@ CocoaPods 计划在 2026 年 12 月进入永久只读状态。后续不能继续
 
 ## 建议近期先做的 5 件事
 
-1. 继续给 UIImage 扩展、`XYNetTool`、权限状态转换逻辑补测试。
+1. 继续给 `XYNetTool`、权限状态转换逻辑补测试；其中 `XYNetTool` 需要先抽出请求构造和 URLSession 注入点。
 2. 清理最危险的 `fatalError` 和 window 强制解包。
 3. 复核 `PrivacyInfo.xcprivacy`，并同步评估 `Auth` 是否从默认完整包中移除。
 4. 规划 CocoaPods 只读后的发布策略：私有 Pod 源或 SPM 主导迁移。

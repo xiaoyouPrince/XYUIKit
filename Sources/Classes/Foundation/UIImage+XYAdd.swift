@@ -148,27 +148,27 @@ public extension UIImage {
 // MARK: - 裁剪 & 压缩
 public extension UIImage {
     
-    /// 裁剪图片到指定 rect,  egg: 截取一张图左上角 50x50 的部分
-    /// - Parameter rect: 指定需要裁剪的范围, rect 是以当前图片 bounds 为基准指定
-    /// - Returns: 裁剪之后得到的 image
+    /// 裁剪图片到指定区域，例如截取一张图左上角 50x50 的部分。
+    /// - Parameter rect: 以当前图片 bounds 为基准的 point 坐标区域，内部会按图片自身 scale 换算为像素区域。
+    /// - Returns: 裁剪后的图片，保留原图的 scale 和 orientation。
     func crop(toRect rect: CGRect) -> UIImage? {
-        let scale = UIScreen().scale
+        let scale = self.scale
         let realRect: CGRect = .init(x: rect.minX * scale, y: rect.minY * scale, width: rect.width * scale, height: rect.height * scale)
         
         guard let cgImage = self.cgImage else { return nil }
         guard let croppedCGImage = cgImage.cropping(to: realRect) else { return nil }
         
-        let croppedImage = UIImage(cgImage: croppedCGImage)
+        let croppedImage = UIImage(cgImage: croppedCGImage, scale: scale, orientation: imageOrientation)
         return croppedImage
     }
     
-    /// 将图片等比缩放到指定宽高 Square, 获取等比缩放之后图片最终 Size
-    /// - Parameter maxWH: 指定最大范围的宽高
-    /// - Returns: 缩放后图片的 size
+    /// 计算图片按 aspectFit 规则限制到指定最大边长后的尺寸。
+    /// - Parameter maxWH: 最大边长，单位为 point。
+    /// - Returns: 缩放后的图片尺寸；如果原图未超过最大边长，则返回原图尺寸。
     func imageSize(with maxWH: CGFloat) -> CGSize {
         let size = size
         let maxWH: CGFloat = maxWH
-        var imageSize: CGSize = .init(width: maxWH, height: maxWH)
+        var imageSize = size
         
         if isLandscape { // 宽图片
             if size.width > maxWH { // 压缩宽度
@@ -333,17 +333,17 @@ public extension UIImage {
         return img
     }
     
-    /// 按指定方向旋转图片
-    /// - Parameter orientation: 旋转方向
-    /// - Returns: 旋转后的图片
+    /// 按指定方向旋转图片。
+    /// - Parameter orientation: 目标旋转方向。
+    /// - Returns: 旋转后的图片。
     func xy_rotate(orientation: UIImage.Orientation) -> UIImage {
         
         guard let cgImage = cgImage else { return self }
-        var bounds = CGRect(x: 0, y: 0, width: cgImage.width, height: cgImage.height)
+        var bounds = CGRect(origin: .zero, size: size)
         let rect = bounds
         var transform = CGAffineTransform.identity
         
-        switch imageOrientation {
+        switch orientation {
         case .up:
             return self
         case .upMirrored:
@@ -413,10 +413,10 @@ public extension UIImage {
 
 public extension UIImage {
     
-    /// 通过 image 数组创建 gif 图
+    /// 通过 image 数组创建 GIF 图。
     /// - Parameters:
-    ///   - images: 原始images数组
-    ///   - outputUrl: 最终输出的 gif URL， 请自己设置好后缀名，egg: file://animation.gif
+    ///   - images: 原始 images 数组。
+    ///   - outputUrl: 最终输出的 GIF URL，请自行设置好后缀名，例如 file://animation.gif。
     @available(iOS 14.0, *)
     static func createGIF(with images: [UIImage], outputUrl: URL) throws {
         if images.count > 1 {
@@ -435,11 +435,11 @@ public extension UIImage {
                 throw NSError(domain: "yyuikit.uiimage.createGIF", code: -1)
             }
 
+            CGImageDestinationSetProperties(destination, gifProperties as CFDictionary)
+
             for frame in frames {
                 CGImageDestinationAddImage(destination, frame.cgImage!, gifProperties as CFDictionary)
             }
-
-            CGImageDestinationSetProperties(destination, gifProperties as CFDictionary)
 
             if !CGImageDestinationFinalize(destination) {
                 // 保存gif图像数据失败的处理逻辑
