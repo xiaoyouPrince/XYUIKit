@@ -94,6 +94,13 @@ scripts/verify_demo_ios.sh
 scripts/verify_demo_ios.sh --pod-install
 ```
 
+### CI 验证
+
+仓库已配置 GitHub Actions，push 到 `master` / `main` 或创建 PR 时会自动执行：
+
+- SPM iOS build：`scripts/verify_spm_ios.sh`
+- Demo iOS build：`scripts/verify_demo_ios.sh --pod-install`
+
 ## 近期 TODOs
 1. XYLoger: 一套 log 读写工具, 目标: 日志写入文件, 便于调试,查看日志, 无需断点调试, 尤其是避免一些启动等特殊场景下的断点调试
 2. XYImageEditor: 一个简易的图片编辑器, 裁剪,旋转,翻转,缩放... 参考微信图片裁剪

@@ -73,8 +73,9 @@ YYUIKit 是一个面向 iOS 的 Swift UI/工具组件库，仓库名为 `XYUIKit
 - 已完成：新增 `scripts/verify_demo_ios.sh`，用于仓库内置 Demo 的 CocoaPods 集成构建验证。
 - 已完成：新增 `scripts/spm_github_doctor.sh`，用于排查 GitHub/SPM 拉包网络和代理问题。
 - 已完成：跑通仓库内置 CocoaPods Demo 编译验证。
+- 已完成：新增 GitHub Actions 基础 CI，覆盖 SPM iOS build 和 Demo build。
 - 待处理：跑通 CocoaPods lint。
-- 待处理：增加基础 CI：SPM iOS build、podspec lint、Demo build。
+- 待处理：将 podspec lint 纳入 CI。
 
 ### P1：稳定性治理
 
@@ -108,7 +109,8 @@ YYUIKit 是一个面向 iOS 的 Swift UI/工具组件库，仓库名为 `XYUIKit
 - 已完成：恢复并验证仓库内置 Demo，后续功能开发以该 Demo 为主要集成验证入口。
 - 已完成：增加 GitHub/SPM 网络诊断脚本 `scripts/spm_github_doctor.sh`。
 - 已完成：验证 CocoaPods 集成。
-- 待处理：增加基础 CI。
+- 已完成：增加基础 CI。
+- 待处理：增加 podspec lint CI。
 
 ### 第二阶段：补基础测试
 
@@ -151,11 +153,11 @@ YYUIKit 是一个面向 iOS 的 Swift UI/工具组件库，仓库名为 `XYUIKit
 
 ## 建议近期先做的 5 件事
 
-1. 增加基础 CI，覆盖 SPM iOS build、Demo build 和 podspec lint。
-2. 跑通 CocoaPods lint。
-3. 给 `XYFileManager`、`XYRateLimiter`、基础 String/Date 扩展补测试。
-4. 清理最危险的 `fatalError` 和 window 强制解包。
-5. 复核 `PrivacyInfo.xcprivacy`。
+1. 跑通 CocoaPods lint，并纳入 CI。
+2. 给 `XYFileManager`、`XYRateLimiter`、基础 String/Date 扩展补测试。
+3. 清理最危险的 `fatalError` 和 window 强制解包。
+4. 复核 `PrivacyInfo.xcprivacy`。
+5. 继续整理 Demo 组件目录和最小示例。
 
 ## 总结
 
