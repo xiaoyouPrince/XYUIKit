@@ -35,7 +35,8 @@ public struct XYFileManager {
         guard let url = rootURL?.appendingPathComponent(pathOrFileName) else { return false }
         
         if FileManager.default.fileExists(atPath: url.path ) == false { // 文件不存在,先创建
-            FileManager.default.createFile(atPath: url.absoluteString, contents: nil)
+            validateURL(url: url)
+            return FileManager.default.createFile(atPath: url.path, contents: nil)
         }
         
         // 已经存在,直接返回
@@ -108,6 +109,7 @@ public struct XYFileManager {
         encoder.outputFormatting = .prettyPrinted  // 可选：设置输出格式更易读
         do {
             let data = try encoder.encode(origin) // 将数据写入文件
+            validateURL(url: url)
             try data.write(to: url)
         } catch {
             print("Failed to store contact data: \(error)")
@@ -182,4 +184,3 @@ extension XYFileManager {
         return subPaths
     }
 }
-

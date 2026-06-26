@@ -100,6 +100,8 @@ scripts/verify_demo_ios.sh --pod-install
 
 - SPM iOS build：`scripts/verify_spm_ios.sh`
 - Demo iOS build：`scripts/verify_demo_ios.sh --pod-install`
+- Tests iOS build：`scripts/verify_tests_ios.sh`
+- Tests iOS Simulator：`scripts/run_tests_ios_simulator.sh`
 - CocoaPods lint：`scripts/verify_pod_lint.sh`
 
 ## 近期 TODOs

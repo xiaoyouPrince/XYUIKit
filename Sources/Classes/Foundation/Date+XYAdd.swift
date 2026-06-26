@@ -74,7 +74,7 @@ public extension Date {
         if component == .minute {
             return Int(timeInterval / (60))
         }
-        if component == .year {
+        if component == .second {
             return Int(timeInterval)
         }
         return 0
