@@ -129,7 +129,7 @@ import UIKit
     private var pickerHeight_: CGFloat { max(pickerHeight, 230) }
     private var contentHeight: CGFloat { toolBarHeight + pickerHeight_ }
 
-    func layoutSubview() {
+    public override func layoutSubviews() {
         super.layoutSubviews()
 
         coverBtn.frame = CGRect(x: 0, y: 0, width: frame.width, height: frame.height - contentHeight)
@@ -144,27 +144,26 @@ import UIKit
     }
 
     // MARK: - Show & Dismiss
-    @objc public func showPicker(completion: @escaping (XYPickerViewItem) -> Void) {
-        guard !dataArray.isEmpty else {
-            fatalError("XYPickerView's dataArray cannot be empty.")
-        }
+    @discardableResult
+    @objc public func showPicker(completion: @escaping (XYPickerViewItem) -> Void) -> Bool {
+        guard let selectedRow = normalizedSelectedRow() else { return false }
+        guard let window = UIApplication.shared.getKeyWindow() else { return false }
 
-        if let window = UIApplication.shared.windows.first {
-            window.addSubview(self)
-            frame = UIScreen.main.bounds
-            layoutSubview()
-        } else {
-            fatalError("can not find key window")
-        }
+        window.addSubview(self)
+        frame = window.bounds
+        setNeedsLayout()
+        layoutIfNeeded()
         
-        pickerView.selectRow(defaultSelectedRow, inComponent: 0, animated: false)
-        selectedRow = defaultSelectedRow
+        pickerView.selectRow(selectedRow, inComponent: 0, animated: false)
+        self.selectedRow = selectedRow
         doneBlock = completion
 
         UIView.animate(withDuration: animationDuration) {
             self.backgroundColor = UIColor.black.withAlphaComponent(0.2)
             self.contentView.transform = .init(translationX: 0, y: -self.contentHeight)
         }
+
+        return true
     }
     
     @objc public static func showPicker(_ config: (_ picker: XYPickerView) -> Void, completion: @escaping (XYPickerViewItem) -> Void) {
@@ -208,5 +207,10 @@ import UIKit
 
     public func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         selectedRow = row
+    }
+
+    func normalizedSelectedRow() -> Int? {
+        guard !dataArray.isEmpty else { return nil }
+        return min(max(defaultSelectedRow, 0), dataArray.count - 1)
     }
 }

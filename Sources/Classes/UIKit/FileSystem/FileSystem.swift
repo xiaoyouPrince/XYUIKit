@@ -14,14 +14,13 @@ public class FileSystem: NSObject {
     private(set) var isPushOpened = false
     
     public func open(dir path: String = FileSystem.sandBoxPath()) {
-        let window = UIApplication.shared.windows.first!
-        if let root = window.rootViewController {
-            let rootNode = FileNode(path: path)
-            FileSystem.default.rootNode = rootNode
-            let navi = createRootFileController(node: rootNode)
-            root.present(navi, animated: true, completion: nil)
-            isPushOpened = false
-        }
+        guard let presenter = presentingViewController() else { return }
+
+        let rootNode = FileNode(path: path)
+        FileSystem.default.rootNode = rootNode
+        let navi = createRootFileController(node: rootNode)
+        presenter.present(navi, animated: true, completion: nil)
+        isPushOpened = false
     }
     
     public func pushOpen(navigationVC: UINavigationController , dirpath: String = FileSystem.sandBoxPath()) {
@@ -56,11 +55,10 @@ public class FileSystem: NSObject {
         }
         navi.setViewControllers(vcs, animated: true)
         
-        let window = UIApplication.shared.windows.first!
-        if let root = window.rootViewController {
-            root.present(navi, animated: true, completion: nil)
-            isPushOpened = true
-        }
+        guard let presenter = presentingViewController() else { return }
+
+        presenter.present(navi, animated: true, completion: nil)
+        isPushOpened = true
     }
     
     private func createRootFileController(node: FileNode) -> UINavigationController {
@@ -72,6 +70,14 @@ public class FileSystem: NSObject {
             navi.overrideUserInterfaceStyle = XYUtils.overrideUserInterfaceStyle
         }
         return navi
+    }
+
+    private func presentingViewController() -> UIViewController? {
+        if let currentVC = UIViewController.currentVisibleVC {
+            return currentVC
+        }
+
+        return UIApplication.shared.getKeyWindow()?.rootViewController
     }
 }
 
@@ -125,5 +131,4 @@ extension FileSystem {
         FileSystem.default.rootNode?.next = nil
     }
 }
-
 

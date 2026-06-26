@@ -256,6 +256,7 @@ public protocol XYNetToolDelegate: AnyObject {
 - 已完成：权限类型 rawValue 映射、`getStatus(for:)` 对异步/隐私受限权限的非崩溃返回测试。
 - 已完成：蓝牙权限未知系统枚举值兜底，不再因 `@unknown default` 触发崩溃。
 - 待处理：定位、蓝牙、通知等系统状态到 `AuthStatus` 的完整转换测试。
+- 已完成：`XYPickerViewItem` 模型转换、`XYPickerView` 数据源和默认选中行边界测试。
 
 ### 第三阶段：降低崩溃风险
 
@@ -263,7 +264,9 @@ public protocol XYNetToolDelegate: AnyObject {
 
 - 替换对外 API 中的 `fatalError`。
 - 清理高风险强制解包。
-- 优化 keyWindow / currentVC 查找逻辑。
+- 已完成：`FileSystem.open` / `openRecently` 移除 `UIApplication.shared.windows.first!` 强制解包，找不到可展示控制器时安全返回。
+- 已完成：`XYPickerView.showPicker` 移除空数据和无 keyWindow 场景的 `fatalError`，改为返回展示是否成功。
+- 优化其他 keyWindow / currentVC 查找逻辑。
 - 优化 FileSystem、AuthorityManager、XYPickerView 等高频入口的错误处理。
 
 ### 第四阶段：隐私与模块化
@@ -297,7 +300,7 @@ public protocol XYNetToolDelegate: AnyObject {
 ## 建议近期先做的 5 件事
 
 1. 后续择时按“XYNetTool 收敛方案”实现 `request(URLRequest)` 最小核心，并补充 `URLSession` 注入测试；短期继续给系统权限状态到 `AuthStatus` 的转换逻辑补测试。
-2. 清理最危险的 `fatalError` 和 window 强制解包。
+2. 继续清理最危险的 `fatalError` 和 window / controller 强制解包。
 3. 复核 `PrivacyInfo.xcprivacy`，并同步评估 `Auth` 是否从默认完整包中移除。
 4. 规划 CocoaPods 只读后的发布策略：私有 Pod 源或 SPM 主导迁移。
 5. 继续整理 Demo 组件目录和最小示例，并逐步把单元测试纳入 CI。
