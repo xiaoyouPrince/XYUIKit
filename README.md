@@ -31,6 +31,49 @@ dependencies: [
 ]
 ```
 
+YYUIKit 的 SPM 依赖会自动解析 SnapKit。业务代码如果只使用 YYUIKit 暴露的 API，只需要：
+
+```swift
+import YYUIKit
+```
+
+如果业务代码中直接使用 SnapKit 的 API，例如 `view.snp.makeConstraints`，需要在 App target 中显式依赖 SnapKit，并在源码中显式导入：
+
+```swift
+import YYUIKit
+import SnapKit
+```
+
+YYUIKit 不会通过 `@_exported import SnapKit` 隐式导出 SnapKit，避免把 SnapKit 变成 YYUIKit 的公开 API 承诺。
+
+### SPM 构建验证
+
+本项目是 iOS/UIKit 包，不建议用默认的 `swift test` 作为主要验证方式；该命令在 macOS host 平台下可能因为找不到 UIKit 而失败。
+
+使用下面脚本按 generic iOS 目标验证 SPM 构建：
+
+```bash
+scripts/verify_spm_ios.sh
+```
+
+如果需要专门验证模拟器目标，可以临时覆盖 `DESTINATION`：
+
+```bash
+DESTINATION='generic/platform=iOS Simulator' scripts/verify_spm_ios.sh
+```
+
+如果 Xcode 或 SwiftPM 拉取 GitHub 依赖失败，可以先运行诊断脚本：
+
+```bash
+scripts/spm_github_doctor.sh
+```
+
+当脚本提示代理可用但 Git 未走代理时，执行：
+
+```bash
+scripts/spm_github_doctor.sh --fix-git-proxy
+```
+
 ## 近期 TODOs
 1. XYLoger: 一套 log 读写工具, 目标: 日志写入文件, 便于调试,查看日志, 无需断点调试, 尤其是避免一些启动等特殊场景下的断点调试
 2. XYImageEditor: 一个简易的图片编辑器, 裁剪,旋转,翻转,缩放... 参考微信图片裁剪
@@ -194,5 +237,3 @@ CGFloat / Label / Control / View / ViewController / Responder / ScrollView / App
 
 基础常用分类工具 & 自定义工具类 & 自定义 UIViews
     
-
-
