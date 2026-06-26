@@ -117,6 +117,116 @@ CocoaPods 计划在 2026 年 12 月进入永久只读状态。后续不能继续
 - 区分 Swift-only API 和 ObjC 兼容 API，避免过度使用 `@objc` 影响 Swift 表达力。
 - 补充 CocoaPods 只读后的发布策略：私有 Pod 源或 SPM 主导迁移。
 
+## XYNetTool 收敛方案
+
+当前 `YYUIKit` 和 `XYDevTool` 中的 `XYNetTool` 已经脱钩，不建议再以“两个文件完全合并”为目标。更合理的问题是：`YYUIKit` 应该提供什么样的最小网络核心，能让 `XYDevTool` 在它上面继续扩展。
+
+最终方向：
+
+- `YYUIKit` 负责提供干净、稳定、低侵入的基础网络核心。
+- `XYDevTool` 负责在基础核心之上构建调试请求、解析展示结果、记录日志和适配项目 UI。
+- 不把 `XYDevTool` 当前较重的网络调试能力完整合并回 `YYUIKit`。
+- 不再让两个项目长期各自维护一套完整网络发送逻辑。
+
+`YYUIKit` 后续应保留的能力：
+
+- 简洁 API：继续保留 `get`、`post`、`download` 等快速请求入口，满足三方库用户的低成本接入。
+- 最小核心 API：择时新增 `request(_ request: URLRequest, completion:)`，让上层工具可以自行构建 `URLRequest`，由 `YYUIKit` 统一负责发送请求和返回基础响应。
+- 基础响应类型：提供轻量 `XYNetResponse`，优先包含 `Data`、`URLResponse`、`HTTPURLResponse?`、`statusCode`、`headers` 等基础信息，不急于内置复杂业务解析。
+- 基础错误类型：提供轻量 `XYNetError`，保留原始错误或响应数据，避免只返回字符串。
+- 生命周期 hook：可以提供 `XYNetToolDelegate`，只暴露请求开始、请求完成、耗时、原始 data / response / error 等基础信息。
+- 可测试性：继续保留或调整 `makeRequest`，并进一步抽出 `URLSession` 注入点，用于测试成功、失败、状态码、下载等分支。
+
+`YYUIKit` 暂不应承载的能力：
+
+- `XYDevTool` 的日志适配器。
+- 请求历史、调试面板、接口调试 UI。
+- 复杂 response parser 链。
+- 面向具体前后端协议的参数封装和响应解释。
+- 依赖项目内 `Logger` 或其他 App 层基础设施的实现。
+
+`XYDevTool` 后续应调整为上层封装：
+
+- 用自己的 `NetworkDebugRequestBuilder` 构建调试请求。
+- 调用 `YYUIKit` 的 `XYNetTool.request(URLRequest)` 发送请求。
+- 用自己的 `NetworkDebugResponseParser` 解析并展示响应。
+- 继续通过 `XYNetToolDelegate` 连接 `XYNetToolLogAdapter`，记录请求生命周期。
+
+推荐迁移路径：
+
+1. 先在 `YYUIKit` 中实现并测试最小核心 `request(URLRequest)`，保持现有 `get`、`post`、`download` API 不变。
+2. 将 `get`、`post`、`download` 内部逐步改为：先构造 `URLRequest`，再调用核心 `request(URLRequest)`。
+3. 给核心发送能力补充可注入 `URLSession` 或 `URLProtocol` mock 测试，覆盖成功、失败、HTTP 状态码、空响应、下载落盘等分支。
+4. `XYDevTool` 暂时保留现有网络工具实现，等 `YYUIKit` 核心稳定后，再逐步把“发送请求”部分切换到 `YYUIKit`。
+5. `XYDevTool` 保留调试请求构建、响应解析、日志记录和 UI 展示，不再维护完整底层网络发送 fork。
+
+后续实现备忘：
+
+- 这不是一次“把 `XYDevTool` 的 `XYNetTool.swift` 拷贝回 `YYUIKit`”的任务。`XYDevTool` 版本中的调试日志、响应展示、parser 链、项目 Logger 适配都不应进入 `YYUIKit` 核心。
+- 第一优先级是新增最小核心发送 API，而不是继续扩展更多 `get/post` 参数：
+
+```swift
+public static func request(
+    _ request: URLRequest,
+    completion: @escaping (Result<XYNetResponse, XYNetError>) -> Void
+)
+```
+
+- `XYNetResponse` 第一版保持轻量，不内置复杂业务解析：
+
+```swift
+public struct XYNetResponse {
+    public let data: Data
+    public let response: URLResponse
+    public let httpResponse: HTTPURLResponse?
+    public let statusCode: Int?
+    public let headers: [AnyHashable: Any]
+}
+```
+
+- `XYNetError` 第一版保留原始上下文，避免只把错误压成字符串：
+
+```swift
+public enum XYNetError: LocalizedError {
+    case requestFailed(Error)
+    case invalidResponse
+    case invalidStatusCode(Int, Data)
+}
+```
+
+- 如果加入生命周期 hook，协议只暴露基础请求生命周期，不暴露业务解析结构：
+
+```swift
+public protocol XYNetToolDelegate: AnyObject {
+    func netToolWillSend(_ request: URLRequest, requestID: String)
+    func netToolDidComplete(
+        _ request: URLRequest,
+        data: Data?,
+        response: URLResponse?,
+        error: Error?,
+        requestID: String,
+        duration: TimeInterval
+    )
+}
+```
+
+- `get/post/download` 的定位是便捷 API。后续内部可以改成 `makeRequest(...) -> request(URLRequest)`，但外部签名应尽量保持兼容。
+- `makeRequest(...)` 应继续保留可测试性，优先保持 internal，通过 `@testable import YYUIKit` 测试，不必为了测试而 public。
+- `paramters` 是历史拼写问题，短期不直接删除。后续如需修正，应新增 `parameters` 重载，再对旧接口标记 deprecated。
+- public API 要克制：只有用户需要直接调用、且愿意长期兼容的能力才 public；测试辅助、内部拼装、session 注入优先 internal。
+- 回调线程语义需要在实现时明确。推荐 public callback 统一回主线程，并在注释中写清楚。
+- 状态码校验不要一开始强制开启，避免破坏老行为；可以通过 options 或后续高级接口启用。
+
+验收标准：
+
+- 现有 `get`、`post`、`download` 调用方式不破坏。
+- `request(URLRequest)` 有独立 XCTest 覆盖。
+- GET query 编码、POST body、headers、timeout 的现有测试继续通过。
+- 能通过 mock 或注入方式测试请求成功、网络失败、HTTP 非 2xx、空响应等分支。
+- `scripts/run_tests_ios_simulator.sh`、`scripts/verify_spm_ios.sh`、`scripts/verify_tests_ios.sh`、`scripts/verify_demo_ios.sh` 全部通过。
+
+这套方案的目标不是让两个项目互拷同一个大而全的 `XYNetTool.swift`，而是形成清晰分层：基础库可复用，项目层可扩展，职责边界稳定。
+
 ## 后续路径
 
 ### 第一阶段：修复构建链
@@ -143,7 +253,9 @@ CocoaPods 计划在 2026 年 12 月进入永久只读状态。后续不能继续
 - 已完成：UIImage 扩展的颜色图片、比例计算、裁剪、缩放压缩、旋转和 GIF 生成测试。
 - 已完成：`XYNetTool` 的请求构造测试，覆盖 GET 参数编码、已有 query 保留、POST JSON body、header 和 timeout。
 - 待处理：`XYNetTool` 的错误回调、下载逻辑；需要继续抽出 URLSession 注入点。
-- 权限状态转换逻辑。
+- 已完成：权限类型 rawValue 映射、`getStatus(for:)` 对异步/隐私受限权限的非崩溃返回测试。
+- 已完成：蓝牙权限未知系统枚举值兜底，不再因 `@unknown default` 触发崩溃。
+- 待处理：定位、蓝牙、通知等系统状态到 `AuthStatus` 的完整转换测试。
 
 ### 第三阶段：降低崩溃风险
 
@@ -184,7 +296,7 @@ CocoaPods 计划在 2026 年 12 月进入永久只读状态。后续不能继续
 
 ## 建议近期先做的 5 件事
 
-1. 继续给 `XYNetTool` 的错误回调 / 下载逻辑、权限状态转换逻辑补测试；其中 `XYNetTool` 下一步需要抽出 URLSession 注入点。
+1. 后续择时按“XYNetTool 收敛方案”实现 `request(URLRequest)` 最小核心，并补充 `URLSession` 注入测试；短期继续给系统权限状态到 `AuthStatus` 的转换逻辑补测试。
 2. 清理最危险的 `fatalError` 和 window 强制解包。
 3. 复核 `PrivacyInfo.xcprivacy`，并同步评估 `Auth` 是否从默认完整包中移除。
 4. 规划 CocoaPods 只读后的发布策略：私有 Pod 源或 SPM 主导迁移。

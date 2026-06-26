@@ -65,7 +65,7 @@ extension AuthorityManager: CBCentralManagerDelegate {
             case .allowedAlways:
                 return .authorized
             @unknown default:
-                fatalError("unknow bluetooth authorization")
+                return .notDetermined
             }
         } else {
             // Fallback on earlier versions

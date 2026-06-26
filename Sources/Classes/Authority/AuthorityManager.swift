@@ -91,7 +91,9 @@ public typealias AuthorityManager = XYAuthorityManager
     }
     
     
-    /// 获取指定权限当前授权状态, 通知不支持同步函数, 使用 notificationAuthStatus 函数
+    /// 获取指定权限当前授权状态。
+    /// - Note: 通知权限需使用 `notificationAuthStatus(_:)` 或 async `notificationAuthStatus()` 查询。
+    /// 健康步数读取权限受系统隐私限制，需使用 `healthStepCountReadAuthStatus(complete:)` 或 `getSteps(completion:)` 判断。
     @objc public func getStatus(for auth: Auth) -> AuthStatus {
         switch auth {
         case .location:
@@ -99,11 +101,11 @@ public typealias AuthorityManager = XYAuthorityManager
         case .bluetooth:
             return self.bluetoothAuthStatus()
         case .notification:
-            fatalError("not suppprt notification, use 'notificationAuthStatus' function")
+            return .notDetermined
         case .activity:
             return self.activityAuthStatus()
         case .healthStepCount:
-            fatalError("not suppprt notification, use 'healthStepCountReadAuthStatus' function")
+            return .notDetermined
         default:
             break
         }
