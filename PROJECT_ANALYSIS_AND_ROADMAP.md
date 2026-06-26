@@ -141,7 +141,8 @@ CocoaPods 计划在 2026 年 12 月进入永久只读状态。后续不能继续
 - 已完成：`XYRateLimiter` 基础频率限制行为。
 - 已完成：`XYFileManager` 基础文件创建、删除、读写和路径校验。
 - 已完成：UIImage 扩展的颜色图片、比例计算、裁剪、缩放压缩、旋转和 GIF 生成测试。
-- `XYNetTool` 的参数构造、错误回调、下载逻辑。
+- 已完成：`XYNetTool` 的请求构造测试，覆盖 GET 参数编码、已有 query 保留、POST JSON body、header 和 timeout。
+- 待处理：`XYNetTool` 的错误回调、下载逻辑；需要继续抽出 URLSession 注入点。
 - 权限状态转换逻辑。
 
 ### 第三阶段：降低崩溃风险
@@ -183,7 +184,7 @@ CocoaPods 计划在 2026 年 12 月进入永久只读状态。后续不能继续
 
 ## 建议近期先做的 5 件事
 
-1. 继续给 `XYNetTool`、权限状态转换逻辑补测试；其中 `XYNetTool` 需要先抽出请求构造和 URLSession 注入点。
+1. 继续给 `XYNetTool` 的错误回调 / 下载逻辑、权限状态转换逻辑补测试；其中 `XYNetTool` 下一步需要抽出 URLSession 注入点。
 2. 清理最危险的 `fatalError` 和 window 强制解包。
 3. 复核 `PrivacyInfo.xcprivacy`，并同步评估 `Auth` 是否从默认完整包中移除。
 4. 规划 CocoaPods 只读后的发布策略：私有 Pod 源或 SPM 主导迁移。

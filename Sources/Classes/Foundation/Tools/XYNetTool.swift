@@ -83,10 +83,48 @@ public struct XYNetTool {
 }
 
 
-private extension XYNetTool {
+extension XYNetTool {
     enum RequestType: String {
         case GET, POST
     }
+    
+    static func makeRequest(url: URL,
+                            method: RequestType,
+                            paramters: [String: Any],
+                            headers: [String: String]?,
+                            timeoutInterval: TimeInterval = 10) -> URLRequest {
+        var request = URLRequest(url: url)
+        request.timeoutInterval = timeoutInterval
+        request.httpMethod = method.rawValue
+        
+        if method == .GET {
+            if paramters.isEmpty == false {
+                var components = URLComponents(url: url, resolvingAgainstBaseURL: false)
+                var queryItems = components?.queryItems ?? []
+                let newItems = paramters.map { key, value in
+                    URLQueryItem(name: key, value: "\(value)")
+                }
+                queryItems.append(contentsOf: newItems)
+                components?.queryItems = queryItems
+                request.url = components?.url
+            }
+        } else if method == .POST {
+            if let data = try? JSONSerialization.data(withJSONObject: paramters, options: .fragmentsAllowed) {
+                request.httpBody = data
+            }
+        }
+        
+        if let headers = headers {
+            for (key, value) in headers {
+                request.setValue(value, forHTTPHeaderField: key)
+            }
+        }
+        
+        return request
+    }
+}
+
+private extension XYNetTool {
     
     /*
      目前支持:
@@ -174,35 +212,10 @@ private extension XYNetTool {
                                      method: RequestType,
                                      paramters: [String: Any],
                                      headers: [String: String]?) -> (URLRequest, URLSession){
-        let request = NSMutableURLRequest(url: url)
-        request.timeoutInterval = 10
-        request.httpMethod = method.rawValue
-        
-        if method == .GET {
-            if paramters.isEmpty == false {
-                var pStr = "?"
-                paramters.forEach { (k, v) in
-                    pStr.append("\(k)=\(v)&")
-                }
-                let pStrResult = String(pStr.dropLast())
-                request.url = URL(string: url.absoluteString + pStrResult)
-            }
-        }else
-        if method == .POST {
-            if let data = try? JSONSerialization.data(withJSONObject: paramters, options: .fragmentsAllowed) {
-                request.httpBody = data
-            }
-        }
-        
-        
-        if let headers = headers {
-            for (key, value) in headers {
-                request.setValue(value, forHTTPHeaderField: key)
-            }
-        }
+        let request = makeRequest(url: url, method: method, paramters: paramters, headers: headers)
         
         let session = URLSession(configuration: URLSessionConfiguration.default, delegate: nil, delegateQueue: OperationQueue.main)
         
-        return (request as URLRequest, session)
+        return (request, session)
     }
 }
