@@ -10,34 +10,24 @@ import UIKit
 
 
 /// 获取当前可见的控制器
-/// - Note: 需要注意的, 此方法适用于当前有 keyWindow 的场景, 如果没有找到 keyWindow 返回nil, 在一些特殊场景慎用,可以先提前获取 currenVC 并暂存, 在需要的场景使用, 比如画中画场景系统会修改App.keywindow
+/// - Note: 需要注意的, 此方法适用于当前有 keyWindow 的场景, 如果没有找到 keyWindow 返回 nil, 在一些特殊场景慎用,可以先提前获取 currenVC 并暂存, 在需要的场景使用, 比如画中画场景系统会修改App.keywindow
 /// - Returns: UIViewController
 public func currentVisibleController() -> UIViewController! {
+    currentVisibleControllerIfAvailable()
+}
+
+fileprivate func currentVisibleControllerIfAvailable() -> UIViewController? {
     if !Thread.isMainThread {
         let semaphore = DispatchSemaphore(value: 0)
-        var keyWindow: UIWindow? = nil
         var result: UIViewController? = nil
         DispatchQueue.main.async {
-            for window in UIApplication.shared.windows {
-                if window.isKeyWindow {
-                    keyWindow = window
-                    break
-                }
-            }
-            result = findTopViewController(from: keyWindow)
+            result = findTopViewController(from: UIApplication.shared.getKeyWindow())
             semaphore.signal()
         }
         semaphore.wait()
         return result
     } else {
-        var keyWindow: UIWindow? = nil
-        for window in UIApplication.shared.windows {
-            if window.isKeyWindow {
-                keyWindow = window
-                break
-            }
-        }
-        return findTopViewController(from: keyWindow)
+        return findTopViewController(from: UIApplication.shared.getKeyWindow())
     }
 }
 
@@ -50,8 +40,8 @@ fileprivate func findTopViewController(from keyWindow: UIWindow?) -> UIViewContr
         if let nav = topController as? UINavigationController {
             topController = nav.visibleViewController ?? topController
             
-            while topController.presentedViewController != nil {
-                topController = topController.presentedViewController!
+            while let presentedViewController = topController.presentedViewController {
+                topController = presentedViewController
             }
         }
         return topController
@@ -59,13 +49,13 @@ fileprivate func findTopViewController(from keyWindow: UIWindow?) -> UIViewContr
     
     if let nav = topController as? UINavigationController {
         topController = nav.visibleViewController ?? topController
-        while topController.presentedViewController != nil {
-            topController = topController.presentedViewController!
+        while let presentedViewController = topController.presentedViewController {
+            topController = presentedViewController
         }
     }
     
-    while topController.presentedViewController != nil {
-        topController = topController.presentedViewController!
+    while let presentedViewController = topController.presentedViewController {
+        topController = presentedViewController
     }
     return topController
 }
@@ -76,6 +66,11 @@ public extension UIViewController {
     /// - Note: 需要注意的, 此方法适用于当前有 keyWindow 的场景, 如果没有找到 keyWindow 返回 nil, 在一些特殊场景慎用,可以先提前获取 currenVC 并暂存, 在需要的场景使用, 比如画中画场景系统会修改App.keywindow
     static var currentVisibleVC: UIViewController! {
         currentVisibleController()
+    }
+
+    /// 获取当前可见的控制器。找不到 keyWindow/rootViewController 时返回 nil。
+    static var currentVisibleViewController: UIViewController? {
+        currentVisibleControllerIfAvailable()
     }
     
 }

@@ -17,7 +17,8 @@ public struct XYAlert {
     ///   - title: 标题
     ///   - message: 消息
     ///   - callback: 确认按钮点击回调
-    public static func showTipAlert(title: String?, message: String?, okBtnTitle btnTitle: String, _ callback:@escaping ()->()) {
+    @discardableResult
+    public static func showTipAlert(title: String?, message: String?, okBtnTitle btnTitle: String, _ callback:@escaping ()->()) -> Bool {
         showAlert(title: title, message: message, btnTitles: btnTitle) { _ in callback() }
     }
     
@@ -27,7 +28,10 @@ public struct XYAlert {
     ///   - message: 晓霞
     ///   - btnTitles: 底部按钮标题, 逗号分隔 egg: "cancel", "ok"
     ///   - callback: 按钮点击回调, 按标题顺序从 0 开始
-    public static func showAlert(title: String?, message: String?, btnTitles: String..., callback:@escaping (_ index: Int)->()) {
+    @discardableResult
+    public static func showAlert(title: String?, message: String?, btnTitles: String..., callback:@escaping (_ index: Int)->()) -> Bool {
+        guard let presenter = UIViewController.currentVisibleViewController else { return false }
+
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         for (idx, title) in btnTitles.enumerated() {
             alert.addAction(UIAlertAction(title: title, style: .default, handler: { action in
@@ -35,7 +39,8 @@ public struct XYAlert {
                 callback(idx)
             }))
         }
-        UIViewController.currentVisibleVC.present(alert, animated: true)
+        presenter.present(alert, animated: true)
+        return true
     }
     
     /// 弹出一个可以含有输入框的 alert
@@ -45,7 +50,9 @@ public struct XYAlert {
     ///   - configurationHandler: textField 配置回调
     ///   - btnTitles: 底部要展示的按钮标题
     ///   - callBack: 用户点击按钮时候回调,返回当前用户输入内容, 内部返回 Bool 告知是否需要 dismiss alert
-    public static func showTextFiledAlert(title: String?, message: String?, configurationHandlers: ((UITextField) -> Void)..., btnTitles: String..., callBack: @escaping (_ idx: Int, _ text: [String])->Void) {
+    @discardableResult
+    public static func showTextFiledAlert(title: String?, message: String?, configurationHandlers: ((UITextField) -> Void)..., btnTitles: String..., callBack: @escaping (_ idx: Int, _ text: [String])->Void) -> Bool {
+        guard let presenter = UIViewController.currentVisibleViewController else { return false }
         
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         configurationHandlers.forEach { config in
@@ -58,7 +65,8 @@ public struct XYAlert {
             }))
         }
         
-        UIViewController.currentVisibleVC.present(alert, animated: true)
+        presenter.present(alert, animated: true)
+        return true
     }
 }
 
@@ -158,7 +166,8 @@ public extension XYAlert {
     /// 弹出一个自定义的 alert 视图
     /// - Parameter alert: 自定义 alert view, 需要自行设置宽高约束
     /// - Note: 默认效果效果会将自定义 alert 布局
-    static func showCustom(_ alertView: UIView) {
+    @discardableResult
+    static func showCustom(_ alertView: UIView) -> Bool {
         showCustom(alertView, with: .init())
     }
     
@@ -167,20 +176,27 @@ public extension XYAlert {
     /// - Parameter fromVC: 指定在哪个VC上弹框
     /// - Parameter config: 指定配置
     /// - Note: 默认效果效果会将自定义 alert 布局
-    static func showCustom(_ alertView: UIView, fromVC: UIViewController, with config: XYAlertConfig) {
+    @discardableResult
+    static func showCustom(_ alertView: UIView, fromVC: UIViewController, with config: XYAlertConfig) -> Bool {
         let alertVC = XYAlertController(alert: alertView, config: config)
         alertVC.modalPresentationStyle = .custom
         fromVC.present(alertVC, animated: false)
+        return true
     }
     
     /// 弹出一个自定义的 alert 视图
     /// - Parameter alert: 自定义 alert view, 需要自行设置宽高约束
     /// - Note: 默认效果效果会将自定义 alert 布局
-    static func showCustom(_ alertView: UIView, with config: XYAlertConfig) {
-        showCustom(alertView, fromVC: .currentVisibleVC, with: config)
+    @discardableResult
+    static func showCustom(_ alertView: UIView, with config: XYAlertConfig) -> Bool {
+        guard let presenter = UIViewController.currentVisibleViewController else { return false }
+        return showCustom(alertView, fromVC: presenter, with: config)
     }
     
-    static func dismiss() {
-        UIViewController.currentVisibleVC.dismiss(animated: false)
+    @discardableResult
+    static func dismiss() -> Bool {
+        guard let presenter = UIViewController.currentVisibleViewController else { return false }
+        presenter.dismiss(animated: false)
+        return true
     }
 }

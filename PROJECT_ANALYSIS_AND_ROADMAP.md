@@ -256,7 +256,8 @@ public protocol XYNetToolDelegate: AnyObject {
 - 已完成：权限类型 rawValue 映射、`getStatus(for:)` 对异步/隐私受限权限的非崩溃返回测试。
 - 已完成：蓝牙权限未知系统枚举值兜底，不再因 `@unknown default` 触发崩溃。
 - 待处理：定位、蓝牙、通知等系统状态到 `AuthStatus` 的完整转换测试。
-- 已完成：`XYPickerViewItem` 模型转换、`XYPickerView` 数据源和默认选中行边界测试。
+- 已完成：`XYPickerViewItem.model(with:)` 字典转模型测试、`XYPickerView` 数据源和默认选中行边界测试。
+- 已完成：`XYAlert` 在无可见控制器场景下安全返回测试。
 
 ### 第三阶段：降低崩溃风险
 
@@ -266,6 +267,7 @@ public protocol XYNetToolDelegate: AnyObject {
 - 清理高风险强制解包。
 - 已完成：`FileSystem.open` / `openRecently` 移除 `UIApplication.shared.windows.first!` 强制解包，找不到可展示控制器时安全返回。
 - 已完成：`XYPickerView.showPicker` 移除空数据和无 keyWindow 场景的 `fatalError`，改为返回展示是否成功。
+- 已完成：`XYAlert` 系统弹框、自定义弹框和 dismiss 移除对 `currentVisibleVC` 的隐式强制依赖，找不到可见控制器时返回失败。
 - 优化其他 keyWindow / currentVC 查找逻辑。
 - 优化 FileSystem、AuthorityManager、XYPickerView 等高频入口的错误处理。
 
