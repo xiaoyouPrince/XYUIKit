@@ -18,6 +18,7 @@ struct XYDatePicker {
     static func chooseDate(title: String,
                            choosenDate: Date,
                            callback:@escaping (Date)->()) {
+        guard let presenter = UIViewController.currentVisibleViewController else { return }
         
         let containerView = UIView()
         let bar = UILabel(title: title, font: .boldSystemFont(ofSize: 17), textColor: .black, textAlignment: .center)
@@ -58,6 +59,6 @@ struct XYDatePicker {
             make.left.bottom.right.equalToSuperview()
         }
         
-        XYAlertSheetController.showCustom(on: .currentVisibleVC, customContentView: containerView)
+        XYAlertSheetController.showCustom(on: presenter, customContentView: containerView)
     }
 }

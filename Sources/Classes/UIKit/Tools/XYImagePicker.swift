@@ -20,6 +20,8 @@ class XYImagePicker: UIViewController {
     private var ps: UIViewController?
     
     static func chooseImage(_ callback: @escaping (UIImage)->()) {
+        guard let presenter = UIViewController.currentVisibleViewController else { return }
+
         let ps = UIImagePickerController()
         ps.sourceType = .photoLibrary
         ps.delegate = shared
@@ -28,10 +30,12 @@ class XYImagePicker: UIViewController {
         }
         shared.imageCallback = callback
         shared.ps = ps
-        currentVisibleVC.present(ps, animated: true)
+        presenter.present(ps, animated: true)
     }
     
     static func takePhoto(_ callback: @escaping (UIImage)->()) {
+        guard let presenter = UIViewController.currentVisibleViewController else { return }
+
         let ps = UIImagePickerController()
         ps.sourceType = .camera
         ps.delegate = shared
@@ -41,10 +45,12 @@ class XYImagePicker: UIViewController {
         }
         shared.imageCallback = callback
         shared.ps = ps
-        currentVisibleVC.present(ps, animated: true)
+        presenter.present(ps, animated: true)
     }
     
     static func takeVideo(_ callback: @escaping (URL)->()) {
+        guard let presenter = UIViewController.currentVisibleViewController else { return }
+
         let ps = UIImagePickerController()
         ps.sourceType = .camera
         ps.delegate = shared
@@ -56,10 +62,12 @@ class XYImagePicker: UIViewController {
         }
         shared.movieCallback = callback
         shared.ps = ps
-        currentVisibleVC.present(ps, animated: true)
+        presenter.present(ps, animated: true)
     }
     
     static func chooseVideo(callback: @escaping (URL)->()) {
+        guard let presenter = UIViewController.currentVisibleViewController else { return }
+
         let ps = UIImagePickerController()
         ps.sourceType = .photoLibrary
         ps.delegate = shared
@@ -70,7 +78,7 @@ class XYImagePicker: UIViewController {
         }
         shared.movieCallback = callback
         shared.ps = ps
-        currentVisibleVC.present(ps, animated: true)
+        presenter.present(ps, animated: true)
     }
     
     @objc public static func chooseAudioFromVideo(callback: @escaping (URL?, Error?)->()) {
@@ -148,4 +156,3 @@ private extension XYImagePicker {
         }
     }
 }
-

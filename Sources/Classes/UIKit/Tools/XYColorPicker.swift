@@ -18,6 +18,8 @@ class XYColorPicker: UIViewController {
     private var callback: ((UIColor)->())?
     
     static func showColorPicker(_ callback: @escaping (UIColor)->()) {
+        guard let presenter = UIViewController.currentVisibleViewController else { return }
+
         shared.callback = callback
         
         let colorPicker = UIColorPickerViewController()
@@ -36,7 +38,7 @@ class XYColorPicker: UIViewController {
                 PresentationHelper.sharedInstance.widthFollowsPreferredContentSizeWhenEdgeAttached
             }
         }
-        currentVisibleVC.present(colorPicker, animated: true, completion: nil)
+        presenter.present(colorPicker, animated: true, completion: nil)
     }
 }
 
