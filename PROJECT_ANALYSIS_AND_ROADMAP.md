@@ -269,6 +269,7 @@ public protocol XYNetToolDelegate: AnyObject {
 - 已完成：`XYPickerView.showPicker` 移除空数据和无 keyWindow 场景的 `fatalError`，改为返回展示是否成功。
 - 已完成：`XYAlert` 系统弹框、自定义弹框和 dismiss 移除对 `currentVisibleVC` 的隐式强制依赖，找不到可见控制器时返回失败。
 - 已完成：`XYImagePicker`、`XYColorPicker`、`XYDatePicker` 移除对 `currentVisibleVC` 的隐式强制依赖，找不到可见控制器时安全返回。
+- 已完成：UIImage 方向修正和 GIF 生成移除 `fatalError` / `try!`，异常场景改为安全返回或按原 `throws` 语义抛错。
 - 优化其他 keyWindow / currentVC 查找逻辑。
 - 优化 FileSystem、AuthorityManager、XYPickerView 等高频入口的错误处理。
 

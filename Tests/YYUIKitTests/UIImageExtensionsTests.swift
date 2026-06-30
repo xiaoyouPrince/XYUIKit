@@ -69,6 +69,18 @@ final class UIImageExtensionsTests: XCTestCase {
         XCTAssertEqual(rotated.size.height, 40, accuracy: 0.01)
     }
 
+    func testFixOrientationReturnsUprightImage() {
+        let image = UIImage(
+            cgImage: UIImage.image(withColor: .red, size: CGSize(width: 4, height: 2)).cgImage!,
+            scale: 1,
+            orientation: .right
+        )
+
+        let fixed = image.xy_fixOrientation()
+
+        XCTAssertEqual(fixed.imageOrientation, .up)
+    }
+
     @available(iOS 14.0, *)
     func testCreateGIFWritesAnimatedImage() throws {
         let outputURL = URL(fileURLWithPath: NSTemporaryDirectory())
@@ -88,6 +100,27 @@ final class UIImageExtensionsTests: XCTestCase {
         let data = try Data(contentsOf: outputURL)
         let source = try XCTUnwrap(CGImageSourceCreateWithData(data as CFData, nil))
         XCTAssertEqual(CGImageSourceGetCount(source), 2)
+    }
+
+    @available(iOS 14.0, *)
+    func testCreateGIFThrowsWhenFrameHasNoCGImage() {
+        let outputURL = URL(fileURLWithPath: NSTemporaryDirectory())
+            .appendingPathComponent("yyuikit-\(UUID().uuidString).gif")
+        defer {
+            try? FileManager.default.removeItem(at: outputURL)
+        }
+
+        let invalidFrame = UIImage(ciImage: CIImage(color: .red))
+
+        XCTAssertThrowsError(
+            try UIImage.createGIF(
+                with: [
+                    invalidFrame,
+                    UIImage.image(withColor: .blue, size: CGSize(width: 2, height: 2))
+                ],
+                outputUrl: outputURL
+            )
+        )
     }
 }
 

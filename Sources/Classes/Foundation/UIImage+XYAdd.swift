@@ -270,67 +270,61 @@ public extension UIImage {
     /// - Returns: 修正为 UIImage.Orientation.up 的 image
     func xy_fixOrientation() -> UIImage {
         if imageOrientation == .up { return self }
-        
-        // We need to calculate the proper transformation to make the image upright.
-        // We do it in 2 steps: Rotate if Left/Right/Down, and then flip if Mirrored.
-        var transform = CGAffineTransformIdentity
-        
+
+        guard let cgImage,
+              let colorSpace = cgImage.colorSpace,
+              size.width > 0,
+              size.height > 0
+        else { return self }
+
+        var transform = CGAffineTransform.identity
+
         switch imageOrientation {
         case .down, .downMirrored:
-            transform = CGAffineTransformTranslate(transform, self.size.width, self.size.height);
-            transform = CGAffineTransformRotate(transform, Double.pi);
-            break;
+            transform = transform.translatedBy(x: size.width, y: size.height).rotated(by: .pi)
         case .left, .leftMirrored:
-            transform = CGAffineTransformTranslate(transform, self.size.width, 0);
-            transform = CGAffineTransformRotate(transform, Double.pi/2);
-            break;
+            transform = transform.translatedBy(x: size.width, y: 0).rotated(by: .pi / 2)
         case .right, .rightMirrored:
-            transform = CGAffineTransformTranslate(transform, 0, self.size.height);
-            transform = CGAffineTransformRotate(transform, -Double.pi/2);
-            break;
+            transform = transform.translatedBy(x: 0, y: size.height).rotated(by: -.pi / 2)
         case .up, .upMirrored:
-            break;
+            break
         @unknown default:
-            fatalError()
+            return self
         }
-        
+
         switch imageOrientation {
         case .upMirrored, .downMirrored:
-            transform = CGAffineTransformTranslate(transform, self.size.width, 0);
-            transform = CGAffineTransformScale(transform, -1, 1);
-            break;
+            transform = transform.translatedBy(x: size.width, y: 0).scaledBy(x: -1, y: 1)
         case .leftMirrored, .rightMirrored:
-            transform = CGAffineTransformTranslate(transform, self.size.height, 0);
-            transform = CGAffineTransformScale(transform, -1, 1);
-            break;
+            transform = transform.translatedBy(x: size.height, y: 0).scaledBy(x: -1, y: 1)
         case .up, .down, .left, .right:
-            break;
+            break
         @unknown default:
-            fatalError()
+            return self
         }
-        
-        // Now we draw the underlying CGImage into a new context, applying the transform
-        // calculated above.
-        var cgBitmapinfo: CGBitmapInfo = .alphaInfoMask
-        guard let cgImage = cgImage,
-              let colorSpace = cgImage.colorSpace,
-              let ctx = CGContext(data: &cgBitmapinfo, width: Int(size.width), height: Int(size.height), bitsPerComponent: cgImage.bitsPerComponent, bytesPerRow: 0, space: colorSpace, bitmapInfo: cgImage.bitmapInfo.rawValue)
-        else { fatalError() }
-        
-        ctx.concatenate(transform)
-        
+
+        guard let context = CGContext(
+            data: nil,
+            width: Int(size.width * scale),
+            height: Int(size.height * scale),
+            bitsPerComponent: cgImage.bitsPerComponent,
+            bytesPerRow: 0,
+            space: colorSpace,
+            bitmapInfo: cgImage.bitmapInfo.rawValue
+        ) else { return self }
+
+        context.scaleBy(x: scale, y: scale)
+        context.concatenate(transform)
+
         switch imageOrientation {
         case .left, .leftMirrored, .right, .rightMirrored:
-            ctx.draw(cgImage, in: .init(x: 0, y: 0, width: size.height, height: size.width), byTiling: false)
-            break;
+            context.draw(cgImage, in: CGRect(x: 0, y: 0, width: size.height, height: size.width))
         default:
-            ctx.draw(cgImage, in: .init(x: 0, y: 0, width: size.width, height: size.height), byTiling: false)
-            break;
+            context.draw(cgImage, in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
         }
-        
-        guard let cgimg = ctx.makeImage() else { return self }
-        let img = UIImage(cgImage: cgimg)
-        return img
+
+        guard let fixedCGImage = context.makeImage() else { return self }
+        return UIImage(cgImage: fixedCGImage, scale: scale, orientation: .up)
     }
     
     /// 按指定方向旋转图片。
@@ -438,7 +432,10 @@ public extension UIImage {
             CGImageDestinationSetProperties(destination, gifProperties as CFDictionary)
 
             for frame in frames {
-                CGImageDestinationAddImage(destination, frame.cgImage!, gifProperties as CFDictionary)
+                guard let cgImage = frame.cgImage else {
+                    throw NSError(domain: "yyuikit.uiimage.createGIF", code: -1)
+                }
+                CGImageDestinationAddImage(destination, cgImage, gifProperties as CFDictionary)
             }
 
             if !CGImageDestinationFinalize(destination) {
@@ -446,8 +443,8 @@ public extension UIImage {
                 throw NSError(domain: "yyuikit.uiimage.createGIF", code: -1)
             }
             
-            let imageData = try! Data(contentsOf: gifURL)
-            try? imageData.write(to: gifURL)
+            let imageData = try Data(contentsOf: gifURL)
+            try imageData.write(to: gifURL)
         }
     }
 }
