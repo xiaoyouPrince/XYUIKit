@@ -31,7 +31,8 @@ final class UIImageExtensionsTests: XCTestCase {
 
         XCTAssertTrue(square.isSquare)
         XCTAssertEqual(square.imageSize(with: 40), CGSize(width: 40, height: 40))
-        XCTAssertEqual(small.imageSize(with: 60), CGSize(width: 30, height: 20))
+        XCTAssertEqual(small.imageSize(with: 60), CGSize(width: 60, height: 40))
+        XCTAssertEqual(small.imageSize(with: 0), .zero)
     }
 
     func testCropUsesImageScale() throws {
@@ -60,13 +61,29 @@ final class UIImageExtensionsTests: XCTestCase {
         XCTAssertNotNil(image.compressTo(targetMemory: 20_000, targetMaxWH: 20))
     }
 
-    func testRotateUsesRequestedOrientation() {
-        let image = UIImage.image(withColor: .red, size: CGSize(width: 40, height: 20))
+    func testRotateUsesRequestedOrientation() throws {
+        let image = UIImage.xy_testImage(
+            size: CGSize(width: 2, height: 1),
+            scale: 1,
+            pixels: [
+                .red,
+                .green
+            ]
+        )
 
-        let rotated = image.xy_rotate(orientation: .left)
+        let rotatedRight = image.xy_rotate(orientation: .right)
 
-        XCTAssertEqual(rotated.size.width, 20, accuracy: 0.01)
-        XCTAssertEqual(rotated.size.height, 40, accuracy: 0.01)
+        XCTAssertEqual(rotatedRight.size.width, 1, accuracy: 0.01)
+        XCTAssertEqual(rotatedRight.size.height, 2, accuracy: 0.01)
+        try rotatedRight.xy_assertPixelColor(at: CGPoint(x: 0, y: 0), equals: .red)
+        try rotatedRight.xy_assertPixelColor(at: CGPoint(x: 0, y: 1), equals: .green)
+
+        let rotatedLeft = image.xy_rotate(orientation: .left)
+
+        XCTAssertEqual(rotatedLeft.size.width, 1, accuracy: 0.01)
+        XCTAssertEqual(rotatedLeft.size.height, 2, accuracy: 0.01)
+        try rotatedLeft.xy_assertPixelColor(at: CGPoint(x: 0, y: 0), equals: .green)
+        try rotatedLeft.xy_assertPixelColor(at: CGPoint(x: 0, y: 1), equals: .red)
     }
 
     func testFixOrientationReturnsUprightImage() {
@@ -192,5 +209,20 @@ private extension UIImage {
             blue: CGFloat(data[offset + 2]) / 255,
             alpha: CGFloat(data[offset + 3]) / 255
         )
+    }
+
+    func xy_assertPixelColor(
+        at point: CGPoint,
+        equals expectedColor: UIColor,
+        file: StaticString = #filePath,
+        line: UInt = #line
+    ) throws {
+        let actual = try XCTUnwrap(xy_pixelColor(at: point), file: file, line: line)
+        let expected = expectedColor.getRGBA()
+
+        XCTAssertEqual(actual.red, expected.red, accuracy: 0.01, file: file, line: line)
+        XCTAssertEqual(actual.green, expected.green, accuracy: 0.01, file: file, line: line)
+        XCTAssertEqual(actual.blue, expected.blue, accuracy: 0.01, file: file, line: line)
+        XCTAssertEqual(actual.alpha, expected.alpha, accuracy: 0.01, file: file, line: line)
     }
 }

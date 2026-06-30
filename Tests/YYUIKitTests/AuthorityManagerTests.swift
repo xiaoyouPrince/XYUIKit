@@ -11,11 +11,9 @@ final class AuthorityManagerTests: XCTestCase {
         XCTAssertEqual(Auth(rawValue: 999), .unknown)
     }
 
-    func testGetStatusDoesNotCrashForAsyncOrPrivacyRestrictedStatuses() {
+    func testGetStatusReturnsFallbackForUnknownAuth() {
         let manager = AuthorityManager()
 
-        XCTAssertEqual(manager.getStatus(for: .notification), .notDetermined)
-        XCTAssertEqual(manager.getStatus(for: .healthStepCount), .notDetermined)
         XCTAssertEqual(manager.getStatus(for: .unknown), .notDetermined)
     }
 }

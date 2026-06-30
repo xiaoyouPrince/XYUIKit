@@ -101,11 +101,11 @@ public typealias AuthorityManager = XYAuthorityManager
         case .bluetooth:
             return self.bluetoothAuthStatus()
         case .notification:
-            return .notDetermined
+            fatalError("not suppprt notification, use 'notificationAuthStatus' function")
         case .activity:
             return self.activityAuthStatus()
         case .healthStepCount:
-            return .notDetermined
+            fatalError("not suppprt notification, use 'healthStepCountReadAuthStatus' function")
         default:
             break
         }

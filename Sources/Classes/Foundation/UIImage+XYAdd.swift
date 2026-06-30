@@ -162,31 +162,19 @@ public extension UIImage {
         return croppedImage
     }
     
-    /// 计算图片按 aspectFit 规则限制到指定最大边长后的尺寸。
-    /// - Parameter maxWH: 最大边长，单位为 point。
-    /// - Returns: 缩放后的图片尺寸；如果原图未超过最大边长，则返回原图尺寸。
+    /// 计算图片按 aspectFit 规则缩放到指定正方形画布内的尺寸。
+    /// - Parameter maxWH: 画布宽高，单位为 point，例如传入 100 表示目标画布为 100x100。
+    /// - Returns: 保持原图宽高比后的缩放尺寸；图片可能被放大或缩小，结果不会超过指定画布。
     func imageSize(with maxWH: CGFloat) -> CGSize {
-        let size = size
-        let maxWH: CGFloat = maxWH
-        var imageSize = size
+        guard size.width > 0, size.height > 0, maxWH > 0 else { return .zero }
         
         if isLandscape { // 宽图片
-            if size.width > maxWH { // 压缩宽度
-                let scale = size.width / maxWH
-                let scaleHeight = size.height / scale
-                imageSize.width = maxWH
-                imageSize.height = scaleHeight
-            }
+            let scale = maxWH / size.width
+            return CGSize(width: maxWH, height: size.height * scale)
         } else { // 窄图片 / 正方形图
-            if size.height > maxWH { // 压缩高度
-                let scale = size.height / maxWH
-                let scaleWidth = size.width / scale
-                imageSize.width = scaleWidth
-                imageSize.height = maxWH
-            }
+            let scale = maxWH / size.height
+            return CGSize(width: size.width * scale, height: maxWH)
         }
-        
-        return imageSize
     }
     
     /// 将图像缩放到指定大小尺寸
@@ -331,66 +319,62 @@ public extension UIImage {
     /// - Parameter orientation: 目标旋转方向。
     /// - Returns: 旋转后的图片。
     func xy_rotate(orientation: UIImage.Orientation) -> UIImage {
-        
-        guard let cgImage = cgImage else { return self }
-        var bounds = CGRect(origin: .zero, size: size)
-        let rect = bounds
-        var transform = CGAffineTransform.identity
-        
+        guard size.width > 0, size.height > 0 else { return self }
+
+        let sourceImage = imageOrientation == .up ? self : xy_fixOrientation()
+        let sourceSize = sourceImage.size
+        let outputSize: CGSize
+
         switch orientation {
         case .up:
-            return self
-        case .upMirrored:
-            transform = transform.translatedBy(x: rect.size.width, y: 0).scaledBy(x: -1, y: 1)
-            break;
-        case .down:
-            transform = transform.translatedBy(x: rect.size.width, y: rect.size.height).rotated(by: .pi)
-            break;
-        case .downMirrored:
-            transform = transform.translatedBy(x: 0, y: rect.size.height).scaledBy(x: 1, y: -1)
-            break;
-        case .left:
-            bounds = bounds.swapRectWH()
-            transform = transform.translatedBy(x: 0, y: rect.size.width).rotated(by: 3 * .pi / 2)
-            break;
-        case .leftMirrored:
-            bounds = bounds.swapRectWH()
-            transform = transform.translatedBy(x: rect.size.height, y: rect.size.width).scaledBy(x: -1, y: 1).rotated(by: 3 * .pi / 2)
-            break;
-        case .right:
-            bounds = bounds.swapRectWH()
-            transform = transform.translatedBy(x: rect.size.height, y: 0).rotated(by: .pi / 2)
-            break;
-        case .rightMirrored:
-            bounds = bounds.swapRectWH()
-            transform = transform.scaledBy(x: -1, y: 1).rotated(by: .pi / 2)
-            break;
-        default:
-            return self;
-        }
-        
-        var newImage: UIImage?
-        UIGraphicsBeginImageContextWithOptions(bounds.size, false, 0)
-        guard let ctx = UIGraphicsGetCurrentContext() else { return self }
-        
-        switch orientation {
+            return sourceImage
         case .left, .leftMirrored, .right, .rightMirrored:
-            ctx.scaleBy(x: -1.0, y: 1.0)
-            ctx.translateBy(x: -rect.size.height, y: 0.0)
+            outputSize = CGSize(width: sourceSize.height, height: sourceSize.width)
         default:
-            ctx.scaleBy(x: 1.0, y: -1.0)
-            ctx.translateBy(x: 0.0, y: -rect.size.height)
+            outputSize = sourceSize
         }
-        
-        ctx.concatenate(transform)
-        ctx.draw(cgImage, in: rect)
-        
-        newImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        return newImage ?? self
+
+        let rendererFormat = UIGraphicsImageRendererFormat.default()
+        rendererFormat.scale = sourceImage.scale
+        rendererFormat.opaque = !sourceImage.hasAlphaChannel
+
+        let rotatedImage = UIGraphicsImageRenderer(size: outputSize, format: rendererFormat).image { rendererContext in
+            let context = rendererContext.cgContext
+
+            switch orientation {
+            case .up:
+                break
+            case .upMirrored:
+                context.translateBy(x: outputSize.width, y: 0)
+                context.scaleBy(x: -1, y: 1)
+            case .down:
+                context.translateBy(x: outputSize.width, y: outputSize.height)
+                context.rotate(by: .pi)
+            case .downMirrored:
+                context.translateBy(x: 0, y: outputSize.height)
+                context.scaleBy(x: 1, y: -1)
+            case .left:
+                context.translateBy(x: 0, y: outputSize.height)
+                context.rotate(by: -.pi / 2)
+            case .leftMirrored:
+                context.translateBy(x: outputSize.width, y: outputSize.height)
+                context.scaleBy(x: -1, y: 1)
+                context.rotate(by: -.pi / 2)
+            case .right:
+                context.translateBy(x: outputSize.width, y: 0)
+                context.rotate(by: .pi / 2)
+            case .rightMirrored:
+                context.scaleBy(x: -1, y: 1)
+                context.rotate(by: .pi / 2)
+            @unknown default:
+                break
+            }
+
+            sourceImage.draw(in: CGRect(origin: .zero, size: sourceSize))
+        }
+
+        return rotatedImage
     }
-    
     /// 沿Y轴翻转
     /// - Returns: 沿Y轴翻转的图片
     func xy_verticalityMirror() -> UIImage {
